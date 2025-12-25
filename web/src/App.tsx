@@ -1166,11 +1166,11 @@ function ArtistProfile({
     return (
         <div className="max-w-5xl mx-auto animate-slide-up">
             {/* Header */}
-            <div className="flex items-start justify-between mb-8">
-                <div className="flex items-center gap-6">
+            <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-6 lg:mb-8 gap-4">
+                <div className="flex items-start gap-4 lg:gap-6">
                     {/* Rank Badge */}
-                    <div className="relative">
-                        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-accent/30 to-signal-purple/30 flex items-center justify-center text-3xl font-bold text-white border border-slate-800">
+                    <div className="relative flex-shrink-0">
+                        <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-gradient-to-br from-accent/30 to-signal-purple/30 flex items-center justify-center text-xl lg:text-3xl font-bold text-white border border-slate-800">
                             {getInitials(artist.name)}
                         </div>
                         <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold border-2 border-terminal">
@@ -1203,8 +1203,8 @@ function ArtistProfile({
                         </div>
                         {/* Daily Performance Banner */}
                         <div className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${artist.growthVelocity > 50 ? 'bg-signal-green/20 text-signal-green' :
-                                artist.growthVelocity > 0 ? 'bg-accent/20 text-accent' :
-                                    'bg-red-500/20 text-red-400'
+                            artist.growthVelocity > 0 ? 'bg-accent/20 text-accent' :
+                                'bg-red-500/20 text-red-400'
                             }`}>
                             {artist.growthVelocity > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                             {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}% this month
@@ -1218,7 +1218,7 @@ function ArtistProfile({
             </div>
 
             {/* Metrics */}
-            <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-8">
                 <div className="metric-card">
                     <div className="data-tag mb-2">MONTHLY LISTENERS</div>
                     <div className="text-2xl font-bold text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
@@ -1247,7 +1247,7 @@ function ArtistProfile({
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3 mb-8">
+            <div className="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8">
                 <button onClick={() => onOpenSpotify(artist)} className="btn-primary flex items-center gap-2">
                     <Music className="w-4 h-4" />
                     SPOTIFY
@@ -1265,7 +1265,7 @@ function ArtistProfile({
                 </button>
                 <button
                     onClick={() => onToggleWatchlist(artist.id)}
-                    className={`ml-auto flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all ${isWatched
+                    className={`lg:ml-auto flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all ${isWatched
                         ? 'bg-accent text-white'
                         : 'bg-surface text-slate-300 border border-slate-800 hover:bg-slate-800'
                         }`}
