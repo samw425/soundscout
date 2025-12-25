@@ -712,38 +712,84 @@ def generate_social_followers(
 # ============================================================================
 
 def fetch_all_kworb_data() -> List[Dict]:
-    """Fetch ALL available artist data from Kworb"""
-    url = 'https://kworb.net/spotify/artists.html'
+    """
+    Fetch CURRENT real-time artist data from Kworb Monthly Listeners.
+    This gives us CURRENT popularity rankings AND daily performance changes.
+    
+    Data source: https://kworb.net/spotify/listeners.html
+    Columns: Rank, Artist, Listeners, Daily +/-, Peak, PkListeners
+    """
+    listeners_url = 'https://kworb.net/spotify/listeners.html'
+    artists_url = 'https://kworb.net/spotify/artists.html'
     headers = {'User-Agent': USER_AGENT}
     
+    artists = []
+    artist_streams = {}  # Store total/daily streams by name
+    
     try:
-        response = requests.get(url, headers=headers, timeout=30)
+        # STEP 1: Fetch Monthly Listeners (PRIMARY - CURRENT rankings with daily change)
+        print("      Fetching Current Monthly Listeners (REAL-TIME)...")
+        response = requests.get(listeners_url, headers=headers, timeout=30)
         if response.status_code != 200:
-            print(f"Error: HTTP {response.status_code}")
+            print(f"Error fetching listeners: HTTP {response.status_code}")
             return []
         
-        pattern = r'<a href="/spotify/artist/([^_]+)_songs\.html">([^<]+)</a></div></td>\s*<td>([0-9,.]+)</td>\s*<td>([0-9,.]+)</td>'
-        matches = re.findall(pattern, response.text)
+        # Pattern for the listeners page table rows:
+        # <td>RANK</td><td class="text"><div><a href="artist/ID_songs.html">NAME</a></div></td><td>LISTENERS</td><td>DAILY_CHANGE</td><td>PEAK</td>
+        listeners_pattern = r'<td>(\d+)</td><td class="text"><div><a href="artist/([^_]+)_songs\.html">([^<]+)</a></div></td><td>([0-9,]+)</td><td>([0-9,+-]+)</td>'
+        listeners_matches = re.findall(listeners_pattern, response.text)
         
-        artists = []
-        for i, match in enumerate(matches):
-            spotify_id, name, streams_str, daily_str = match
+        print(f"      Found {len(listeners_matches)} artists from Monthly Listeners")
+        
+        # STEP 2: Also fetch all-time data for additional stream metrics
+        print("      Fetching total stream data for enrichment...")
+        response2 = requests.get(artists_url, headers=headers, timeout=30)
+        if response2.status_code == 200:
+            # Pattern: <a href="artist/ID_songs.html">NAME</a></div></td><td>TOTAL_STREAMS</td><td>DAILY_STREAMS</td>
+            streams_pattern = r'<a href="/spotify/artist/([^_]+)_songs\.html">([^<]+)</a></div></td>\s*<td>([0-9,.]+)</td>\s*<td>([0-9,.]+)</td>'
+            streams_matches = re.findall(streams_pattern, response2.text)
             
-            streams = float(streams_str.replace(',', ''))
-            daily = float(daily_str.replace(',', ''))
+            for match in streams_matches:
+                spotify_id, name, streams_str, daily_str = match
+                normalized_name = name.strip().lower()
+                artist_streams[normalized_name] = {
+                    'total_streams': float(streams_str.replace(',', '')),
+                    'daily_streams': float(daily_str.replace(',', ''))
+                }
+            print(f"      Enriched with {len(artist_streams)} artists' stream data")
+        
+        # STEP 3: Build combined dataset with CURRENT monthly listeners as primary ranking
+        for match in listeners_matches:
+            rank_str, spotify_id, name, listeners_str, daily_change_str = match
+            name = name.strip()
+            normalized_name = name.lower()
+            
+            monthly_listeners = int(listeners_str.replace(',', ''))
+            daily_change = int(daily_change_str.replace(',', '').replace('+', '')) if daily_change_str else 0
+            
+            # Get additional stream data if available
+            stream_data = artist_streams.get(normalized_name, {})
+            total_streams = stream_data.get('total_streams', monthly_listeners / 10)
+            daily_streams = stream_data.get('daily_streams', monthly_listeners / 1000)
             
             artists.append({
-                'rank': i + 1,
+                'rank': int(rank_str),  # Rank by CURRENT monthly listeners
                 'spotify_id': spotify_id,
-                'name': name.strip(),
-                'total_streams_millions': streams,
-                'daily_streams_millions': daily
+                'name': name,
+                'monthly_listeners': monthly_listeners,
+                'daily_listener_change': daily_change,  # NEW: Daily +/- for real-time trends
+                'total_streams_millions': total_streams,
+                'daily_streams_millions': daily_streams
             })
         
+        print(f"      Built dataset with {len(artists)} artists (ranked by CURRENT popularity)")
+        print(f"      Top 5: {', '.join([a['name'] for a in artists[:5]])}")
         return artists
         
     except Exception as e:
         print(f"Error fetching data: {e}")
+        import traceback
+        traceback.print_exc()
         return []
 
 
