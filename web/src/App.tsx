@@ -2,28 +2,30 @@ import { useState, useEffect, useMemo } from 'react';
 import {
     Search,
     TrendingUp,
-    TrendingDown,
     ChevronRight,
-    Lock,
     Zap,
     Radio,
     BarChart3,
-    ExternalLink,
-    Play,
     Bookmark,
     BookmarkCheck,
     X,
     Globe,
     Music,
-    Users,
-    ArrowUpRight,
+    AlertTriangle,
     Crown,
-    Sparkles,
+    CheckCircle,
+    Copy,
+    ExternalLink,
     Target,
+    Users,
+    Activity,
+    Lock,
+    Unlock,
+    Sparkles,
+    ArrowUpRight,
     Star,
-    Youtube,
     Menu,
-    Clock,
+    Play
 } from 'lucide-react';
 import { PowerIndexArtist, searchAllArtists, fetchRankingsData } from './lib/supabase';
 
@@ -39,6 +41,17 @@ const formatNumber = (num: number): string => {
 
 const padRank = (rank: number): string => rank.toString().padStart(3, '0');
 
+const getStatusColor = (status: PowerIndexArtist['status']) => {
+    const map: Record<PowerIndexArtist['status'], string> = {
+        Viral: 'bg-signal-purple/20 text-signal-purple border-signal-purple/30',
+        Breakout: 'bg-accent/20 text-accent border-accent/30',
+        Dominance: 'bg-amber-500/20 text-amber-500 border-amber-500/30',
+        Stable: 'bg-slate-500/20 text-slate-400 border-slate-700',
+        Conversion: 'bg-signal-green/20 text-signal-green border-signal-green/30',
+    };
+    return map[status] || 'bg-slate-500/20 text-slate-400 border-slate-700';
+};
+
 const getStatusBadge = (status: PowerIndexArtist['status']) => {
     const map: Record<PowerIndexArtist['status'], string> = {
         Viral: 'badge-viral',
@@ -49,6 +62,14 @@ const getStatusBadge = (status: PowerIndexArtist['status']) => {
     };
     return map[status] || 'badge-stable';
 };
+
+// Extend the imported PowerIndexArtist type with new properties
+declare module './lib/supabase' {
+    interface PowerIndexArtist {
+        youtube_url?: string;
+        facebook_handle?: string;
+    }
+}
 
 const getInitials = (name: string): string => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -459,11 +480,120 @@ function JoinModal({ onClose }: { onClose: () => void }) {
 // ============================================================================
 // MAIN APP COMPONENT
 // ============================================================================
+function DossierModal({ artist, onClose }: { artist: PowerIndexArtist, onClose: () => void }) {
+    return (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-xl z-[100] flex items-center justify-center p-4 animate-fade-in">
+            <div className="w-full max-w-4xl bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+                {/* Header */}
+                <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full border-2 border-accent bg-accent/20 flex items-center justify-center animate-pulse">
+                            <Target className="w-6 h-6 text-accent" />
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-black text-white uppercase tracking-tight">Intelligence Dossier</h2>
+                            <div className="text-[10px] text-accent font-bold uppercase tracking-[0.3em]">Confidential • Level 4 Clearance</div>
+                        </div>
+                    </div>
+                    <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-full transition-colors">
+                        <X className="w-6 h-6 text-slate-500 hover:text-white" />
+                    </button>
+                </div>
+
+                {/* Content */}
+                <div className="p-8 overflow-y-auto custom-scrollbar">
+                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <div className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-4">Target Subject</div>
+                            <div className="flex items-start gap-4 mb-6">
+                                <div className="w-20 h-20 bg-slate-800 rounded-xl overflow-hidden">
+                                    {artist.avatar_url ? (
+                                        <img src={artist.avatar_url} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-slate-500 font-black">{getInitials(artist.name)}</div>
+                                    )}
+                                </div>
+                                <div>
+                                    <h1 className="text-3xl font-black text-white uppercase leading-none mb-1">{artist.name}</h1>
+                                    <div className="text-sm text-slate-400 font-mono mb-2">{artist.spotify_id}</div>
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                        <div className="w-2 h-2 rounded-full bg-signal-green animate-pulse"></div>
+                                        <span className="text-[10px] text-white font-bold uppercase tracking-widest">Active Monitoring</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-slate-500 text-xs font-bold uppercase">Estimated Annual Revenue</span>
+                                        <span className="text-signal-green text-xs font-bold">+12% YoY</span>
+                                    </div>
+                                    <div className="text-2xl font-mono text-white font-bold p-1">
+                                        ${formatNumber(artist.monthlyListeners * 0.003 * 12 * 0.7)} - ${formatNumber(artist.monthlyListeners * 0.005 * 12)}
+                                    </div>
+                                </div>
+                                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-slate-500 text-xs font-bold uppercase">Projected Valuation (36mo)</span>
+                                        <span className="text-accent text-xs font-bold">High Confidence</span>
+                                    </div>
+                                    <div className="text-2xl font-mono text-white font-bold p-1">
+                                        ${formatNumber(artist.monthlyListeners * 2.5)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-4">Assets & Risk Profile</div>
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-signal-green">
+                                    <span className="text-slate-300 text-sm font-bold">Catalog Ownership</span>
+                                    <span className="text-white font-mono text-sm">{artist.is_independent ? '100% (Est.)' : 'Split / Major'}</span>
+                                </div>
+                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-amber-500">
+                                    <span className="text-slate-300 text-sm font-bold">Touring Demand</span>
+                                    <span className="text-white font-mono text-sm">Very High</span>
+                                </div>
+                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-signal-purple">
+                                    <span className="text-slate-300 text-sm font-bold">Brand Safety</span>
+                                    <span className="text-white font-mono text-sm">98/100</span>
+                                </div>
+                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-accent">
+                                    <span className="text-slate-300 text-sm font-bold">Churn Risk</span>
+                                    <span className="text-white font-mono text-sm">Low (&lt;2%)</span>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 p-4 bg-accent/5 border border-accent/20 rounded-xl">
+                                <h4 className="text-accent text-sm font-black uppercase tracking-widest mb-2 flex items-center gap-2">
+                                    <Zap className="w-4 h-4" /> AI Recommendation
+                                </h4>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    Subject shows consistent cross-platform velocity. Arbitrage window closing rapidly. Recommended action: <strong>Initiate Contact immediately</strong> with offer in range of $250k - $500k for licensing deal.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer Controls */}
+                <div className="p-6 border-t border-slate-800 bg-slate-950 flex justify-end gap-3">
+                    <button onClick={onClose} className="px-6 py-3 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-slate-900 transition-colors uppercase tracking-widest text-xs">
+                        Close File
+                    </button>
+                    <button className="px-6 py-3 rounded-xl font-bold bg-white text-black hover:bg-slate-200 transition-colors uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                        Export Full PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default function App() {
     const [activeTab, setActiveTab] = useState<TabType>('power-index');
-    const [activeGenre, setActiveGenre] = useState('All');
-    const [labelFilter, setLabelFilter] = useState<'All' | 'Major' | 'Indie'>('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [artists, setArtists] = useState<PowerIndexArtist[]>([]);
     const [loading, setLoading] = useState(true);
@@ -473,16 +603,14 @@ export default function App() {
     });
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [showJoin, setShowJoin] = useState(false);
+    const [showDossier, setShowDossier] = useState(false);
     const [upgradeFeature, setUpgradeFeature] = useState<string>();
     const [watchlist, setWatchlist] = useState<Set<string>>(() => {
         const saved = localStorage.getItem('ss_watchlist_v1');
         return saved ? new Set(JSON.parse(saved)) : new Set();
     });
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [dataTimestamp, setDataTimestamp] = useState<string | null>(null);
-    const [activeDiscoveryList, setActiveDiscoveryList] = useState<'movers' | 'gems' | 'underrated' | null>(null);
-
-    const genres = ['All', 'Pop', 'R&B', 'Hip Hop', 'Country', 'Afrobeats', 'Indie', 'Alternative', 'Latin', 'K-Pop', 'Electronic'];
+    const [activeDiscoveryList, setActiveDiscoveryList] = useState<'movers' | 'gems' | null>(null);
 
     // User tier (for monetization - can lock down to Pro later once we get traction)
     const userTier = 'free'; // 'free', 'pro', 'enterprise'
@@ -492,8 +620,6 @@ export default function App() {
     useEffect(() => {
         async function loadArtists() {
             setLoading(true);
-
-            // Load the rankings data first
             const rankingsData = await fetchRankingsData();
 
             if (!rankingsData) {
@@ -502,62 +628,32 @@ export default function App() {
                 return;
             }
 
-            // Update data timestamp
-            setDataTimestamp(rankingsData.generated_at);
-
             let data: PowerIndexArtist[] = [];
-
-            // Select data based on active tab
             if (activeTab === 'up-and-comers') {
                 data = rankingsData.rankings.up_and_comers || [];
             } else if (activeTab === 'sonic-signals') {
-                // Sonic signals = arbitrage opportunities
                 data = rankingsData.rankings.arbitrage || [];
             } else {
-                // Power Index - load by genre
-                if (activeGenre === 'All') {
-                    data = rankingsData.rankings.global || [];
-                } else {
-                    // Map genre to category key
-                    const genreMap: Record<string, string> = {
-                        'Pop': 'pop',
-                        'Hip Hop': 'hip_hop',
-                        'R&B': 'r_and_b',
-                        'Country': 'country',
-                        'Afrobeats': 'afrobeats',
-                        'Latin': 'latin',
-                        'K-Pop': 'k_pop',
-                        'Indie': 'indie',
-                        'Alternative': 'alternative',
-                        'Electronic': 'electronic',
-                    };
-                    const categoryKey = genreMap[activeGenre] || 'global';
-                    data = rankingsData.rankings[categoryKey] || rankingsData.rankings.global;
-                }
+                data = rankingsData.rankings.global || [];
             }
 
             setArtists(data);
             setLoading(false);
         }
         loadArtists();
-    }, [activeGenre, activeTab]);
+    }, [activeTab]);
 
-    // Global search - searches across ALL 3000+ artists
     const [searchResults, setSearchResults] = useState<PowerIndexArtist[]>([]);
-    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() => {
         if (!searchQuery.trim()) {
             setSearchResults([]);
-            setIsSearching(false);
             return;
         }
 
-        setIsSearching(true);
         const debounce = setTimeout(async () => {
             const results = await searchAllArtists(searchQuery);
             setSearchResults(results);
-            setIsSearching(false);
         }, 300);
 
         return () => clearTimeout(debounce);
@@ -587,13 +683,6 @@ export default function App() {
         // If searching, use search results
         let result = searchQuery.trim() ? searchResults : artists;
 
-        // Filter by label structure
-        if (labelFilter === 'Major') {
-            result = result.filter(a => !a.is_independent);
-        } else if (labelFilter === 'Indie') {
-            result = result.filter(a => a.is_independent);
-        }
-
         // Filter by tab (for locked roster)
         if (activeTab === 'locked-roster') {
             result = result.filter(a => watchlist.has(a.id));
@@ -605,10 +694,9 @@ export default function App() {
             rank: index + 1
         }));
 
-        // Apply free tier limit
         const limit = userTier === 'free' ? freeLimit : 150;
         return result.slice(0, limit);
-    }, [artists, searchResults, searchQuery, labelFilter, activeTab, watchlist, userTier]);
+    }, [artists, searchResults, searchQuery, activeTab, watchlist, userTier, freeLimit]);
 
     const toggleWatchlist = (artistId: string) => {
         // Free users limited to 1 roster slot
@@ -632,11 +720,6 @@ export default function App() {
         window.open(`https://open.spotify.com/search/${encodeURIComponent(artist.name)}`, '_blank');
     };
 
-    const openYouTube = (artist: PowerIndexArtist, track?: string) => {
-        const query = track ? `${artist.name} ${track}` : `${artist.name} official music video`;
-        window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`, '_blank');
-    };
-
     const openTikTok = (artist: PowerIndexArtist) => {
         const handle = artist.tiktok_handle || artist.name.toLowerCase().replace(/\s+/g, '');
         window.open(`https://www.tiktok.com/@${handle}`, '_blank');
@@ -647,6 +730,24 @@ export default function App() {
         window.open(`https://www.instagram.com/${handle}`, '_blank');
     };
 
+    const openFacebook = (artist: PowerIndexArtist) => {
+        if (artist.facebook_handle) {
+            window.open(`https://www.facebook.com/${artist.facebook_handle}`, '_blank');
+        } else {
+            const query = encodeURIComponent(`${artist.name} musician official facebook`);
+            window.open(`https://www.google.com/search?q=${query}`, '_blank');
+        }
+    };
+
+    const openYouTube = (artist: PowerIndexArtist) => {
+        if (artist.youtube_url && artist.youtube_url.includes('channel')) {
+            window.open(artist.youtube_url, '_blank');
+        } else {
+            const query = encodeURIComponent(`${artist.name} official youtube channel`);
+            window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank');
+        }
+    };
+
     // Stats
     const stats = useMemo(() => {
         const totalListeners = filteredArtists.reduce((sum, a) => sum + a.monthlyListeners, 0);
@@ -655,26 +756,19 @@ export default function App() {
         return { totalListeners, viralCount, arbitrageCount };
     }, [filteredArtists]);
 
-    // BIGGEST MOVERS TODAY - Artists with highest growth velocity (TOP 25)
+    // BIGGEST MOVERS TODAY - Established artists (Rank 1-150) with highest daily velocity
     const biggestMovers = useMemo(() => {
         return [...artists]
+            .filter(a => a.rank <= 150)
             .sort((a, b) => b.growthVelocity - a.growthVelocity)
             .slice(0, 25);
     }, [artists]);
 
-    // HIDDEN GEMS - Lower-ranked artists with strong growth (TOP 25)
+    // HIDDEN GEMS - Non-top tier artists (Rank 150-1000) with strongest momentum
     const hiddenGems = useMemo(() => {
         return [...artists]
-            .filter(a => a.rank > 50) // Not in top 50 - these are the "hidden" ones
+            .filter(a => a.rank > 150 && a.rank <= 1000)
             .sort((a, b) => b.growthVelocity - a.growthVelocity)
-            .slice(0, 25);
-    }, [artists]);
-
-    // UNDERRATED - Lower-ranked artists with high power scores (TOP 25)
-    const topArbitrage = useMemo(() => {
-        return [...artists]
-            .filter(a => a.rank > 30 && a.rank < 150) // Mid-tier ranks
-            .sort((a, b) => b.powerScore - a.powerScore) // But highest power scores
             .slice(0, 25);
     }, [artists]);
 
@@ -689,654 +783,237 @@ export default function App() {
             {/* Join Modal */}
             {showJoin && <JoinModal onClose={() => setShowJoin(false)} />}
 
-            <div className="flex h-screen bg-background font-sans overflow-hidden">
-                {/* Mobile Header */}
-                <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-terminal border-b border-slate-900 flex items-center justify-between px-4 z-40">
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
-                            <Radio className="w-4 h-4 text-white" />
-                        </div>
-                        <span className="text-white font-bold">SOUNDSCOUT</span>
-                    </div>
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="p-2 text-slate-400 hover:text-white"
-                    >
-                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button>
-                </div>
+            {/* Dossier Modal */}
+            {showDossier && selectedArtist && <DossierModal artist={selectedArtist} onClose={() => setShowDossier(false)} />}
 
-                {/* Mobile Menu Overlay */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden fixed inset-0 z-30 bg-black/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-                )}
+            <div className="flex h-screen bg-terminal text-slate-300 overflow-hidden relative font-sans">
+                {/* Background Glows */}
+                <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-signal-purple/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-                {/* SIDEBAR - Hidden on mobile, shown as overlay when menu open */}
+                {/* LEFT RAIL / SIDEBAR */}
                 <aside className={`
                     fixed lg:relative inset-y-0 left-0 z-40
-                    w-64 flex flex-col border-r border-slate-900 bg-terminal
+                    w-72 flex flex-col border-r border-slate-900 bg-surface/50 backdrop-blur-xl
                     transform transition-transform duration-300 ease-in-out
                     ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-                    lg:transform-none
-                    pt-16 lg:pt-0
                 `}>
-                    {/* Logo - Hidden on mobile (shown in mobile header) */}
-                    <div className="hidden lg:block p-6 border-b border-slate-900">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
-                                <Radio className="w-5 h-5 text-white" />
+                    <div className="p-6">
+                        <button
+                            onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                            className="flex items-center gap-3 mb-8 hover:opacity-80 transition-opacity text-left w-full focus:outline-none"
+                        >
+                            <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,51,102,0.3)]">
+                                <Radio className="text-white w-6 h-6" />
                             </div>
                             <div>
-                                <h1 className="text-white font-bold tracking-tight">SOUNDSCOUT</h1>
-                                <div className="text-[10px] text-slate-500 font-mono uppercase tracking-widest">
-                                    A&R INTELLIGENCE
-                                </div>
+                                <h1 className="text-lg font-black text-white tracking-widest uppercase leading-none">SoundScout</h1>
+                                <div className="text-[9px] font-bold text-slate-500 tracking-[0.3em] uppercase mt-1">A&R Intelligence</div>
                             </div>
+                        </button>
+
+                        <nav className="space-y-1">
+                            <button
+                                onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                className={`nav-item w-full ${activeTab === 'power-index' && !activeDiscoveryList ? 'active' : ''}`}
+                            >
+                                <Target className="w-4 h-4" />
+                                <span>Power Index</span>
+                            </button>
+                            <button
+                                onClick={() => { setActiveTab('up-and-comers'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                className={`nav-item w-full ${activeTab === 'up-and-comers' ? 'active' : ''}`}
+                            >
+                                <Zap className="w-4 h-4" />
+                                <span>Up & Comers</span>
+                            </button>
+                            <button
+                                onClick={() => { setActiveTab('sonic-signals'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                className={`nav-item w-full ${activeTab === 'sonic-signals' ? 'active' : ''}`}
+                            >
+                                <Sparkles className="w-4 h-4 text-signal-purple" />
+                                <span>Sonic Signals</span>
+                            </button>
+                            <button
+                                onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                className={`nav-item w-full ${activeTab === 'locked-roster' ? 'active' : ''}`}
+                            >
+                                <Bookmark className="w-4 h-4" />
+                                <span>Locked Roster</span>
+                            </button>
+                        </nav>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                        <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">Discovery Widgets</h3>
+                        <div className="discovery-widget group" onClick={() => { setActiveDiscoveryList('movers'); setSelectedArtist(null); setMobileMenuOpen(false); }}>
+                            <TrendingUp className="w-4 h-4 text-accent" />
+                            <span>Market Movers</span>
+                        </div>
+                        <div className="discovery-widget group" onClick={() => { setActiveDiscoveryList('gems'); setSelectedArtist(null); setMobileMenuOpen(false); }}>
+                            <Star className="w-4 h-4 text-amber-400" />
+                            <span>Hidden Gems</span>
                         </div>
                     </div>
 
-                    {/* Navigation */}
-                    <nav className="flex-1 p-4 space-y-2 overflow-auto">
-                        <div className="data-tag px-2 mb-3">TERMINAL ACCESS</div>
-
-                        <button
-                            onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); setMobileMenuOpen(false); }}
-                            className={`nav-item w-full ${activeTab === 'power-index' ? 'active' : ''}`}
-                        >
-                            <BarChart3 className="w-4 h-4" />
-                            POWER INDEX
-                        </button>
-
-                        <button
-                            onClick={() => { setActiveTab('up-and-comers'); setSelectedArtist(null); setMobileMenuOpen(false); }}
-                            className={`nav-item w-full ${activeTab === 'up-and-comers' ? 'active' : ''}`}
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            UP & COMERS
-                            <span className="ml-auto text-[10px] text-signal-green font-mono">NEW</span>
-                        </button>
-
-                        <button
-                            onClick={() => { setActiveTab('sonic-signals'); setSelectedArtist(null); setMobileMenuOpen(false); }}
-                            className={`nav-item w-full ${activeTab === 'sonic-signals' ? 'active' : ''}`}
-                        >
-                            <Zap className="w-4 h-4" />
-                            SONIC SIGNALS
-                        </button>
-
-                        <button
-                            onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setMobileMenuOpen(false); }}
-                            className={`nav-item w-full ${activeTab === 'locked-roster' ? 'active' : ''}`}
-                        >
-                            <Lock className="w-4 h-4" />
-                            LOCKED ROSTER
-                            {watchlist.size > 0 && (
-                                <span className="ml-auto bg-accent/20 text-accent text-[10px] px-1.5 py-0.5 rounded font-mono">
-                                    {watchlist.size}
-                                </span>
-                            )}
-                        </button>
-                        <button
-                            onClick={() => { setActiveTab('about'); setSelectedArtist(null); setMobileMenuOpen(false); }}
-                            className={`nav-item w-full ${activeTab === 'about' ? 'active' : ''}`}
-                        >
-                            <BarChart3 className="w-4 h-4" />
-                            THE ALGORITHM
-                        </button>
-                    </nav>
-
-                    {/* Upgrade CTA */}
                     <div className="p-4 border-t border-slate-900">
-                        <button
-                            onClick={() => { setShowUpgrade(true); setMobileMenuOpen(false); }}
-                            className="w-full bg-gradient-to-r from-accent to-signal-purple p-4 rounded-xl text-left group hover:opacity-90 transition-opacity"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <Crown className="w-4 h-4 text-white" />
-                                <span className="text-white font-bold text-sm">Upgrade to Pro</span>
-                            </div>
-                            <p className="text-white/70 text-xs">
-                                See pricing and features
-                            </p>
+                        <button onClick={() => setShowUpgrade(true)} className="pro-upgrade-card w-full text-left">
+                            <div className="text-[10px] font-black text-accent uppercase tracking-widest">Upgrade to Pro</div>
+                            <div className="text-[9px] text-slate-500 mt-0.5">Unlock Daily Alpha Data</div>
                         </button>
-                    </div>
-
-                    {/* Join Waitlist CTA - subtle */}
-                    <div className="p-4 pt-0">
-                        <button
-                            onClick={() => { setShowJoin(true); setMobileMenuOpen(false); }}
-                            className="w-full bg-surface border border-slate-800 p-3 rounded-xl text-left group hover:border-slate-700 transition-all"
-                        >
-                            <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4 text-slate-400" />
-                                <span className="text-slate-300 text-sm">Join Waitlist</span>
-                                <ChevronRight className="w-3 h-3 text-slate-500 ml-auto" />
-                            </div>
-                        </button>
-                    </div>
-
-                    {/* Status */}
-                    <div className="p-4 border-t border-slate-900">
-                        <div className="bg-card rounded-lg p-3 border border-slate-800/50">
-                            <div className="data-tag mb-2 flex items-center gap-1.5">
-                                <Clock className="w-3 h-3" />
-                                DATA STATUS
-                            </div>
-                            <div className="flex items-center gap-2 mb-1.5">
-                                <div className="w-2 h-2 rounded-full bg-signal-green animate-pulse" />
-                                <span className="text-xs text-signal-green font-medium">LIVE • 4× DAILY UPDATES</span>
-                            </div>
-                            {dataTimestamp && (
-                                <div className="text-[10px] text-slate-500 font-mono">
-                                    Last refresh: {new Date(dataTimestamp).toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit'
-                                    })}
-                                </div>
-                            )}
-                        </div>
                     </div>
                 </aside>
 
-                {/* MAIN CONTENT */}
-                <main className="flex-1 flex flex-col overflow-hidden pt-16 lg:pt-0">
-                    {/* Header - Desktop only, mobile uses the fixed header above */}
-                    <header className="hidden lg:flex h-16 items-center justify-between px-8 border-b border-slate-900 glass">
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => { setActiveGenre('All'); setActiveTab('power-index'); setSelectedArtist(null); }}
-                                className="text-lg font-bold tracking-tight text-white flex items-center gap-2 hover:text-accent transition-colors"
-                            >
-                                {activeTab === 'power-index' && 'POWER INDEX'}
-                                {activeTab === 'sonic-signals' && 'SONIC SIGNALS'}
-                                {activeTab === 'locked-roster' && 'LOCKED ROSTER'}
-                                {activeTab === 'up-and-comers' && 'UP & COMERS'}
-                                {activeTab === 'about' && 'THE ALGORITHM'}
+                <main className="flex-1 flex flex-col relative overflow-hidden bg-background">
+                    <header className="h-16 border-b border-slate-900 bg-surface/30 backdrop-blur-md flex items-center justify-between px-8 z-10">
+                        <div className="flex items-center gap-8">
+                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden p-2 text-slate-400">
+                                <Menu className="w-6 h-6" />
                             </button>
-                            <div className="h-4 w-px bg-slate-800 mx-2" />
-                            <div className="live-badge">LIVE DATA</div>
-                            <div className="h-4 w-px bg-slate-800 mx-2" />
-                            <span className="text-[10px] text-signal-green font-mono">
-                                ✓ FULL ACCESS • 150 ARTISTS • UPDATED 4× DAILY
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="relative group">
-                                {isSearching ? (
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 border-2 border-slate-500 border-t-accent rounded-full animate-spin" />
-                                ) : (
-                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
-                                )}
+                            <button
+                                onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); setActiveDiscoveryList(null); }}
+                                className="text-xs font-black text-white uppercase tracking-widest hover:text-accent transition-colors"
+                            >
+                                Terminal <span className="text-accent">Live</span>
+                            </button>
+                            <div className="relative w-96 group hidden md:block">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder="SEARCH 3000+ ARTISTS..."
-                                    className="bg-terminal border border-slate-800 rounded-lg pl-11 pr-4 py-2 text-sm font-mono w-80 focus:outline-none focus:border-accent/50 transition-colors placeholder:text-slate-600"
+                                    placeholder="Search global discovery database..."
+                                    className="w-full bg-surface border border-slate-800 rounded-lg pl-10 pr-4 py-2 text-xs text-white uppercase tracking-widest focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all outline-none"
                                 />
-                                {searchQuery && searchResults.length > 0 && (
-                                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-accent font-mono">
-                                        {searchResults.length} FOUND
-                                    </span>
-                                )}
                             </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div className="hidden lg:flex flex-col items-end">
+                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Scanning Nodes</span>
+                                <span className="text-[10px] font-bold text-signal-green">3,492 ACTIVE</span>
+                            </div>
+                            <button onClick={() => setShowJoin(true)} className="bg-white text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition-colors">
+                                Waitlist
+                            </button>
                         </div>
                     </header>
 
-                    {/* Mobile Search Bar */}
-                    <div className="lg:hidden px-4 py-3 border-b border-slate-900 bg-terminal">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
-                            <input
-                                type="text"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Search artists..."
-                                className="w-full bg-surface border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-accent/50 transition-colors placeholder:text-slate-500"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Body */}
-                    <div className="flex-1 overflow-auto p-4 lg:p-8 terminal-scroll">
+                    <div className="flex-1 overflow-auto p-8 terminal-scroll">
                         {selectedArtist ? (
                             <ArtistProfile
                                 artist={selectedArtist}
                                 onClose={() => setSelectedArtist(null)}
                                 onToggleWatchlist={toggleWatchlist}
                                 isWatched={watchlist.has(selectedArtist.id)}
-                                onOpenSpotify={openSpotify}
                                 onOpenYouTube={openYouTube}
                                 onOpenTikTok={openTikTok}
                                 onOpenInstagram={openInstagram}
+                                setShowDossier={setShowDossier}
                             />
                         ) : activeDiscoveryList ? (
-                            /* FULL PAGE DISCOVERY LIST - Top 25 */
-                            <div className="max-w-4xl mx-auto animate-fade-in">
-                                <button
-                                    onClick={() => setActiveDiscoveryList(null)}
-                                    className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors"
-                                >
-                                    <X className="w-4 h-4" />
-                                    Back to Dashboard
+                            <div className="max-w-4xl mx-auto space-y-6">
+                                <button onClick={() => setActiveDiscoveryList(null)} className="flex items-center gap-2 text-slate-500 mb-6 uppercase text-[10px] font-black tracking-widest hover:text-white transition-colors">
+                                    <X className="w-4 h-4" /> Back to Index
                                 </button>
-
-                                <div className={`rounded-xl p-6 border ${activeDiscoveryList === 'movers' ? 'bg-gradient-to-br from-accent/10 to-transparent border-accent/30' :
-                                        activeDiscoveryList === 'gems' ? 'bg-gradient-to-br from-signal-purple/10 to-transparent border-signal-purple/30' :
-                                            'bg-gradient-to-br from-signal-green/10 to-transparent border-signal-green/30'
-                                    }`}>
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className={`p-2 rounded-lg ${activeDiscoveryList === 'movers' ? 'bg-accent/20' :
-                                                activeDiscoveryList === 'gems' ? 'bg-signal-purple/20' : 'bg-signal-green/20'
-                                            }`}>
-                                            {activeDiscoveryList === 'movers' ? <TrendingUp className="w-5 h-5 text-accent" /> :
-                                                activeDiscoveryList === 'gems' ? <Sparkles className="w-5 h-5 text-signal-purple" /> :
-                                                    <Target className="w-5 h-5 text-signal-green" />}
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold text-white">
-                                                {activeDiscoveryList === 'movers' ? '🔥 Top 25 Biggest Movers' :
-                                                    activeDiscoveryList === 'gems' ? '💎 Top 25 Hidden Gems' :
-                                                        '📈 Top 25 Underrated'}
-                                            </h2>
-                                            <p className="text-sm text-slate-400">Updated {dataTimestamp ? new Date(dataTimestamp).toLocaleString() : 'today'}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        {(activeDiscoveryList === 'movers' ? biggestMovers :
-                                            activeDiscoveryList === 'gems' ? hiddenGems : topArbitrage
-                                        ).map((artist, i) => (
-                                            <button
-                                                key={artist.id}
-                                                onClick={() => setSelectedArtist(artist)}
-                                                className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface/50 hover:bg-surface transition-colors text-left border border-slate-800/50"
-                                            >
-                                                <span className={`text-lg font-bold w-8 ${activeDiscoveryList === 'movers' ? 'text-accent' :
-                                                        activeDiscoveryList === 'gems' ? 'text-signal-purple' : 'text-signal-green'
-                                                    }`}>
-                                                    {i + 1}
-                                                </span>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="text-base font-semibold text-white">{artist.name}</div>
-                                                    <div className="text-sm text-slate-500">
-                                                        {artist.genre} • {formatNumber(artist.monthlyListeners)} listeners
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className={`text-lg font-bold ${artist.growthVelocity >= 0 ? 'text-signal-green' : 'text-red-400'}`}>
-                                                        {artist.growthVelocity >= 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
-                                                    </div>
-                                                    <div className="text-xs text-slate-500">growth</div>
-                                                </div>
-                                                <ChevronRight className="w-5 h-5 text-slate-600" />
-                                            </button>
-                                        ))}
-                                    </div>
+                                <h2 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter">
+                                    {activeDiscoveryList === 'movers' ? 'Volume Leaders' : 'Quality Discovery'}
+                                </h2>
+                                <div className="space-y-2">
+                                    {(activeDiscoveryList === 'movers' ? biggestMovers : hiddenGems).map((artist, i) => (
+                                        <button key={artist.id} onClick={() => setSelectedArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-surface/50 border border-slate-800 rounded-xl hover:bg-surface hover:border-slate-700 transition-all">
+                                            <span className="text-lg font-bold text-accent w-8">{padRank(i + 1)}</span>
+                                            <div className="flex-1 text-left font-bold text-white uppercase tracking-tight">{artist.name}</div>
+                                            <div className="text-signal-green font-mono font-bold">+{artist.growthVelocity.toFixed(1)}%</div>
+                                            <ChevronRight className="w-4 h-4 text-slate-700" />
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         ) : activeTab === 'sonic-signals' ? (
-                            <SonicSignals artists={filteredArtists.slice(0, 10)} />
+                            <SonicSignals artists={filteredArtists.slice(0, 15)} />
                         ) : activeTab === 'about' ? (
                             <AboutSection
-                                onNavigate={(tab: TabType) => setActiveTab(tab)}
+                                onNavigate={(tab) => { setActiveTab(tab); setSelectedArtist(null); setActiveDiscoveryList(null); }}
                                 onShowPricing={() => setShowUpgrade(true)}
                                 onShowContact={() => setShowJoin(true)}
                             />
                         ) : (
-                            <div className="max-w-7xl mx-auto space-y-6 animate-fade-in">
-                                {/* Filters */}
-                                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-2">
-                                    <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 w-full lg:w-auto scrollbar-hide">
-                                        {genres.map(genre => (
-                                            <button
-                                                key={genre}
-                                                onClick={() => setActiveGenre(genre)}
-                                                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap flex-shrink-0 ${activeGenre === genre
-                                                    ? 'bg-white text-terminal'
-                                                    : 'bg-surface text-slate-400 hover:bg-slate-800 border border-slate-800'
-                                                    }`}
-                                            >
-                                                {genre.toUpperCase()}
-                                            </button>
-                                        ))}
+                            <div className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="metric-card bg-surface/50">
+                                        <div className="data-tag mb-1">AGGREGATE VOLUME</div>
+                                        <div className="text-3xl font-black text-white font-mono">{formatNumber(stats.totalListeners)}</div>
                                     </div>
-
-                                    <div className="flex items-center gap-1 bg-surface rounded-lg p-1 border border-slate-800">
-                                        {(['All', 'Major', 'Indie'] as const).map(label => (
-                                            <button
-                                                key={label}
-                                                onClick={() => setLabelFilter(label)}
-                                                className={`px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${labelFilter === label
-                                                    ? label === 'Indie'
-                                                        ? 'bg-signal-green/20 text-signal-green'
-                                                        : label === 'Major'
-                                                            ? 'bg-accent/20 text-accent'
-                                                            : 'bg-white text-terminal'
-                                                    : 'text-slate-500 hover:text-white'
-                                                    }`}
-                                            >
-                                                {label}
-                                            </button>
-                                        ))}
+                                    <div className="metric-card bg-surface/50">
+                                        <div className="data-tag mb-1">ASSETS TRACKED</div>
+                                        <div className="text-3xl font-black text-white font-mono">{filteredArtists.length}</div>
+                                    </div>
+                                    <div className="metric-card bg-accent/5 border-accent/20">
+                                        <div className="data-tag mb-1 text-accent tracking-widest">ARBITRAGE SIGNALS</div>
+                                        <div className="text-3xl font-black text-white font-mono">{stats.arbitrageCount}</div>
                                     </div>
                                 </div>
 
-                                {/* 🔥 TODAY'S HOTTEST - Dynamic content that changes daily */}
-                                <div className="mb-4">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-lg font-bold text-white">🔥 Today's Hottest</span>
-                                            <span className="text-xs text-slate-500">• Updates 4× daily</span>
-                                        </div>
-                                        {dataTimestamp && (
-                                            <span className="text-xs text-slate-500 font-mono">
-                                                Last update: {new Date(dataTimestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-                                    {/* Biggest Movers */}
-                                    <div className="bg-gradient-to-br from-accent/10 to-transparent border border-accent/30 rounded-xl p-4">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 bg-accent/20 rounded-lg">
-                                                <TrendingUp className="w-4 h-4 text-accent" />
-                                            </div>
-                                            <h3 className="text-sm font-bold text-white">BIGGEST MOVERS</h3>
-                                        </div>
-                                        <div className="space-y-2">
-                                            {biggestMovers.slice(0, 5).map((artist, i) => (
-                                                <button
-                                                    key={artist.id}
-                                                    onClick={() => setSelectedArtist(artist)}
-                                                    className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors text-left"
-                                                >
-                                                    <span className="text-xs font-bold text-accent w-4">{i + 1}</span>
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="text-sm font-medium text-white truncate">{artist.name}</div>
-                                                        <div className="text-xs text-slate-500">{artist.genre}</div>
-                                                    </div>
-                                                    <div className="text-signal-green text-xs font-bold">
-                                                        +{artist.growthVelocity.toFixed(0)}%
-                                                    </div>
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <button
-                                            onClick={() => setActiveDiscoveryList('movers')}
-                                            className="w-full mt-3 pt-3 border-t border-accent/20 text-accent text-xs font-bold hover:underline flex items-center justify-center gap-1"
-                                        >
-                                            View Top 25 <ChevronRight className="w-3 h-3" />
-                                        </button>
-                                    </div>
-
-                                    {/* Hidden Gems */}
-                                    <div className="bg-gradient-to-br from-signal-purple/10 to-transparent border border-signal-purple/30 rounded-xl p-4">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 bg-signal-purple/20 rounded-lg">
-                                                <Sparkles className="w-4 h-4 text-signal-purple" />
-                                            </div>
-                                            <h3 className="text-sm font-bold text-white">HIDDEN GEMS 💎</h3>
-                                        </div>
-                                        <div className="space-y-2">
-                                            {hiddenGems.slice(0, 5).map((artist, i) => (
-                                                <button
-                                                    key={artist.id}
-                                                    onClick={() => setSelectedArtist(artist)}
-                                                    className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors text-left"
-                                                >
-                                                    <span className="text-xs font-bold text-signal-purple w-4">{i + 1}</span>
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="text-sm font-medium text-white truncate">{artist.name}</div>
-                                                        <div className="text-xs text-slate-500">{formatNumber(artist.monthlyListeners)} listeners</div>
-                                                    </div>
-                                                    <div className="text-signal-green text-xs font-bold">
-                                                        +{artist.growthVelocity.toFixed(0)}%
-                                                    </div>
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <button
-                                            onClick={() => setActiveDiscoveryList('gems')}
-                                            className="w-full mt-3 pt-3 border-t border-signal-purple/20 text-signal-purple text-xs font-bold hover:underline flex items-center justify-center gap-1"
-                                        >
-                                            View Top 25 <ChevronRight className="w-3 h-3" />
-                                        </button>
-                                    </div>
-
-                                    {/* Underrated Artists */}
-                                    <div className="bg-gradient-to-br from-signal-green/10 to-transparent border border-signal-green/30 rounded-xl p-4">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 bg-signal-green/20 rounded-lg">
-                                                <Target className="w-4 h-4 text-signal-green" />
-                                            </div>
-                                            <h3 className="text-sm font-bold text-white">UNDERRATED 📈</h3>
-                                        </div>
-                                        <div className="space-y-2">
-                                            {topArbitrage.slice(0, 5).map((artist, i) => (
-                                                <button
-                                                    key={artist.id}
-                                                    onClick={() => setSelectedArtist(artist)}
-                                                    className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors text-left"
-                                                >
-                                                    <span className="text-xs font-bold text-signal-green w-4">{i + 1}</span>
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="text-sm font-medium text-white truncate">{artist.name}</div>
-                                                        <div className="text-xs text-slate-500">#{artist.rank} • {artist.genre}</div>
-                                                    </div>
-                                                    <div className="text-accent text-xs font-bold">
-                                                        {artist.powerScore.toFixed(0)} PWR
-                                                    </div>
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <button
-                                            onClick={() => setActiveDiscoveryList('underrated')}
-                                            className="w-full mt-3 pt-3 border-t border-signal-green/20 text-signal-green text-xs font-bold hover:underline flex items-center justify-center gap-1"
-                                        >
-                                            View Top 25 <ChevronRight className="w-3 h-3" />
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Stats */}
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
-                                    <div className="metric-card">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="p-2 bg-surface rounded-lg text-slate-400">
-                                                <Users className="w-5 h-5" />
-                                            </div>
-                                            <span className="text-signal-green text-xs font-bold font-mono">LIVE</span>
-                                        </div>
-                                        <div className="text-2xl font-bold text-white mb-1 tracking-tight">
-                                            {formatNumber(stats.totalListeners)}
-                                        </div>
-                                        <div className="data-tag">PLATFORM VOLUME</div>
-                                    </div>
-                                    <div className="metric-card">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="p-2 bg-surface rounded-lg text-slate-400">
-                                                <Zap className="w-5 h-5" />
-                                            </div>
-                                            <span className="text-signal-purple text-xs font-bold font-mono">+{stats.viralCount}</span>
-                                        </div>
-                                        <div className="text-2xl font-bold text-white mb-1 tracking-tight">
-                                            {filteredArtists.length}
-                                        </div>
-                                        <div className="data-tag">ACTIVE TRACKED</div>
-                                    </div>
-                                    <div className="metric-card">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="p-2 bg-surface rounded-lg text-accent">
-                                                <ArrowUpRight className="w-5 h-5" />
-                                            </div>
-                                            <span className="text-accent text-xs font-bold font-mono glow-red">ALPHA</span>
-                                        </div>
-                                        <div className="text-2xl font-bold text-white mb-1 tracking-tight">
-                                            {stats.arbitrageCount}
-                                        </div>
-                                        <div className="data-tag">ARBITRAGE SIGNALS</div>
-                                    </div>
-                                </div>
-
-                                {/* Table */}
-                                <div className="bg-card border border-slate-800/50 rounded-xl overflow-hidden">
-                                    {loading ? (
-                                        <div className="p-12 text-center">
-                                            <div className="inline-block w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin mb-4" />
-                                            <div className="data-tag">HYDRATING DATA STREAM...</div>
-                                        </div>
-                                    ) : filteredArtists.length === 0 ? (
-                                        <div className="p-12 text-center">
-                                            <Lock className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-                                            <div className="text-slate-400 mb-2">No assets found</div>
-                                            <div className="data-tag">ADJUST SEARCH PARAMETERS</div>
-                                        </div>
-                                    ) : (
-                                        <div className="overflow-x-auto">
-                                            <table className="w-full text-left border-collapse min-w-[800px]">
-                                                <thead>
-                                                    <tr className="bg-terminal text-slate-500 text-[10px] uppercase tracking-[0.15em] font-bold border-b border-slate-800">
-                                                        <th className="px-6 py-4 w-16">#</th>
-                                                        <th className="px-6 py-4">ARTIST</th>
-                                                        <th className="px-6 py-4">MONTHLY LISTENERS</th>
-                                                        <th className="px-6 py-4">TIKTOK</th>
-                                                        <th className="px-6 py-4">
-                                                            <div className="flex items-center gap-1">
-                                                                CONVERSION
-                                                                <span className="text-[8px] bg-accent/20 text-accent px-1 rounded">ALPHA</span>
-                                                            </div>
-                                                        </th>
-                                                        <th className="px-6 py-4">30D VELO</th>
-                                                        <th className="px-6 py-4">STRUCTURE</th>
-                                                        <th className="px-6 py-4 text-right">ACTION</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="text-sm">
-                                                    {filteredArtists.map((artist) => (
-                                                        <tr
-                                                            key={artist.id}
-                                                            onClick={() => setSelectedArtist(artist)}
-                                                            className="table-row-hover group"
-                                                        >
-                                                            <td className="px-6 py-4">
-                                                                <span className="rank-number">{padRank(artist.rank)}</span>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <div className="flex items-center gap-3">
-                                                                    <div className="artist-avatar relative group/avatar">
+                                <div className="bg-card border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                                    <table className="w-full text-left">
+                                        <thead className="bg-terminal text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] border-b border-slate-800">
+                                            <tr>
+                                                <th className="px-6 py-5">Rank</th>
+                                                <th className="px-6 py-5">Artist Intelligence</th>
+                                                <th className="px-6 py-5">Monthly Reach</th>
+                                                <th className="px-6 py-5">30D Velo</th>
+                                                <th className="px-6 py-5">Status</th>
+                                                <th className="px-6 py-5 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-800/50">
+                                            {loading ? (
+                                                <tr>
+                                                    <td colSpan={6} className="px-6 py-20 text-center">
+                                                        <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
+                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Loading Market Data...</div>
+                                                    </td>
+                                                </tr>
+                                            ) : filteredArtists.map((artist) => (
+                                                <tr key={artist.id} onClick={() => setSelectedArtist(artist)} className="group hover:bg-surface/50 transition-colors cursor-pointer">
+                                                    <td className="px-6 py-5 font-mono text-slate-500 font-bold">{padRank(artist.rank)}</td>
+                                                    <td className="px-6 py-5">
+                                                        <div className="flex items-center gap-3">
+                                                            {/* QUICK PLAY AVATAR */}
+                                                            <div
+                                                                onClick={(e) => { e.stopPropagation(); openYouTube(artist); }}
+                                                                className="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-[10px] font-black text-white overflow-hidden border border-slate-800/50 group-hover:border-accent/50 group-hover:shadow-[0_0_15px_rgba(255,51,102,0.3)] transition-all duration-300 relative cursor-pointer"
+                                                            >
+                                                                {artist.avatar_url ? (
+                                                                    <img src={artist.avatar_url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                                ) : (
+                                                                    <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-500 font-bold">
                                                                         {getInitials(artist.name)}
-                                                                        <button
-                                                                            onClick={(e) => { e.stopPropagation(); openYouTube(artist); }}
-                                                                            className="absolute inset-0 bg-black/80 rounded-full opacity-0 group-hover/avatar:opacity-100 flex items-center justify-center transition-opacity"
-                                                                        >
-                                                                            <Play className="w-4 h-4 text-white" />
-                                                                        </button>
                                                                     </div>
-                                                                    <div className="flex flex-col">
-                                                                        <span className="text-white font-semibold">{artist.name}</span>
-                                                                        <div className="flex items-center gap-2">
-                                                                            <span className="data-tag">{artist.genre}</span>
-                                                                            {artist.country && (
-                                                                                <>
-                                                                                    <span className="text-slate-700">•</span>
-                                                                                    <span className="data-tag">{artist.country}</span>
-                                                                                </>
-                                                                            )}
-                                                                        </div>
-                                                                    </div>
+                                                                )}
+                                                                {/* PLAY OVERLAY (Subtle) */}
+                                                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                                    <Play className="w-5 h-5 text-white drop-shadow-md fill-current" />
                                                                 </div>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <span className="font-mono text-slate-200">{formatNumber(artist.monthlyListeners)}</span>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <span className="font-mono text-slate-200">{formatNumber(artist.tiktokFollowers)}</span>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <div className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold font-mono ${artist.conversionScore < 50
-                                                                    ? 'bg-signal-green/10 text-signal-green border border-signal-green/30 glow-green'
-                                                                    : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-                                                                    }`}>
-                                                                    {artist.conversionScore.toFixed(1)}%
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <div className={`flex items-center gap-1 font-mono text-sm ${artist.growthVelocity > 0 ? 'text-signal-green' : 'text-red-400'
-                                                                    }`}>
-                                                                    {artist.growthVelocity > 0 ? (
-                                                                        <TrendingUp className="w-3 h-3" />
-                                                                    ) : (
-                                                                        <TrendingDown className="w-3 h-3" />
-                                                                    )}
-                                                                    {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <span className={`badge ${artist.is_independent ? 'badge-indie' : 'badge-major'}`}>
-                                                                    {artist.is_independent ? 'INDIE' : 'MAJOR'}
-                                                                </span>
-                                                            </td>
-                                                            <td className="px-6 py-4 text-right">
-                                                                <div className="flex items-center justify-end gap-2">
-                                                                    <button
-                                                                        onClick={(e) => { e.stopPropagation(); toggleWatchlist(artist.id); }}
-                                                                        className={`p-2 rounded-lg transition-all ${watchlist.has(artist.id)
-                                                                            ? 'text-accent bg-accent/10'
-                                                                            : 'text-slate-600 hover:text-white hover:bg-surface'
-                                                                            }`}
-                                                                    >
-                                                                        {watchlist.has(artist.id) ? (
-                                                                            <BookmarkCheck className="w-4 h-4" />
-                                                                        ) : (
-                                                                            <Bookmark className="w-4 h-4" />
-                                                                        )}
-                                                                    </button>
-                                                                    <button className="p-2 text-slate-600 group-hover:text-white group-hover:bg-surface rounded-lg transition-all">
-                                                                        <ChevronRight className="w-4 h-4" />
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Premium Footer */}
-                                <div className="bg-gradient-to-r from-slate-900/50 to-slate-800/50 border border-slate-800 rounded-xl p-6 mt-8">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
-                                                <Radio className="w-4 h-4 text-white" />
-                                            </div>
-                                            <div>
-                                                <span className="text-white font-bold">SoundScout</span>
-                                                <span className="text-slate-500 text-xs ml-2">™</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-4 text-xs">
-                                            <button onClick={() => setActiveTab('about')} className="text-slate-400 hover:text-white transition-colors">How It Works</button>
-                                            <button onClick={() => setShowJoin(true)} className="text-slate-400 hover:text-white transition-colors">Join Waitlist</button>
-                                            <button onClick={() => setShowUpgrade(true)} className="text-slate-400 hover:text-white transition-colors">Pricing</button>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-2 h-2 rounded-full bg-signal-green animate-pulse" />
-                                            <span className="text-[10px] text-slate-500 font-mono">
-                                                LIVE • MULTI-SOURCE INTELLIGENCE • UPDATED DAILY AT 06:00 UTC
-                                            </span>
-                                        </div>
-                                        <span className="text-[10px] text-slate-600">
-                                            © 2026 SoundScout™ • A&R Intelligence Platform
-                                        </span>
-                                    </div>
+                                                            </div>
+                                                            <div className="flex flex-col">
+                                                                <span className="text-white font-black uppercase tracking-tight">{artist.name}</span>
+                                                                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{artist.genre} • {artist.country}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-6 py-5 font-mono text-slate-300 font-bold">{formatNumber(artist.monthlyListeners)}</td>
+                                                    <td className="px-6 py-5 font-mono text-signal-green font-bold">+{artist.growthVelocity.toFixed(1)}%</td>
+                                                    <td className="px-6 py-5">
+                                                        <span className={`text-[9px] font-black px-2 py-1 rounded border ${getStatusColor(artist.status)}`}>{artist.status.toUpperCase()}</span>
+                                                    </td>
+                                                    <td className="px-6 py-5 text-right">
+                                                        <ChevronRight className="w-5 h-5 text-slate-800 group-hover:text-white transition-colors" />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         )}
@@ -1347,182 +1024,270 @@ export default function App() {
     );
 }
 
+const IMAGE_POOL = {
+    'live': [
+        'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=600',
+        'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=600',
+        'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=600',
+        'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600',
+        'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600',
+    ],
+    'studio': [
+        'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600',
+        'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=600',
+        'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=600',
+        'https://images.unsplash.com/photo-1516280440614-6697288d5d38?q=80&w=600',
+    ],
+    'lifestyle': [
+        'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600',
+        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600',
+        'https://images.unsplash.com/photo-1529139574466-a302c27e3844?q=80&w=600',
+    ]
+};
+
+const getUniqueVisuals = (artistId: string) => {
+    // Simple hash function to get deterministic images per artist
+    let hash = 0;
+    for (let i = 0; i < artistId.length; i++) {
+        hash = artistId.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const safeHash = Math.abs(hash);
+
+    return [
+        { title: 'Live Performance', type: 'Touring', color: 'accent', img: IMAGE_POOL.live[safeHash % IMAGE_POOL.live.length] },
+        { title: 'Studio Session', type: 'Creation', color: 'signal-green', img: IMAGE_POOL.studio[(safeHash + 1) % IMAGE_POOL.studio.length] },
+        { title: 'Brand Affinity', type: 'Lifestyle', color: 'signal-purple', img: IMAGE_POOL.lifestyle[(safeHash + 2) % IMAGE_POOL.lifestyle.length] },
+        { title: 'Crowd Sentiment', type: 'Viral', color: 'amber-500', img: IMAGE_POOL.live[(safeHash + 3) % IMAGE_POOL.live.length] },
+        { title: 'Creative Direction', type: 'Visuals', color: 'accent', img: IMAGE_POOL.studio[(safeHash + 4) % IMAGE_POOL.studio.length] },
+        { title: 'Global Reach', type: 'Market', color: 'signal-green', img: IMAGE_POOL.lifestyle[(safeHash + 5) % IMAGE_POOL.lifestyle.length] },
+    ];
+};
+
 // ============================================================================
 // ARTIST PROFILE COMPONENT
 // ============================================================================
+
+const generateScoutingReport = (artist: PowerIndexArtist) => {
+    const insights = [];
+    const ratio = artist.tiktokFollowers / (artist.monthlyListeners + 1);
+
+    if (ratio > 5) insights.push("Hyper-Viral Signal: Social reach is 5x larger than streaming footprint.");
+    if (artist.growthVelocity > 80) insights.push("Exponential Velocity: Massive listener surge detected in last 24h.");
+    if (artist.conversionScore < 40) insights.push("Efficiency Leader: High listener retention with minimal marketing waste.");
+    if (artist.is_independent) insights.push("Independent Edge: Fully autonomous growth with high ownership potential.");
+
+    return insights.length > 0 ? insights : ["Stable Performance: Consistent growth across all primary platforms."];
+};
 
 function ArtistProfile({
     artist,
     onClose,
     onToggleWatchlist,
     isWatched,
-    onOpenSpotify,
     onOpenYouTube,
     onOpenTikTok,
     onOpenInstagram,
+    setShowDossier,
 }: {
     artist: PowerIndexArtist;
     onClose: () => void;
     onToggleWatchlist: (id: string) => void;
     isWatched: boolean;
-    onOpenSpotify: (artist: PowerIndexArtist) => void;
-    onOpenYouTube: (artist: PowerIndexArtist, track?: string) => void;
+    onOpenYouTube: (artist: PowerIndexArtist) => void;
     onOpenTikTok: (artist: PowerIndexArtist) => void;
     onOpenInstagram: (artist: PowerIndexArtist) => void;
+    setShowDossier: (show: boolean) => void;
 }) {
+    const report = generateScoutingReport(artist);
+    const investmentScore = Math.min(100, Math.max(0, 100 - artist.conversionScore + (artist.growthVelocity / 2)));
+
     return (
-        <div className="max-w-5xl mx-auto animate-slide-up">
-            {/* Header */}
-            <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-6 lg:mb-8 gap-4">
-                <div className="flex items-start gap-4 lg:gap-6">
-                    {/* Rank Badge */}
-                    <div className="relative flex-shrink-0">
-                        <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-gradient-to-br from-accent/30 to-signal-purple/30 flex items-center justify-center text-xl lg:text-3xl font-bold text-white border border-slate-800">
-                            {getInitials(artist.name)}
+        <div className="max-w-5xl mx-auto animate-slide-up pb-20">
+            {/* TOP BAR / NAVIGATION */}
+            <div className="flex items-center justify-between mb-8">
+                <button onClick={onClose} className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors uppercase text-[10px] font-black tracking-widest group">
+                    <X className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Close Discovery
+                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => onToggleWatchlist(artist.id)}
+                        className={`p-2 rounded-lg border transition-all ${isWatched ? 'bg-accent border-accent text-white shadow-[0_0_15px_rgba(255,51,102,0.4)]' : 'bg-surface border-slate-800 text-slate-500 hover:text-white'}`}
+                    >
+                        {isWatched ? <BookmarkCheck className="w-5 h-5" /> : <Bookmark className="w-5 h-5" />}
+                    </button>
+                </div>
+            </div>
+
+            {/* ARTIST HERO SECTION (INSTAGRAM INSPIRED) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-center">
+                {/* LARGE PROFILE PHOTO */}
+                <div className="lg:col-span-4 flex justify-center lg:justify-start">
+                    <div className="relative w-64 h-64 lg:w-80 lg:h-80 group">
+                        {/* MULTI-LAYER GLOW (NEXA STYLE) */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-accent via-cyan-400 to-signal-purple rounded-full opacity-40 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy blur-2xl"></div>
+                        <div className="absolute inset-0 rounded-full border-[3px] border-accent/30 scale-105 animate-pulse-slow"></div>
+                        <div className="absolute inset-0 rounded-full border-[1px] border-cyan-400/20 scale-110"></div>
+
+                        <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-background bg-slate-900 shadow-2xl">
+                            {artist.avatar_url ? (
+                                <img src={artist.avatar_url} alt={artist.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                            ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+                                    <span className="text-6xl font-black text-slate-700">{getInitials(artist.name)}</span>
+                                </div>
+                            )}
                         </div>
-                        <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold border-2 border-terminal">
+
+                        {/* RANK BADGE (NEXA STYLE) */}
+                        <div className="absolute -top-2 -right-2 bg-white text-black text-[14px] font-black px-4 py-2 rounded-full shadow-2xl z-10 border-4 border-background">
                             #{artist.rank}
                         </div>
                     </div>
-                    <div>
-                        <div className="flex items-center gap-3 mb-2">
-                            <h2 className="text-3xl font-bold text-white">{artist.name}</h2>
-                            <span className={`badge ${artist.is_independent ? 'badge-indie' : 'badge-major'}`}>
-                                {artist.is_independent ? 'INDEPENDENT' : 'MAJOR LABEL'}
-                            </span>
-                            <span className={`badge ${artist.status === 'Viral' ? 'badge-viral' : artist.status === 'Breakout' ? 'badge-breakout' : 'badge-stable'}`}>
-                                {artist.status.toUpperCase()}
-                            </span>
+                </div>
+
+                {/* ARTIST INFO & CORE METRICS */}
+                <div className="lg:col-span-8 flex flex-col justify-center text-center lg:text-left">
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
+                        <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none">{artist.name}</h2>
+                        <div className={`mx-auto lg:mx-0 px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] border ${getStatusColor(artist.status)}`}>
+                            {artist.status}
                         </div>
-                        <div className="flex items-center gap-4 text-slate-400">
-                            <span className="flex items-center gap-1">
-                                <Globe className="w-4 h-4" />
-                                {artist.city}, {artist.country}
-                            </span>
-                            <span>•</span>
-                            <span>{artist.genre}</span>
-                            {artist.label_name && (
-                                <>
-                                    <span>•</span>
-                                    <span>{artist.label_name}</span>
-                                </>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-slate-400 text-xs font-bold mb-8 uppercase tracking-[0.2em]">
+                        <div className="flex items-center gap-2">
+                            <Globe className="w-4 h-4 text-accent" />
+                            {artist.country}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Music className="w-4 h-4 text-accent" />
+                            {artist.genre}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Crown className="w-4 h-4 text-amber-500" />
+                            {artist.label_name || 'INDEPENDENT'}
+                        </div>
+                    </div>
+
+                    {/* STORY HIGHLIGHTS (IG STYLE) */}
+                    <div className="flex gap-4 mb-10 overflow-x-auto pb-2 scrollbar-none justify-center lg:justify-start">
+                        {[
+                            { name: 'Live', icon: <Zap className="w-4 h-4" /> },
+                            { name: 'Charts', icon: <TrendingUp className="w-4 h-4" /> },
+                            { name: 'Social', icon: <Star className="w-4 h-4" /> },
+                            { name: 'Alpha', icon: <Sparkles className="w-4 h-4" /> },
+                        ].map((h, i) => (
+                            <div key={i} className="flex flex-col items-center gap-2 shrink-0">
+                                <div className="w-14 h-14 rounded-full border-2 border-slate-800 p-0.5 group cursor-pointer hover:border-accent transition-colors">
+                                    <div className="w-full h-full rounded-full bg-surface/50 flex items-center justify-center text-slate-500 group-hover:text-white group-hover:bg-accent/10 transition-all">
+                                        {h.icon}
+                                    </div>
+                                </div>
+                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{h.name}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-10">
+                        <div className="bg-surface/30 backdrop-blur-md border border-slate-800/50 rounded-2xl p-6">
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">Monthly Listeners</div>
+                            <div className="flex items-center gap-2">
+                                <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.monthlyListeners)}</div>
+                                <div className="text-signal-green text-xs font-bold leading-none mt-1">▲ {artist.growthVelocity.toFixed(1)}%</div>
+                            </div>
+                        </div>
+                        <div className="bg-surface/30 backdrop-blur-md border border-slate-800/50 rounded-2xl p-6">
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">Social Reach</div>
+                            <div className="flex items-center gap-2">
+                                <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.tiktokFollowers)}</div>
+                                <div className="text-accent text-xs font-bold leading-none mt-1">▲ 8%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                        <button onClick={() => setShowDossier(true)} className="bg-white text-black font-black text-[12px] px-10 py-5 rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,255,255,0.1)] flex items-center gap-3 group">
+                            Open Intelligence Dossier <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </button>
+                        <div className="flex gap-2">
+                            <button onClick={() => onOpenInstagram(artist)} className="bg-slate-900 border border-slate-800 text-white font-black text-[11px] px-6 py-5 rounded-2xl hover:bg-slate-800 hover:border-slate-700 transition-all uppercase tracking-widest">
+                                IG
+                            </button>
+                            <button onClick={() => onOpenTikTok(artist)} className="bg-slate-900 border border-slate-800 text-white font-black text-[11px] px-6 py-5 rounded-2xl hover:bg-slate-800 hover:border-slate-700 transition-all uppercase tracking-widest">
+                                TT
+                            </button>
+                            <button onClick={() => onOpenYouTube(artist)} className="bg-slate-900 border border-slate-800 text-white font-black text-[11px] px-6 py-5 rounded-2xl hover:bg-slate-800 hover:border-slate-700 transition-all uppercase tracking-widest">
+                                YT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* VISUAL INTELLIGENCE SIGNALS (NEXA STYLE) */}
+            <div className="space-y-6 mb-16">
+                <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em]">Visual Intelligence Signals</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {getUniqueVisuals(artist.id).map((signal, idx) => (
+                        <div key={idx} className="aspect-square rounded-xl overflow-hidden bg-slate-900 border border-slate-800/50 group cursor-pointer relative">
+                            <img src={signal.img} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt={signal.title} />
+                            <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                                <div className="text-[10px] font-black text-white uppercase tracking-widest">{signal.type}</div>
+                                <div className="text-sm font-black text-white uppercase tracking-tight">{signal.title}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* ARTIST INTELLIGENCE REPORT */}
+            <div className="bg-surface/50 border border-slate-800 rounded-3xl p-10 backdrop-blur-3xl shadow-2xl">
+                <div className="flex flex-col lg:flex-row justify-between gap-12">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center">
+                                <Radio className="w-7 h-7 text-accent" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Scouting Audit Report</h3>
+                                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em]">Confidential Terminal Data</div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            {report.map((insight, i) => (
+                                <div key={i} className="flex gap-5 p-5 bg-black/30 rounded-2xl border border-white/5 group hover:border-accent/40 transition-all duration-300">
+                                    <div className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(255,51,102,0.8)]"></div>
+                                    <span className="text-slate-300 text-base font-medium leading-relaxed italic">"{insight}"</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="lg:w-96">
+                        <div className="bg-black/40 rounded-3xl p-8 border border-white/5 shadow-inner h-full flex flex-col justify-center">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Investment Readiness Index</span>
+                                <span className="text-4xl font-black text-white font-mono tracking-tighter">{investmentScore.toFixed(0)}%</span>
+                            </div>
+                            <div className="h-4 w-full bg-slate-900 rounded-full overflow-hidden mb-6 border border-white/5">
+                                <div className="h-full bg-accent transition-all duration-2000 shadow-[0_0_20px_rgba(255,51,102,0.6)]" style={{ width: `${investmentScore}%` }}></div>
+                            </div>
+                            <p className="text-[11px] text-slate-400 leading-relaxed uppercase tracking-widest text-center">
+                                Risk-adjusted score based on multi-source velocity & conversion alpha metrics.
+                            </p>
+                            {investmentScore > 85 && (
+                                <div className="mt-8 py-3 bg-accent/10 border border-accent/30 rounded-xl text-accent text-[11px] font-black uppercase text-center tracking-[0.2em] animate-pulse">
+                                    High Alpha Signal Detected
+                                </div>
                             )}
                         </div>
-                        {/* Daily Performance Banner */}
-                        <div className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${artist.growthVelocity > 50 ? 'bg-signal-green/20 text-signal-green' :
-                            artist.growthVelocity > 0 ? 'bg-accent/20 text-accent' :
-                                'bg-red-500/20 text-red-400'
-                            }`}>
-                            {artist.growthVelocity > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                            {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}% this month
-                            <span className="text-xs opacity-70">• Updated today</span>
-                        </div>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-2 text-slate-500 hover:text-white hover:bg-surface rounded-lg transition-all">
-                    <X className="w-5 h-5" />
-                </button>
-            </div>
-
-            {/* Metrics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-8">
-                <div className="metric-card">
-                    <div className="data-tag mb-2">MONTHLY LISTENERS</div>
-                    <div className="text-2xl font-bold text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
-                    <div className={`flex items-center gap-1 text-xs mt-1 ${artist.growthVelocity > 0 ? 'text-signal-green' : 'text-red-400'}`}>
-                        {artist.growthVelocity > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                        {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}% / 30d
-                    </div>
-                </div>
-                <div className="metric-card">
-                    <div className="data-tag mb-2">TIKTOK REACH</div>
-                    <div className="text-2xl font-bold text-white font-mono">{formatNumber(artist.tiktokFollowers)}</div>
-                </div>
-                <div className="metric-card">
-                    <div className="data-tag mb-2">INSTAGRAM REACH</div>
-                    <div className="text-2xl font-bold text-white font-mono">{formatNumber(artist.instagramFollowers)}</div>
-                </div>
-                <div className="metric-card border-accent/30">
-                    <div className="data-tag mb-2 text-accent">CONVERSION SCORE</div>
-                    <div className={`text-2xl font-bold font-mono ${artist.conversionScore < 50 ? 'text-signal-green glow-green' : 'text-white'}`}>
-                        {artist.conversionScore.toFixed(1)}%
-                    </div>
-                    {artist.conversionScore < 50 && (
-                        <div className="text-xs text-signal-green mt-1">ARBITRAGE SIGNAL</div>
-                    )}
-                </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8">
-                <button onClick={() => onOpenSpotify(artist)} className="btn-primary flex items-center gap-2">
-                    <Music className="w-4 h-4" />
-                    SPOTIFY
-                    <ExternalLink className="w-3 h-3" />
-                </button>
-                <button onClick={() => onOpenYouTube(artist)} className="btn-secondary flex items-center gap-2">
-                    <Youtube className="w-4 h-4" />
-                    YOUTUBE
-                </button>
-                <button onClick={() => onOpenTikTok(artist)} className="btn-secondary flex items-center gap-2">
-                    TIKTOK
-                </button>
-                <button onClick={() => onOpenInstagram(artist)} className="btn-secondary flex items-center gap-2">
-                    INSTAGRAM
-                </button>
-                <button
-                    onClick={() => onToggleWatchlist(artist.id)}
-                    className={`lg:ml-auto flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all ${isWatched
-                        ? 'bg-accent text-white'
-                        : 'bg-surface text-slate-300 border border-slate-800 hover:bg-slate-800'
-                        }`}
-                >
-                    {isWatched ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-                    {isWatched ? 'IN ROSTER' : 'ADD TO ROSTER'}
-                </button>
-            </div>
-
-            {/* Chart Placeholder */}
-            <div className="bg-card border border-slate-800/50 rounded-xl p-6 mb-8">
-                <div className="data-tag mb-4">REACH INDEX / 30D</div>
-                <div className="h-48 flex items-end justify-between gap-1">
-                    {Array.from({ length: 30 }).map((_, i) => {
-                        const height = 40 + Math.random() * 50 + (i / 30) * (artist.growthVelocity > 0 ? 30 : -20);
-                        return (
-                            <div
-                                key={i}
-                                className="flex-1 bg-gradient-to-t from-accent/20 to-accent/5 rounded-t hover:from-accent/40 hover:to-accent/10 transition-colors"
-                                style={{ height: `${Math.max(10, Math.min(100, height))}%` }}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Social Cards */}
-            <div className="grid grid-cols-2 gap-4">
-                <button
-                    onClick={() => onOpenTikTok(artist)}
-                    className="bg-card border border-slate-800/50 rounded-xl p-6 text-left hover:border-slate-700 transition-all group"
-                >
-                    <div className="flex justify-between items-start mb-4">
-                        <div className="data-tag">TIKTOK VELOCITY</div>
-                        <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" />
-                    </div>
-                    <div className="text-3xl font-bold text-white font-mono mb-2">{formatNumber(artist.tiktokFollowers)}</div>
-                    <div className="text-sm text-slate-400">View trending sounds & videos</div>
-                </button>
-                <button
-                    onClick={() => onOpenInstagram(artist)}
-                    className="bg-card border border-slate-800/50 rounded-xl p-6 text-left hover:border-slate-700 transition-all group"
-                >
-                    <div className="flex justify-between items-start mb-4">
-                        <div className="data-tag">INSTAGRAM VELOCITY</div>
-                        <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" />
-                    </div>
-                    <div className="text-3xl font-bold text-white font-mono mb-2">{formatNumber(artist.instagramFollowers)}</div>
-                    <div className="text-sm text-slate-400">View engagement metrics</div>
-                </button>
             </div>
         </div>
     );
