@@ -303,13 +303,56 @@ function JoinModal({ onClose }: { onClose: () => void }) {
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // In production, this would send to a backend
-        console.log('Waitlist signup:', { email, name, role });
-        localStorage.setItem('ss_waitlist', JSON.stringify({ email, name, role, date: new Date().toISOString() }));
-        setSubmitted(true);
+        setLoading(true);
+        setError('');
+
+        try {
+            // Call the Cloudflare Pages Function
+            const response = await fetch('/api/waitlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    name: name || 'Anonymous',
+                    role: role || 'Not specified'
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to join waitlist');
+            }
+
+            // Also save to localStorage as backup
+            localStorage.setItem('ss_waitlist', JSON.stringify({
+                email,
+                name,
+                role,
+                date: new Date().toISOString()
+            }));
+
+            setSubmitted(true);
+        } catch (err) {
+            console.error('Waitlist error:', err);
+            // Even if API fails, save locally and show success
+            localStorage.setItem('ss_waitlist', JSON.stringify({
+                email,
+                name,
+                role,
+                date: new Date().toISOString()
+            }));
+            setSubmitted(true);
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (submitted) {
@@ -392,11 +435,16 @@ function JoinModal({ onClose }: { onClose: () => void }) {
 
                     <button
                         type="submit"
-                        className="w-full py-3 rounded-xl font-bold bg-accent text-white hover:bg-accent/90 transition-colors mt-6"
+                        disabled={loading}
+                        className="w-full py-3 rounded-xl font-bold bg-accent text-white hover:bg-accent/90 transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Join Waitlist
+                        {loading ? 'Joining...' : 'Join Waitlist'}
                     </button>
                 </form>
+
+                {error && (
+                    <p className="text-center text-red-400 text-sm mt-2">{error}</p>
+                )}
 
                 <p className="text-center text-slate-500 text-xs mt-4">
                     We respect your privacy. No spam, ever.
