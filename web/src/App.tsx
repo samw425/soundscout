@@ -865,25 +865,25 @@ export default function App() {
                                     </button>
 
                                     <button
-                                        onClick={() => setShowUpgrade(true)}
-                                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all group"
+                                        onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all
+                                            ${activeTab === 'locked-roster' ? 'bg-accent/10 text-accent' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <div className="flex items-center gap-3">
                                             <Lock className="w-4 h-4" />
                                             <span>Locked Roster</span>
                                         </div>
-                                        <Lock className="w-3 h-3 opacity-50" />
                                     </button>
 
                                     <button
-                                        onClick={() => setShowUpgrade(true)}
-                                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all group"
+                                        onClick={() => { setActiveTab('about'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all
+                                            ${activeTab === 'about' ? 'bg-accent/10 text-accent' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <div className="flex items-center gap-3">
                                             <Target className="w-4 h-4" />
                                             <span>The Algorithm</span>
                                         </div>
-                                        <Lock className="w-3 h-3 opacity-50" />
                                     </button>
                                 </nav>
                             </div>
@@ -1097,6 +1097,26 @@ export default function App() {
                                 </div>
                             ) : activeTab === 'sonic-signals' ? (
                                 <SonicSignals artists={filteredArtists.slice(0, 15)} />
+                            ) : activeTab === 'locked-roster' ? (
+                                <div className="max-w-4xl mx-auto">
+                                    <h2 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter">Locked Roster</h2>
+                                    {artists.filter(a => watchlist.has(a.id)).length > 0 ? (
+                                        <div className="space-y-2">
+                                            {artists.filter(a => watchlist.has(a.id)).map((artist, i) => (
+                                                <button key={artist.id} onClick={() => setSelectedArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all">
+                                                    <span className="text-lg font-bold text-accent w-8">{padRank(i + 1)}</span>
+                                                    <div className="flex-1 text-left font-bold text-white uppercase tracking-tight">{artist.name}</div>
+                                                    <div className="text-signal-green font-mono font-bold">+{artist.growthVelocity.toFixed(1)}%</div>
+                                                    <ChevronRight className="w-4 h-4 text-slate-700" />
+                                                </button>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-xs font-bold border border-dashed border-slate-800 rounded-xl">
+                                            No artists locked. <br /> Use the bookmark icon to lock artists to your roster.
+                                        </div>
+                                    )}
+                                </div>
                             ) : activeTab === 'about' ? (
                                 <AboutSection
                                     onNavigate={(tab) => { setActiveTab(tab); setSelectedArtist(null); setActiveDiscoveryList(null); }}
