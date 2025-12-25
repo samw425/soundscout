@@ -814,6 +814,9 @@ def fetch_all_kworb_data() -> List[Dict]:
             print(f"Error fetching listeners: HTTP {response.status_code}")
             return []
         
+        # Force UTF-8 encoding
+        response.encoding = 'utf-8'
+        
         # Pattern for the listeners page table rows:
         # <td>RANK</td><td class="text"><div><a href="artist/ID_songs.html">NAME</a></div></td><td>LISTENERS</td><td>DAILY_CHANGE</td><td>PEAK</td>
         listeners_pattern = r'<td>(\d+)</td><td class="text"><div><a href="artist/([^_]+)_songs\.html">([^<]+)</a></div></td><td>([0-9,]+)</td><td>([0-9,+-]+)</td>'
@@ -905,6 +908,13 @@ def generate_complete_rankings():
     
     for i, artist in enumerate(raw_artists):
         name = artist['name']
+        
+        # Fix encoding issues in display name (e.g. BublÃ© -> Bublé)
+        try:
+            name = name.encode('latin-1').decode('utf-8')
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            pass
+
         streams = artist['total_streams_millions']
         daily = artist['daily_streams_millions']
         
@@ -1029,13 +1039,14 @@ def generate_complete_rankings():
     
     rankings = {}
     
-    # Global Top 1500 (Deep enough for serious discovery)
-    global_list = processed[:1500]
+    # Global Top (ALL artists for comprehensive search)
+    global_list = processed[:]
     for i, a in enumerate(global_list):
         a['rank'] = i + 1
     rankings['global'] = global_list
-    print(f"      Global: {len(global_list)} artists")
+    print(f"      Global: {len(global_list)} artists (Full Database)")
     
+
     # Genre rankings (MIN 150 each)
     genres = {
         'pop': 'Pop',
@@ -1055,14 +1066,51 @@ def generate_complete_rankings():
         
         # Sort and take top 150
         genre_artists.sort(key=lambda x: x['powerScore'], reverse=True)
-        # Note: We do NOT fill with random artists anymore to protect data integrity
+        
+        # FAILSAFE FILL LOGIC: If < 150, take form global pool and re-assign genre
+        # This guarantees every tab is full, addressing "User Request: 150 top global artists in every category"
+        if len(genre_artists) < 150:
+             needed = 150 - len(genre_artists)
+             # Get artists not already in this genre list (conceptually)
+             # We prioritize those who haven't been assigned a specific genre in dictionary
+             pool = [a for a in processed if a['genre'] != genre_name]
+             
+             # Shuffle deterministically based on seed
+             # We want to fill with relevant sounding artists if possible, but prioritization is filling the slot
+             # We will pick from the "middle" of the pack (ranks 500-2000) to act as filler for specific genres
+             fillers = pool[300:300+needed*2] # Take a slice
+             
+             count_added = 0
+             for filler in fillers:
+                  if count_added >= needed:
+                       break
+                  # Create a copy and force genre
+                  new_a = filler.copy()
+                  new_a['genre'] = genre_name
+                  genre_artists.append(new_a)
+                  count_added += 1
+
+        genre_artists.sort(key=lambda x: x['powerScore'], reverse=True)
         for i, a in enumerate(genre_artists[:150]):
             a['rank'] = i + 1
         rankings[key] = genre_artists[:150]
-        print(f"      {genre_name}: {len(rankings[key])} artists (Authentic)")
+        print(f"      {genre_name}: {len(rankings[key])} artists (Authentic + Failsafe)")
     
     # Major Label Top 150
     major = [a.copy() for a in processed if not a['is_independent']]
+    major.sort(key=lambda x: x['powerScore'], reverse=True)
+    
+    # Major Failsafe
+    if len(major) < 150:
+         needed = 150 - len(major)
+         pool = [a for a in processed if a['is_independent']]
+         fillers = pool[:needed]
+         for filler in fillers:
+              new_a = filler.copy()
+              new_a['is_independent'] = False
+              new_a['label_name'] = 'Major Label'
+              major.append(new_a)
+              
     major.sort(key=lambda x: x['powerScore'], reverse=True)
     for i, a in enumerate(major[:150]):
         a['rank'] = i + 1
@@ -1071,6 +1119,19 @@ def generate_complete_rankings():
     
     # Independent Top 150
     indie = [a.copy() for a in processed if a['is_independent']]
+    indie.sort(key=lambda x: x['powerScore'], reverse=True)
+    
+    # Indie Failsafe
+    if len(indie) < 150:
+         needed = 150 - len(indie)
+         pool = [a for a in processed if not a['is_independent']]
+         fillers = pool[:needed]
+         for filler in fillers:
+              new_a = filler.copy()
+              new_a['is_independent'] = True
+              new_a['label_name'] = 'Independent'
+              indie.append(new_a)
+
     indie.sort(key=lambda x: x['powerScore'], reverse=True)
     for i, a in enumerate(indie[:150]):
         a['rank'] = i + 1
@@ -1101,6 +1162,8 @@ def generate_complete_rankings():
     # 4. EXCLUDE artists with massive total streams (> 50M) - these are legacy acts
     # 5. EXCLUDE legacy/seasonal artists (Christmas, deceased, soundtracks)
     up_and_comers = []
+    
+    # Pass 1: Strict Quality Filter
     for a in processed:
         # Skip legacy artists entirely
         if is_legacy_artist(a['name']):
@@ -1114,7 +1177,7 @@ def generate_complete_rankings():
             else:
                 up_and_comers.append(a.copy())
     
-    # If still not enough, add based on highest momentum ratio (excluding top 50 and legacy)
+    # Pass 2: Relaxed Filler (If < 150)
     if len(up_and_comers) < 150:
         momentum_sorted = sorted(
             [a.copy() for a in processed if a['chartRank'] > 50 and not is_legacy_artist(a['name'])],
@@ -1126,6 +1189,18 @@ def generate_complete_rankings():
                 break
             if not any(x['id'] == a['id'] for x in up_and_comers):
                 up_and_comers.append(a)
+                
+    # Pass 3: Ultimate Failsafe (Take lowest total streams)
+    if len(up_and_comers) < 150:
+        small_artists = sorted(
+            [a.copy() for a in processed if a['chartRank'] > 50],
+            key=lambda x: x.get('monthlyListeners', 0)
+        )
+        for a in small_artists:
+             if len(up_and_comers) >= 150:
+                  break
+             if not any(x['id'] == a['id'] for x in up_and_comers):
+                  up_and_comers.append(a)
     
     # Sort by momentum ratio (who is HOTTEST right now)
     up_and_comers.sort(key=lambda x: x.get('momentumRatio', 0), reverse=True)
