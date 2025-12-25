@@ -22,6 +22,7 @@ import {
     Target,
     Star,
     Youtube,
+    Menu,
 } from 'lucide-react';
 import { PowerIndexArtist, searchAllArtists, fetchRankingsData } from './lib/supabase';
 
@@ -476,6 +477,7 @@ export default function App() {
         const saved = localStorage.getItem('ss_watchlist_v1');
         return saved ? new Set(JSON.parse(saved)) : new Set();
     });
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const genres = ['All', 'Pop', 'R&B', 'Hip Hop', 'Country', 'Afrobeats', 'Indie', 'Alternative', 'Latin', 'K-Pop', 'Electronic'];
 
@@ -659,10 +661,38 @@ export default function App() {
             {showJoin && <JoinModal onClose={() => setShowJoin(false)} />}
 
             <div className="flex h-screen bg-background font-sans overflow-hidden">
-                {/* SIDEBAR */}
-                <aside className="w-64 flex flex-col border-r border-slate-900 bg-terminal">
-                    {/* Logo */}
-                    <div className="p-6 border-b border-slate-900">
+                {/* Mobile Header */}
+                <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-terminal border-b border-slate-900 flex items-center justify-between px-4 z-40">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
+                            <Radio className="w-4 h-4 text-white" />
+                        </div>
+                        <span className="text-white font-bold">SOUNDSCOUT</span>
+                    </div>
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="p-2 text-slate-400 hover:text-white"
+                    >
+                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                </div>
+
+                {/* Mobile Menu Overlay */}
+                {mobileMenuOpen && (
+                    <div className="lg:hidden fixed inset-0 z-30 bg-black/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+                )}
+
+                {/* SIDEBAR - Hidden on mobile, shown as overlay when menu open */}
+                <aside className={`
+                    fixed lg:relative inset-y-0 left-0 z-40
+                    w-64 flex flex-col border-r border-slate-900 bg-terminal
+                    transform transition-transform duration-300 ease-in-out
+                    ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+                    lg:transform-none
+                    pt-16 lg:pt-0
+                `}>
+                    {/* Logo - Hidden on mobile (shown in mobile header) */}
+                    <div className="hidden lg:block p-6 border-b border-slate-900">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
                                 <Radio className="w-5 h-5 text-white" />
@@ -681,7 +711,7 @@ export default function App() {
                         <div className="data-tag px-2 mb-3">TERMINAL ACCESS</div>
 
                         <button
-                            onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); }}
+                            onClick={() => { setActiveTab('power-index'); setSelectedArtist(null); setMobileMenuOpen(false); }}
                             className={`nav-item w-full ${activeTab === 'power-index' ? 'active' : ''}`}
                         >
                             <BarChart3 className="w-4 h-4" />
@@ -689,7 +719,7 @@ export default function App() {
                         </button>
 
                         <button
-                            onClick={() => { setActiveTab('up-and-comers'); setSelectedArtist(null); }}
+                            onClick={() => { setActiveTab('up-and-comers'); setSelectedArtist(null); setMobileMenuOpen(false); }}
                             className={`nav-item w-full ${activeTab === 'up-and-comers' ? 'active' : ''}`}
                         >
                             <Sparkles className="w-4 h-4" />
@@ -698,7 +728,7 @@ export default function App() {
                         </button>
 
                         <button
-                            onClick={() => { setActiveTab('sonic-signals'); setSelectedArtist(null); }}
+                            onClick={() => { setActiveTab('sonic-signals'); setSelectedArtist(null); setMobileMenuOpen(false); }}
                             className={`nav-item w-full ${activeTab === 'sonic-signals' ? 'active' : ''}`}
                         >
                             <Zap className="w-4 h-4" />
@@ -706,7 +736,7 @@ export default function App() {
                         </button>
 
                         <button
-                            onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); }}
+                            onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setMobileMenuOpen(false); }}
                             className={`nav-item w-full ${activeTab === 'locked-roster' ? 'active' : ''}`}
                         >
                             <Lock className="w-4 h-4" />
@@ -718,7 +748,7 @@ export default function App() {
                             )}
                         </button>
                         <button
-                            onClick={() => { setActiveTab('about'); setSelectedArtist(null); }}
+                            onClick={() => { setActiveTab('about'); setSelectedArtist(null); setMobileMenuOpen(false); }}
                             className={`nav-item w-full ${activeTab === 'about' ? 'active' : ''}`}
                         >
                             <BarChart3 className="w-4 h-4" />
@@ -729,7 +759,7 @@ export default function App() {
                     {/* Upgrade CTA */}
                     <div className="p-4 border-t border-slate-900">
                         <button
-                            onClick={() => setShowUpgrade(true)}
+                            onClick={() => { setShowUpgrade(true); setMobileMenuOpen(false); }}
                             className="w-full bg-gradient-to-r from-accent to-signal-purple p-4 rounded-xl text-left group hover:opacity-90 transition-opacity"
                         >
                             <div className="flex items-center gap-2 mb-2">
@@ -745,7 +775,7 @@ export default function App() {
                     {/* Join Waitlist CTA - subtle */}
                     <div className="p-4 pt-0">
                         <button
-                            onClick={() => setShowJoin(true)}
+                            onClick={() => { setShowJoin(true); setMobileMenuOpen(false); }}
                             className="w-full bg-surface border border-slate-800 p-3 rounded-xl text-left group hover:border-slate-700 transition-all"
                         >
                             <div className="flex items-center gap-2">
@@ -769,9 +799,9 @@ export default function App() {
                 </aside>
 
                 {/* MAIN CONTENT */}
-                <main className="flex-1 flex flex-col overflow-hidden">
+                <main className="flex-1 flex flex-col overflow-hidden pt-16 lg:pt-0">
                     {/* Header */}
-                    <header className="h-16 flex items-center justify-between px-8 border-b border-slate-900 glass">
+                    <header className="h-16 flex items-center justify-between px-4 lg:px-8 border-b border-slate-900 glass">
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => { setActiveGenre('All'); setActiveTab('power-index'); setSelectedArtist(null); }}
@@ -837,13 +867,13 @@ export default function App() {
                         ) : (
                             <div className="max-w-7xl mx-auto space-y-6 animate-fade-in">
                                 {/* Filters */}
-                                <div className="flex items-center justify-between gap-4 pb-2">
-                                    <div className="flex items-center gap-2">
+                                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-2">
+                                    <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 w-full lg:w-auto scrollbar-hide">
                                         {genres.map(genre => (
                                             <button
                                                 key={genre}
                                                 onClick={() => setActiveGenre(genre)}
-                                                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${activeGenre === genre
+                                                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap flex-shrink-0 ${activeGenre === genre
                                                     ? 'bg-white text-terminal'
                                                     : 'bg-surface text-slate-400 hover:bg-slate-800 border border-slate-800'
                                                     }`}
@@ -927,113 +957,115 @@ export default function App() {
                                             <div className="data-tag">ADJUST SEARCH PARAMETERS</div>
                                         </div>
                                     ) : (
-                                        <table className="w-full text-left border-collapse">
-                                            <thead>
-                                                <tr className="bg-terminal text-slate-500 text-[10px] uppercase tracking-[0.15em] font-bold border-b border-slate-800">
-                                                    <th className="px-6 py-4 w-16">#</th>
-                                                    <th className="px-6 py-4">ARTIST</th>
-                                                    <th className="px-6 py-4">MONTHLY LISTENERS</th>
-                                                    <th className="px-6 py-4">TIKTOK</th>
-                                                    <th className="px-6 py-4">
-                                                        <div className="flex items-center gap-1">
-                                                            CONVERSION
-                                                            <span className="text-[8px] bg-accent/20 text-accent px-1 rounded">ALPHA</span>
-                                                        </div>
-                                                    </th>
-                                                    <th className="px-6 py-4">30D VELO</th>
-                                                    <th className="px-6 py-4">STRUCTURE</th>
-                                                    <th className="px-6 py-4 text-right">ACTION</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="text-sm">
-                                                {filteredArtists.map((artist) => (
-                                                    <tr
-                                                        key={artist.id}
-                                                        onClick={() => setSelectedArtist(artist)}
-                                                        className="table-row-hover group"
-                                                    >
-                                                        <td className="px-6 py-4">
-                                                            <span className="rank-number">{padRank(artist.rank)}</span>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="artist-avatar relative group/avatar">
-                                                                    {getInitials(artist.name)}
-                                                                    <button
-                                                                        onClick={(e) => { e.stopPropagation(); openYouTube(artist); }}
-                                                                        className="absolute inset-0 bg-black/80 rounded-full opacity-0 group-hover/avatar:opacity-100 flex items-center justify-center transition-opacity"
-                                                                    >
-                                                                        <Play className="w-4 h-4 text-white" />
-                                                                    </button>
-                                                                </div>
-                                                                <div className="flex flex-col">
-                                                                    <span className="text-white font-semibold">{artist.name}</span>
-                                                                    <div className="flex items-center gap-2">
-                                                                        <span className="data-tag">{artist.genre}</span>
-                                                                        {artist.country && (
-                                                                            <>
-                                                                                <span className="text-slate-700">•</span>
-                                                                                <span className="data-tag">{artist.country}</span>
-                                                                            </>
-                                                                        )}
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full text-left border-collapse min-w-[800px]">
+                                                <thead>
+                                                    <tr className="bg-terminal text-slate-500 text-[10px] uppercase tracking-[0.15em] font-bold border-b border-slate-800">
+                                                        <th className="px-6 py-4 w-16">#</th>
+                                                        <th className="px-6 py-4">ARTIST</th>
+                                                        <th className="px-6 py-4">MONTHLY LISTENERS</th>
+                                                        <th className="px-6 py-4">TIKTOK</th>
+                                                        <th className="px-6 py-4">
+                                                            <div className="flex items-center gap-1">
+                                                                CONVERSION
+                                                                <span className="text-[8px] bg-accent/20 text-accent px-1 rounded">ALPHA</span>
+                                                            </div>
+                                                        </th>
+                                                        <th className="px-6 py-4">30D VELO</th>
+                                                        <th className="px-6 py-4">STRUCTURE</th>
+                                                        <th className="px-6 py-4 text-right">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="text-sm">
+                                                    {filteredArtists.map((artist) => (
+                                                        <tr
+                                                            key={artist.id}
+                                                            onClick={() => setSelectedArtist(artist)}
+                                                            className="table-row-hover group"
+                                                        >
+                                                            <td className="px-6 py-4">
+                                                                <span className="rank-number">{padRank(artist.rank)}</span>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className="artist-avatar relative group/avatar">
+                                                                        {getInitials(artist.name)}
+                                                                        <button
+                                                                            onClick={(e) => { e.stopPropagation(); openYouTube(artist); }}
+                                                                            className="absolute inset-0 bg-black/80 rounded-full opacity-0 group-hover/avatar:opacity-100 flex items-center justify-center transition-opacity"
+                                                                        >
+                                                                            <Play className="w-4 h-4 text-white" />
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="flex flex-col">
+                                                                        <span className="text-white font-semibold">{artist.name}</span>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <span className="data-tag">{artist.genre}</span>
+                                                                            {artist.country && (
+                                                                                <>
+                                                                                    <span className="text-slate-700">•</span>
+                                                                                    <span className="data-tag">{artist.country}</span>
+                                                                                </>
+                                                                            )}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <span className="font-mono text-slate-200">{formatNumber(artist.monthlyListeners)}</span>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <span className="font-mono text-slate-200">{formatNumber(artist.tiktokFollowers)}</span>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold font-mono ${artist.conversionScore < 50
-                                                                ? 'bg-signal-green/10 text-signal-green border border-signal-green/30 glow-green'
-                                                                : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-                                                                }`}>
-                                                                {artist.conversionScore.toFixed(1)}%
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className={`flex items-center gap-1 font-mono text-sm ${artist.growthVelocity > 0 ? 'text-signal-green' : 'text-red-400'
-                                                                }`}>
-                                                                {artist.growthVelocity > 0 ? (
-                                                                    <TrendingUp className="w-3 h-3" />
-                                                                ) : (
-                                                                    <TrendingDown className="w-3 h-3" />
-                                                                )}
-                                                                {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <span className={`badge ${artist.is_independent ? 'badge-indie' : 'badge-major'}`}>
-                                                                {artist.is_independent ? 'INDIE' : 'MAJOR'}
-                                                            </span>
-                                                        </td>
-                                                        <td className="px-6 py-4 text-right">
-                                                            <div className="flex items-center justify-end gap-2">
-                                                                <button
-                                                                    onClick={(e) => { e.stopPropagation(); toggleWatchlist(artist.id); }}
-                                                                    className={`p-2 rounded-lg transition-all ${watchlist.has(artist.id)
-                                                                        ? 'text-accent bg-accent/10'
-                                                                        : 'text-slate-600 hover:text-white hover:bg-surface'
-                                                                        }`}
-                                                                >
-                                                                    {watchlist.has(artist.id) ? (
-                                                                        <BookmarkCheck className="w-4 h-4" />
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <span className="font-mono text-slate-200">{formatNumber(artist.monthlyListeners)}</span>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <span className="font-mono text-slate-200">{formatNumber(artist.tiktokFollowers)}</span>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <div className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold font-mono ${artist.conversionScore < 50
+                                                                    ? 'bg-signal-green/10 text-signal-green border border-signal-green/30 glow-green'
+                                                                    : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
+                                                                    }`}>
+                                                                    {artist.conversionScore.toFixed(1)}%
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <div className={`flex items-center gap-1 font-mono text-sm ${artist.growthVelocity > 0 ? 'text-signal-green' : 'text-red-400'
+                                                                    }`}>
+                                                                    {artist.growthVelocity > 0 ? (
+                                                                        <TrendingUp className="w-3 h-3" />
                                                                     ) : (
-                                                                        <Bookmark className="w-4 h-4" />
+                                                                        <TrendingDown className="w-3 h-3" />
                                                                     )}
-                                                                </button>
-                                                                <button className="p-2 text-slate-600 group-hover:text-white group-hover:bg-surface rounded-lg transition-all">
-                                                                    <ChevronRight className="w-4 h-4" />
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
+                                                                    {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <span className={`badge ${artist.is_independent ? 'badge-indie' : 'badge-major'}`}>
+                                                                    {artist.is_independent ? 'INDIE' : 'MAJOR'}
+                                                                </span>
+                                                            </td>
+                                                            <td className="px-6 py-4 text-right">
+                                                                <div className="flex items-center justify-end gap-2">
+                                                                    <button
+                                                                        onClick={(e) => { e.stopPropagation(); toggleWatchlist(artist.id); }}
+                                                                        className={`p-2 rounded-lg transition-all ${watchlist.has(artist.id)
+                                                                            ? 'text-accent bg-accent/10'
+                                                                            : 'text-slate-600 hover:text-white hover:bg-surface'
+                                                                            }`}
+                                                                    >
+                                                                        {watchlist.has(artist.id) ? (
+                                                                            <BookmarkCheck className="w-4 h-4" />
+                                                                        ) : (
+                                                                            <Bookmark className="w-4 h-4" />
+                                                                        )}
+                                                                    </button>
+                                                                    <button className="p-2 text-slate-600 group-hover:text-white group-hover:bg-surface rounded-lg transition-all">
+                                                                        <ChevronRight className="w-4 h-4" />
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     )}
                                 </div>
 
