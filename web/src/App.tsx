@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
     Search,
     TrendingUp,
@@ -617,6 +617,7 @@ export default function App() {
     const [searchQuery, setSearchQuery] = useState('');
     const [artists, setArtists] = useState<PowerIndexArtist[]>([]);
     const [loading, setLoading] = useState(true);
+    const mainContentRef = React.useRef<HTMLDivElement>(null);
     const [selectedArtist, setSelectedArtist] = useState<PowerIndexArtist | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(() => {
         return !localStorage.getItem('ss_onboarding_complete');
@@ -637,6 +638,31 @@ export default function App() {
     // User tier (for monetization - can lock down to Pro later once we get traction)
     const userTier = 'free'; // 'free', 'pro', 'enterprise'
     const freeLimit = 150; // ALL 150 artists visible for free during launch
+
+    // SEAMLESS NAVIGATION: Helper to select artist and close all modals
+    const handleSelectArtist = (artist: PowerIndexArtist | null) => {
+        // Close all open modals/panels first
+        setShowDossier(false);
+        setShowUpgrade(false);
+        setShowJoin(false);
+        setMobileMenuOpen(false);
+
+        // Then set the new artist
+        setSelectedArtist(artist);
+
+        // Update URL for deep linking
+        if (artist) {
+            const slug = artist.name.toLowerCase().replace(/\s+/g, '-');
+            window.history.pushState({ artistId: artist.id }, '', `/artist/${slug}`);
+
+            // Critical: Scroll to top of content area so user sees the profile
+            if (mainContentRef.current) {
+                mainContentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } else {
+            window.history.pushState({}, '', '/');
+        }
+    };
 
     // Load artists based on active tab
     useEffect(() => {
@@ -909,8 +935,12 @@ export default function App() {
                                         </div>
                                         <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
                                             {biggestMovers.slice(0, 2).map(artist => (
-                                                <div key={artist.id} className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors">
-                                                    <span className="text-slate-300 font-medium">{artist.name}</span>
+                                                <div
+                                                    key={artist.id}
+                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
+                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
+                                                >
+                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
                                                     <span className="text-green-500 font-mono font-bold">+{artist.growthVelocity.toFixed(0)}%</span>
                                                 </div>
                                             ))}
@@ -930,8 +960,12 @@ export default function App() {
                                         </div>
                                         <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
                                             {hiddenGems.slice(0, 2).map(artist => (
-                                                <div key={artist.id} className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors">
-                                                    <span className="text-slate-300 font-medium">{artist.name}</span>
+                                                <div
+                                                    key={artist.id}
+                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
+                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
+                                                >
+                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
                                                     <span className="text-green-500 font-mono font-bold">+{artist.growthVelocity.toFixed(0)}%</span>
                                                 </div>
                                             ))}
@@ -952,8 +986,12 @@ export default function App() {
                                         <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
                                             {/* Using safe slice of artists for demo */}
                                             {artists.filter(a => a.conversionScore < 30).slice(0, 2).map(artist => (
-                                                <div key={artist.id} className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors">
-                                                    <span className="text-slate-300 font-medium">{artist.name}</span>
+                                                <div
+                                                    key={artist.id}
+                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
+                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
+                                                >
+                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
                                                     <span className="text-red-500 font-mono font-bold">#{artist.rank}</span>
                                                 </div>
                                             ))}
@@ -1066,7 +1104,10 @@ export default function App() {
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-auto p-8 terminal-scroll bg-[#0B0C10]">
+                        <div
+                            ref={mainContentRef}
+                            className="flex-1 overflow-auto p-8 terminal-scroll bg-[#0B0C10]"
+                        >
                             {selectedArtist ? (
                                 <ArtistProfile
                                     artist={selectedArtist}
@@ -1103,7 +1144,7 @@ export default function App() {
                                     {artists.filter(a => watchlist.has(a.id)).length > 0 ? (
                                         <div className="space-y-2">
                                             {artists.filter(a => watchlist.has(a.id)).map((artist, i) => (
-                                                <button key={artist.id} onClick={() => setSelectedArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all">
+                                                <button key={artist.id} onClick={() => handleSelectArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all">
                                                     <span className="text-lg font-bold text-accent w-8">{padRank(i + 1)}</span>
                                                     <div className="flex-1 text-left font-bold text-white uppercase tracking-tight">{artist.name}</div>
                                                     <div className="text-signal-green font-mono font-bold">+{artist.growthVelocity.toFixed(1)}%</div>
@@ -1184,7 +1225,7 @@ export default function App() {
                                                         </td>
                                                     </tr>
                                                 ) : filteredArtists.map((artist) => (
-                                                    <tr key={artist.id} onClick={() => setSelectedArtist(artist)} className="group hover:bg-white/[0.02] transition-colors cursor-pointer text-xs">
+                                                    <tr key={artist.id} onClick={() => handleSelectArtist(artist)} className="group hover:bg-white/[0.02] transition-colors cursor-pointer text-xs">
                                                         <td className="px-6 py-4 font-mono text-slate-600 font-bold">{padRank(artist.rank)}</td>
                                                         <td className="px-6 py-4">
                                                             <div className="flex items-center gap-4">
@@ -1204,7 +1245,7 @@ export default function App() {
                                                                     )}
                                                                 </div>
                                                                 <div
-                                                                    onClick={(e) => { e.stopPropagation(); setSelectedArtist(artist); }}
+                                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
                                                                     className="cursor-pointer"
                                                                 >
                                                                     <div className="font-bold text-white text-sm mb-0.5 group-hover:text-accent transition-colors">{artist.name}</div>
