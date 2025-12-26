@@ -11,7 +11,6 @@ import {
     X,
     Globe,
     Music,
-    AlertTriangle,
     Crown,
     Target,
     Users,
@@ -410,134 +409,159 @@ function JoinModal({ onClose }: { onClose: () => void }) {
 // ============================================================================
 function DossierModal({ artist, onClose }: { artist: PowerIndexArtist, onClose: () => void }) {
     return (
-        <div className="fixed inset-0 bg-black/95 backdrop-blur-xl z-[100] flex items-center justify-center p-4 animate-fade-in">
-            <div className="w-full max-w-4xl bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-                {/* Header */}
-                <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full border-2 border-accent bg-accent/20 flex items-center justify-center">
-                            <BarChart3 className="w-6 h-6 text-accent" />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl font-black text-white uppercase tracking-tight">Market Analysis</h2>
-                            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em]">Real-Time Streaming Data</div>
-                        </div>
-                    </div>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-full transition-colors">
-                        <X className="w-6 h-6 text-slate-500 hover:text-white" />
-                    </button>
+        <div className="fixed inset-0 bg-black/98 backdrop-blur-3xl z-[100] flex items-center justify-center p-0 md:p-4 animate-fade-in overflow-hidden">
+            <div className="w-full h-full md:h-auto md:max-w-5xl bg-black md:rounded-3xl border md:border-white/10 overflow-hidden shadow-2xl flex flex-col relative">
+
+                {/* CINEMATIC BACKGROUND */}
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src={artist.avatar_url || 'https://soundscout.pages.dev/og-image.png'}
+                        className="w-full h-full object-cover opacity-30 scale-110 blur-[80px]"
+                        alt=""
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
                 </div>
 
-                {/* Content */}
-                <div className="p-8 overflow-y-auto custom-scrollbar">
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <div className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-4">Artist Profile</div>
-                            <div className="flex items-start gap-4 mb-6">
-                                <div className="w-20 h-20 bg-slate-800 rounded-xl overflow-hidden">
-                                    {artist.avatar_url ? (
-                                        <img src={artist.avatar_url} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-slate-500 font-black">{getInitials(artist.name)}</div>
-                                    )}
-                                </div>
-                                <div>
-                                    <h1 className="text-3xl font-black text-white uppercase leading-none mb-1">{artist.name}</h1>
-                                    <div className="text-sm text-slate-400 font-mono mb-2">{artist.spotify_id}</div>
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
-                                        <div className="w-2 h-2 rounded-full bg-signal-green"></div>
-                                        <span className="text-[10px] text-white font-bold uppercase tracking-widest">Tracking Active</span>
-                                    </div>
+                {/* MODAL HEADER - FLOATING CLOSE */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-6 right-6 z-[110] p-3 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 backdrop-blur-xl transition-all group"
+                >
+                    <X className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                </button>
+
+                {/* MODAL CONTENT */}
+                <div className="relative z-[100] flex-1 overflow-y-auto custom-scrollbar p-8 md:p-12">
+
+                    {/* TOP SECTION: ARTIST INFO */}
+                    <div className="flex flex-col md:flex-row items-center md:items-end gap-8 mb-16">
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-accent/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-white/10 p-2 relative z-10">
+                                <div className="w-full h-full rounded-full overflow-hidden border-2 border-accent">
+                                    <img
+                                        src={artist.avatar_url || ''}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = `<div class="w-full h-full flex items-center justify-center text-4xl font-black text-white bg-slate-900">${getInitials(artist.name)}</div>` }}
+                                    />
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="space-y-4">
-                                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 relative group">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-slate-500 text-xs font-bold uppercase">Estimated Annual Revenue</span>
-                                            <div className="cursor-help text-slate-600 hover:text-white transition-colors">
-                                                <AlertTriangle className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        <span className="text-signal-green text-xs font-bold">+12% YoY</span>
-                                    </div>
-                                    <div className="text-2xl font-mono text-white font-bold p-1">
-                                        ${formatNumber(artist.monthlyListeners * 0.003 * 12 * 0.7)} - ${formatNumber(artist.monthlyListeners * 0.005 * 12)}
-                                    </div>
+                        <div className="flex-1 text-center md:text-left">
+                            <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-accent">
+                                <span>{artist.genre}</span>
+                                <span className="text-white/20">/</span>
+                                <span className="text-white/80">{artist.country}</span>
+                                <span className="text-white/20">/</span>
+                                <span className="text-white/80">RANK #{artist.rank}</span>
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black text-white uppercase leading-[0.85] tracking-tighter mb-6">{artist.name}</h1>
 
-                                    {/* TRANSPARENCY TOOLTIP */}
-                                    <div className="absolute top-full left-0 mt-2 w-full p-3 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none group-hover:pointer-events-auto">
-                                        <p className="text-[10px] text-slate-300 leading-relaxed font-mono">
-                                            <span className="text-accent font-bold">METHODOLOGY:</span> based on {formatNumber(artist.monthlyListeners)} verified monthly listeners × industry standard $0.0034 - $0.0050 avg payout per stream (Spotify/Apple blended).
-                                        </p>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                                <div className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest ${getStatusColor(artist.status)}`}>
+                                    {artist.status}
+                                </div>
+                                <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-white/50 uppercase tracking-widest">
+                                    UUID: {artist.spotify_id.slice(0, 8)}...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* STATS ROW: MATCHING THE OG IMAGE LOOK */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 px-4 md:px-0">
+                        <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Monthly Listeners</div>
+                            <div className="text-3xl md:text-4xl font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Power Score</div>
+                            <div className="text-3xl md:text-4xl font-black text-accent font-mono">{artist.powerScore}</div>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">30d Growth</div>
+                            <div className="text-3xl md:text-4xl font-black text-signal-green font-mono">+{artist.growthVelocity.toFixed(1)}%</div>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Conversion</div>
+                            <div className="text-3xl md:text-4xl font-black text-white font-mono">{artist.conversionScore.toFixed(1)}%</div>
+                        </div>
+                    </div>
+
+                    {/* ANALYSIS SECTION */}
+                    <div className="grid md:grid-cols-2 gap-12">
+                        {/* LEFT: FINANCIALS */}
+                        <div className="space-y-8">
+                            <h3 className="text-xs font-black text-white/20 uppercase tracking-[0.5em] border-b border-white/5 pb-4">Financial Analysis</h3>
+
+                            <div className="space-y-6">
+                                <div className="group">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">EST. ANNUAL REVENUE</span>
+                                        <span className="text-signal-green text-[10px] font-bold tracking-widest">+12.4% SIGNAL</span>
                                     </div>
+                                    <div className="text-3xl font-bold text-white font-mono group-hover:text-accent transition-colors">
+                                        ${formatNumber(artist.monthlyListeners * 0.003 * 12 * 0.7)}
+                                    </div>
+                                    <p className="text-[9px] text-white/20 mt-2 font-mono uppercase tracking-tight">Based on standard streaming multiples (Net of distro fees)</p>
                                 </div>
 
-                                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 relative group">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-slate-500 text-xs font-bold uppercase">Projected Valuation (36mo)</span>
-                                            <div className="cursor-help text-slate-600 hover:text-white transition-colors">
-                                                <AlertTriangle className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        <span className="text-accent text-xs font-bold">High Confidence</span>
+                                <div className="group">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">PROJECTED VALUATION (3YR)</span>
+                                        <span className="text-accent text-[10px] font-bold tracking-widest text-glow-red">HIGH CONFIDENCE</span>
                                     </div>
-                                    <div className="text-2xl font-mono text-white font-bold p-1">
+                                    <div className="text-3xl font-bold text-white font-mono group-hover:text-accent transition-colors">
                                         ${formatNumber(artist.monthlyListeners * 2.5)}
                                     </div>
-                                    {/* TRANSPARENCY TOOLTIP */}
-                                    <div className="absolute top-full left-0 mt-2 w-full p-3 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none group-hover:pointer-events-auto">
-                                        <p className="text-[10px] text-slate-300 leading-relaxed font-mono">
-                                            <span className="text-accent font-bold">VALUATION MODEL:</span> derived from 5.5x revenue multiple applied to annualized streaming income (standard catalog acquisition multiple).
-                                        </p>
-                                    </div>
+                                    <p className="text-[9px] text-white/20 mt-2 font-mono uppercase tracking-tight">Standard IP catalog acquisition multiple (5.5x multiple applied)</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <div className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-4">Career Health</div>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-signal-green">
-                                    <span className="text-slate-300 text-sm font-bold">Catalog Ownership</span>
-                                    <span className="text-white font-mono text-sm">{artist.is_independent ? 'Independent (Est.)' : 'Label / Major'}</span>
-                                </div>
-                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-amber-500">
-                                    <span className="text-slate-300 text-sm font-bold">Touring Potential</span>
-                                    <span className="text-white font-mono text-sm">High Demand</span>
-                                </div>
-                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-signal-purple">
-                                    <span className="text-slate-300 text-sm font-bold">Brand Affinity</span>
-                                    <span className="text-white font-mono text-sm">Strong</span>
-                                </div>
-                                <div className="flex justify-between items-center p-3 bg-slate-950 rounded-lg border-l-4 border-accent">
-                                    <span className="text-slate-300 text-sm font-bold">Audience Retention</span>
-                                    <span className="text-white font-mono text-sm">High (&gt;90%)</span>
-                                </div>
-                            </div>
+                        {/* RIGHT: INSIGHTS */}
+                        <div className="space-y-8">
+                            <h3 className="text-xs font-black text-white/20 uppercase tracking-[0.5em] border-b border-white/5 pb-4">Analyst Insight</h3>
 
-                            <div className="mt-6 p-4 bg-accent/5 border border-accent/20 rounded-xl">
-                                <h4 className="text-accent text-sm font-black uppercase tracking-widest mb-2 flex items-center gap-2">
-                                    <Sparkles className="w-4 h-4" /> Analyst Insight
-                                </h4>
-                                <p className="text-slate-300 text-sm leading-relaxed">
-                                    Artist shows consistent cross-platform growth. High probability of breaking out in the next quarter based on current streaming velocity vs social engagement.
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-xl">
+                                <div className="flex items-center gap-2 text-accent mb-4">
+                                    <Sparkles className="w-4 h-4" />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Alpha Signals Detected</span>
+                                </div>
+                                <p className="text-white/70 text-sm leading-relaxed mb-6 font-medium">
+                                    Artist's streaming velocity significantly outpaces category peer growth. Social signals indicate a high-retention fan base with {artist.conversionScore.toFixed(1)}% conversion efficiency.
+                                    Recommend accumulation of catalog IP or immediate live tour routing.
                                 </p>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="bg-black/40 border border-white/5 rounded-xl p-3">
+                                        <div className="text-[9px] font-bold text-white/30 uppercase mb-1">Status</div>
+                                        <div className="text-xs font-bold text-white uppercase tracking-wider">{artist.status}</div>
+                                    </div>
+                                    <div className="bg-black/40 border border-white/5 rounded-xl p-3">
+                                        <div className="text-[9px] font-bold text-white/30 uppercase mb-1">Structure</div>
+                                        <div className="text-xs font-bold text-white uppercase tracking-wider">{artist.is_independent ? 'Independent' : 'Major Label'}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Footer Controls */}
-                <div className="p-6 border-t border-slate-800 bg-slate-950 flex justify-end gap-3">
-                    <button onClick={onClose} className="px-6 py-3 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-slate-900 transition-colors uppercase tracking-widest text-xs">
-                        Close File
-                    </button>
-                    <button className="px-6 py-3 rounded-xl font-bold bg-white text-black hover:bg-slate-200 transition-colors uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                        Export Full PDF
-                    </button>
+                {/* MODAL FOOTER */}
+                <div className="relative z-[100] p-6 border-t border-white/5 bg-black/50 backdrop-blur-3xl flex justify-between items-center">
+                    <div className="text-[9px] font-mono text-white/20 uppercase tracking-[0.2em] hidden md:block">
+                        SoundScout Data Terminal v2.0 // Artist Object {artist.id.slice(0, 8)}
+                    </div>
+                    <div className="flex gap-3 w-full md:w-auto">
+                        <button onClick={onClose} className="flex-1 md:flex-none px-8 py-3 rounded-full font-black text-[10px] text-white/40 hover:text-white uppercase tracking-widest transition-colors">
+                            Dismiss
+                        </button>
+                        <button className="flex-1 md:flex-none px-8 py-3 rounded-full font-black bg-white text-black hover:bg-white/90 text-[10px] uppercase tracking-widest shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all active:scale-95">
+                            Export Dossier
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -771,14 +795,17 @@ export default function App() {
                         ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
                     `}>
                         {/* HEADER */}
-                        <div className="p-6 pb-2">
-                            <div className="flex items-center gap-3 mb-8">
-                                <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,51,102,0.3)]">
-                                    <Radio className="text-white w-6 h-6" />
+                        <div className="p-8 pb-4">
+                            <div className="flex items-center gap-4 group cursor-pointer">
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-accent rounded-lg blur-lg opacity-40 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="w-12 h-12 bg-black border border-white/20 rounded-xl flex items-center justify-center relative z-10 overflow-hidden shadow-2xl">
+                                        <Radio className="text-accent w-7 h-7 animate-pulse" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent"></div>
+                                    </div>
                                 </div>
                                 <div>
-                                    <h1 className="text-xl font-black text-white tracking-widest uppercase leading-none">SoundScout</h1>
-                                    <div className="text-[10px] font-bold text-slate-500 tracking-[0.3em] uppercase mt-1">Global Music</div>
+                                    <h1 className="text-3xl font-black text-white tracking-tight uppercase leading-none">Sound<span className="text-accent">Scout</span></h1>
                                 </div>
                             </div>
                         </div>
@@ -1098,38 +1125,7 @@ export default function App() {
                                 />
                             ) : (
                                 <div className="space-y-8">
-                                    {/* STATS CARDS */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        {/* Card 1: Volume */}
-                                        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <Users className="w-5 h-5 text-slate-600" />
-                                                <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">Live</span>
-                                            </div>
-                                            <div className="text-3xl font-black text-white font-mono mb-1">2968.4M</div>
-                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Platform Volume</div>
-                                        </div>
 
-                                        {/* Card 2: Active */}
-                                        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <Zap className="w-5 h-5 text-slate-600" />
-                                                <span className="text-[9px] font-black text-purple-400 uppercase tracking-widest">+12</span>
-                                            </div>
-                                            <div className="text-3xl font-black text-white font-mono mb-1">150</div>
-                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Tracked</div>
-                                        </div>
-
-                                        {/* Card 3: Arbitrage */}
-                                        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <ArrowUpRight className="w-5 h-5 text-red-500" />
-                                                <span className="text-[9px] font-black text-red-500 uppercase tracking-widest">Alpha</span>
-                                            </div>
-                                            <div className="text-3xl font-black text-white font-mono mb-1">129</div>
-                                            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Arbitrage Signals</div>
-                                        </div>
-                                    </div>
 
                                     {/* DATA TABLE */}
                                     <div className="bg-[#0B0C10] border border-slate-800 rounded-2xl overflow-hidden">
@@ -1684,7 +1680,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
             <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full mb-6">
                     <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    <span className="text-accent font-mono text-xs uppercase tracking-widest">Proprietary Intelligence Engine</span>
+                    <span className="text-accent font-mono text-xs uppercase tracking-widest">Proprietary Data Engine</span>
                 </div>
                 <h1 className="text-5xl font-bold text-white mb-6">
                     The SoundScout Algorithm
@@ -1723,7 +1719,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                         <Globe className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-white">Multi-Source Intelligence</h2>
+                        <h2 className="text-2xl font-bold text-white">Multi-Source Data</h2>
                         <p className="text-slate-500 text-sm">Aggregated from the world's largest music platforms</p>
                     </div>
                 </div>
@@ -1917,7 +1913,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                 <div className="flex items-center justify-between pt-8 border-t border-slate-900">
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-signal-green animate-pulse" />
-                        <span className="text-slate-500 text-xs font-mono">LIVE • 4× DAILY UPDATES • POWERED BY PROPRIETARY ALGORITHM</span>
+                        <span className="text-slate-500 text-xs font-mono">LIVE • 4× DAILY UPDATES • PROPRIETARY ALGORITHM</span>
                     </div>
                     <span className="text-slate-600 text-sm">© 2026 SoundScout™ • All Rights Reserved</span>
                 </div>

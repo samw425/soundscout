@@ -53,12 +53,12 @@ export async function onRequest(context) {
             return num.toString();
         };
 
-        // Use main OG image (PNG works everywhere)
-        const ogImageUrl = 'https://soundscout.pages.dev/og-image.png';
+        // Use dynamic OG image for artists
+        const ogImageUrl = `https://soundscout.pages.dev/og/artist/${artistSlug}`;
 
         // Dynamic text content
         const dynamicTitle = `${artist.name} | SoundScout`;
-        const dynamicDescription = `🎵 ${artist.name} • Rank #${artist.rank} • ${formatNumber(artist.monthlyListeners)} Monthly Listeners • Power Score: ${artist.powerScore} • ${artist.status} • ${artist.genre} | Discover more on SoundScout - Global Music Intelligence`;
+        const dynamicDescription = `🎵 ${artist.name} • Rank #${artist.rank} • ${formatNumber(artist.monthlyListeners)} Monthly Listeners • Power Score: ${artist.powerScore} • ${artist.status} • ${artist.genre} | Discover more on SoundScout`;
 
         // Replace meta tags
         html = html.replace(

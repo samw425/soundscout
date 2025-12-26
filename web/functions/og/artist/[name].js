@@ -83,66 +83,69 @@ function generateArtistSVG(artist) {
     };
 
     const statusColor = statusColors[artist.status] || '#64748B';
+    const avatar = artist.avatar_url || 'https://soundscout.pages.dev/og-image.png';
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#0A0A0F"/>
-            <stop offset="100%" style="stop-color:#1A1A2E"/>
+        <linearGradient id="overlay" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#000000;stop-opacity:0.7"/>
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.95"/>
         </linearGradient>
-        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#FF3366"/>
-            <stop offset="100%" style="stop-color:#A855F7"/>
-        </linearGradient>
+        <clipPath id="avatarClip">
+            <rect x="0" y="0" width="1200" height="630" />
+        </clipPath>
     </defs>
     
-    <!-- Background -->
-    <rect width="1200" height="630" fill="url(#bgGrad)"/>
+    <!-- Background Image (Blurred) -->
+    <image href="${avatar}" x="-50" y="-50" width="1300" height="730" preserveAspectRatio="xMidYMid slice" opacity="0.4" style="filter: blur(40px);" />
     
-    <!-- Accent line -->
-    <rect x="0" y="0" width="1200" height="4" fill="url(#accentGrad)"/>
+    <!-- Overlay Gradient -->
+    <rect width="1200" height="630" fill="url(#overlay)"/>
     
-    <!-- SoundScout Logo Area -->
-    <text x="60" y="60" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#FF3366" letter-spacing="0.3em">SOUNDSCOUT</text>
-    <text x="220" y="60" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.2em">GLOBAL MUSIC</text>
+    <!-- Premium Branding Top Left -->
+    <text x="80" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="900" fill="#FFFFFF" letter-spacing="-0.02em">SOUND<tspan fill="#E50914">SCOUT</tspan></text>
     
-    <!-- Artist Avatar Circle -->
-    <circle cx="180" cy="315" r="120" fill="#1E1E2E" stroke="#334155" stroke-width="2"/>
-    <text x="180" y="330" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700" fill="#FF3366" text-anchor="middle">${artist.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}</text>
-    
-    <!-- Artist Name -->
-    <text x="340" y="260" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="#FFFFFF">${artist.name.toUpperCase()}</text>
-    
-    <!-- Genre & Country -->
-    <text x="340" y="310" font-family="Inter, Arial, sans-serif" font-size="20" fill="#94A3B8">${artist.genre.toUpperCase()} • ${artist.country}</text>
-    
-    <!-- Status Badge -->
-    <rect x="340" y="330" width="120" height="36" rx="18" fill="${statusColor}" opacity="0.2"/>
-    <text x="400" y="355" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="${statusColor}" text-anchor="middle">${artist.status.toUpperCase()}</text>
-    
-    <!-- Stats Row -->
-    <g transform="translate(340, 400)">
-        <!-- Monthly Listeners -->
-        <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.1em">MONTHLY LISTENERS</text>
-        <text x="0" y="35" font-family="JetBrains Mono, monospace" font-size="32" font-weight="700" fill="#FFFFFF">${formatNumber(artist.monthlyListeners)}</text>
+    <!-- Artist Card -->
+    <g transform="translate(80, 160)">
+        <!-- Avatar with Glow -->
+        <circle cx="150" cy="150" r="155" fill="#E50914" opacity="0.2" />
+        <clipPath id="circleClip">
+            <circle cx="150" cy="150" r="150" />
+        </clipPath>
+        <image href="${avatar}" x="0" y="0" width="300" height="300" preserveAspectRatio="xMidYMid slice" clip-path="url(#circleClip)" />
+        <circle cx="150" cy="150" r="150" fill="none" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="2" />
         
-        <!-- Power Score -->
-        <text x="250" y="0" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.1em">POWER SCORE</text>
-        <text x="250" y="35" font-family="JetBrains Mono, monospace" font-size="32" font-weight="700" fill="#FF3366">${artist.powerScore}</text>
-        
-        <!-- Growth -->
-        <text x="420" y="0" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.1em">GROWTH</text>
-        <text x="420" y="35" font-family="JetBrains Mono, monospace" font-size="32" font-weight="700" fill="#22C55E">+${artist.growthVelocity.toFixed(1)}%</text>
-        
-        <!-- Conversion -->
-        <text x="600" y="0" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.1em">CONVERSION</text>
-        <text x="600" y="35" font-family="JetBrains Mono, monospace" font-size="32" font-weight="700" fill="#FFFFFF">${artist.conversionScore.toFixed(1)}%</text>
+        <!-- Info -->
+        <g transform="translate(380, 40)">
+            <text font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">${artist.name.toUpperCase()}</text>
+            <text y="50" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="500" fill="#9CA3AF" letter-spacing="0.1em">${artist.genre.toUpperCase()} • ${artist.country.toUpperCase()}</text>
+            
+            <g transform="translate(0, 100)">
+                <rect width="180" height="40" rx="20" fill="${statusColor}" opacity="0.15" />
+                <text x="90" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="${statusColor}" text-anchor="middle">${artist.status.toUpperCase()}</text>
+                
+                <text x="220" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#FFFFFF" opacity="0.8">RANK #${artist.rank}</text>
+            </g>
+            
+            <!-- Key Performance Indicators -->
+            <g transform="translate(0, 170)">
+                <g>
+                    <text font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#6B7280" letter-spacing="0.1em">MONTHLY LISTENERS</text>
+                    <text y="40" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">${formatNumber(artist.monthlyListeners)}</text>
+                </g>
+                <g transform="translate(250, 0)">
+                    <text font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#6B7280" letter-spacing="0.1em">POWER SCORE</text>
+                    <text y="40" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="800" fill="#E50914">${artist.powerScore}</text>
+                </g>
+                <g transform="translate(480, 0)">
+                    <text font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#6B7280" letter-spacing="0.1em">GROWTH</text>
+                    <text y="40" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="800" fill="#10B981">+${artist.growthVelocity.toFixed(1)}%</text>
+                </g>
+            </g>
+        </g>
     </g>
     
-    <!-- Bottom Bar -->
-    <rect x="0" y="580" width="1200" height="50" fill="#0D0D12"/>
-    <text x="60" y="612" font-family="Inter, Arial, sans-serif" font-size="14" fill="#64748B">soundscout.pages.dev</text>
-    <text x="1140" y="612" font-family="Inter, Arial, sans-serif" font-size="14" fill="#64748B" text-anchor="end">Rank #${artist.rank} Globally</text>
+    <!-- No Footer Tagline -->
 </svg>`;
 }

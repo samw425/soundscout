@@ -121,7 +121,6 @@ function generateArtistSVG(artist) {
     
     <!-- Footer -->
     <rect x="0" y="580" width="1200" height="50" fill="#0A0A0A"/>
-    <text x="60" y="610" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#444">soundscout.pages.dev</text>
-    <text x="1140" y="610" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#444" text-anchor="end">Global Music Intelligence</text>
+    <text x="1140" y="610" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#444" text-anchor="end">soundscout.app</text>
 </svg>`;
 }
