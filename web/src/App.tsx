@@ -720,6 +720,11 @@ export default function App() {
                     }
                 }
             }
+
+            // Handle /oldschool deep link
+            if (path === '/oldschool' || path === '/oldschool/') {
+                setActiveTab('old-school');
+            }
         };
 
         checkDeepLink();
@@ -920,7 +925,7 @@ export default function App() {
 
                                     {/* OLD SCHOOL TAB */}
                                     <button
-                                        onClick={() => { setActiveTab('old-school'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
+                                        onClick={() => { setActiveTab('old-school'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/oldschool'); }}
                                         className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all
                                             ${activeTab === 'old-school' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
