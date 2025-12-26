@@ -1453,7 +1453,7 @@ const ShareModal = ({
     const url = `https://soundscout.pages.dev/artist/${slug}`;
 
     // Universal Share Copy
-    const text = `Listen to ${artist.name} on SoundScout.`;
+    const text = `Check out ${artist.name} on SoundScout.`;
 
     // Explicit Share Intents
     const shareLinks = [

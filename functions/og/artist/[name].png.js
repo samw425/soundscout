@@ -18,11 +18,52 @@ export async function onRequest(context) {
 }
 
 async function generateArtistOGImage(artistName, env) {
-    // FALLBACK: Social platforms (Twitter/X, iMessage) generally do NOT support SVG media cards.
-    // Since we cannot rasterize to PNG on the edge easily without WASM, we will redirect 
-    // to the high-quality static branding image to ensure the logo/brand ALWAYS appears.
-    // This solves the user's issue of "logo not showing up".
-    return Response.redirect('https://soundscout.pages.dev/og-image.png?v=human-1', 302);
+    // Fetch rankings data to get artist info
+    // Use the PUBLIC/Production URL to ensure we get the built JSON
+    const rankingsUrl = 'https://soundscout.pages.dev/rankings.json';
+
+    try {
+        const response = await fetch(rankingsUrl);
+        if (!response.ok) {
+            console.error('Failed to fetch rankings', response.status);
+            return Response.redirect('https://soundscout.pages.dev/og-image.png', 302);
+        }
+        const data = await response.json();
+
+        // Search for artist across all categories
+        let artist = null;
+        for (const category of Object.values(data.rankings)) {
+            // Robust matching: Exact name OR Name with spaces
+            const found = category.find(a =>
+                a.name.toLowerCase() === artistName.toLowerCase() ||
+                a.name.toLowerCase().replace(/\s+/g, '-') === artistName.toLowerCase().replace(/\s+/g, '-')
+            );
+            if (found) {
+                artist = found;
+                break;
+            }
+        }
+
+        if (!artist) {
+            console.log(`Artist not found for OG generation: ${artistName}`);
+            // Return default OG image if artist not found
+            return Response.redirect('https://soundscout.pages.dev/og-image.png', 302);
+        }
+
+        // Generate SVG-based OG image (1200x630)
+        const svg = generateArtistSVG(artist);
+
+        return new Response(svg, {
+            headers: {
+                'Content-Type': 'image/svg+xml',
+                'Cache-Control': 'public, max-age=3600',
+            }
+        });
+
+    } catch (error) {
+        console.error('Error generating OG image:', error);
+        return Response.redirect('https://soundscout.pages.dev/og-image.png', 302);
+    }
 }
 
 function generateArtistSVG(artist) {
