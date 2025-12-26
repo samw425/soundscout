@@ -594,7 +594,7 @@ export default function App() {
 
     // User tier (for monetization - can lock down to Pro later once we get traction)
     const userTier = 'free'; // 'free', 'pro', 'enterprise'
-    const freeLimit = 150; // ALL 150 artists visible for free during launch
+    const freeLimit = 5000; // Show ALL artists for launch
 
     // SEAMLESS NAVIGATION: Helper to select artist and close all modals
     const handleSelectArtist = (artist: PowerIndexArtist | null) => {
