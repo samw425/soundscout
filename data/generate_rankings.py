@@ -406,76 +406,96 @@ def get_genre(artist_name: str) -> str:
 
 
 # ============================================================================
-# OFFICIAL ARTIST ASSETS (TOP TIER)
+# ARTIST IMAGE FETCHING (ITUNES API - FREE & RELIABLE)
 # ============================================================================
-# High-resolution verified assets for the Global Top 100
 
-ARTIST_ASSETS = {
-    'the weeknd': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb214f3cfaf3be49109783777d',
-        'ig': 'theweeknd', 'tt': 'theweeknd', 'yt': 'https://www.youtube.com/@TheWeeknd'
-    },
-    'bad bunny': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb9bb6b51031a539da6b13f1fc',
-        'ig': 'badbunnypr', 'tt': 'badbunny', 'yt': 'https://www.youtube.com/@BadBunnyPR'
-    },
-    'taylor swift': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb859e94301919143714300e0b',
-        'ig': 'taylorswift', 'tt': 'taylorswift', 'yt': 'https://www.youtube.com/@TaylorSwift'
-    },
-    'drake': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb429440632837111166666666', # Fallback
-        'ig': 'champagnepapi', 'tt': 'drake', 'yt': 'https://www.youtube.com/@DrakeOfficial'
-    },
-    'ariana grande': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5ebcd8545931818181818181818',
-        'ig': 'arianagrande', 'tt': 'arianagrande', 'yt': 'https://www.youtube.com/@ArianaGrande'
-    },
-    'rihanna': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb825318181818181818181818',
-        'ig': 'badgalriri', 'tt': 'rihanna', 'yt': 'https://www.youtube.com/@Rihanna'
-    },
-    'justin bieber': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb8ae039955555555555555555',
-        'ig': 'justinbieber', 'tt': 'justinbieber', 'yt': 'https://www.youtube.com/@JustinBieber'
-    },
-    'dua lipa': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5ebf86994344444444444444444',
-        'ig': 'dualipa', 'tt': 'dualipa', 'yt': 'https://www.youtube.com/@DuaLipa'
-    },
-    'ed sheeran': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb128181818181818181818181',
-        'ig': 'teddysphotos', 'tt': 'edsheeran', 'yt': 'https://www.youtube.com/@EdSheeran'
-    },
-    'post malone': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb981818181818181818181818',
-        'ig': 'postmalone', 'tt': 'postmalone', 'yt': 'https://www.youtube.com/@PostMalone'
-    },
-    'billie eilish': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5ebb6b181818181818181818181',
-        'ig': 'billieeilish', 'tt': 'billieeilish', 'yt': 'https://www.youtube.com/@BillieEilish'
-    },
-    'kendrick lamar': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5ebcdb181818181818181818181',
-        'ig': 'kendricklamar', 'tt': 'kendricklamar', 'yt': 'https://www.youtube.com/@KendrickLamar'
-    },
-    'travis scott': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb181818181818181818181818',
-        'ig': 'travisscott', 'tt': 'travisscott', 'yt': 'https://www.youtube.com/@TravisScottOfficial'
-    },
-    'sza': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb181818181818181818181818',
-        'ig': 'sza', 'tt': 'sza', 'yt': 'https://www.youtube.com/@SZA'
-    },
-    'future': {
-        'avatar': 'https://i.scdn.co/image/ab6761610000e5eb181818181818181818181818',
-        'ig': 'future', 'tt': 'future', 'yt': 'https://www.youtube.com/@Future'
-    },
+# Cache for iTunes lookups to avoid rate limiting
+_itunes_cache = {}
+
+def fetch_artist_image_from_itunes(artist_name: str) -> Optional[str]:
+    """
+    Fetch artist image from iTunes API (free, no auth required).
+    Returns high-resolution artwork URL or None.
+    """
+    if artist_name.lower() in _itunes_cache:
+        return _itunes_cache[artist_name.lower()]
+    
+    try:
+        # Search iTunes for artist
+        search_url = f"https://itunes.apple.com/search?term={requests.utils.quote(artist_name)}&entity=musicArtist&limit=1"
+        response = requests.get(search_url, timeout=5)
+        
+        if response.status_code == 200:
+            data = response.json()
+            if data.get('resultCount', 0) > 0:
+                # Try to get artist artwork (not all have it)
+                result = data['results'][0]
+                
+                # Search for their top album to get actual artwork
+                artist_id = result.get('artistId')
+                if artist_id:
+                    album_url = f"https://itunes.apple.com/lookup?id={artist_id}&entity=album&limit=1"
+                    album_response = requests.get(album_url, timeout=5)
+                    if album_response.status_code == 200:
+                        album_data = album_response.json()
+                        for item in album_data.get('results', []):
+                            if item.get('wrapperType') == 'collection':
+                                artwork = item.get('artworkUrl100', '')
+                                if artwork:
+                                    # Get higher resolution (600x600)
+                                    high_res = artwork.replace('100x100', '600x600')
+                                    _itunes_cache[artist_name.lower()] = high_res
+                                    return high_res
+        
+        _itunes_cache[artist_name.lower()] = None
+        return None
+    except Exception:
+        _itunes_cache[artist_name.lower()] = None
+        return None
+
+
+# VERIFIED SOCIAL HANDLES FOR TOP ARTISTS (Social handles are stable, images are fetched dynamically)
+ARTIST_SOCIAL_HANDLES = {
+    'the weeknd': {'ig': 'theweeknd', 'tt': 'theweeknd', 'yt': 'https://www.youtube.com/@TheWeeknd'},
+    'bad bunny': {'ig': 'badbunnypr', 'tt': 'badbunny', 'yt': 'https://www.youtube.com/@BadBunnyPR'},
+    'taylor swift': {'ig': 'taylorswift', 'tt': 'taylorswift', 'yt': 'https://www.youtube.com/@TaylorSwift'},
+    'drake': {'ig': 'champagnepapi', 'tt': 'drake', 'yt': 'https://www.youtube.com/@DrakeOfficial'},
+    'ariana grande': {'ig': 'arianagrande', 'tt': 'arianagrande', 'yt': 'https://www.youtube.com/@ArianaGrande'},
+    'rihanna': {'ig': 'badgalriri', 'tt': 'rihanna', 'yt': 'https://www.youtube.com/@Rihanna'},
+    'justin bieber': {'ig': 'justinbieber', 'tt': 'justinbieber', 'yt': 'https://www.youtube.com/@JustinBieber'},
+    'dua lipa': {'ig': 'dualipa', 'tt': 'dualipa', 'yt': 'https://www.youtube.com/@DuaLipa'},
+    'ed sheeran': {'ig': 'teddysphotos', 'tt': 'edsheeran', 'yt': 'https://www.youtube.com/@EdSheeran'},
+    'post malone': {'ig': 'postmalone', 'tt': 'postmalone', 'yt': 'https://www.youtube.com/@PostMalone'},
+    'billie eilish': {'ig': 'billieeilish', 'tt': 'billieeilish', 'yt': 'https://www.youtube.com/@BillieEilish'},
+    'kendrick lamar': {'ig': 'kendricklamar', 'tt': 'kendricklamar', 'yt': 'https://www.youtube.com/@KendrickLamar'},
+    'travis scott': {'ig': 'travisscott', 'tt': 'travisscott', 'yt': 'https://www.youtube.com/@TravisScottOfficial'},
+    'sza': {'ig': 'sza', 'tt': 'sza', 'yt': 'https://www.youtube.com/@SZA'},
+    'future': {'ig': 'future', 'tt': 'future', 'yt': 'https://www.youtube.com/@Future'},
+    'morgan wallen': {'ig': 'morganwallen', 'tt': 'morganwallen', 'yt': 'https://www.youtube.com/@MorganWallen'},
+    'karol g': {'ig': 'karolg', 'tt': 'karolg', 'yt': 'https://www.youtube.com/@KarolG'},
+    'peso pluma': {'ig': 'pesopluma', 'tt': 'pesopluma', 'yt': 'https://www.youtube.com/@PesoPluma'},
+    'feid': {'ig': 'fikiefeid', 'tt': 'feid', 'yt': 'https://www.youtube.com/@Feid'},
+    'bruno mars': {'ig': 'brunomars', 'tt': 'brunomars', 'yt': 'https://www.youtube.com/@BrunoMars'},
+    'coldplay': {'ig': 'coldplay', 'tt': 'coldplay', 'yt': 'https://www.youtube.com/@Coldplay'},
+    'eminem': {'ig': 'eminem', 'tt': 'eminem', 'yt': 'https://www.youtube.com/@Eminem'},
+    'shakira': {'ig': 'shakira', 'tt': 'shakira', 'yt': 'https://www.youtube.com/@Shakira'},
+    'olivia rodrigo': {'ig': 'oliviarodrigo', 'tt': 'livbedumb', 'yt': 'https://www.youtube.com/@OliviaRodrigo'},
+    'bts': {'ig': 'bts.bighitofficial', 'tt': 'bts_official_bighit', 'yt': 'https://www.youtube.com/@BANGTANTV'},
+    'blackpink': {'ig': 'blackpinkofficial', 'tt': 'blackpinkofficial', 'yt': 'https://www.youtube.com/@BLACKPINK'},
+    'lana del rey': {'ig': 'lanadelrey', 'tt': 'lanadelrey', 'yt': 'https://www.youtube.com/@LanaDelRey'},
+    'j balvin': {'ig': 'jbalvin', 'tt': 'jbalvin', 'yt': 'https://www.youtube.com/@JBALVIN'},
+    'imagine dragons': {'ig': 'imaginedragons', 'tt': 'imaginedragons', 'yt': 'https://www.youtube.com/@ImagineDragons'},
+    'miley cyrus': {'ig': 'mileycyrus', 'tt': 'mileycyrus', 'yt': 'https://www.youtube.com/@MileyCyrus'},
+    'harry styles': {'ig': 'harrystyles', 'tt': 'harrystyles', 'yt': 'https://www.youtube.com/@HarryStyles'},
+    'doja cat': {'ig': 'dojacat', 'tt': 'dojacat', 'yt': 'https://www.youtube.com/@DojaCat'},
+    'nicki minaj': {'ig': 'nickiminaj', 'tt': 'nickiminaj', 'yt': 'https://www.youtube.com/@NickiMinajAtVEVO'},
+    'cardi b': {'ig': 'iamcardib', 'tt': 'iamcardib', 'yt': 'https://www.youtube.com/@CardiBVEVO'},
+    'megan thee stallion': {'ig': 'theestallion', 'tt': 'theestallion', 'yt': 'https://www.youtube.com/@MeganTheeStallion'},
 }
 
 def get_artist_assets(name: str) -> Dict:
-    """Retrieve hardcoded assets for top artists"""
-    return ARTIST_ASSETS.get(name.lower(), {})
+    """Retrieve social handles for artists"""
+    return ARTIST_SOCIAL_HANDLES.get(name.lower(), {})
 
 def is_major_label(artist_name: str, streams: float) -> bool:
     """Determine if artist is likely major label"""
@@ -968,11 +988,18 @@ def generate_complete_rankings():
         # Priority: Hardcoded Assets > Logic > Defaults
         is_high_profile = monthly_listeners > 5_000_000
         
-        # VISUAL IDENTITY SYSTEM (NEXA STANDARD)
-        # 1. Official Asset (if Top Tier)
-        # 2. Aesthetic Fallback (Deterministic based on name hash)
+        # VISUAL IDENTITY SYSTEM - REAL ARTIST IMAGES
+        # Priority order:
+        # 1. iTunes API (real album artwork - most reliable)
+        # 2. Aesthetic fallback (if iTunes fails)
         
-        final_avatar = assets.get('avatar')
+        # Try iTunes API for real artist image (top 500 artists only to avoid rate limits)
+        final_avatar = None
+        if i < 500:  # Only fetch for top 500 to be respectful of iTunes API
+            final_avatar = fetch_artist_image_from_itunes(name)
+            if final_avatar:
+                print(f"         ✓ Got iTunes image for: {name}") if i < 10 else None
+        
         if not final_avatar:
             # Deterministic fallback pool (Neon/Dark/Cyber aesthetics)
             FALLBACK_POOL = [

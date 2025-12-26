@@ -105,7 +105,7 @@ function generateArtistSVG(artist) {
     
     <!-- SoundScout Logo Area -->
     <text x="60" y="60" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#FF3366" letter-spacing="0.3em">SOUNDSCOUT</text>
-    <text x="220" y="60" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.2em">GLOBAL MUSIC INTELLIGENCE</text>
+    <text x="220" y="60" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.2em">GLOBAL MUSIC</text>
     
     <!-- Artist Avatar Circle -->
     <circle cx="180" cy="315" r="120" fill="#1E1E2E" stroke="#334155" stroke-width="2"/>

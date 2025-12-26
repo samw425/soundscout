@@ -77,100 +77,32 @@ type TabType = 'power-index' | 'sonic-signals' | 'locked-roster' | 'up-and-comer
 // ONBOARDING COMPONENT
 // ============================================================================
 
-function OnboardingModal({ onComplete }: { onComplete: () => void }) {
-    const [step, setStep] = useState(0);
-
-    const steps = [
-        {
-            icon: <Radio className="w-12 h-12 text-accent" />,
-            title: "Welcome to SoundScout",
-            subtitle: "The Music Industry Operating System",
-            description: "Discover the next big artist before anyone else. Our proprietary algorithm scans millions of data points daily to identify emerging talent.",
-        },
-        {
-            icon: <Target className="w-12 h-12 text-signal-green" />,
-            title: "Find Arbitrage Opportunities",
-            subtitle: "The Secret Sauce",
-            description: "We identify artists with HIGH social buzz but LOW streaming numbers. These are tomorrow's superstars — the ones labels are fighting to sign.",
-        },
-        {
-            icon: <BarChart3 className="w-12 h-12 text-signal-purple" />,
-            title: "Proprietary Power Score",
-            subtitle: "Multi-Source Algorithm",
-            description: "Our Power Score combines Spotify, Billboard, Apple Music, YouTube, TikTok, and Instagram data into one definitive ranking. Updated daily.",
-        },
-        {
-            icon: <Crown className="w-12 h-12 text-yellow-500" />,
-            title: "Premium Features",
-            subtitle: "Unlock Full Intelligence",
-            description: "Free users see Top 50. Premium unlocks Top 150 in all categories, real-time alerts, export tools, and API access.",
-        },
-    ];
-
-    const currentStep = steps[step];
-
+function WelcomeBanner({ onDismiss }: { onDismiss: () => void }) {
     return (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-            <div className="bg-card border border-slate-800 rounded-2xl max-w-lg w-full p-8 animate-slide-up">
-                {/* Progress dots */}
-                <div className="flex justify-center gap-2 mb-8">
-                    {steps.map((_, i) => (
-                        <div
-                            key={i}
-                            className={`w-2 h-2 rounded-full transition-all ${i === step ? 'bg-accent w-6' : 'bg-slate-700'
-                                }`}
-                        />
-                    ))}
-                </div>
-
-                {/* Content */}
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-6">
-                        {currentStep.icon}
+        <div className="bg-gradient-to-r from-accent/10 via-slate-900/50 to-accent/10 border-b border-accent/20 px-4 py-3">
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-4">
+                    <div className="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-4 h-4 text-accent" />
                     </div>
-                    <h2 className="text-2xl font-bold text-white mb-2">{currentStep.title}</h2>
-                    <p className="text-accent text-sm font-semibold uppercase tracking-wider mb-4">
-                        {currentStep.subtitle}
-                    </p>
-                    <p className="text-slate-400 leading-relaxed">
-                        {currentStep.description}
-                    </p>
+                    <div className="text-center sm:text-left">
+                        <span className="text-white font-bold text-sm">Welcome to SoundScout!</span>
+                        <span className="text-slate-400 text-sm ml-2 hidden md:inline">
+                            Click any artist to view their full profile • Use search to find specific artists • Filter by genre or structure
+                        </span>
+                        <span className="text-slate-400 text-xs block sm:hidden mt-0.5">
+                            Tap any artist to explore
+                        </span>
+                    </div>
                 </div>
-
-                {/* Actions */}
-                <div className="flex gap-3">
-                    {step > 0 && (
-                        <button
-                            onClick={() => setStep(step - 1)}
-                            className="btn-secondary flex-1"
-                        >
-                            Back
-                        </button>
-                    )}
-                    {step < steps.length - 1 ? (
-                        <button
-                            onClick={() => setStep(step + 1)}
-                            className="btn-primary flex-1"
-                        >
-                            Next
-                        </button>
-                    ) : (
-                        <button
-                            onClick={onComplete}
-                            className="btn-primary flex-1"
-                        >
-                            Start Scouting
-                        </button>
-                    )}
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={onDismiss}
+                        className="text-xs text-slate-500 hover:text-white transition-colors font-bold uppercase tracking-wider"
+                    >
+                        Got it
+                    </button>
                 </div>
-
-                {/* Skip */}
-                <button
-                    onClick={onComplete}
-                    className="w-full text-center text-slate-500 text-sm mt-4 hover:text-white transition-colors"
-                >
-                    Skip intro
-                </button>
             </div>
         </div>
     );
@@ -810,9 +742,6 @@ export default function App() {
 
     return (
         <>
-            {/* Onboarding Modal */}
-            {showOnboarding && <OnboardingModal onComplete={completeOnboarding} />}
-
             {/* Upgrade Modal */}
             {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} feature={upgradeFeature} />}
 
@@ -823,6 +752,9 @@ export default function App() {
             {showDossier && selectedArtist && <DossierModal artist={selectedArtist} onClose={() => setShowDossier(false)} />}
 
             <div className="min-h-screen bg-terminal text-slate-300 font-sans selection:bg-accent/30 selection:text-white overflow-x-hidden">
+
+                {/* Welcome Banner - Non-blocking onboarding */}
+                {showOnboarding && <WelcomeBanner onDismiss={completeOnboarding} />}
 
                 {/* Background Glows */}
                 <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
@@ -846,7 +778,7 @@ export default function App() {
                                 </div>
                                 <div>
                                     <h1 className="text-xl font-black text-white tracking-widest uppercase leading-none">SoundScout</h1>
-                                    <div className="text-[10px] font-bold text-slate-500 tracking-[0.3em] uppercase mt-1">Global Music Intelligence</div>
+                                    <div className="text-[10px] font-bold text-slate-500 tracking-[0.3em] uppercase mt-1">Global Music</div>
                                 </div>
                             </div>
                         </div>
@@ -1225,14 +1157,14 @@ export default function App() {
                                                         </td>
                                                     </tr>
                                                 ) : filteredArtists.map((artist) => (
-                                                    <tr key={artist.id} onClick={() => handleSelectArtist(artist)} className="group hover:bg-white/[0.02] transition-colors cursor-pointer text-xs">
+                                                    <tr key={artist.id} onClick={() => handleSelectArtist(artist)} className="row-cinematic group hover:bg-white/[0.02] transition-colors cursor-pointer text-xs">
                                                         <td className="px-6 py-4 font-mono text-slate-600 font-bold">{padRank(artist.rank)}</td>
                                                         <td className="px-6 py-4">
                                                             <div className="flex items-center gap-4">
                                                                 <div
                                                                     onClick={(e) => { e.stopPropagation(); openYouTube(artist); }}
                                                                     title="Watch on YouTube"
-                                                                    className="w-10 h-10 rounded-full bg-slate-800 overflow-hidden relative cursor-pointer hover:ring-2 hover:ring-accent hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all"
+                                                                    className={`status-ring status-ring-${artist.status.toLowerCase()} w-10 h-10 rounded-full bg-slate-800 overflow-hidden relative cursor-pointer hover:ring-2 hover:ring-accent hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all`}
                                                                 >
                                                                     {/* Hover Play Button Overlay */}
                                                                     <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center z-10 transition-all">
