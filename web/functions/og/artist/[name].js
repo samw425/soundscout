@@ -106,7 +106,7 @@ function generateArtistSVG(artist) {
     <!-- Premium Branding Top Left -->
     <text x="80" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="900" fill="#FFFFFF" letter-spacing="-0.02em">SOUND<tspan fill="#E50914" font-weight="300">SCOUT</tspan></text>
     <rect x="80" y="98" width="50" height="2" fill="#E50914" />
-    <text x="145" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#6B7280" letter-spacing="0.4em">ALPHA</text>
+    <text x="145" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#6B7280" letter-spacing="0.4em">DISCOVERY</text>
     
     <!-- Artist Card -->
     <g transform="translate(80, 160)">

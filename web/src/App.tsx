@@ -810,7 +810,7 @@ export default function App() {
                                 </div>
                                 <div className="pl-11">
                                     <div className="text-[9px] font-mono text-slate-500 tracking-[0.4em] uppercase opacity-60">
-                                        Artist Discovery • Alpha
+                                        Artist Discovery Platform
                                     </div>
                                 </div>
                             </div>
