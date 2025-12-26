@@ -71,6 +71,19 @@ const getStatusBadge = (status: PowerIndexArtist['status']) => {
     return map[status] || status;
 };
 
+// Flexible genre matching for New Releases filter
+const matchesGenre = (releaseGenre: string | undefined, filterGenre: string): boolean => {
+    if (filterGenre === 'ALL') return true;
+    if (!releaseGenre) return false;
+
+    const release = releaseGenre.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const filter = filterGenre.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+    // Check if release genre contains the filter terms
+    // e.g., "HIPHOPRAP" includes "HIPHOP" or "RAP"
+    return release.includes(filter) || filter.includes(release.slice(0, 4));
+};
+
 // Extend the imported PowerIndexArtist type with new properties
 declare module './lib/supabase' {
     interface PowerIndexArtist {
@@ -610,9 +623,7 @@ export default function App() {
 
     // NEW RELEASES: Latest music from all artists
     const [newReleases, setNewReleases] = useState<any[]>([]);
-    const [comingSoon, setComingSoon] = useState<any[]>([]);
     const [newReleasesLoading, setNewReleasesLoading] = useState(false);
-    const [releaseType, setReleaseType] = useState<'out-now' | 'coming-soon'>('out-now');
 
     // User tier (for monetization - can lock down to Pro later once we get traction)
     const userTier = 'free'; // 'free', 'pro', 'enterprise'
@@ -688,19 +699,22 @@ export default function App() {
         if (activeTab === 'new-releases' && newReleases.length === 0) {
             setNewReleasesLoading(true);
 
-            // Fetch MULTIPLE iTunes feeds for comprehensive coverage
-            // Get as many releases as possible from different regions
+            // Fetch MULTIPLE iTunes feeds including genre-specific for comprehensive coverage
+            // Genre IDs: Hip-Hop=18, R&B=15, Country=6, Rock=21, Latin=12, Alternative=20, Electronic=7, Pop=14
             Promise.all([
                 fetch('https://itunes.apple.com/us/rss/topalbums/limit=200/json').then(r => r.json()).catch(() => null),
-                fetch('https://itunes.apple.com/gb/rss/topalbums/limit=100/json').then(r => r.json()).catch(() => null),
-                fetch('https://itunes.apple.com/us/rss/topsongs/limit=100/json').then(r => r.json()).catch(() => null)
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=18/json').then(r => r.json()).catch(() => null), // Hip-Hop
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=15/json').then(r => r.json()).catch(() => null), // R&B
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=6/json').then(r => r.json()).catch(() => null),  // Country
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=21/json').then(r => r.json()).catch(() => null), // Rock
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=12/json').then(r => r.json()).catch(() => null), // Latin
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=20/json').then(r => r.json()).catch(() => null), // Alternative
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=7/json').then(r => r.json()).catch(() => null),  // Electronic
+                fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/genre=14/json').then(r => r.json()).catch(() => null), // Pop
             ])
-                .then(([usAlbums, ukAlbums, topSongs]) => {
-                    const today = new Date();
-                    const ninetyDaysAhead = new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000);
-
+                .then((results) => {
                     // Parse releases helper
-                    const parseReleases = (data: any, isTrack: boolean = false) => {
+                    const parseReleases = (data: any) => {
                         return data?.feed?.entry?.map((item: any, index: number) => {
                             const releaseDateStr = item['im:releaseDate']?.label || '';
                             const releaseDate = releaseDateStr ? new Date(releaseDateStr) : null;
@@ -714,20 +728,15 @@ export default function App() {
                                 releaseDate: item['im:releaseDate']?.attributes?.label || 'New Release',
                                 releaseDateRaw: releaseDate,
                                 genre: item.category?.attributes?.label || 'Music',
-                                link: item.link?.attributes?.href || '#',
-                                isTrack: isTrack
+                                link: item.link?.attributes?.href || '#'
                             };
                         }) || [];
                     };
 
                     // Combine all releases from all feeds
-                    const allReleases = [
-                        ...parseReleases(usAlbums),
-                        ...parseReleases(ukAlbums),
-                        ...parseReleases(topSongs, true)
-                    ];
+                    const allReleases = results.flatMap(data => parseReleases(data));
 
-                    // Deduplicate by album/song name + artist
+                    // Deduplicate by album name + artist
                     const seen = new Set<string>();
                     const deduped = allReleases.filter(r => {
                         const key = `${r.name.toLowerCase()}-${r.artist.toLowerCase()}`;
@@ -736,29 +745,16 @@ export default function App() {
                         return true;
                     });
 
-                    // RECENTLY RELEASED: Include all (no strict date filter to get more results)
-                    // Sort by release date, newest first
-                    const outNowReleases = deduped
-                        .filter(r => {
-                            // Exclude future releases
-                            if (r.releaseDateRaw && r.releaseDateRaw > today) return false;
-                            return true;
-                        })
-                        .sort((a, b) => {
-                            if (!a.releaseDateRaw) return -1;
-                            if (!b.releaseDateRaw) return 1;
-                            return b.releaseDateRaw.getTime() - a.releaseDateRaw.getTime();
-                        });
+                    // Sort by release date, newest first (no date filtering - show all)
+                    const sortedReleases = deduped.sort((a, b) => {
+                        if (!a.releaseDateRaw) return 1;
+                        if (!b.releaseDateRaw) return -1;
+                        return b.releaseDateRaw.getTime() - a.releaseDateRaw.getTime();
+                    });
 
-                    // UPCOMING: Future releases
-                    const upcomingReleases = deduped
-                        .filter(r => r.releaseDateRaw && r.releaseDateRaw > today && r.releaseDateRaw <= ninetyDaysAhead)
-                        .sort((a, b) => a.releaseDateRaw!.getTime() - b.releaseDateRaw!.getTime());
+                    console.log(`New Releases loaded: ${sortedReleases.length} total from ${results.filter(r => r).length} feeds`);
 
-                    console.log(`New Releases: ${outNowReleases.length} recent, ${upcomingReleases.length} upcoming`);
-
-                    setNewReleases(outNowReleases);
-                    setComingSoon(upcomingReleases);
+                    setNewReleases(sortedReleases);
                     setNewReleasesLoading(false);
                 })
                 .catch(err => {
@@ -1431,35 +1427,15 @@ export default function App() {
                                                 </div>
                                             </h2>
                                             <p className="text-slate-500 text-sm">
-                                                {releaseType === 'out-now'
-                                                    ? 'Fresh releases from the last 30 days. Free listening via YouTube & Spotify.'
-                                                    : 'Upcoming albums dropping soon. Get ready for the next wave.'}
+                                                The hottest albums dropping now. Free listening via YouTube & Spotify.
                                             </p>
                                         </div>
                                         <div className="text-xs text-accent/60 font-mono">
-                                            {(releaseType === 'out-now' ? newReleases : comingSoon).filter(r => selectedGenre === 'ALL' || r.genre?.toUpperCase().includes(selectedGenre.replace('/', ''))).slice(0, 150).length} RELEASES
+                                            {newReleases.filter(r => matchesGenre(r.genre, selectedGenre)).slice(0, 150).length} RELEASES
                                         </div>
                                     </div>
 
-                                    {/* OUT NOW / COMING SOON TOGGLE */}
-                                    <div className="flex items-center gap-4 flex-wrap">
-                                        <div className="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-800">
-                                            <button
-                                                onClick={() => setReleaseType('out-now')}
-                                                className={`px-4 py-2 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${releaseType === 'out-now' ? 'text-black bg-white shadow-sm' : 'text-slate-500 hover:text-white'}`}
-                                            >
-                                                🔥 Out Now
-                                            </button>
-                                            <button
-                                                onClick={() => setReleaseType('coming-soon')}
-                                                className={`px-4 py-2 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${releaseType === 'coming-soon' ? 'text-black bg-white shadow-sm' : 'text-slate-500 hover:text-white'}`}
-                                            >
-                                                🚀 Coming Soon
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* GENRE FILTER TABS - Like Power Index */}
+                                    {/* GENRE FILTER TABS */}
                                     <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
                                         {['ALL', 'POP', 'HIP-HOP/RAP', 'R&B/SOUL', 'COUNTRY', 'ROCK', 'LATIN', 'ALTERNATIVE', 'ELECTRONIC'].map((genre) => (
                                             <button
@@ -1481,19 +1457,17 @@ export default function App() {
                                             <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
                                             <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Loading new releases...</div>
                                         </div>
-                                    ) : (releaseType === 'out-now' ? newReleases : comingSoon).length === 0 ? (
+                                    ) : newReleases.filter(r => matchesGenre(r.genre, selectedGenre)).length === 0 ? (
                                         <div className="text-center py-20 border border-dashed border-slate-800 rounded-xl">
                                             <Disc className="w-12 h-12 mx-auto text-slate-700 mb-4" />
                                             <div className="text-slate-500 uppercase tracking-widest text-xs font-bold">
-                                                {releaseType === 'coming-soon'
-                                                    ? 'No upcoming releases found at the moment'
-                                                    : 'No releases found'}
+                                                No releases found in this category
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                            {(releaseType === 'out-now' ? newReleases : comingSoon)
-                                                .filter(release => selectedGenre === 'ALL' || release.genre?.toUpperCase().includes(selectedGenre.replace('/', '')))
+                                            {newReleases
+                                                .filter(release => matchesGenre(release.genre, selectedGenre))
                                                 .slice(0, 150)
                                                 .map((release, index) => (
                                                     <div
