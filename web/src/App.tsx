@@ -20,7 +20,11 @@ import {
     Sparkles,
     Radio,
     Menu,
-    Play
+    Play,
+    Facebook,
+    Instagram,
+    Youtube,
+    Share2
 } from 'lucide-react';
 import { PowerIndexArtist, searchAllArtists, fetchRankingsData } from './lib/supabase';
 import { Analytics } from '@vercel/analytics/react';
@@ -1444,48 +1448,95 @@ function ArtistProfile({
                         </div>
                     </div>
 
-                    {/* STORY HIGHLIGHTS (FUNCTIONAL) */}
-                    <div className="flex gap-4 mb-10 overflow-x-auto pb-2 scrollbar-none justify-center lg:justify-start">
-                        {[
-                            {
-                                name: 'Music',
-                                icon: <Music className="w-4 h-4" />,
-                                action: () => window.open(`http://music.apple.com/us/search?term=${encodeURIComponent(artist.name)}`, '_blank')
-                            },
-                            {
-                                name: 'Spotify',
-                                icon: <div className="w-4 h-4 bg-green-500 rounded-full" />,
-                                action: () => window.open(`https://open.spotify.com/artist/${artist.spotify_id}`, '_blank')
-                            },
-                            {
-                                name: 'Insta',
-                                icon: <div className="w-4 h-4 bg-pink-500 rounded-lg" />,
-                                action: () => {
-                                    if (artist.instagram_handle) window.open(`https://instagram.com/${artist.instagram_handle}`, '_blank');
-                                    else window.open(`https://www.instagram.com/explore/tags/${artist.name.replace(/\s+/g, '')}/`, '_blank');
-                                }
-                            },
-                            {
-                                name: 'YouTube',
-                                icon: <div className="w-4 h-4 bg-red-600 rounded-sm" />,
-                                action: () => {
-                                    if (artist.youtube_url) window.open(artist.youtube_url, '_blank')
-                                    else window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(artist.name)}`, '_blank')
-                                }
-                            },
-                        ].map((h, i) => (
-                            <div key={i} className="flex flex-col items-center gap-2 shrink-0">
-                                <button
-                                    onClick={h.action}
-                                    className="w-14 h-14 rounded-full border-2 border-slate-800 p-0.5 group cursor-pointer hover:border-accent transition-colors relative"
-                                >
-                                    <div className="w-full h-full rounded-full bg-surface/50 flex items-center justify-center text-slate-500 group-hover:text-white group-hover:bg-accent/10 transition-all">
-                                        {h.icon}
-                                    </div>
-                                </button>
-                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{h.name}</span>
-                            </div>
-                        ))}
+                    {/* PREMIUM ACTION GRID - ROW 1 */}
+                    <div className="flex flex-wrap gap-3 mb-3 justify-center lg:justify-start">
+                        {/* Spotify (Primary) */}
+                        <button
+                            onClick={() => window.open(`https://open.spotify.com/artist/${artist.spotify_id}`, '_blank')}
+                            className="group flex items-center gap-2 px-5 py-3 h-11 bg-[#1DB954] hover:bg-[#1ed760] text-black rounded-md transition-all active:scale-95 shadow-[0_0_20px_rgba(29,185,84,0.2)] hover:shadow-[0_0_30px_rgba(29,185,84,0.4)]"
+                        >
+                            <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 4.32-1.32 9.779-.6 13.5 1.56.42.24.6.84.241 1.26zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.4-1.02 15.66 1.44.539.3.66 1.02.359 1.56-.3.54-1.02.66-1.56.3z" /></svg>
+                            <span className="font-black text-[10px] uppercase tracking-widest">Spotify</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </button>
+
+                        {/* YouTube */}
+                        <button
+                            onClick={() => {
+                                if (artist.youtube_url) window.open(artist.youtube_url, '_blank')
+                                else window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(artist.name)}`, '_blank')
+                            }}
+                            className="group flex items-center gap-2 px-4 py-3 h-11 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-md transition-all active:scale-95"
+                        >
+                            <Youtube className="w-4 h-4 text-white/80" />
+                            <span className="font-bold text-[10px] uppercase tracking-widest">YouTube</span>
+                        </button>
+
+                        {/* TikTok */}
+                        <button
+                            onClick={() => window.open(`https://www.tiktok.com/search?q=${encodeURIComponent(artist.name)}`, '_blank')}
+                            className="group flex items-center gap-2 px-4 py-3 h-11 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-md transition-all active:scale-95"
+                        >
+                            <svg className="w-4 h-4 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" /></svg>
+                            <span className="font-bold text-[10px] uppercase tracking-widest">TikTok</span>
+                        </button>
+
+                        {/* Instagram */}
+                        <button
+                            onClick={() => {
+                                if (artist.instagram_handle) window.open(`https://instagram.com/${artist.instagram_handle}`, '_blank');
+                                else window.open(`https://www.instagram.com/explore/tags/${artist.name.replace(/\s+/g, '')}/`, '_blank');
+                            }}
+                            className="group flex items-center gap-2 px-4 py-3 h-11 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-md transition-all active:scale-95"
+                        >
+                            <Instagram className="w-4 h-4 text-white/80" />
+                            <span className="font-bold text-[10px] uppercase tracking-widest">Instagram</span>
+                        </button>
+                    </div>
+
+                    {/* ROW 2 */}
+                    <div className="flex flex-wrap gap-3 mb-10 justify-center lg:justify-start">
+                        {/* Facebook */}
+                        {artist.facebook_handle && (
+                            <button
+                                onClick={() => window.open(`https://facebook.com/${artist.facebook_handle}`, '_blank')}
+                                className="group flex items-center gap-2 px-4 py-3 h-11 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-md transition-all active:scale-95"
+                            >
+                                <Facebook className="w-4 h-4 text-white/80" />
+                                <span className="font-bold text-[10px] uppercase tracking-widest">Facebook</span>
+                            </button>
+                        )}
+
+                        {/* Share */}
+                        <button
+                            onClick={() => {
+                                navigator.clipboard.writeText(`https://soundscout.pages.dev/artist/${artist.id}`);
+                                alert('Link copied to clipboard!');
+                            }}
+                            className="group flex items-center gap-2 px-4 py-3 h-11 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-md transition-all active:scale-95"
+                        >
+                            <Share2 className="w-4 h-4 text-white/80" />
+                            <span className="font-bold text-[10px] uppercase tracking-widest">Share</span>
+                        </button>
+
+                        {/* Add to Roster */}
+                        {/* Add to Roster */}
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onToggleWatchlist(artist.id);
+                            }}
+                            className={`group flex items-center gap-2 px-5 py-3 h-11 border rounded-md transition-all active:scale-95
+                                ${isWatched
+                                    ? 'bg-accent/20 border-accent text-accent'
+                                    : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
+                                }`}
+                        >
+                            {isWatched ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                            <span className="font-bold text-[10px] uppercase tracking-widest">
+                                {isWatched ? 'Saved' : 'Add to Roster'}
+                            </span>
+                        </button>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 mb-10">
