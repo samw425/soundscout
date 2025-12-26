@@ -78,38 +78,55 @@ let rankingsCache: RankingsData | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
+// In-flight promise for deduplication
+let activeFetchPromise: Promise<RankingsData | null> | null = null;
+
 /**
  * Fetch the complete rankings data from our JSON file.
  * This contains 3000+ artists across 15 categories.
+ * Optimized with caching and request deduplication.
  */
 export async function fetchRankingsData(): Promise<RankingsData | null> {
-    // Check cache
+    // 1. Check in-memory cache
     if (rankingsCache && Date.now() - cacheTimestamp < CACHE_DURATION) {
         return rankingsCache;
     }
 
-    try {
-        const response = await fetch('/rankings.json');
-        if (!response.ok) {
-            console.error('Failed to fetch rankings:', response.status);
+    // 2. Check if a fetch is already in progress
+    if (activeFetchPromise) {
+        return activeFetchPromise;
+    }
+
+    // 3. Start new fetch
+    activeFetchPromise = (async () => {
+        try {
+            const response = await fetch('/rankings.json');
+            if (!response.ok) {
+                console.error('Failed to fetch rankings:', response.status);
+                activeFetchPromise = null; // Clear on failure
+                return null;
+            }
+
+            const data: RankingsData = await response.json();
+
+            // Cache the data
+            rankingsCache = data;
+            cacheTimestamp = Date.now();
+            activeFetchPromise = null; // Clear when done
+
+            console.log(`[SoundScout] Loaded ${data.total_artists} artists from ${data.data_source}`);
+            console.log(`[SoundScout] Algorithm version: ${data.algorithm_version}`);
+            console.log(`[SoundScout] Generated at: ${data.generated_at}`);
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching rankings:', error);
+            activeFetchPromise = null; // Clear on error
             return null;
         }
+    })();
 
-        const data: RankingsData = await response.json();
-
-        // Cache the data
-        rankingsCache = data;
-        cacheTimestamp = Date.now();
-
-        console.log(`[SoundScout] Loaded ${data.total_artists} artists from ${data.data_source}`);
-        console.log(`[SoundScout] Algorithm version: ${data.algorithm_version}`);
-        console.log(`[SoundScout] Generated at: ${data.generated_at}`);
-
-        return data;
-    } catch (error) {
-        console.error('Error fetching rankings:', error);
-        return null;
-    }
+    return activeFetchPromise;
 }
 
 /**
