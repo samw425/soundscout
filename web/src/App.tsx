@@ -1090,6 +1090,20 @@ export default function App() {
                             </div>
                         </header>
 
+                        {/* MOBILE SEARCH BAR */}
+                        <div className="md:hidden px-4 py-3 border-b border-slate-900 bg-[#0B0C10]">
+                            <div className="relative w-full">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                <input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search artists..."
+                                    className="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all outline-none placeholder:text-slate-500"
+                                />
+                            </div>
+                        </div>
+
                         {/* FILTERS & CONTROLS */}
                         <div className="px-8 py-6 border-b border-slate-900 bg-[#0B0C10]">
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
