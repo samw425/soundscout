@@ -18,35 +18,22 @@ export async function onRequest(context) {
         const oldSchoolResponse = await env.ASSETS.fetch(new Request(new URL('/oldschool.json', request.url)));
 
         let data = null;
+        let oldSchoolData = null;
+
         if (rankingsResponse.ok) {
             data = await rankingsResponse.json();
+        }
+        if (oldSchoolResponse.ok) {
+            oldSchoolData = await oldSchoolResponse.json();
         }
 
         // Find artist across all categories
         let artist = null;
         let isLegend = false;
 
-        // Search main rankings
-        if (data) {
-            const categories = ['global', 'up_and_comers', 'arbitrage', 'pop', 'hip_hop', 'r_and_b', 'country', 'latin', 'kpop', 'indie', 'electronic', 'afrobeats'];
-            for (const cat of categories) {
-                if (data.rankings[cat]) {
-                    const found = data.rankings[cat].find(a =>
-                        a.name.toLowerCase() === artistName.toLowerCase() ||
-                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
-                    );
-                    if (found) {
-                        artist = found;
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Search Old School legends if not found
-        if (!artist && oldSchoolResponse.ok) {
-            const oldSchoolData = await oldSchoolResponse.json();
-            const found = oldSchoolData.artists?.find(a =>
+        // Search Old School legends FIRST - Legends deserve priority!
+        if (oldSchoolData && oldSchoolData.artists) {
+            const found = oldSchoolData.artists.find(a =>
                 a.name.toLowerCase() === artistName.toLowerCase() ||
                 a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
             );
@@ -61,6 +48,23 @@ export async function onRequest(context) {
                     monthlyListeners: found.monthlyListeners || 0,
                     powerScore: 999
                 };
+            }
+        }
+
+        // If not in Old School, search main rankings
+        if (!artist && data) {
+            const categories = ['global', 'up_and_comers', 'arbitrage', 'pop', 'hip_hop', 'r_and_b', 'country', 'latin', 'kpop', 'indie', 'electronic', 'afrobeats'];
+            for (const cat of categories) {
+                if (data.rankings[cat]) {
+                    const found = data.rankings[cat].find(a =>
+                        a.name.toLowerCase() === artistName.toLowerCase() ||
+                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
+                    );
+                    if (found) {
+                        artist = found;
+                        break;
+                    }
+                }
             }
         }
 

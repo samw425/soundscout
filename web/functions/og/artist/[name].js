@@ -27,25 +27,8 @@ async function generateArtistOGImage(artistName, artistSlug, env, request) {
 
         let artist = null;
 
-        // Search in main rankings first
-        if (rankingsRes.ok) {
-            const data = await rankingsRes.json();
-            if (data.rankings) {
-                for (const category of Object.values(data.rankings)) {
-                    const found = category.find(a =>
-                        a.name.toLowerCase() === artistName.toLowerCase() ||
-                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
-                    );
-                    if (found) {
-                        artist = found;
-                        break;
-                    }
-                }
-            }
-        }
-
-        // If not found, search Old School legends
-        if (!artist && oldSchoolRes.ok) {
+        // Search Old School legends FIRST - Legends deserve priority!
+        if (oldSchoolRes.ok) {
             const oldSchoolData = await oldSchoolRes.json();
             const found = oldSchoolData.artists?.find(a =>
                 a.name.toLowerCase() === artistName.toLowerCase() ||
@@ -64,6 +47,23 @@ async function generateArtistOGImage(artistName, artistSlug, env, request) {
                     growthVelocity: 0,
                     avatar_url: found.avatar_url
                 };
+            }
+        }
+
+        // If not in Old School, search in main rankings
+        if (!artist && rankingsRes.ok) {
+            const data = await rankingsRes.json();
+            if (data.rankings) {
+                for (const category of Object.values(data.rankings)) {
+                    const found = category.find(a =>
+                        a.name.toLowerCase() === artistName.toLowerCase() ||
+                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
+                    );
+                    if (found) {
+                        artist = found;
+                        break;
+                    }
+                }
             }
         }
 
