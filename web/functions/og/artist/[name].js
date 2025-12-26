@@ -14,20 +14,15 @@ export async function onRequest(context) {
     // Decode: "Taylor-Swift" -> "Taylor Swift"
     const artistName = decodeURIComponent(artistSlug.replace(/-/g, ' '));
 
-    return generateArtistOGImage(artistName, env);
+    return generateArtistOGImage(artistName, artistSlug, env, request);
 }
 
-async function generateArtistOGImage(artistName, env) {
-    // Fetch rankings data to get artist info
-    // Use the PUBLIC/Production URL to ensure we get the built JSON
-    const rankingsUrl = 'https://soundscout.pages.dev/rankings.json';
-    const oldSchoolUrl = 'https://soundscout.pages.dev/oldschool.json';
-
+async function generateArtistOGImage(artistName, artistSlug, env, request) {
     try {
-        // Fetch both rankings and old school data
+        // Use env.ASSETS for faster local fetching
         const [rankingsRes, oldSchoolRes] = await Promise.all([
-            fetch(rankingsUrl),
-            fetch(oldSchoolUrl)
+            env.ASSETS.fetch(new Request(new URL('/rankings.json', request.url))),
+            env.ASSETS.fetch(new Request(new URL('/oldschool.json', request.url)))
         ]);
 
         let artist = null;
@@ -35,14 +30,16 @@ async function generateArtistOGImage(artistName, env) {
         // Search in main rankings first
         if (rankingsRes.ok) {
             const data = await rankingsRes.json();
-            for (const category of Object.values(data.rankings)) {
-                const found = category.find(a =>
-                    a.name.toLowerCase() === artistName.toLowerCase() ||
-                    a.name.toLowerCase().replace(/\s+/g, '-') === artistName.toLowerCase().replace(/\s+/g, '-')
-                );
-                if (found) {
-                    artist = found;
-                    break;
+            if (data.rankings) {
+                for (const category of Object.values(data.rankings)) {
+                    const found = category.find(a =>
+                        a.name.toLowerCase() === artistName.toLowerCase() ||
+                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
+                    );
+                    if (found) {
+                        artist = found;
+                        break;
+                    }
                 }
             }
         }
@@ -52,7 +49,7 @@ async function generateArtistOGImage(artistName, env) {
             const oldSchoolData = await oldSchoolRes.json();
             const found = oldSchoolData.artists?.find(a =>
                 a.name.toLowerCase() === artistName.toLowerCase() ||
-                a.name.toLowerCase().replace(/\s+/g, '-') === artistName.toLowerCase().replace(/\s+/g, '-')
+                a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
             );
             if (found) {
                 // Convert Old School format to standard format for OG generation
@@ -71,7 +68,7 @@ async function generateArtistOGImage(artistName, env) {
         }
 
         if (!artist) {
-            console.log(`Artist not found for OG generation: ${artistName}`);
+            console.log(`Artist not found for OG generation: ${artistName} (slug: ${artistSlug})`);
             // Return default OG image if artist not found
             return Response.redirect('https://soundscout.pages.dev/og-image.png', 302);
         }
