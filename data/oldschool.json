@@ -1,710 +1,4182 @@
 {
-    "metadata": {
-        "title": "OLD SCHOOL LEGENDS",
-        "description": "The Top 150 Classic Artists Who Shaped Music History",
-        "lastUpdated": "2025-12-26",
-        "eraCutoff": 2005
+  "metadata": {
+    "title": "OLD SCHOOL LEGENDS",
+    "description": "The Top 150 Classic Artists Who Shaped Music History",
+    "lastUpdated": "2025-12-26",
+    "eraCutoff": 2005
+  },
+  "artists": [
+    {
+      "id": "os-001",
+      "rank": 1,
+      "name": "Michael Jackson",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The King of Pop. Best-selling solo artist of all time with 'Thriller' as the world's best-selling album.",
+      "monthlyListeners": 42000000,
+      "totalStreams": 18000000000,
+      "grammy_wins": 13,
+      "billboard_no1": 13,
+      "signature_songs": [
+        "Billie Jean",
+        "Thriller",
+        "Beat It",
+        "Smooth Criminal",
+        "Bad"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Michael_Jackson",
+        "spotify": "https://open.spotify.com/artist/3fMbdgg4jU18AjLCKBhRSm",
+        "allmusic": "https://www.allmusic.com/artist/michael-jackson-mn0000467203"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3d/9d/38/3d9d3811-71f0-3a0e-1ada-3004e56ff852/827969428726.jpg/600x600bb.jpg"
     },
-    "artists": [
-        {
-            "id": "os-001",
-            "rank": 1,
-            "name": "Michael Jackson",
-            "genre": "Pop",
-            "era": "80s",
-            "peakYear": 1983,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The King of Pop. Best-selling solo artist of all time with 'Thriller' as the world's best-selling album.",
-            "monthlyListeners": 42000000,
-            "totalStreams": 18000000000,
-            "grammy_wins": 13,
-            "billboard_no1": 13,
-            "signature_songs": [
-                "Billie Jean",
-                "Thriller",
-                "Beat It",
-                "Smooth Criminal",
-                "Bad"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Michael_Jackson",
-                "spotify": "https://open.spotify.com/artist/3fMbdgg4jU18AjLCKBhRSm",
-                "allmusic": "https://www.allmusic.com/artist/michael-jackson-mn0000467203"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/be/1e/ea/be1eea03-b1d3-4c42-1f23-a2244a1d0304/pr_source.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-002",
-            "rank": 2,
-            "name": "Tupac Shakur",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1996,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "One of the most influential rappers of all time. Sold over 75 million records worldwide. Cultural icon and activist.",
-            "monthlyListeners": 18500000,
-            "totalStreams": 8500000000,
-            "grammy_wins": 0,
-            "billboard_no1": 4,
-            "signature_songs": [
-                "California Love",
-                "Dear Mama",
-                "Changes",
-                "Hail Mary",
-                "All Eyez On Me"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Tupac_Shakur",
-                "spotify": "https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh",
-                "allmusic": "https://www.allmusic.com/artist/2pac-mn0000822037"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/d5/5a/20/d55a2044-4f6c-91f4-e5c6-8a0e9df78bf4/mza_1674762341831898420.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-003",
-            "rank": 3,
-            "name": "The Notorious B.I.G.",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1997,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Widely considered one of the greatest rappers ever. 'Ready to Die' and 'Life After Death' are certified classics.",
-            "monthlyListeners": 12000000,
-            "totalStreams": 5200000000,
-            "grammy_wins": 0,
-            "billboard_no1": 5,
-            "signature_songs": [
-                "Juicy",
-                "Big Poppa",
-                "Hypnotize",
-                "Mo Money Mo Problems",
-                "Sky's The Limit"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/The_Notorious_B.I.G.",
-                "spotify": "https://open.spotify.com/artist/5me0Irg2ANcsgc93uaYrpb",
-                "allmusic": "https://www.allmusic.com/artist/the-notorious-big-mn0000330704"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/ae/94/bc/ae94bc49-0e42-c6a9-4a88-7e7c1f7c3a30/mza_2839831858261888178.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-004",
-            "rank": 4,
-            "name": "Queen",
-            "genre": "Rock",
-            "era": "70s",
-            "peakYear": 1975,
-            "country": "UK",
-            "status": "Legend",
-            "bio": "British rock legends fronted by Freddie Mercury. 'Bohemian Rhapsody' is one of the most iconic songs ever recorded.",
-            "monthlyListeners": 48000000,
-            "totalStreams": 22000000000,
-            "grammy_wins": 1,
-            "billboard_no1": 2,
-            "signature_songs": [
-                "Bohemian Rhapsody",
-                "We Will Rock You",
-                "We Are The Champions",
-                "Somebody To Love",
-                "Don't Stop Me Now"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Queen_(band)",
-                "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d",
-                "allmusic": "https://www.allmusic.com/artist/queen-mn0000388078"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/20/80/e0/2080e0a6-f1b7-8e39-f07a-a7232a52d635/mza_8624255123532599605.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-005",
-            "rank": 5,
-            "name": "Prince",
-            "genre": "Pop/R&B",
-            "era": "80s",
-            "peakYear": 1984,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Musical genius who mastered every instrument. 'Purple Rain' is one of the greatest albums in history.",
-            "monthlyListeners": 14000000,
-            "totalStreams": 6500000000,
-            "grammy_wins": 7,
-            "billboard_no1": 5,
-            "signature_songs": [
-                "Purple Rain",
-                "When Doves Cry",
-                "Kiss",
-                "1999",
-                "Little Red Corvette"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Prince_(musician)",
-                "spotify": "https://open.spotify.com/artist/5a2EaR3hamoenG9rDuVn2r",
-                "allmusic": "https://www.allmusic.com/artist/prince-mn0000361393"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/85/46/2b/85462b27-ed70-c9d1-9ca9-1d1a3e7c6e45/pr_source.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-006",
-            "rank": 6,
-            "name": "Bob Marley",
-            "genre": "Reggae",
-            "era": "70s",
-            "peakYear": 1977,
-            "country": "Jamaica",
-            "status": "Legend",
-            "bio": "The King of Reggae. Brought Jamaican music to the world and became a global symbol of peace and resistance.",
-            "monthlyListeners": 22000000,
-            "totalStreams": 9800000000,
-            "grammy_wins": 0,
-            "billboard_no1": 0,
-            "signature_songs": [
-                "One Love",
-                "No Woman No Cry",
-                "Redemption Song",
-                "Three Little Birds",
-                "Buffalo Soldier"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Bob_Marley",
-                "spotify": "https://open.spotify.com/artist/2QsynagSdAqZj3U9HgDzjD",
-                "allmusic": "https://www.allmusic.com/artist/bob-marley-mn0000068789"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/c3/e7/3d/c3e73d1a-bb91-21c3-3cb7-b61c599be0b1/mza_2637117991649222398.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-007",
-            "rank": 7,
-            "name": "Marvin Gaye",
-            "genre": "R&B/Soul",
-            "era": "70s",
-            "peakYear": 1971,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The Prince of Soul. 'What's Going On' is considered one of the greatest albums ever made.",
-            "monthlyListeners": 19000000,
-            "totalStreams": 7500000000,
-            "grammy_wins": 3,
-            "billboard_no1": 3,
-            "signature_songs": [
-                "What's Going On",
-                "Sexual Healing",
-                "Let's Get It On",
-                "Ain't No Mountain High Enough",
-                "I Heard It Through The Grapevine"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Marvin_Gaye",
-                "spotify": "https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA",
-                "allmusic": "https://www.allmusic.com/artist/marvin-gaye-mn0000359306"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/e7/d4/7d/e7d47d3c-0c87-2f7a-e0a3-7d9a0e0e1e9e/pr_source.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-008",
-            "rank": 8,
-            "name": "Stevie Wonder",
-            "genre": "R&B/Soul",
-            "era": "70s",
-            "peakYear": 1976,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Child prodigy who became one of the most decorated artists ever. 25 Grammy wins and 10 #1 hits.",
-            "monthlyListeners": 23000000,
-            "totalStreams": 10500000000,
-            "grammy_wins": 25,
-            "billboard_no1": 10,
-            "signature_songs": [
-                "Superstition",
-                "Isn't She Lovely",
-                "I Just Called To Say I Love You",
-                "Sir Duke",
-                "Signed, Sealed, Delivered"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Stevie_Wonder",
-                "spotify": "https://open.spotify.com/artist/7guDJrEfX3qb6FEbdPA5qi",
-                "allmusic": "https://www.allmusic.com/artist/stevie-wonder-mn0000250206"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages116/v4/9f/79/24/9f792456-9e4f-21c4-3e41-b5e6f0f0e0f0/e0be2c62-9db0-4d7e-8e8a-1e6b8e8b8e8e.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-009",
-            "rank": 9,
-            "name": "Led Zeppelin",
-            "genre": "Rock",
-            "era": "70s",
-            "peakYear": 1971,
-            "country": "UK",
-            "status": "Legend",
-            "bio": "Pioneers of hard rock and heavy metal. 'Stairway to Heaven' is the most requested song in radio history.",
-            "monthlyListeners": 22000000,
-            "totalStreams": 9200000000,
-            "grammy_wins": 1,
-            "billboard_no1": 6,
-            "signature_songs": [
-                "Stairway To Heaven",
-                "Whole Lotta Love",
-                "Kashmir",
-                "Black Dog",
-                "Rock and Roll"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Led_Zeppelin",
-                "spotify": "https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp",
-                "allmusic": "https://www.allmusic.com/artist/led-zeppelin-mn0000099613"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/d0/d4/ff/d0d4ffe4-8c3b-e1e1-9c9c-e0e0e0e0e0e0/pr_source.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-010",
-            "rank": 10,
-            "name": "N.W.A",
-            "genre": "Hip Hop",
-            "era": "80s",
-            "peakYear": 1988,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Pioneers of gangsta rap. 'Straight Outta Compton' changed hip hop forever and sparked a cultural movement.",
-            "monthlyListeners": 8500000,
-            "totalStreams": 3200000000,
-            "grammy_wins": 0,
-            "billboard_no1": 0,
-            "signature_songs": [
-                "Straight Outta Compton",
-                "Express Yourself",
-                "Gangsta Gangsta",
-                "F*** Tha Police",
-                "Dopeman"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/N.W.A",
-                "spotify": "https://open.spotify.com/artist/4EnEZVjo3w1cwcE2WcGg0O",
-                "allmusic": "https://www.allmusic.com/artist/nwa-mn0000843074"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/1e/1e/1e/1e1e1e1e-1e1e-1e1e-1e1e-1e1e1e1e1e1e/pr_source.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-011",
-            "rank": 11,
-            "name": "The Beatles",
-            "genre": "Rock/Pop",
-            "era": "60s",
-            "peakYear": 1967,
-            "country": "UK",
-            "status": "Legend",
-            "bio": "The most influential band in history. Changed music, culture, and the world itself.",
-            "monthlyListeners": 35000000,
-            "totalStreams": 15000000000,
-            "grammy_wins": 8,
-            "billboard_no1": 20,
-            "signature_songs": [
-                "Hey Jude",
-                "Let It Be",
-                "Yesterday",
-                "Here Comes The Sun",
-                "Come Together"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/The_Beatles",
-                "spotify": "https://open.spotify.com/artist/3WrFJ7ztbogyGnTHbHJFl2",
-                "allmusic": "https://www.allmusic.com/artist/the-beatles-mn0000754032"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/ea/33/8a/ea338a44-39e6-8c8f-e0b8-e0e0e0e0e0e0/mza_1234567890123456789.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-012",
-            "rank": 12,
-            "name": "Snoop Dogg",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1993,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "West Coast rap icon. 'Doggystyle' was the first debut album to enter the charts at #1.",
-            "monthlyListeners": 32000000,
-            "totalStreams": 14000000000,
-            "grammy_wins": 0,
-            "billboard_no1": 1,
-            "signature_songs": [
-                "Gin and Juice",
-                "Drop It Like It's Hot",
-                "Who Am I (What's My Name)?",
-                "Young, Wild & Free",
-                "Nuthin' But a G Thang"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Snoop_Dogg",
-                "spotify": "https://open.spotify.com/artist/7hJcb9fa4alzcOq3EaNPoG",
-                "allmusic": "https://www.allmusic.com/artist/snoop-dogg-mn0000028081"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages126/v4/f9/f9/f9/f9f9f9f9-f9f9-f9f9-f9f9-f9f9f9f9f9f9/f9f9f9f9-f9f9-f9f9-f9f9-f9f9f9f9f9f9.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-013",
-            "rank": 13,
-            "name": "Dr. Dre",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1992,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The architect of West Coast hip hop. Producer extraordinaire who launched Eminem, 50 Cent, and Kendrick Lamar.",
-            "monthlyListeners": 18000000,
-            "totalStreams": 7800000000,
-            "grammy_wins": 6,
-            "billboard_no1": 2,
-            "signature_songs": [
-                "Still D.R.E.",
-                "Nuthin' But a G Thang",
-                "The Next Episode",
-                "Forgot About Dre",
-                "I Need A Doctor"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Dr._Dre",
-                "spotify": "https://open.spotify.com/artist/6DPYiyq5kWVQS4RGwxzPC7",
-                "allmusic": "https://www.allmusic.com/artist/dr-dre-mn0000057659"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages116/v4/a1/a1/a1/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1/a1a1a1a1.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-014",
-            "rank": 14,
-            "name": "Whitney Houston",
-            "genre": "Pop/R&B",
-            "era": "80s",
-            "peakYear": 1987,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The Voice. Most awarded female artist of all time with one of the greatest vocal ranges in history.",
-            "monthlyListeners": 25000000,
-            "totalStreams": 11000000000,
-            "grammy_wins": 6,
-            "billboard_no1": 11,
-            "signature_songs": [
-                "I Will Always Love You",
-                "Greatest Love of All",
-                "I Wanna Dance With Somebody",
-                "How Will I Know",
-                "Saving All My Love For You"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Whitney_Houston",
-                "spotify": "https://open.spotify.com/artist/6XpaIBNiVzIetEPCWDvAFP",
-                "allmusic": "https://www.allmusic.com/artist/whitney-houston-mn0000576814"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/b2/b2/b2/b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-015",
-            "rank": 15,
-            "name": "Nirvana",
-            "genre": "Rock/Grunge",
-            "era": "90s",
-            "peakYear": 1991,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Killed hair metal and birthed grunge. 'Smells Like Teen Spirit' defined a generation.",
-            "monthlyListeners": 28000000,
-            "totalStreams": 12500000000,
-            "grammy_wins": 1,
-            "billboard_no1": 0,
-            "signature_songs": [
-                "Smells Like Teen Spirit",
-                "Come As You Are",
-                "Heart-Shaped Box",
-                "Lithium",
-                "In Bloom"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Nirvana_(band)",
-                "spotify": "https://open.spotify.com/artist/6olE6TJLqED3rqDCT0FyPh",
-                "allmusic": "https://www.allmusic.com/artist/nirvana-mn0000357099"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/c3/c3/c3/c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-016",
-            "rank": 16,
-            "name": "Jay-Z",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 2001,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Hip hop's first billionaire. 'Reasonable Doubt' and 'The Blueprint' are certified classics.",
-            "monthlyListeners": 35000000,
-            "totalStreams": 16000000000,
-            "grammy_wins": 24,
-            "billboard_no1": 14,
-            "signature_songs": [
-                "Empire State of Mind",
-                "99 Problems",
-                "Hard Knock Life",
-                "Run This Town",
-                "Izzo (H.O.V.A.)"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Jay-Z",
-                "spotify": "https://open.spotify.com/artist/3nFkdlSjzX9mRTtwJOzDYB",
-                "allmusic": "https://www.allmusic.com/artist/jay-z-mn0000115882"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages126/v4/d4/d4/d4/d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4/d4d4d4d4.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-017",
-            "rank": 17,
-            "name": "Nas",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1994,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "'Illmatic' is widely considered the greatest hip hop album of all time. Queensbridge legend.",
-            "monthlyListeners": 15000000,
-            "totalStreams": 6200000000,
-            "grammy_wins": 1,
-            "billboard_no1": 9,
-            "signature_songs": [
-                "N.Y. State of Mind",
-                "If I Ruled the World",
-                "One Mic",
-                "Nas Is Like",
-                "The World Is Yours"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Nas",
-                "spotify": "https://open.spotify.com/artist/20qISvAhX20dpIbOOzGK3q",
-                "allmusic": "https://www.allmusic.com/artist/nas-mn0000884273"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages116/v4/e5/e5/e5/e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5/e5e5e5e5.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-018",
-            "rank": 18,
-            "name": "Aretha Franklin",
-            "genre": "Soul/R&B",
-            "era": "60s",
-            "peakYear": 1967,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The Queen of Soul. 18 Grammy wins and the voice that defined soul music.",
-            "monthlyListeners": 16000000,
-            "totalStreams": 6800000000,
-            "grammy_wins": 18,
-            "billboard_no1": 2,
-            "signature_songs": [
-                "Respect",
-                "Natural Woman",
-                "Think",
-                "Chain of Fools",
-                "I Say A Little Prayer"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Aretha_Franklin",
-                "spotify": "https://open.spotify.com/artist/7nwUJBm0HE4ZxD3f5cy5ok",
-                "allmusic": "https://www.allmusic.com/artist/aretha-franklin-mn0000066222"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/f6/f6/f6/f6f6f6f6-f6f6-f6f6-f6f6-f6f6f6f6f6f6/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-019",
-            "rank": 19,
-            "name": "Guns N' Roses",
-            "genre": "Rock",
-            "era": "80s",
-            "peakYear": 1987,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "'Appetite for Destruction' is the best-selling debut album in US history. Rock and roll excess personified.",
-            "monthlyListeners": 32000000,
-            "totalStreams": 14500000000,
-            "grammy_wins": 0,
-            "billboard_no1": 4,
-            "signature_songs": [
-                "Sweet Child O' Mine",
-                "Welcome to the Jungle",
-                "Paradise City",
-                "November Rain",
-                "Patience"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Guns_N%27_Roses",
-                "spotify": "https://open.spotify.com/artist/3qm84nBOXUEQ2vnTfUTTFC",
-                "allmusic": "https://www.allmusic.com/artist/guns-n-roses-mn0000136203"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages126/v4/g7/g7/g7/g7g7g7g7-g7g7-g7g7-g7g7-g7g7g7g7g7g7/g7g7g7g7.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-020",
-            "rank": 20,
-            "name": "Run-D.M.C.",
-            "genre": "Hip Hop",
-            "era": "80s",
-            "peakYear": 1986,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "First hip hop act with a gold album. 'Walk This Way' with Aerosmith broke down racial barriers in music.",
-            "monthlyListeners": 4500000,
-            "totalStreams": 1800000000,
-            "grammy_wins": 0,
-            "billboard_no1": 0,
-            "signature_songs": [
-                "It's Tricky",
-                "Walk This Way",
-                "My Adidas",
-                "King of Rock",
-                "Run's House"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Run-DMC",
-                "spotify": "https://open.spotify.com/artist/3CQIn7N5CuRDP8wEI7FiDA",
-                "allmusic": "https://www.allmusic.com/artist/run-dmc-mn0000291927"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/h8/h8/h8/h8h8h8h8-h8h8-h8h8-h8h8-h8h8h8h8h8h8/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-021",
-            "rank": 21,
-            "name": "Elton John",
-            "genre": "Pop/Rock",
-            "era": "70s",
-            "peakYear": 1974,
-            "country": "UK",
-            "status": "Legend",
-            "bio": "One of the best-selling music artists of all time. Over 300 million records sold worldwide.",
-            "monthlyListeners": 42000000,
-            "totalStreams": 19000000000,
-            "grammy_wins": 6,
-            "billboard_no1": 9,
-            "signature_songs": [
-                "Rocket Man",
-                "Your Song",
-                "Tiny Dancer",
-                "Crocodile Rock",
-                "Bennie and the Jets"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Elton_John",
-                "spotify": "https://open.spotify.com/artist/3PhoLpVuITZKcymswpck5b",
-                "allmusic": "https://www.allmusic.com/artist/elton-john-mn0000094974"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages126/v4/i9/i9/i9/i9i9i9i9-i9i9-i9i9-i9i9-i9i9i9i9i9i9/i9i9i9i9.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-022",
-            "rank": 22,
-            "name": "Eminem",
-            "genre": "Hip Hop",
-            "era": "00s",
-            "peakYear": 2002,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Best-selling artist of the 2000s. The Rap God with unprecedented lyrical complexity.",
-            "monthlyListeners": 65000000,
-            "totalStreams": 32000000000,
-            "grammy_wins": 15,
-            "billboard_no1": 10,
-            "signature_songs": [
-                "Lose Yourself",
-                "Stan",
-                "The Real Slim Shady",
-                "Without Me",
-                "Not Afraid"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Eminem",
-                "spotify": "https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR",
-                "allmusic": "https://www.allmusic.com/artist/eminem-mn0000178792"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages116/v4/j0/j0/j0/j0j0j0j0-j0j0-j0j0-j0j0-j0j0j0j0j0j0/j0j0j0j0.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-023",
-            "rank": 23,
-            "name": "David Bowie",
-            "genre": "Rock/Pop",
-            "era": "70s",
-            "peakYear": 1972,
-            "country": "UK",
-            "status": "Legend",
-            "bio": "The Chameleon of Rock. Reinvented himself endlessly across 5 decades of groundbreaking music.",
-            "monthlyListeners": 22000000,
-            "totalStreams": 9500000000,
-            "grammy_wins": 5,
-            "billboard_no1": 1,
-            "signature_songs": [
-                "Space Oddity",
-                "Heroes",
-                "Starman",
-                "Let's Dance",
-                "Changes"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/David_Bowie",
-                "spotify": "https://open.spotify.com/artist/0oSGxfWSnnOXhD2fKuz2Gy",
-                "allmusic": "https://www.allmusic.com/artist/david-bowie-mn0000515714"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/k1/k1/k1/k1k1k1k1-k1k1-k1k1-k1k1-k1k1k1k1k1k1/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-024",
-            "rank": 24,
-            "name": "Wu-Tang Clan",
-            "genre": "Hip Hop",
-            "era": "90s",
-            "peakYear": 1993,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "Staten Island collective that revolutionized hip hop. 'Enter the Wu-Tang' is a stone-cold classic.",
-            "monthlyListeners": 8000000,
-            "totalStreams": 3400000000,
-            "grammy_wins": 0,
-            "billboard_no1": 2,
-            "signature_songs": [
-                "C.R.E.A.M.",
-                "Protect Ya Neck",
-                "Wu-Tang Clan Ain't Nuthing ta Fuck Wit",
-                "Triumph",
-                "Gravel Pit"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Wu-Tang_Clan",
-                "spotify": "https://open.spotify.com/artist/34EP7KEpOjXcM2TCat1ISk",
-                "allmusic": "https://www.allmusic.com/artist/wu-tang-clan-mn0000754568"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/l2/l2/l2/l2l2l2l2-l2l2-l2l2-l2l2-l2l2l2l2l2l2/mza_1234567890.png/1000x1000bb.jpg"
-        },
-        {
-            "id": "os-025",
-            "rank": 25,
-            "name": "Madonna",
-            "genre": "Pop",
-            "era": "80s",
-            "peakYear": 1984,
-            "country": "USA",
-            "status": "Legend",
-            "bio": "The Queen of Pop. Best-selling female recording artist of all time with 300+ million records sold.",
-            "monthlyListeners": 28000000,
-            "totalStreams": 12000000000,
-            "grammy_wins": 7,
-            "billboard_no1": 12,
-            "signature_songs": [
-                "Like a Virgin",
-                "Material Girl",
-                "Vogue",
-                "Like a Prayer",
-                "Papa Don't Preach"
-            ],
-            "sources": {
-                "wikipedia": "https://en.wikipedia.org/wiki/Madonna",
-                "spotify": "https://open.spotify.com/artist/6tbjWDEIzxoDsBA1FuhfPW",
-                "allmusic": "https://www.allmusic.com/artist/madonna-mn0000237205"
-            },
-            "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/AMCArtistImages126/v4/m3/m3/m3/m3m3m3m3-m3m3-m3m3-m3m3-m3m3m3m3m3m3/m3m3m3m3.png/1000x1000bb.jpg"
-        }
-    ]
+    {
+      "id": "os-002",
+      "rank": 2,
+      "name": "Tupac Shakur",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1996,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "One of the most influential rappers of all time. Sold over 75 million records worldwide. Cultural icon and activist.",
+      "monthlyListeners": 18500000,
+      "totalStreams": 8500000000,
+      "grammy_wins": 0,
+      "billboard_no1": 4,
+      "signature_songs": [
+        "California Love",
+        "Dear Mama",
+        "Changes",
+        "Hail Mary",
+        "All Eyez On Me"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Tupac_Shakur",
+        "spotify": "https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh",
+        "allmusic": "https://www.allmusic.com/artist/2pac-mn0000822037"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/aa/07/db/aa07db20-0b14-d09c-ead7-5b9e3680cb76/00602527051840.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-003",
+      "rank": 3,
+      "name": "The Notorious B.I.G.",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1997,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Widely considered one of the greatest rappers ever. 'Ready to Die' and 'Life After Death' are certified classics.",
+      "monthlyListeners": 12000000,
+      "totalStreams": 5200000000,
+      "grammy_wins": 0,
+      "billboard_no1": 5,
+      "signature_songs": [
+        "Juicy",
+        "Big Poppa",
+        "Hypnotize",
+        "Mo Money Mo Problems",
+        "Sky's The Limit"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Notorious_B.I.G.",
+        "spotify": "https://open.spotify.com/artist/5me0Irg2ANcsgc93uaYrpb",
+        "allmusic": "https://www.allmusic.com/artist/the-notorious-big-mn0000330704"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/70/0a/b8/700ab8a1-e07a-8ac9-369f-9b847ed9299d/dj.qkvadrjz.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-004",
+      "rank": 4,
+      "name": "Queen",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1975,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "British rock legends fronted by Freddie Mercury. 'Bohemian Rhapsody' is one of the most iconic songs ever recorded.",
+      "monthlyListeners": 48000000,
+      "totalStreams": 22000000000,
+      "grammy_wins": 1,
+      "billboard_no1": 2,
+      "signature_songs": [
+        "Bohemian Rhapsody",
+        "We Will Rock You",
+        "We Are The Champions",
+        "Somebody To Love",
+        "Don't Stop Me Now"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Queen_(band)",
+        "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d",
+        "allmusic": "https://www.allmusic.com/artist/queen-mn0000388078"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ef/54/0b/ef540ba4-bbe7-0809-aa55-97ce32e0e13d/18UMGIM55763.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-005",
+      "rank": 5,
+      "name": "Prince",
+      "genre": "Pop/R&B",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Musical genius who mastered every instrument. 'Purple Rain' is one of the greatest albums in history.",
+      "monthlyListeners": 14000000,
+      "totalStreams": 6500000000,
+      "grammy_wins": 7,
+      "billboard_no1": 5,
+      "signature_songs": [
+        "Purple Rain",
+        "When Doves Cry",
+        "Kiss",
+        "1999",
+        "Little Red Corvette"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Prince_(musician)",
+        "spotify": "https://open.spotify.com/artist/5a2EaR3hamoenG9rDuVn2r",
+        "allmusic": "https://www.allmusic.com/artist/prince-mn0000361393"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/2b/d8/bf/mzi.leavbcjk.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-006",
+      "rank": 6,
+      "name": "Bob Marley",
+      "genre": "Reggae",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "Jamaica",
+      "status": "Legend",
+      "bio": "The King of Reggae. Brought Jamaican music to the world and became a global symbol of peace and resistance.",
+      "monthlyListeners": 22000000,
+      "totalStreams": 9800000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "One Love",
+        "No Woman No Cry",
+        "Redemption Song",
+        "Three Little Birds",
+        "Buffalo Soldier"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bob_Marley",
+        "spotify": "https://open.spotify.com/artist/2QsynagSdAqZj3U9HgDzjD",
+        "allmusic": "https://www.allmusic.com/artist/bob-marley-mn0000068789"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/3c/c2/0d/3cc20dcc-8f4e-f060-36dd-7de52a7ec8fe/12UMGIM14712.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-007",
+      "rank": 7,
+      "name": "Marvin Gaye",
+      "genre": "R&B/Soul",
+      "era": "70s",
+      "peakYear": 1971,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Prince of Soul. 'What's Going On' is considered one of the greatest albums ever made.",
+      "monthlyListeners": 19000000,
+      "totalStreams": 7500000000,
+      "grammy_wins": 3,
+      "billboard_no1": 3,
+      "signature_songs": [
+        "What's Going On",
+        "Sexual Healing",
+        "Let's Get It On",
+        "Ain't No Mountain High Enough",
+        "I Heard It Through The Grapevine"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Marvin_Gaye",
+        "spotify": "https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA",
+        "allmusic": "https://www.allmusic.com/artist/marvin-gaye-mn0000359306"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ad/af/d8/adafd8e3-a9d0-3e7d-beb3-4965db160183/06UMGIM01811.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-008",
+      "rank": 8,
+      "name": "Stevie Wonder",
+      "genre": "R&B/Soul",
+      "era": "70s",
+      "peakYear": 1976,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Child prodigy who became one of the most decorated artists ever. 25 Grammy wins and 10 #1 hits.",
+      "monthlyListeners": 23000000,
+      "totalStreams": 10500000000,
+      "grammy_wins": 25,
+      "billboard_no1": 10,
+      "signature_songs": [
+        "Superstition",
+        "Isn't She Lovely",
+        "I Just Called To Say I Love You",
+        "Sir Duke",
+        "Signed, Sealed, Delivered"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Stevie_Wonder",
+        "spotify": "https://open.spotify.com/artist/7guDJrEfX3qb6FEbdPA5qi",
+        "allmusic": "https://www.allmusic.com/artist/stevie-wonder-mn0000250206"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/e3/50/f8/e350f821-5d32-abb5-164c-b8b79f5daa8d/054391964540.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-009",
+      "rank": 9,
+      "name": "Led Zeppelin",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1971,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Pioneers of hard rock and heavy metal. 'Stairway to Heaven' is the most requested song in radio history.",
+      "monthlyListeners": 22000000,
+      "totalStreams": 9200000000,
+      "grammy_wins": 1,
+      "billboard_no1": 6,
+      "signature_songs": [
+        "Stairway To Heaven",
+        "Whole Lotta Love",
+        "Kashmir",
+        "Black Dog",
+        "Rock and Roll"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Led_Zeppelin",
+        "spotify": "https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp",
+        "allmusic": "https://www.allmusic.com/artist/led-zeppelin-mn0000099613"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5c/15/9b/5c159b27-95ca-b9a7-84e3-28e795fffd39/dj.kvkrpptq.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-010",
+      "rank": 10,
+      "name": "N.W.A",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Pioneers of gangsta rap. 'Straight Outta Compton' changed hip hop forever and sparked a cultural movement.",
+      "monthlyListeners": 8500000,
+      "totalStreams": 3200000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Straight Outta Compton",
+        "Express Yourself",
+        "Gangsta Gangsta",
+        "F*** Tha Police",
+        "Dopeman"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/N.W.A",
+        "spotify": "https://open.spotify.com/artist/4EnEZVjo3w1cwcE2WcGg0O",
+        "allmusic": "https://www.allmusic.com/artist/nwa-mn0000843074"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c5/d4/6c/c5d46c5d-0066-32b2-47c8-26876e57e432/00724354093258.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-011",
+      "rank": 11,
+      "name": "The Beatles",
+      "genre": "Rock/Pop",
+      "era": "60s",
+      "peakYear": 1967,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "The most influential band in history. Changed music, culture, and the world itself.",
+      "monthlyListeners": 35000000,
+      "totalStreams": 15000000000,
+      "grammy_wins": 8,
+      "billboard_no1": 20,
+      "signature_songs": [
+        "Hey Jude",
+        "Let It Be",
+        "Yesterday",
+        "Here Comes The Sun",
+        "Come Together"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Beatles",
+        "spotify": "https://open.spotify.com/artist/3WrFJ7ztbogyGnTHbHJFl2",
+        "allmusic": "https://www.allmusic.com/artist/the-beatles-mn0000754032"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f2/98/fb/f298fb48-1e0e-6ad4-4cff-fb824b77f02e/15UMGIM59587.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-012",
+      "rank": 12,
+      "name": "Snoop Dogg",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1993,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "West Coast rap icon. 'Doggystyle' was the first debut album to enter the charts at #1.",
+      "monthlyListeners": 32000000,
+      "totalStreams": 14000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 1,
+      "signature_songs": [
+        "Gin and Juice",
+        "Drop It Like It's Hot",
+        "Who Am I (What's My Name)?",
+        "Young, Wild & Free",
+        "Nuthin' But a G Thang"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Snoop_Dogg",
+        "spotify": "https://open.spotify.com/artist/7hJcb9fa4alzcOq3EaNPoG",
+        "allmusic": "https://www.allmusic.com/artist/snoop-dogg-mn0000028081"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e6/34/59/e6345979-6bac-481a-f4c0-82c01adfcc51/mzi.usxajlvu.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-013",
+      "rank": 13,
+      "name": "Dr. Dre",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1992,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The architect of West Coast hip hop. Producer extraordinaire who launched Eminem, 50 Cent, and Kendrick Lamar.",
+      "monthlyListeners": 18000000,
+      "totalStreams": 7800000000,
+      "grammy_wins": 6,
+      "billboard_no1": 2,
+      "signature_songs": [
+        "Still D.R.E.",
+        "Nuthin' But a G Thang",
+        "The Next Episode",
+        "Forgot About Dre",
+        "I Need A Doctor"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Dr._Dre",
+        "spotify": "https://open.spotify.com/artist/6DPYiyq5kWVQS4RGwxzPC7",
+        "allmusic": "https://www.allmusic.com/artist/dr-dre-mn0000057659"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/fd/63/ed/fd63ed6c-178c-7fa9-4844-29a7326bf655/06UMGIM01277.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-014",
+      "rank": 14,
+      "name": "Whitney Houston",
+      "genre": "Pop/R&B",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Voice. Most awarded female artist of all time with one of the greatest vocal ranges in history.",
+      "monthlyListeners": 25000000,
+      "totalStreams": 11000000000,
+      "grammy_wins": 6,
+      "billboard_no1": 11,
+      "signature_songs": [
+        "I Will Always Love You",
+        "Greatest Love of All",
+        "I Wanna Dance With Somebody",
+        "How Will I Know",
+        "Saving All My Love For You"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Whitney_Houston",
+        "spotify": "https://open.spotify.com/artist/6XpaIBNiVzIetEPCWDvAFP",
+        "allmusic": "https://www.allmusic.com/artist/whitney-houston-mn0000576814"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/8f/85/52/8f855211-9c56-fa9c-9390-db230a0795d0/dj.wopgiikh.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-015",
+      "rank": 15,
+      "name": "Nirvana",
+      "genre": "Rock/Grunge",
+      "era": "90s",
+      "peakYear": 1991,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Killed hair metal and birthed grunge. 'Smells Like Teen Spirit' defined a generation.",
+      "monthlyListeners": 28000000,
+      "totalStreams": 12500000000,
+      "grammy_wins": 1,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Smells Like Teen Spirit",
+        "Come As You Are",
+        "Heart-Shaped Box",
+        "Lithium",
+        "In Bloom"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+        "spotify": "https://open.spotify.com/artist/6olE6TJLqED3rqDCT0FyPh",
+        "allmusic": "https://www.allmusic.com/artist/nirvana-mn0000357099"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/95/fd/b9/95fdb9b2-6d2b-92a6-97f2-51c1a6d77f1a/00602527874609.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-016",
+      "rank": 16,
+      "name": "Jay-Z",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 2001,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Hip hop's first billionaire. 'Reasonable Doubt' and 'The Blueprint' are certified classics.",
+      "monthlyListeners": 35000000,
+      "totalStreams": 16000000000,
+      "grammy_wins": 24,
+      "billboard_no1": 14,
+      "signature_songs": [
+        "Empire State of Mind",
+        "99 Problems",
+        "Hard Knock Life",
+        "Run This Town",
+        "Izzo (H.O.V.A.)"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Jay-Z",
+        "spotify": "https://open.spotify.com/artist/3nFkdlSjzX9mRTtwJOzDYB",
+        "allmusic": "https://www.allmusic.com/artist/jay-z-mn0000115882"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e8/2a/b9/e82ab9ab-aa53-474b-bde4-4d70c635450f/dj.haolplct.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-017",
+      "rank": 17,
+      "name": "Nas",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1994,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "'Illmatic' is widely considered the greatest hip hop album of all time. Queensbridge legend.",
+      "monthlyListeners": 15000000,
+      "totalStreams": 6200000000,
+      "grammy_wins": 1,
+      "billboard_no1": 9,
+      "signature_songs": [
+        "N.Y. State of Mind",
+        "If I Ruled the World",
+        "One Mic",
+        "Nas Is Like",
+        "The World Is Yours"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Nas",
+        "spotify": "https://open.spotify.com/artist/20qISvAhX20dpIbOOzGK3q",
+        "allmusic": "https://www.allmusic.com/artist/nas-mn0000884273"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e8/13/50/e813500d-51cd-6c37-c405-53a668cbde97/886444072496.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-018",
+      "rank": 18,
+      "name": "Aretha Franklin",
+      "genre": "Soul/R&B",
+      "era": "60s",
+      "peakYear": 1967,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Queen of Soul. 18 Grammy wins and the voice that defined soul music.",
+      "monthlyListeners": 16000000,
+      "totalStreams": 6800000000,
+      "grammy_wins": 18,
+      "billboard_no1": 2,
+      "signature_songs": [
+        "Respect",
+        "Natural Woman",
+        "Think",
+        "Chain of Fools",
+        "I Say A Little Prayer"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Aretha_Franklin",
+        "spotify": "https://open.spotify.com/artist/7nwUJBm0HE4ZxD3f5cy5ok",
+        "allmusic": "https://www.allmusic.com/artist/aretha-franklin-mn0000066222"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/7b/60/02/7b6002d3-9b40-9852-4186-02cbe3cdb32d/603497895960.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-019",
+      "rank": 19,
+      "name": "Guns N' Roses",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "'Appetite for Destruction' is the best-selling debut album in US history. Rock and roll excess personified.",
+      "monthlyListeners": 32000000,
+      "totalStreams": 14500000000,
+      "grammy_wins": 0,
+      "billboard_no1": 4,
+      "signature_songs": [
+        "Sweet Child O' Mine",
+        "Welcome to the Jungle",
+        "Paradise City",
+        "November Rain",
+        "Patience"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Guns_N%27_Roses",
+        "spotify": "https://open.spotify.com/artist/3qm84nBOXUEQ2vnTfUTTFC",
+        "allmusic": "https://www.allmusic.com/artist/guns-n-roses-mn0000136203"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a0/4d/c4/a04dc484-03cc-02aa-fa82-5334fcb4bc16/18UMGIM24878.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-020",
+      "rank": 20,
+      "name": "Run-D.M.C.",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "First hip hop act with a gold album. 'Walk This Way' with Aerosmith broke down racial barriers in music.",
+      "monthlyListeners": 4500000,
+      "totalStreams": 1800000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "It's Tricky",
+        "Walk This Way",
+        "My Adidas",
+        "King of Rock",
+        "Run's House"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Run-DMC",
+        "spotify": "https://open.spotify.com/artist/3CQIn7N5CuRDP8wEI7FiDA",
+        "allmusic": "https://www.allmusic.com/artist/run-dmc-mn0000291927"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/00/3f/21/003f21c0-6bc3-dbed-7081-04ffaf172016/078221640824.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-021",
+      "rank": 21,
+      "name": "Elton John",
+      "genre": "Pop/Rock",
+      "era": "70s",
+      "peakYear": 1974,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "One of the best-selling music artists of all time. Over 300 million records sold worldwide.",
+      "monthlyListeners": 42000000,
+      "totalStreams": 19000000000,
+      "grammy_wins": 6,
+      "billboard_no1": 9,
+      "signature_songs": [
+        "Rocket Man",
+        "Your Song",
+        "Tiny Dancer",
+        "Crocodile Rock",
+        "Bennie and the Jets"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Elton_John",
+        "spotify": "https://open.spotify.com/artist/3PhoLpVuITZKcymswpck5b",
+        "allmusic": "https://www.allmusic.com/artist/elton-john-mn0000094974"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/89/fe/2d/89fe2d04-f3d7-e1f9-eb1f-23fb08756e84/17UM1IM23523.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-022",
+      "rank": 22,
+      "name": "Eminem",
+      "genre": "Hip Hop",
+      "era": "00s",
+      "peakYear": 2002,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Best-selling artist of the 2000s. The Rap God with unprecedented lyrical complexity.",
+      "monthlyListeners": 65000000,
+      "totalStreams": 32000000000,
+      "grammy_wins": 15,
+      "billboard_no1": 10,
+      "signature_songs": [
+        "Lose Yourself",
+        "Stan",
+        "The Real Slim Shady",
+        "Without Me",
+        "Not Afraid"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Eminem",
+        "spotify": "https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR",
+        "allmusic": "https://www.allmusic.com/artist/eminem-mn0000178792"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/58/f8/88/58f88801-2fc9-4600-a07f-425bb94315c8/00602577046223.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-023",
+      "rank": 23,
+      "name": "David Bowie",
+      "genre": "Rock/Pop",
+      "era": "70s",
+      "peakYear": 1972,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "The Chameleon of Rock. Reinvented himself endlessly across 5 decades of groundbreaking music.",
+      "monthlyListeners": 22000000,
+      "totalStreams": 9500000000,
+      "grammy_wins": 5,
+      "billboard_no1": 1,
+      "signature_songs": [
+        "Space Oddity",
+        "Heroes",
+        "Starman",
+        "Let's Dance",
+        "Changes"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/David_Bowie",
+        "spotify": "https://open.spotify.com/artist/0oSGxfWSnnOXhD2fKuz2Gy",
+        "allmusic": "https://www.allmusic.com/artist/david-bowie-mn0000515714"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/fc/65/98/fc6598f9-706b-48a2-dc37-9854f703b21e/dj.xnockfyi.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-024",
+      "rank": 24,
+      "name": "Wu-Tang Clan",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1993,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Staten Island collective that revolutionized hip hop. 'Enter the Wu-Tang' is a stone-cold classic.",
+      "monthlyListeners": 8000000,
+      "totalStreams": 3400000000,
+      "grammy_wins": 0,
+      "billboard_no1": 2,
+      "signature_songs": [
+        "C.R.E.A.M.",
+        "Protect Ya Neck",
+        "Wu-Tang Clan Ain't Nuthing ta Fuck Wit",
+        "Triumph",
+        "Gravel Pit"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Wu-Tang_Clan",
+        "spotify": "https://open.spotify.com/artist/34EP7KEpOjXcM2TCat1ISk",
+        "allmusic": "https://www.allmusic.com/artist/wu-tang-clan-mn0000754568"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7c/58/b1/7c58b153-2525-d47f-ab7a-9c9fe6882826/888880400017.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-025",
+      "rank": 25,
+      "name": "Madonna",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Queen of Pop. Best-selling female recording artist of all time with 300+ million records sold.",
+      "monthlyListeners": 28000000,
+      "totalStreams": 12000000000,
+      "grammy_wins": 7,
+      "billboard_no1": 12,
+      "signature_songs": [
+        "Like a Virgin",
+        "Material Girl",
+        "Vogue",
+        "Like a Prayer",
+        "Papa Don't Preach"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Madonna",
+        "spotify": "https://open.spotify.com/artist/6tbjWDEIzxoDsBA1FuhfPW",
+        "allmusic": "https://www.allmusic.com/artist/madonna-mn0000237205"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/32/fd/6e/32fd6e25-da2b-10e9-df38-2923c01b6c9b/dj.jaxugjvp.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-026",
+      "rank": 26,
+      "name": "Fleetwood Mac",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "UK/USA",
+      "status": "Legend",
+      "bio": "Rumours is one of the best-selling albums of all time.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "The Chain",
+        "Dreams",
+        "Go Your Own Way",
+        "Landslide",
+        "Rhiannon"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Fleetwood_Mac",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/d2/48/f4/d248f4ae-a7e4-a48e-1588-6617de3e8d76/mzi.izeorbmm.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-027",
+      "rank": 27,
+      "name": "Pink Floyd",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1973,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Pioneers of progressive rock. Dark Side of the Moon spent 937 weeks on Billboard.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Comfortably Numb",
+        "Wish You Were Here",
+        "Another Brick in the Wall",
+        "Money",
+        "Time"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pink_Floyd",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/3e/76/b0/3e76b0e3-762b-2286-a019-8afb19cee541/886445635829.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-028",
+      "rank": 28,
+      "name": "The Rolling Stones",
+      "genre": "Rock",
+      "era": "60s",
+      "peakYear": 1969,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "The greatest rock and roll band in the world. Still touring after 60 years.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Satisfaction",
+        "Paint It Black",
+        "Sympathy for the Devil",
+        "Gimme Shelter",
+        "Start Me Up"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Rolling_Stones",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/29/b7/81/29b781e5-3773-c87e-c6a8-82581e53d270/13ABKIM00053.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-029",
+      "rank": 29,
+      "name": "AC/DC",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1980,
+      "country": "Australia",
+      "status": "Legend",
+      "bio": "Back in Black is the second best-selling album ever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Back in Black",
+        "Highway to Hell",
+        "Thunderstruck",
+        "T.N.T.",
+        "You Shook Me All Night Long"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/AC/DC",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1e/14/58/1e145814-281a-58e0-3ab1-145f5d1af421/886443673441.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-030",
+      "rank": 30,
+      "name": "Aerosmith",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1975,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "America's greatest rock band with a career spanning 50+ years.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Dream On",
+        "Walk This Way",
+        "I Don't Want to Miss a Thing",
+        "Sweet Emotion",
+        "Crazy"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Aerosmith",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2d/08/bf/2d08bf29-d87e-8ce9-3a48-2985787f8a7c/00720642471623.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-031",
+      "rank": 31,
+      "name": "James Brown",
+      "genre": "Funk/Soul",
+      "era": "60s",
+      "peakYear": 1965,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Godfather of Soul. Created funk and influenced everyone.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Got You",
+        "Papa's Got a Brand New Bag",
+        "Get Up Offa That Thing",
+        "Sex Machine",
+        "It's a Man's Man's Man's World"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/James_Brown",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/8a/76/04/8a760498-ce95-c1f3-4bff-958362821728/14UMGIM28794.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-032",
+      "rank": 32,
+      "name": "The Temptations",
+      "genre": "R&B/Soul",
+      "era": "60s",
+      "peakYear": 1965,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Motown legends with 4 #1 hits and 14 #1 R&B singles.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "My Girl",
+        "Ain't Too Proud to Beg",
+        "Just My Imagination",
+        "Papa Was a Rollin' Stone",
+        "The Way You Do the Things You Do"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Temptations",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/90/10/ec/9010eccf-abce-ae23-5d37-c8610dd63d4b/08UMGIM16458.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-033",
+      "rank": 33,
+      "name": "Diana Ross",
+      "genre": "Pop/R&B",
+      "era": "70s",
+      "peakYear": 1970,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Supreme leader of The Supremes and solo icon.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I'm Coming Out",
+        "Upside Down",
+        "Ain't No Mountain High Enough",
+        "Stop! In the Name of Love",
+        "You Can't Hurry Love"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Diana_Ross",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/c7/24/0d/c7240d1d-e8a3-d8c5-7dbc-239b8ba90df8/06UMGIM01542.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-034",
+      "rank": 34,
+      "name": "Donna Summer",
+      "genre": "Disco",
+      "era": "70s",
+      "peakYear": 1978,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Queen of Disco. Defined an entire era of dance music.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Feel Love",
+        "Hot Stuff",
+        "Bad Girls",
+        "Last Dance",
+        "Love to Love You Baby"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Donna_Summer",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b0/3d/23/b03d231f-3099-5409-cb9d-c7bdce71343b/06UMGIM02285.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-035",
+      "rank": 35,
+      "name": "Earth, Wind & Fire",
+      "genre": "Funk/R&B",
+      "era": "70s",
+      "peakYear": 1975,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Fusion of funk, soul, jazz, and pop that defined the sound of a decade.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "September",
+        "Boogie Wonderland",
+        "Let's Groove",
+        "Shining Star",
+        "Fantasy"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Earth,_Wind_&_Fire",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/4a/f4/6e/4af46e98-d5ef-bfb9-e671-9b64311577c0/886447618448.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-036",
+      "rank": 36,
+      "name": "Bee Gees",
+      "genre": "Pop/Disco",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "UK/Australia",
+      "status": "Legend",
+      "bio": "Saturday Night Fever soundtrack sold 40 million copies.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Stayin' Alive",
+        "How Deep Is Your Love",
+        "Night Fever",
+        "More Than a Woman",
+        "Jive Talkin'"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bee_Gees",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/94/a7/5f/94a75fd1-17da-3a38-42dc-c5e35bf56046/16UMGIM86639.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-037",
+      "rank": 37,
+      "name": "ABBA",
+      "genre": "Pop",
+      "era": "70s",
+      "peakYear": 1976,
+      "country": "Sweden",
+      "status": "Legend",
+      "bio": "Sweden's greatest export. 400 million records sold.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Dancing Queen",
+        "Mamma Mia",
+        "Fernando",
+        "Waterloo",
+        "Take a Chance on Me"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/ABBA",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/60/f8/a6/60f8a6bc-e875-238d-f2f8-f34a6034e6d2/14UMGIM07615.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-038",
+      "rank": 38,
+      "name": "Lionel Richie",
+      "genre": "R&B/Pop",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Solo success after The Commodores. Hello is iconic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hello",
+        "All Night Long",
+        "Say You, Say Me",
+        "Easy",
+        "Three Times a Lady"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Lionel_Richie",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a2/42/21/a24221ca-86a6-7bc0-6497-904434415c32/06UMGIM11025.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-039",
+      "rank": 39,
+      "name": "Billy Joel",
+      "genre": "Pop/Rock",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Piano Man. One of the best-selling artists of all time.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Piano Man",
+        "Uptown Girl",
+        "We Didn't Start the Fire",
+        "Just the Way You Are",
+        "New York State of Mind"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Billy_Joel",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/f0/7a/54/f07a54ab-3ebc-6813-e515-86200b8138fc/dj.uthntyfe.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-040",
+      "rank": 40,
+      "name": "Bruce Springsteen",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Boss. Born in the U.S.A. sold 30 million copies.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Born to Run",
+        "Born in the U.S.A.",
+        "Dancing in the Dark",
+        "Thunder Road",
+        "The River"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bruce_Springsteen",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/72/68/327268ba-b9dd-b322-2a16-bdd0212df48c/074643865326.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-041",
+      "rank": 41,
+      "name": "Eric Clapton",
+      "genre": "Rock/Blues",
+      "era": "70s",
+      "peakYear": 1970,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Guitar god. Only 3-time Rock Hall inductee.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Layla",
+        "Tears in Heaven",
+        "Wonderful Tonight",
+        "Cocaine",
+        "I Shot the Sheriff"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Eric_Clapton",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2b/55/08/2b550878-8bad-b40f-9a58-d63aca53c824/00602498206034.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-042",
+      "rank": 42,
+      "name": "The Who",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1971,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "British Invasion legends. Tommy and Who's Next are masterpieces.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Baba O'Riley",
+        "My Generation",
+        "Won't Get Fooled Again",
+        "Pinball Wizard",
+        "Behind Blue Eyes"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Who",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/64/99/09/6499090c-1112-37e2-e15f-9ddcbeffe408/06UMGIM12596.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-043",
+      "rank": 43,
+      "name": "The Eagles",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1976,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Hotel California is the third best-selling album in US history.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hotel California",
+        "Take It Easy",
+        "Desperado",
+        "Life in the Fast Lane",
+        "One of These Nights"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Eagles",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/f0/c7/c8/f0c7c8f4-4319-d357-ddaf-566ef8e2194e/081227979379.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-044",
+      "rank": 44,
+      "name": "Bon Jovi",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "130 million records sold. 'Livin' on a Prayer' is an anthem.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Livin' on a Prayer",
+        "You Give Love a Bad Name",
+        "Wanted Dead or Alive",
+        "It's My Life",
+        "Bad Medicine"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bon_Jovi",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/a2/e0/ca/a2e0ca5a-3f79-8e96-a0bc-b0d49731b5da/10UMGIM26223.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-045",
+      "rank": 45,
+      "name": "Van Halen",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Eddie Van Halen redefined electric guitar.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Jump",
+        "Panama",
+        "Hot for Teacher",
+        "Runnin' with the Devil",
+        "Eruption"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Van_Halen",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/34/15/80/341580d4-dae6-2809-8797-ee7930ddb643/603497891085.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-046",
+      "rank": 46,
+      "name": "Metallica",
+      "genre": "Metal",
+      "era": "80s",
+      "peakYear": 1991,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The biggest metal band in history. Black Album sold 30 million.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Enter Sandman",
+        "Nothing Else Matters",
+        "Master of Puppets",
+        "One",
+        "Fade to Black"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Metallica",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/0f/7a/74/0f7a7472-92fa-e77d-384a-1e4304705e83/dj.jbiruenb.png/600x600bb.jpg"
+    },
+    {
+      "id": "os-047",
+      "rank": 47,
+      "name": "Iron Maiden",
+      "genre": "Metal",
+      "era": "80s",
+      "peakYear": 1982,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "British heavy metal icons. Still headlining stadiums.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "The Trooper",
+        "Run to the Hills",
+        "Fear of the Dark",
+        "The Number of the Beast",
+        "Hallowed Be Thy Name"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Iron_Maiden",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9f/8c/7e/9f8c7e71-c96d-0e4c-763d-823418efed5a/4050538710779.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-048",
+      "rank": 48,
+      "name": "Black Sabbath",
+      "genre": "Metal",
+      "era": "70s",
+      "peakYear": 1970,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Invented heavy metal. Ozzy is the Prince of Darkness.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Paranoid",
+        "Iron Man",
+        "War Pigs",
+        "Black Sabbath",
+        "N.I.B."
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Black_Sabbath",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/be/27/91/be279120-2285-16c6-c7ba-9d6643d4a948/075992732727.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-049",
+      "rank": 49,
+      "name": "Def Leppard",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Hysteria sold 25 million copies worldwide.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Pour Some Sugar on Me",
+        "Love Bites",
+        "Photograph",
+        "Hysteria",
+        "Rock of Ages"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Def_Leppard",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0f/76/fa/0f76fa8d-8341-c0af-84d8-543b9193c728/17UM1IM41552.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-050",
+      "rank": 50,
+      "name": "Journey",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1981,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Don't Stop Believin' is the most downloaded 20th century song.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Don't Stop Believin'",
+        "Open Arms",
+        "Faithfully",
+        "Separate Ways",
+        "Any Way You Want It"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Journey",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/71/2d/61/712d617d-f4a4-5904-1b11-d4b4b45c47c5/828768588925.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-051",
+      "rank": 51,
+      "name": "Public Enemy",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Revolutionary hip hop. Fight the Power changed music.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Fight the Power",
+        "Bring the Noise",
+        "911 Is a Joke",
+        "Don't Believe the Hype",
+        "Black Steel in the Hour of Chaos"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Public_Enemy",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/54/e7/05/mzi.ueufdcaw.tif/600x600bb.jpg"
+    },
+    {
+      "id": "os-052",
+      "rank": 52,
+      "name": "A Tribe Called Quest",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1991,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Jazz-rap pioneers. Low End Theory is a masterpiece.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Can I Kick It?",
+        "Scenario",
+        "Electric Relaxation",
+        "Award Tour",
+        "Check the Rhime"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/A_Tribe_Called_Quest",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/68/d3/ce/68d3ce5e-9465-4c77-60a6-496417e35308/886446074757.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-053",
+      "rank": 53,
+      "name": "Outkast",
+      "genre": "Hip Hop",
+      "era": "00s",
+      "peakYear": 2003,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Atlanta duo who pushed hip hop into new territory.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hey Ya!",
+        "Ms. Jackson",
+        "B.O.B.",
+        "Rosa Parks",
+        "So Fresh, So Clean"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Outkast",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/e0/4c/f4/e04cf460-46a5-992a-87c7-2c1aef7e3a46/730082607223.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-054",
+      "rank": 54,
+      "name": "The Roots",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1999,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Live instrumentation in hip hop. Questlove is a legend.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "The Seed 2.0",
+        "You Got Me",
+        "What They Do",
+        "The Next Movement",
+        "Proceed"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Roots",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/b4/7b/5f/b47b5f9a-99f0-3335-3c1a-0f9bfcdf4008/dj.qjhsreuw.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-055",
+      "rank": 55,
+      "name": "Ice Cube",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1992,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "N.W.A member turned solo icon and actor.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "It Was a Good Day",
+        "Check Yo Self",
+        "No Vaseline",
+        "You Can Do It",
+        "Friday"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Ice_Cube",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c6/89/b8/c689b869-7aca-8eef-34aa-2c685e1bbaff/00724352909155.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-056",
+      "rank": 56,
+      "name": "Scarface",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1994,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Geto Boys legend. The Diary is a southern classic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Mind Playing Tricks on Me",
+        "Smile",
+        "I Seen a Man Die",
+        "On My Block",
+        "Mary Jane"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Scarface",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/da/b7/83/mzi.digsqdiv.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-057",
+      "rank": 57,
+      "name": "DMX",
+      "genre": "Hip Hop",
+      "era": "00s",
+      "peakYear": 1998,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "First artist to debut at #1 five times consecutively.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Party Up",
+        "Ruff Ryders' Anthem",
+        "X Gon' Give It to Ya",
+        "Where the Hood At",
+        "Slippin'"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/DMX",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/c0/c5/f5c0c5e1-cf8a-e5c6-5141-6fa789dc451f/09UMGIM40130.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-058",
+      "rank": 58,
+      "name": "LL Cool J",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "First hip hop artist with a string of hits across decades.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Mama Said Knock You Out",
+        "Going Back to Cali",
+        "I Need Love",
+        "Rock the Bells",
+        "Doin' It"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/LL_Cool_J",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/99/7e/2b/997e2bf0-8401-dc80-8e66-a1070fd104dd/06UMGIM05536.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-059",
+      "rank": 59,
+      "name": "Beastie Boys",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Licensed to Ill was first hip hop album to top Billboard.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Sabotage",
+        "Intergalactic",
+        "Fight for Your Right",
+        "No Sleep Till Brooklyn",
+        "So What'cha Want"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Beastie_Boys",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/e4/d7/81/e4d781e8-bd3f-486a-cd18-e9b3a7d12b34/00731452735126.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-060",
+      "rank": 60,
+      "name": "De La Soul",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1989,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Alternative hip hop pioneers with creative sampling.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Me Myself and I",
+        "Ring Ring Ring",
+        "Buddy",
+        "A Roller Skating Jam Named Saturdays",
+        "Stakes Is High"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/De_La_Soul",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a8/d7/21/a8d72124-208c-c85c-b72e-a6c7cd54aed4/810098502627.png/600x600bb.jpg"
+    },
+    {
+      "id": "os-061",
+      "rank": 61,
+      "name": "Cypress Hill",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1993,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Latin hip hop pioneers. Signature nasal flow.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Insane in the Brain",
+        "How I Could Just Kill a Man",
+        "Hits from the Bong",
+        "Rock Superstar",
+        "Tequila Sunrise"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Cypress_Hill",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/65/e8/b0/65e8b045-662e-a101-3b5c-08d4c5aa0c37/827969778821.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-062",
+      "rank": 62,
+      "name": "Mobb Deep",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1995,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Queensbridge duo. The Infamous is a hardcore classic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Shook Ones Pt. II",
+        "Quiet Storm",
+        "Survival of the Fittest",
+        "Hell on Earth",
+        "Burn"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Mobb_Deep",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/b0/2f/97/b02f976b-be3c-8f63-491e-f6503aacde02/078636648026.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-063",
+      "rank": 63,
+      "name": "Big Daddy Kane",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Smooth flow pioneer. Influenced Jay-Z and Nas.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Ain't No Half-Steppin'",
+        "Raw",
+        "Smooth Operator",
+        "Warm It Up Kane",
+        "Set It Off"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Big_Daddy_Kane",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2e/31/dd/2e31dd56-1ad8-f0f5-07a4-3fedc9be5cd5/mzi.swtuijtn.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-064",
+      "rank": 64,
+      "name": "Rakim",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The God MC. Revolutionized lyrical complexity.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Paid in Full",
+        "I Ain't No Joke",
+        "Eric B. Is President",
+        "Microphone Fiend",
+        "Follow the Leader"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Rakim",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fa/06/e5/fa06e5fa-8003-de49-1f1c-f44e11e513fd/198704024269_Cover.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-065",
+      "rank": 65,
+      "name": "Slick Rick",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "UK/USA",
+      "status": "Legend",
+      "bio": "The Ruler. Master storyteller of hip hop.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Children's Story",
+        "La Di Da Di",
+        "Hey Young World",
+        "Mona Lisa",
+        "Teenage Love"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Slick_Rick",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ee/85/86/ee85862c-aab7-dda5-4929-d03d3fcb4f75/06UMGIM01306.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-066",
+      "rank": 66,
+      "name": "Tina Turner",
+      "genre": "Rock/R&B",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Queen of Rock and Roll. Ultimate comeback story.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "What's Love Got to Do with It",
+        "Private Dancer",
+        "Simply the Best",
+        "Proud Mary",
+        "River Deep, Mountain High"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Tina_Turner",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/91/a9/3d/91a93dd8-b591-6aab-21b7-da5669f61a9c/dj.glozlwoq.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-067",
+      "rank": 67,
+      "name": "Janet Jackson",
+      "genre": "Pop/R&B",
+      "era": "80s",
+      "peakYear": 1989,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Control and Rhythm Nation defined pop innovation.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Rhythm Nation",
+        "Nasty",
+        "Control",
+        "That's the Way Love Goes",
+        "Together Again"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Janet_Jackson",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/08/67/c2/0867c2b5-c9e8-81c9-8259-5dac2ba26971/00602567822424.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-068",
+      "rank": 68,
+      "name": "Anita Baker",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Quiet storm queen with an 8-Grammy career.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Sweet Love",
+        "Giving You the Best That I Got",
+        "Caught Up in the Rapture",
+        "Just Because",
+        "Angel"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Anita_Baker",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3f/d6/5e/3fd65eb3-84f2-78df-1fc0-08ef71da7f44/mzi.qjwjgnxa.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-069",
+      "rank": 69,
+      "name": "Luther Vandross",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1981,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The velvet voice of R&B. 8 consecutive platinum albums.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Never Too Much",
+        "Here and Now",
+        "Dance with My Father",
+        "A House Is Not a Home",
+        "Power of Love"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Luther_Vandross",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/2e/fc/c5/2efcc5c0-c3d6-e27e-4687-00e2c5ba2bbf/mzi.yejogkal.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-070",
+      "rank": 70,
+      "name": "Teddy Pendergrass",
+      "genre": "R&B",
+      "era": "70s",
+      "peakYear": 1978,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "First male artist with 5 consecutive platinum albums.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Turn Off the Lights",
+        "Close the Door",
+        "Love T.K.O.",
+        "If You Don't Know Me by Now",
+        "You're My Latest, My Greatest Inspiration"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Teddy_Pendergrass",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/75/bc/22/75bc22e1-4062-2193-1cbb-3f7a47ce389f/mzi.jgmgshuy.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-071",
+      "rank": 71,
+      "name": "Al Green",
+      "genre": "Soul",
+      "era": "70s",
+      "peakYear": 1972,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Silky smooth voice defined Memphis soul.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Let's Stay Together",
+        "Love and Happiness",
+        "Tired of Being Alone",
+        "I'm Still in Love with You",
+        "Here I Am"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Al_Green",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/c0/90/63/c0906357-b17c-bfcc-30c8-0532c52d8d0d/886446283692.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-072",
+      "rank": 72,
+      "name": "Sade",
+      "genre": "R&B/Soul",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "British-Nigerian band with smooth sophistication.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Smooth Operator",
+        "No Ordinary Love",
+        "By Your Side",
+        "Sweetest Taboo",
+        "Kiss of Life"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Sade",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/85/d9/05/85d9053a-565b-723d-0823-c0c2a0dbff87/mzi.ifrkjjuc.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-073",
+      "rank": 73,
+      "name": "Chaka Khan",
+      "genre": "Funk/R&B",
+      "era": "70s",
+      "peakYear": 1978,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Queen of Funk with a four-octave range.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I'm Every Woman",
+        "Through the Fire",
+        "Ain't Nobody",
+        "Tell Me Something Good",
+        "I Feel for You"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Chaka_Khan",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/13/55/fb/1355fbb0-60f1-d15e-12cb-ad0008b99524/mzi.zqdpvvdq.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-074",
+      "rank": 74,
+      "name": "Patti LaBelle",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Godmother of Soul. Power vocals personified.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Lady Marmalade",
+        "New Attitude",
+        "On My Own",
+        "If Only You Knew",
+        "Got to Be Real"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Patti_LaBelle",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/db/b3/dc/mzi.aauddzay.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-075",
+      "rank": 75,
+      "name": "Gladys Knight",
+      "genre": "Soul",
+      "era": "70s",
+      "peakYear": 1973,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Empress of Soul. Midnight Train is timeless.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Midnight Train to Georgia",
+        "Best Thing That Ever Happened to Me",
+        "Neither One of Us",
+        "I Heard It Through the Grapevine",
+        "If I Were Your Woman"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Gladys_Knight",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/c0/f4/d8/c0f4d865-b68f-f3c5-ce90-f213b309efea/00601215928228.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-076",
+      "rank": 76,
+      "name": "Smokey Robinson",
+      "genre": "Soul",
+      "era": "60s",
+      "peakYear": 1965,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Motown songwriter and performer extraordinaire.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Cruisin'",
+        "Being with You",
+        "The Tracks of My Tears",
+        "Tears of a Clown",
+        "My Girl"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Smokey_Robinson",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/ba/c9/1d/bac91dbf-ad94-5f12-7fc1-e84554a4f4fe/06UMGIM17208.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-077",
+      "rank": 77,
+      "name": "The Isley Brothers",
+      "genre": "R&B/Funk",
+      "era": "70s",
+      "peakYear": 1975,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Multi-decade legends spanning soul, funk, and R&B.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Shout",
+        "It's Your Thing",
+        "Between the Sheets",
+        "For the Love of You",
+        "Summer Breeze"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Isley_Brothers",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/94/04/cd/9404cd71-5c7f-8896-f2a5-696eff4fc558/contsched.uceopvlj.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-078",
+      "rank": 78,
+      "name": "Parliament-Funkadelic",
+      "genre": "Funk",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "George Clinton's mothership of funk.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Flash Light",
+        "Give Up the Funk",
+        "Atomic Dog",
+        "One Nation Under a Groove",
+        "P-Funk"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Parliament-Funkadelic",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/6f/ca/06/6fca065f-7551-561c-661a-827502dacf8c/06UMGIM21392.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-079",
+      "rank": 79,
+      "name": "Jimi Hendrix",
+      "genre": "Rock",
+      "era": "60s",
+      "peakYear": 1967,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Greatest guitarist of all time. Changed electric guitar forever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Purple Haze",
+        "Hey Joe",
+        "All Along the Watchtower",
+        "Voodoo Child",
+        "The Wind Cries Mary"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Jimi_Hendrix",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/53/e9/b9/53e9b9f0-97f4-aac7-ee5b-12c2f2007ad3/884977413878.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-080",
+      "rank": 80,
+      "name": "Janis Joplin",
+      "genre": "Rock/Blues",
+      "era": "60s",
+      "peakYear": 1968,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Queen of psychedelic soul. Raw emotional power.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Me and Bobby McGee",
+        "Piece of My Heart",
+        "Mercedes Benz",
+        "Cry Baby",
+        "Ball and Chain"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Janis_Joplin",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-081",
+      "rank": 81,
+      "name": "The Doors",
+      "genre": "Rock",
+      "era": "60s",
+      "peakYear": 1967,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Jim Morrison's poetry and psychedelic rock.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Light My Fire",
+        "Riders on the Storm",
+        "Break On Through",
+        "People Are Strange",
+        "Hello, I Love You"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Doors",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/03/c6/2d/03c62d8a-487f-78c3-8416-488cfac664eb/dj.sboowgda.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-082",
+      "rank": 82,
+      "name": "Creedence Clearwater Revival",
+      "genre": "Rock",
+      "era": "60s",
+      "peakYear": 1969,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Swamp rock pioneers with timeless hits.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Fortunate Son",
+        "Bad Moon Rising",
+        "Proud Mary",
+        "Have You Ever Seen the Rain",
+        "Born on the Bayou"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Creedence_Clearwater_Revival",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-083",
+      "rank": 83,
+      "name": "Simon & Garfunkel",
+      "genre": "Folk Rock",
+      "era": "60s",
+      "peakYear": 1968,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Folk-rock poetry. Bridge Over Troubled Water is perfection.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Bridge Over Troubled Water",
+        "The Sound of Silence",
+        "Mrs. Robinson",
+        "Scarborough Fair",
+        "Cecilia"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Simon_&_Garfunkel",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-084",
+      "rank": 84,
+      "name": "Joni Mitchell",
+      "genre": "Folk",
+      "era": "70s",
+      "peakYear": 1971,
+      "country": "Canada",
+      "status": "Legend",
+      "bio": "Blue is considered one of the greatest albums ever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Both Sides Now",
+        "Big Yellow Taxi",
+        "A Case of You",
+        "River",
+        "Woodstock"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Joni_Mitchell",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/00/a2/43/00a24363-cf69-bfd2-a26a-a042d57ab141/075992719926.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-085",
+      "rank": 85,
+      "name": "Neil Young",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1972,
+      "country": "Canada",
+      "status": "Legend",
+      "bio": "Godfather of grunge. Heart of Gold to Rust Never Sleeps.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Heart of Gold",
+        "Old Man",
+        "Rockin' in the Free World",
+        "Harvest Moon",
+        "Cinnamon Girl"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Neil_Young",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-086",
+      "rank": 86,
+      "name": "Tom Petty",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1989,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Heartbreaker. Classic American rock.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Free Fallin'",
+        "I Won't Back Down",
+        "American Girl",
+        "Refugee",
+        "Learning to Fly"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Tom_Petty",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-087",
+      "rank": 87,
+      "name": "Bob Dylan",
+      "genre": "Folk/Rock",
+      "era": "60s",
+      "peakYear": 1965,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Nobel Prize winner. Changed songwriting forever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Like a Rolling Stone",
+        "Blowin' in the Wind",
+        "The Times They Are a-Changin'",
+        "Knockin' on Heaven's Door",
+        "Tangled Up in Blue"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bob_Dylan",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features124/v4/dc/e7/e3/dce7e385-5b40-bcda-4d09-ae4faab692ed/dj.fvugskmg.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-088",
+      "rank": 88,
+      "name": "Elvis Presley",
+      "genre": "Rock/Pop",
+      "era": "50s",
+      "peakYear": 1957,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The King. Best-selling solo artist in history.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Jailhouse Rock",
+        "Hound Dog",
+        "Suspicious Minds",
+        "Can't Help Falling in Love",
+        "Heartbreak Hotel"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Elvis_Presley",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/ec/14/ea/ec14ea7c-7886-5757-5837-6ea26c0e4e7d/dj.qusytvtz.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-089",
+      "rank": 89,
+      "name": "Ray Charles",
+      "genre": "Soul/R&B",
+      "era": "60s",
+      "peakYear": 1962,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Genius. Father of soul music.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hit the Road Jack",
+        "Georgia on My Mind",
+        "What'd I Say",
+        "I Got a Woman",
+        "Unchain My Heart"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Ray_Charles",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-090",
+      "rank": 90,
+      "name": "Sam Cooke",
+      "genre": "Soul",
+      "era": "60s",
+      "peakYear": 1960,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "King of Soul. Pioneered the genre.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "A Change Is Gonna Come",
+        "You Send Me",
+        "Cupid",
+        "Bring It On Home to Me",
+        "Chain Gang"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Sam_Cooke",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-091",
+      "rank": 91,
+      "name": "Otis Redding",
+      "genre": "Soul",
+      "era": "60s",
+      "peakYear": 1967,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "King of Soul. Dock of the Bay is immortal.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "(Sittin' On) The Dock of the Bay",
+        "Try a Little Tenderness",
+        "These Arms of Mine",
+        "Pain in My Heart",
+        "Respect"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Otis_Redding",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-092",
+      "rank": 92,
+      "name": "Curtis Mayfield",
+      "genre": "Soul",
+      "era": "70s",
+      "peakYear": 1972,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Superfly soundtrack and socially conscious soul.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Superfly",
+        "Move On Up",
+        "Freddie's Dead",
+        "Pusherman",
+        "People Get Ready"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Curtis_Mayfield",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-093",
+      "rank": 93,
+      "name": "The Jackson 5",
+      "genre": "Pop/R&B",
+      "era": "70s",
+      "peakYear": 1970,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Motown's biggest act. Launched Michael.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Want You Back",
+        "ABC",
+        "I'll Be There",
+        "The Love You Save",
+        "Dancing Machine"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Jackson_5",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/74/00/cd/7400cdf5-08e3-afb7-f95d-6be9ebd9149a/06UMGIM01808.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-094",
+      "rank": 94,
+      "name": "The Supremes",
+      "genre": "Pop/R&B",
+      "era": "60s",
+      "peakYear": 1966,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Most successful Motown act of the '60s.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Stop! In the Name of Love",
+        "Baby Love",
+        "You Can't Hurry Love",
+        "Come See About Me",
+        "Where Did Our Love Go"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Supremes",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/11/f7/74/11f774a1-b37b-9a7e-6c15-499648814421/06UMGIM13528.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-095",
+      "rank": 95,
+      "name": "Kool & The Gang",
+      "genre": "Funk",
+      "era": "80s",
+      "peakYear": 1980,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Celebration is the party anthem forever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Celebration",
+        "Get Down on It",
+        "Jungle Boogie",
+        "Ladies' Night",
+        "Cherish"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Kool_&_The_Gang",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-096",
+      "rank": 96,
+      "name": "Barry White",
+      "genre": "R&B",
+      "era": "70s",
+      "peakYear": 1974,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Walrus of Love. Deep voice extraordinaire.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Can't Get Enough of Your Love, Babe",
+        "You're the First, the Last, My Everything",
+        "I'm Gonna Love You Just a Little More Baby",
+        "Never, Never Gonna Give Ya Up",
+        "Let the Music Play"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Barry_White",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/c7/3a/27/c73a27c0-cadd-2ba7-2976-9070bc233b47/00602567825555.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-097",
+      "rank": 97,
+      "name": "Isaac Hayes",
+      "genre": "Soul/Funk",
+      "era": "70s",
+      "peakYear": 1971,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Shaft soundtrack. Oscar winner.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Theme from Shaft",
+        "Walk On By",
+        "Joy",
+        "Never Can Say Goodbye",
+        "Hyperbolicsyllabicsesquedalymistic"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Isaac_Hayes",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-098",
+      "rank": 98,
+      "name": "Rick James",
+      "genre": "Funk",
+      "era": "80s",
+      "peakYear": 1981,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Super Freak. Buffalo funk legend.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Super Freak",
+        "Give It to Me Baby",
+        "Mary Jane",
+        "Fire and Desire",
+        "You and I"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Rick_James",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/22/60/6c/22606cd1-40fc-3b1e-fbb0-65dcf102bf08/06UMGIM02155.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-099",
+      "rank": 99,
+      "name": "Grandmaster Flash",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1982,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Pioneer of DJing. The Message is landmark hip hop.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "The Message",
+        "White Lines",
+        "The Adventures of Grandmaster Flash on the Wheels of Steel",
+        "New York New York",
+        "Freedom"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Grandmaster_Flash",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5b/5c/a3/5b5ca38d-2be1-e628-15e0-5ea1841a7a8e/s06.nkbeomks.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-100",
+      "rank": 100,
+      "name": "Eric B. & Rakim",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Paid in Full changed hip hop production.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Paid in Full",
+        "I Know You Got Soul",
+        "Eric B. Is President",
+        "Follow the Leader",
+        "Juice"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Eric_B._&_Rakim",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/13/11/10/13111001-0c28-9fd7-9d50-194e72e23f53/00602547742254.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-101",
+      "rank": 101,
+      "name": "EPMD",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Strictly Business. Funk sampling pioneers.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Strictly Business",
+        "You Gots to Chill",
+        "Crossover",
+        "So Wat Cha Sayin'",
+        "Da Joint"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/EPMD",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/3a/82/71/3a827138-fb34-d566-67f4-496b18373245/13UABIM51648.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-102",
+      "rank": 102,
+      "name": "Salt-N-Pepa",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "First female rap act with gold and platinum albums.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Push It",
+        "Shoop",
+        "Let's Talk About Sex",
+        "Whatta Man",
+        "None of Your Business"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Salt-N-Pepa",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-103",
+      "rank": 103,
+      "name": "MC Lyte",
+      "genre": "Hip Hop",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Pioneer of female hip hop. First female solo gold album.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Cha Cha Cha",
+        "Lyte as a Rock",
+        "Ruffneck",
+        "Paper Thin",
+        "I Cram to Understand U"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/MC_Lyte",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-104",
+      "rank": 104,
+      "name": "Queen Latifah",
+      "genre": "Hip Hop",
+      "era": "90s",
+      "peakYear": 1989,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "All Hail the Queen. Hip hop royalty turned Oscar nominee.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "U.N.I.T.Y.",
+        "Ladies First",
+        "Just Another Day",
+        "Wrath of My Madness",
+        "Dance for Me"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Queen_Latifah",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-105",
+      "rank": 105,
+      "name": "Missy Elliott",
+      "genre": "Hip Hop",
+      "era": "00s",
+      "peakYear": 2002,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Revolutionary producer and visionary artist.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Get Ur Freak On",
+        "Work It",
+        "Lose Control",
+        "The Rain",
+        "One Minute Man"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Missy_Elliott",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-106",
+      "rank": 106,
+      "name": "Lauryn Hill",
+      "genre": "Hip Hop/R&B",
+      "era": "90s",
+      "peakYear": 1998,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The Miseducation is one of the greatest albums ever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Doo Wop (That Thing)",
+        "Everything Is Everything",
+        "Ex-Factor",
+        "Lost Ones",
+        "Killing Me Softly"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Lauryn_Hill",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/09/6b/55/096b55c4-ee8f-23bd-df8f-0ca0821f3028/886446727189.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-107",
+      "rank": 107,
+      "name": "Mary J. Blige",
+      "genre": "R&B/Hip Hop",
+      "era": "90s",
+      "peakYear": 1994,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Queen of Hip Hop Soul.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Real Love",
+        "No More Drama",
+        "Family Affair",
+        "Be Without You",
+        "Not Gon' Cry"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Mary_J._Blige",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ff/7d/1e/ff7d1e81-a51b-09d8-a010-4350622cd9bb/810043687966.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-108",
+      "rank": 108,
+      "name": "TLC",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1994,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Best-selling female group in US history.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Waterfalls",
+        "No Scrubs",
+        "Creep",
+        "Unpretty",
+        "Baby-Baby-Baby"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/TLC",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-109",
+      "rank": 109,
+      "name": "En Vogue",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1992,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Harmonies and style. Funky Divas.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Don't Let Go",
+        "Hold On",
+        "My Lovin'",
+        "Free Your Mind",
+        "Give It Up, Turn It Loose"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/En_Vogue",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-110",
+      "rank": 110,
+      "name": "Boyz II Men",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1994,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Best-selling R&B group ever. End of the Road.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "End of the Road",
+        "I'll Make Love to You",
+        "One Sweet Day",
+        "Motownphilly",
+        "It's So Hard to Say Goodbye to Yesterday"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Boyz_II_Men",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/fe/65/55/fe655582-80b3-908c-f87d-aaa7fb3bbe2b/06UMGIM08210.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-111",
+      "rank": 111,
+      "name": "New Edition",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Launched Bobby Brown, Bell Biv DeVoe, and Johnny Gill.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Candy Girl",
+        "Mr. Telephone Man",
+        "If It Isn't Love",
+        "Can You Stand the Rain",
+        "Cool It Now"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/New_Edition",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-112",
+      "rank": 112,
+      "name": "R. Kelly",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1996,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "I Believe I Can Fly. Controversial legacy.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Believe I Can Fly",
+        "Bump N' Grind",
+        "Ignition",
+        "Step in the Name of Love",
+        "The World's Greatest"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/R._Kelly",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-113",
+      "rank": 113,
+      "name": "Keith Sweat",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "New Jack Swing pioneer.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Want Her",
+        "Make It Last Forever",
+        "Twisted",
+        "Nobody",
+        "Right and a Wrong Way"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Keith_Sweat",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-114",
+      "rank": 114,
+      "name": "Bobby Brown",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "King of New Jack Swing.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "My Prerogative",
+        "Every Little Step",
+        "Roni",
+        "Don't Be Cruel",
+        "Humpin' Around"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bobby_Brown",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-115",
+      "rank": 115,
+      "name": "Bell Biv DeVoe",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1990,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "New Edition splinter. Poison is iconic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Poison",
+        "Do Me!",
+        "B.B.D.",
+        "When Will I See You Smile Again",
+        "She's Dope!"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bell_Biv_DeVoe",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-116",
+      "rank": 116,
+      "name": "Guy",
+      "genre": "R&B",
+      "era": "80s",
+      "peakYear": 1988,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Teddy Riley invented New Jack Swing.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Groove Me",
+        "Piece of My Love",
+        "I Like",
+        "Let's Chill",
+        "New Jack City"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Guy",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/d5/cc/cd/d5cccd18-0983-ee0b-1460-157bb4ff1050/06UMGIM15245.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-117",
+      "rank": 117,
+      "name": "Jodeci",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1993,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Forever My Lady. Uptown's finest.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Forever My Lady",
+        "Come and Talk to Me",
+        "Cry for You",
+        "Feenin'",
+        "Stay"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Jodeci",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-118",
+      "rank": 118,
+      "name": "SWV",
+      "genre": "R&B",
+      "era": "90s",
+      "peakYear": 1993,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Sisters with Voices. Weak is a classic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Weak",
+        "Right Here",
+        "I'm So Into You",
+        "You're the One",
+        "Rain"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/SWV",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-119",
+      "rank": 119,
+      "name": "Destiny's Child",
+      "genre": "R&B",
+      "era": "00s",
+      "peakYear": 2001,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Launched Beyoncé. Survivor era dominance.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Say My Name",
+        "Bills, Bills, Bills",
+        "Survivor",
+        "Jumpin' Jumpin'",
+        "Bootylicious"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Destiny's_Child",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-120",
+      "rank": 120,
+      "name": "Usher",
+      "genre": "R&B",
+      "era": "00s",
+      "peakYear": 2004,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "My Way and Confessions era superstardom.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Yeah!",
+        "U Got It Bad",
+        "Burn",
+        "Nice & Slow",
+        "You Make Me Wanna..."
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Usher",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/02/c6/e1/02c6e1cd-8d57-97b4-6ef1-77d2be004509/mzi.sjrqsmrq.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-121",
+      "rank": 121,
+      "name": "R.E.M.",
+      "genre": "Rock",
+      "era": "90s",
+      "peakYear": 1991,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Alternative rock pioneers. Losing My Religion.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Losing My Religion",
+        "Everybody Hurts",
+        "Man on the Moon",
+        "It's the End of the World",
+        "Shiny Happy People"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/R.E.M.",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/d4/9c/f6/d49cf63f-a412-5737-9392-1576c297b475/00888072396272.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-122",
+      "rank": 122,
+      "name": "U2",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "Ireland",
+      "status": "Legend",
+      "bio": "The Joshua Tree. One of the biggest bands ever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "With or Without You",
+        "One",
+        "Beautiful Day",
+        "Where the Streets Have No Name",
+        "Sunday Bloody Sunday"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/U2",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-123",
+      "rank": 123,
+      "name": "The Police",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Sting's band. Reggae-rock fusion.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Every Breath You Take",
+        "Roxanne",
+        "Message in a Bottle",
+        "Don't Stand So Close to Me",
+        "Every Little Thing She Does Is Magic"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Police",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/42/b7/db/42b7dbe1-d13f-c600-5b78-daa57c5d0f08/06UMGIM50761.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-124",
+      "rank": 124,
+      "name": "Depeche Mode",
+      "genre": "Electronic",
+      "era": "80s",
+      "peakYear": 1990,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Synthpop pioneers. Massive global influence.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Enjoy the Silence",
+        "Personal Jesus",
+        "Just Can't Get Enough",
+        "People Are People",
+        "Policy of Truth"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Depeche_Mode",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/95/d5/54/95d554e6-02a9-079c-c01b-dba663d8e0ca/886443828223.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-125",
+      "rank": 125,
+      "name": "New Order",
+      "genre": "Electronic",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Blue Monday is the best-selling 12-inch ever.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Blue Monday",
+        "Bizarre Love Triangle",
+        "True Faith",
+        "Temptation",
+        "Age of Consent"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/New_Order",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d12/h13/s05.mrcopsvn.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-126",
+      "rank": 126,
+      "name": "The Cure",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1989,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Goth rock legends. Robert Smith is iconic.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Friday I'm in Love",
+        "Just Like Heaven",
+        "Lovesong",
+        "Boys Don't Cry",
+        "Pictures of You"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Cure",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/93/3c/2c/mzi.ujtdsknz.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-127",
+      "rank": 127,
+      "name": "The Smiths",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Morrissey and Marr. Defined alternative rock.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "There Is a Light That Never Goes Out",
+        "How Soon Is Now?",
+        "The Boy with the Thorn in His Side",
+        "Bigmouth Strikes Again",
+        "This Charming Man"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Smiths",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-128",
+      "rank": 128,
+      "name": "Joy Division",
+      "genre": "Post-Punk",
+      "era": "80s",
+      "peakYear": 1979,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Ian Curtis. Unknown Pleasures is legendary.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Love Will Tear Us Apart",
+        "She's Lost Control",
+        "Transmission",
+        "Atmosphere",
+        "Disorder"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Joy_Division",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/80/14/7f/80147fb9-8c62-8773-60fe-51d9bdcfd415/dj.blmthqrv.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-129",
+      "rank": 129,
+      "name": "Talking Heads",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "David Byrne's art-rock revolution.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Once in a Lifetime",
+        "Psycho Killer",
+        "Burning Down the House",
+        "Road to Nowhere",
+        "And She Was"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Talking_Heads",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/y2004/m08/d17/h21/s06.xwrnkppg.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-130",
+      "rank": 130,
+      "name": "Blondie",
+      "genre": "Rock/New Wave",
+      "era": "80s",
+      "peakYear": 1979,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Debbie Harry. Heart of Glass.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Heart of Glass",
+        "Call Me",
+        "Rapture",
+        "The Tide Is High",
+        "One Way or Another"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Blondie",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/86/21/c4/8621c47c-19a2-ebca-a63a-45ae7017556f/14ULAIM00403.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-131",
+      "rank": 131,
+      "name": "Eurythmics",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Annie Lennox's voice. Sweet Dreams.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Sweet Dreams",
+        "Here Comes the Rain Again",
+        "Would I Lie to You?",
+        "Missionary Man",
+        "Sisters Are Doin' It"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Eurythmics",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/82/46/65/824665ec-aa22-0f93-e511-ba1585978159/mzi.gkkumlce.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-132",
+      "rank": 132,
+      "name": "Pet Shop Boys",
+      "genre": "Electronic/Pop",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Best-selling duo in UK history.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "West End Girls",
+        "It's a Sin",
+        "Always on My Mind",
+        "Opportunities",
+        "What Have I Done to Deserve This?"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pet_Shop_Boys",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/47/75/a0/4775a000-535a-181d-c231-a253b7ea6414/094637594551.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-133",
+      "rank": 133,
+      "name": "Hall & Oates",
+      "genre": "Pop/Rock",
+      "era": "80s",
+      "peakYear": 1982,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Best-selling duo of all time.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Kiss on My List",
+        "Maneater",
+        "I Can't Go for That",
+        "Rich Girl",
+        "Private Eyes"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Hall_&_Oates",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-134",
+      "rank": 134,
+      "name": "Phil Collins",
+      "genre": "Pop/Rock",
+      "era": "80s",
+      "peakYear": 1985,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Genesis frontman. Solo superstar.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "In the Air Tonight",
+        "Against All Odds",
+        "Another Day in Paradise",
+        "Easy Lover",
+        "Sussudio"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Phil_Collins",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-135",
+      "rank": 135,
+      "name": "Genesis",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Peter Gabriel era to Phil Collins era.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Invisible Touch",
+        "Land of Confusion",
+        "Tonight Tonight Tonight",
+        "That's All",
+        "Follow You Follow Me"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Genesis",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-136",
+      "rank": 136,
+      "name": "Peter Gabriel",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1986,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "So is a masterpiece. Sledgehammer.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Sledgehammer",
+        "In Your Eyes",
+        "Don't Give Up",
+        "Games Without Frontiers",
+        "Solsbury Hill"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Peter_Gabriel",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/7a/ee/3a/7aee3ac5-7627-0c97-e859-19ae7a6320b1/So_cover_iTunes_copy.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-137",
+      "rank": 137,
+      "name": "Kate Bush",
+      "genre": "Art Pop",
+      "era": "80s",
+      "peakYear": 1985,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Running Up That Hill. Visionary artist.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Running Up That Hill",
+        "Wuthering Heights",
+        "Babooshka",
+        "Cloudbusting",
+        "The Man with the Child in His Eyes"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Kate_Bush",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/2c/3e/c9/2c3ec991-0f6e-bec3-7eff-750f50c5b3a6/cover.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-138",
+      "rank": 138,
+      "name": "Toto",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1982,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Africa. Session musician supergroup.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Africa",
+        "Rosanna",
+        "Hold the Line",
+        "I Won't Hold You Back",
+        "Pamela"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Toto",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/69/ce/d2/69ced240-07a7-2a04-bbab-2afbacf30809/074643772822.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-139",
+      "rank": 139,
+      "name": "Foreigner",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1981,
+      "country": "USA/UK",
+      "status": "Legend",
+      "bio": "Power ballad specialists.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "I Want to Know What Love Is",
+        "Waiting for a Girl Like You",
+        "Hot Blooded",
+        "Cold as Ice",
+        "Urgent"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Foreigner",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/af/7b/a2/af7ba295-c0c0-ba8d-17da-5cc52959a602/mzi.ykpmzuxm.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-140",
+      "rank": 140,
+      "name": "REO Speedwagon",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1981,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Keep On Loving You. Arena rock.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Keep On Loving You",
+        "Can't Fight This Feeling",
+        "Take It on the Run",
+        "Time for Me to Fly",
+        "In Your Letter"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/REO_Speedwagon",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/d2/1a/6b/d21a6b6c-75e9-1110-31b4-dc1ee14a1580/dj.yiiutvjh.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-141",
+      "rank": 141,
+      "name": "Chicago",
+      "genre": "Rock",
+      "era": "70s",
+      "peakYear": 1976,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Horn-driven rock. Hard to Say I'm Sorry.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hard to Say I'm Sorry",
+        "If You Leave Me Now",
+        "25 or 6 to 4",
+        "Saturday in the Park",
+        "You're the Inspiration"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Chicago",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Features115/v4/ac/91/ef/ac91ef17-d797-c226-62d1-d9098fb3da35/dj.gubbyqzi.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-142",
+      "rank": 142,
+      "name": "Steely Dan",
+      "genre": "Rock/Jazz",
+      "era": "70s",
+      "peakYear": 1977,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Sophisticated jazz-rock. Aja is perfect.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Reelin' in the Years",
+        "Rikki Don't Lose That Number",
+        "Deacon Blues",
+        "Peg",
+        "Do It Again"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Steely_Dan",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/88/b5/70/88b5704d-6e20-5142-55a2-2595857acd8a/06UMGIM12619.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-143",
+      "rank": 143,
+      "name": "George Michael",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1987,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Faith era. Solo after Wham!",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Careless Whisper",
+        "Faith",
+        "Freedom! '90",
+        "Father Figure",
+        "One More Try"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/George_Michael",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-144",
+      "rank": 144,
+      "name": "Wham!",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "George Michael's early days.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Wake Me Up Before You Go-Go",
+        "Last Christmas",
+        "Everything She Wants",
+        "I'm Your Man",
+        "Young Guns"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Wham!",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/ee/49/ac/ee49accc-78bd-bcdb-1aff-c40c1ac3ccc4/074643959520.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-145",
+      "rank": 145,
+      "name": "Duran Duran",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "New Romantic leaders. MTV icons.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hungry Like the Wolf",
+        "Rio",
+        "The Reflex",
+        "Ordinary World",
+        "Save a Prayer"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Duran_Duran",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music/da/10/9e/mzi.duawrmbv.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-146",
+      "rank": 146,
+      "name": "Culture Club",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1983,
+      "country": "UK",
+      "status": "Legend",
+      "bio": "Boy George. Karma Chameleon.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Karma Chameleon",
+        "Do You Really Want to Hurt Me",
+        "I'll Tumble 4 Ya",
+        "Time (Clock of the Heart)",
+        "Miss Me Blind"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Culture_Club",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/f7/ff/98/f7ff9867-5d2d-2cb6-0a42-783384506705/13UADIM60820.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-147",
+      "rank": 147,
+      "name": "Cyndi Lauper",
+      "genre": "Pop",
+      "era": "80s",
+      "peakYear": 1984,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Girls Just Want to Have Fun. True Colors.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Girls Just Want to Have Fun",
+        "Time After Time",
+        "True Colors",
+        "She Bop",
+        "All Through the Night"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Cyndi_Lauper",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    },
+    {
+      "id": "os-148",
+      "rank": 148,
+      "name": "Pat Benatar",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1980,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Female rock trailblazer. Hit Me with Your Best Shot.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Hit Me with Your Best Shot",
+        "Love Is a Battlefield",
+        "Heartbreaker",
+        "We Belong",
+        "Shadows of the Night"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pat_Benatar",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fb/1b/97/fb1b9744-488e-d8be-8bb7-2b36e0b921ba/13UABIM48641.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-149",
+      "rank": 149,
+      "name": "Heart",
+      "genre": "Rock",
+      "era": "80s",
+      "peakYear": 1985,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "Wilson sisters. Barracuda.",
+      "monthlyListeners": 10000000,
+      "totalStreams": 5000000000,
+      "grammy_wins": 0,
+      "billboard_no1": 0,
+      "signature_songs": [
+        "Barracuda",
+        "Alone",
+        "What About Love",
+        "These Dreams",
+        "Crazy on You"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Heart",
+        "spotify": "",
+        "allmusic": ""
+      },
+      "avatar_url": ""
+    }
+  ]
 }
