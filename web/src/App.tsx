@@ -658,31 +658,52 @@ export default function App() {
     }, [activeTab]);
 
     // DEEP LINKING: Check URL on mount and open artist profile
+    // DEEP LINKING: Check URL on mount and open artist profile
     useEffect(() => {
         const checkDeepLink = async () => {
+            // Wait a moment for app to hydrate
+            await new Promise(r => setTimeout(r, 500));
+
             const path = window.location.pathname;
+            // Handle both clean paths and query param redirects? 
+            // Actually, simply ensure we look at the path segment correctly.
+
             if (path.startsWith('/artist/')) {
                 // Ensure artists are loaded first
                 const rankingsData = await fetchRankingsData();
                 if (!rankingsData) return;
 
-                const slug = path.split('/artist/')[1];
+                // Extract slug carefully, handling trailing slashes or query params
+                const slugSegment = path.split('/artist/')[1];
+                if (!slugSegment) return;
+
+                // Remove any trailing slash or query params if they leaked in (though path shouldn't have query)
+                const slug = slugSegment.split('/')[0].split('?')[0];
+
                 if (slug) {
                     const artistName = decodeURIComponent(slug.replace(/-/g, ' ')).toLowerCase();
 
                     // Search across all categories to find the artist
-                    // We need all artists, not just the active tab
                     let foundArtist: PowerIndexArtist | undefined;
-                    for (const category of Object.values(rankingsData.rankings)) {
-                        foundArtist = (category as PowerIndexArtist[]).find(a =>
-                            a.name.toLowerCase() === artistName ||
-                            a.name.toLowerCase().replace(/\s+/g, '-') === slug
-                        );
-                        if (foundArtist) break;
-                    }
+
+                    // Force a thorough search
+                    const allCategories = Object.values(rankingsData.rankings).flat() as PowerIndexArtist[];
+
+                    foundArtist = allCategories.find(a =>
+                        a.name.toLowerCase() === artistName ||
+                        a.name.toLowerCase().replace(/\s+/g, '-') === slug ||
+                        // Try matching ID just in case
+                        a.id === slug
+                    );
 
                     if (foundArtist) {
                         setSelectedArtist(foundArtist);
+                        // Ensure we scroll to top
+                        if (mainContentRef.current) {
+                            mainContentRef.current.scrollTo({ top: 0, behavior: 'instant' });
+                        }
+                    } else {
+                        console.log('Deep link artist not found:', slug);
                     }
                 }
             }
