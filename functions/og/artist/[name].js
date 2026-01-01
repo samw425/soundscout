@@ -70,7 +70,7 @@ export async function onRequest(context) {
                 : `${artist.monthlyListeners}`;
 
         const badge = isLegend ? '👑 LEGEND' : artist.status?.toUpperCase() || 'ARTIST';
-        const avatarUrl = artist.avatar_url || 'https://soundscout.pages.dev/og-image.png';
+        const avatarUrl = artist.avatar_url || 'https://stelarmusic.pages.dev/og-image.png';
 
         // High-end "Netflix-style" HTML template
         return new ImageResponse(
