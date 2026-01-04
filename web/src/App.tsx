@@ -53,25 +53,37 @@ const formatNumber = (num: number): string => {
 
 const padRank = (rank: number): string => rank.toString().padStart(3, '0');
 
-const getStatusColor = (status: PowerIndexArtist['status']) => {
-    const map: Record<PowerIndexArtist['status'], string> = {
+const getStatusColor = (status: string | any) => {
+    // Phase 3: Dynamic Ignition Badges (Fire/Global)
+    if (status && (status.includes('🔥') || status.includes('GLOBAL'))) {
+        return 'bg-orange-500/20 text-orange-400 border border-orange-500/50 shadow-[0_0_12px_rgba(255,69,0,0.4)] animate-pulse';
+    }
+
+    const map: Record<string, string> = {
         Viral: 'bg-[#FF4500]/20 text-[#FF4500] border-[#FF4500]/30',
         Breakout: 'bg-accent/20 text-accent border-accent/30',
         Dominance: 'bg-amber-500/20 text-amber-500 border-amber-500/30',
         Stable: 'bg-slate-500/20 text-slate-400 border-slate-700',
         Conversion: 'bg-accent/20 text-accent border-accent/30',
+        // Fallbacks for Phase 3 static keys
+        'Up & Comer': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+        'High Velocity': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
     };
     return map[status] || 'bg-slate-500/20 text-slate-400 border-slate-700';
 };
 
-const getStatusBadge = (status: PowerIndexArtist['status']) => {
-    // Return human-readable labels for each status
-    const map: Record<PowerIndexArtist['status'], string> = {
+const getStatusBadge = (status: string | any) => {
+    if (status && status.includes('🔥')) return status;
+
+    const map: Record<string, string> = {
         Viral: '🔥 VIRAL',
         Breakout: '📈 RISING',
         Dominance: '👑 TOP',
         Stable: '📊 STEADY',
         Conversion: '💎 OPPORTUNITY',
+        // Fallbacks
+        'Up & Comer': '🚀 Rising',
+        'High Velocity': '⚡ Velocity',
     };
     return map[status] || status;
 };
