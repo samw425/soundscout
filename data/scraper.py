@@ -286,6 +286,75 @@ class BillboardDataSource:
             return []
 
 
+class KworbDataSource:
+    """
+    KWORB.NET SCRAPER (The 'Heat' Source)
+    Used to get Spotify Global Daily data to cross-reference with Billboard.
+    """
+    
+    BASE_URL = "https://kworb.net/spotify/country/global_daily.html"
+    
+    def get_global_daily(self) -> List[Dict]:
+        """Get Global Spotify Top 200"""
+        try:
+            headers = {"User-Agent": USER_AGENT}
+            response = requests.get(self.BASE_URL, headers=headers, timeout=15)
+            
+            if response.status_code != 200:
+                return []
+                
+            entries = []
+            # Kworb Table Structure: <tr><td>Rank</td><td><div>Artist - Title</div></td>...</tr>
+            rows = response.text.split('<tr>')[1:] 
+            
+            for row in rows[:200]: # Top 200
+                try:
+                    # Extract Rank
+                    rank_match = re.search(r'<td>(\d+)</td>', row)
+                    if not rank_match: continue
+                    rank = int(rank_match.group(1))
+                    
+                    # Extract Artist & Title
+                    # Format: <div class="pn">Artist Name - Song Title</div> OR <a href...>Artist</a>
+                    # Kworb Global often uses links
+                    # We look for the first link which is usually the Artist or Song
+                    name_match = re.search(r'<a href="[^"]+">([^<]+)</a>', row)
+                    
+                    artist = "Unknown"
+                    if name_match:
+                        # Sometimes it is "Artist - Title", sometimes separate
+                        # Heuristic: split by " - "
+                        full_str = name_match.group(1)
+                        if ' - ' in full_str:
+                            artist = full_str.split(' - ')[0]
+                        else:
+                            artist = full_str
+                    else:
+                        # Fallback to div class pn if no link
+                        name_match_div = re.search(r'<div class="pn">([^<]+)</div>', row)
+                        if name_match_div:
+                            full_str = name_match_div.group(1)
+                            if ' - ' in full_str:
+                                artist = full_str.split(' - ')[0]
+                            else:
+                                artist = full_str
+
+                    if artist != "Unknown":   
+                        entries.append({
+                            'rank': rank,
+                            'name': artist.strip(),
+                            'source': 'spotify_global'
+                        })
+                except:
+                    continue
+                    
+            return entries
+            
+        except Exception as e:
+            print(f"[Kworb] Error fetching Global Daily: {e}")
+            return []
+
+
 class YouTubeDataSource:
     """YouTube Data via public pages (no API key needed)"""
     

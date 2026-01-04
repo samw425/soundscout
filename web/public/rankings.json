@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-04T02:43:29.894733",
-    "source": "Billboard Official (Stelar Engine)"
+    "lastUpdated": "2026-01-04T03:02:24.783175",
+    "source": "Stelar Engine v3.1 (Black Box Fusion)"
   },
   "rankings": {
     "global": [
@@ -14,6 +14,7 @@
         "monthlyListeners": 100000000,
         "powerScore": 1000,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -25,6 +26,7 @@
         "monthlyListeners": 99000000,
         "powerScore": 990,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -36,6 +38,7 @@
         "monthlyListeners": 98000000,
         "powerScore": 980,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -47,6 +50,7 @@
         "monthlyListeners": 97000000,
         "powerScore": 970,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -58,6 +62,7 @@
         "monthlyListeners": 96000000,
         "powerScore": 960,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -69,6 +74,7 @@
         "monthlyListeners": 95000000,
         "powerScore": 950,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -80,6 +86,7 @@
         "monthlyListeners": 94000000,
         "powerScore": 940,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -91,6 +98,7 @@
         "monthlyListeners": 93000000,
         "powerScore": 930,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -102,6 +110,7 @@
         "monthlyListeners": 92000000,
         "powerScore": 920,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -113,6 +122,7 @@
         "monthlyListeners": 91000000,
         "powerScore": 910,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -124,6 +134,7 @@
         "monthlyListeners": 90000000,
         "powerScore": 900,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -135,6 +146,7 @@
         "monthlyListeners": 89000000,
         "powerScore": 890,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -146,6 +158,7 @@
         "monthlyListeners": 88000000,
         "powerScore": 880,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -157,6 +170,7 @@
         "monthlyListeners": 87000000,
         "powerScore": 870,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -168,6 +182,7 @@
         "monthlyListeners": 86000000,
         "powerScore": 860,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -179,6 +194,7 @@
         "monthlyListeners": 85000000,
         "powerScore": 850,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -190,6 +206,7 @@
         "monthlyListeners": 84000000,
         "powerScore": 840,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -201,6 +218,7 @@
         "monthlyListeners": 83000000,
         "powerScore": 830,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -212,6 +230,7 @@
         "monthlyListeners": 82000000,
         "powerScore": 820,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -223,6 +242,7 @@
         "monthlyListeners": 81000000,
         "powerScore": 810,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -234,6 +254,7 @@
         "monthlyListeners": 80000000,
         "powerScore": 800,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -245,6 +266,7 @@
         "monthlyListeners": 79000000,
         "powerScore": 790,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -256,6 +278,7 @@
         "monthlyListeners": 78000000,
         "powerScore": 780,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -267,6 +290,7 @@
         "monthlyListeners": 77000000,
         "powerScore": 770,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -278,6 +302,7 @@
         "monthlyListeners": 76000000,
         "powerScore": 760,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -289,6 +314,7 @@
         "monthlyListeners": 75000000,
         "powerScore": 750,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -300,6 +326,7 @@
         "monthlyListeners": 74000000,
         "powerScore": 740,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -311,6 +338,7 @@
         "monthlyListeners": 73000000,
         "powerScore": 730,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -322,6 +350,7 @@
         "monthlyListeners": 72000000,
         "powerScore": 720,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -333,6 +362,7 @@
         "monthlyListeners": 71000000,
         "powerScore": 710,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -344,6 +374,7 @@
         "monthlyListeners": 70000000,
         "powerScore": 700,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -355,6 +386,7 @@
         "monthlyListeners": 69000000,
         "powerScore": 690,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -366,6 +398,7 @@
         "monthlyListeners": 68000000,
         "powerScore": 680,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -377,6 +410,7 @@
         "monthlyListeners": 67000000,
         "powerScore": 670,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -388,6 +422,7 @@
         "monthlyListeners": 66000000,
         "powerScore": 660,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -399,6 +434,7 @@
         "monthlyListeners": 65000000,
         "powerScore": 650,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -410,6 +446,7 @@
         "monthlyListeners": 64000000,
         "powerScore": 640,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -421,6 +458,7 @@
         "monthlyListeners": 63000000,
         "powerScore": 630,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -432,6 +470,7 @@
         "monthlyListeners": 62000000,
         "powerScore": 620,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -443,6 +482,7 @@
         "monthlyListeners": 61000000,
         "powerScore": 610,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -454,6 +494,7 @@
         "monthlyListeners": 60000000,
         "powerScore": 600,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -465,6 +506,7 @@
         "monthlyListeners": 59000000,
         "powerScore": 590,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -476,6 +518,7 @@
         "monthlyListeners": 58000000,
         "powerScore": 580,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -487,6 +530,7 @@
         "monthlyListeners": 57000000,
         "powerScore": 570,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -498,6 +542,7 @@
         "monthlyListeners": 56000000,
         "powerScore": 560,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -509,6 +554,7 @@
         "monthlyListeners": 55000000,
         "powerScore": 550,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -520,6 +566,7 @@
         "monthlyListeners": 54000000,
         "powerScore": 540,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -531,6 +578,7 @@
         "monthlyListeners": 53000000,
         "powerScore": 530,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -542,6 +590,7 @@
         "monthlyListeners": 52000000,
         "powerScore": 520,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -553,6 +602,7 @@
         "monthlyListeners": 51000000,
         "powerScore": 510,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       }
     ],
@@ -561,550 +611,600 @@
         "rank": 1,
         "name": "KATO",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2500000,
-        "powerScore": 800,
-        "status": "Up & Comer",
+        "powerScore": 4010,
+        "status": "\ud83d\udd25 GLOBAL #16",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 2,
         "name": "EsDeeKid",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2450000,
-        "powerScore": 795,
-        "status": "Up & Comer",
+        "powerScore": 3835,
+        "status": "\ud83d\udd25 GLOBAL #27",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 3,
-        "name": "Max McNown",
+        "name": "Sienna Spiro",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2400000,
-        "powerScore": 790,
-        "status": "Up & Comer",
+        "monthlyListeners": 2100000,
+        "powerScore": 3810,
+        "status": "\ud83d\udd25 GLOBAL #24",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 4,
-        "name": "Hudson Westbrook",
+        "name": "ILLIT",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2350000,
-        "powerScore": 785,
-        "status": "Up & Comer",
+        "monthlyListeners": 2250000,
+        "powerScore": 3690,
+        "status": "\ud83d\udd25 GLOBAL #34",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 5,
-        "name": "Cain Walker",
+        "name": "El Bogueto",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2300000,
-        "powerScore": 780,
-        "status": "Up & Comer",
+        "monthlyListeners": 650000,
+        "powerScore": 3535,
+        "status": "\ud83d\udd25 GLOBAL #23",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 6,
-        "name": "ILLIT",
+        "name": "Herencia de Grandes",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2250000,
-        "powerScore": 775,
-        "status": "Up & Comer",
+        "monthlyListeners": 1300000,
+        "powerScore": 3350,
+        "status": "\ud83d\udd25 GLOBAL #44",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 7,
-        "name": "Geese",
+        "name": "Disco Lines",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2200000,
-        "powerScore": 770,
-        "status": "Up & Comer",
+        "monthlyListeners": 1350000,
+        "powerScore": 1170,
+        "status": "\ud83d\udd25 GLOBAL #190",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 8,
-        "name": "Chase Matthew",
+        "name": "Max McNown",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2150000,
-        "powerScore": 765,
-        "status": "Up & Comer",
+        "monthlyListeners": 2400000,
+        "powerScore": 480,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 9,
-        "name": "Sienna Spiro",
+        "name": "Hudson Westbrook",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2100000,
-        "powerScore": 760,
-        "status": "Up & Comer",
+        "monthlyListeners": 2350000,
+        "powerScore": 470,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 10,
-        "name": "Solomon Ray",
+        "name": "Cain Walker",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2050000,
-        "powerScore": 755,
-        "status": "Up & Comer",
+        "monthlyListeners": 2300000,
+        "powerScore": 460,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 11,
-        "name": "Jon Norgaard",
+        "name": "Geese",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2000000,
-        "powerScore": 750,
+        "monthlyListeners": 2200000,
+        "powerScore": 440,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 12,
-        "name": "C418",
+        "name": "Chase Matthew",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1950000,
-        "powerScore": 745,
+        "monthlyListeners": 2150000,
+        "powerScore": 430,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 13,
-        "name": "BOYNEXTDOOR",
+        "name": "Solomon Ray",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1900000,
-        "powerScore": 740,
+        "monthlyListeners": 2050000,
+        "powerScore": 410,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 14,
-        "name": "Emmanuel Cortes",
+        "name": "Jon Norgaard",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1850000,
-        "powerScore": 735,
+        "monthlyListeners": 2000000,
+        "powerScore": 400,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 15,
-        "name": "Hi-Rez",
+        "name": "C418",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1800000,
-        "powerScore": 730,
+        "monthlyListeners": 1950000,
+        "powerScore": 390,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 16,
-        "name": "Mark Ambor",
+        "name": "BOYNEXTDOOR",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1750000,
-        "powerScore": 725,
+        "monthlyListeners": 1900000,
+        "powerScore": 380,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 17,
-        "name": "Role Model",
+        "name": "Emmanuel Cortes",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1700000,
-        "powerScore": 720,
+        "monthlyListeners": 1850000,
+        "powerScore": 370,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 18,
-        "name": "Title Fight",
+        "name": "Hi-Rez",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1650000,
-        "powerScore": 715,
+        "monthlyListeners": 1800000,
+        "powerScore": 360,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 19,
-        "name": "Rico Ace",
+        "name": "Mark Ambor",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1600000,
-        "powerScore": 710,
+        "monthlyListeners": 1750000,
+        "powerScore": 350,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 20,
-        "name": "ZEROBASEONE",
+        "name": "Role Model",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1550000,
-        "powerScore": 705,
+        "monthlyListeners": 1700000,
+        "powerScore": 340,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 21,
-        "name": "Ty Myers",
+        "name": "Title Fight",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1500000,
-        "powerScore": 700,
+        "monthlyListeners": 1650000,
+        "powerScore": 330,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 22,
-        "name": "H3adband",
+        "name": "Rico Ace",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1450000,
-        "powerScore": 695,
+        "monthlyListeners": 1600000,
+        "powerScore": 320,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 23,
-        "name": "Meghan Patrick",
+        "name": "ZEROBASEONE",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1400000,
-        "powerScore": 690,
+        "monthlyListeners": 1550000,
+        "powerScore": 310,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 24,
-        "name": "Disco Lines",
+        "name": "Ty Myers",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1350000,
-        "powerScore": 685,
+        "monthlyListeners": 1500000,
+        "powerScore": 300,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 25,
-        "name": "Herencia de Grandes",
+        "name": "H3adband",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1300000,
-        "powerScore": 680,
+        "monthlyListeners": 1450000,
+        "powerScore": 290,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 26,
-        "name": "Wolf Parade",
+        "name": "Meghan Patrick",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1250000,
-        "powerScore": 675,
+        "monthlyListeners": 1400000,
+        "powerScore": 280,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 27,
-        "name": "YKNIECE",
+        "name": "Wolf Parade",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1200000,
-        "powerScore": 670,
+        "monthlyListeners": 1250000,
+        "powerScore": 250,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 28,
-        "name": "Loe Shimmy",
+        "name": "YKNIECE",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1150000,
-        "powerScore": 665,
+        "monthlyListeners": 1200000,
+        "powerScore": 240,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 29,
-        "name": "Jamie Fine",
+        "name": "Loe Shimmy",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1100000,
-        "powerScore": 660,
+        "monthlyListeners": 1150000,
+        "powerScore": 230,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 30,
-        "name": "Harrison",
+        "name": "Jamie Fine",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1050000,
-        "powerScore": 655,
+        "monthlyListeners": 1100000,
+        "powerScore": 220,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 31,
-        "name": "Adrianne Lenker",
+        "name": "Harrison",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1000000,
-        "powerScore": 650,
+        "monthlyListeners": 1050000,
+        "powerScore": 210,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 32,
-        "name": "Magdalena Bay",
+        "name": "Adrianne Lenker",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 950000,
-        "powerScore": 645,
+        "monthlyListeners": 1000000,
+        "powerScore": 200,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 33,
-        "name": "Aria Blu",
+        "name": "Magdalena Bay",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 900000,
-        "powerScore": 640,
+        "monthlyListeners": 950000,
+        "powerScore": 190,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 34,
-        "name": "Isaac Mather",
+        "name": "Aria Blu",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 850000,
-        "powerScore": 635,
+        "monthlyListeners": 900000,
+        "powerScore": 180,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 35,
-        "name": "October London",
+        "name": "Isaac Mather",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 800000,
-        "powerScore": 630,
+        "monthlyListeners": 850000,
+        "powerScore": 170,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 36,
-        "name": "Dijon",
+        "name": "October London",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 750000,
-        "powerScore": 625,
+        "monthlyListeners": 800000,
+        "powerScore": 160,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 37,
-        "name": "Yung Beef",
+        "name": "Dijon",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 700000,
-        "powerScore": 620,
+        "monthlyListeners": 750000,
+        "powerScore": 150,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 38,
-        "name": "El Bogueto",
+        "name": "Yung Beef",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 650000,
-        "powerScore": 615,
+        "monthlyListeners": 700000,
+        "powerScore": 140,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 39,
-        "name": "Vincent Mason",
+        "name": "Breskii",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 600000,
-        "powerScore": 610,
+        "monthlyListeners": 550000,
+        "powerScore": 110,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 40,
-        "name": "Breskii",
+        "name": "RaiNao",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 550000,
-        "powerScore": 605,
+        "monthlyListeners": 500000,
+        "powerScore": 100,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 41,
-        "name": "RaiNao",
+        "name": "Belly Gang Ku$hington",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 500000,
-        "powerScore": 600,
+        "monthlyListeners": 450000,
+        "powerScore": 90,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 42,
-        "name": "Belly Gang Ku$hington",
+        "name": "MOLIY",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 450000,
-        "powerScore": 595,
+        "monthlyListeners": 400000,
+        "powerScore": 80,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 43,
-        "name": "MOLIY",
+        "name": "Flippa T",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 400000,
-        "powerScore": 590,
+        "monthlyListeners": 350000,
+        "powerScore": 70,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 44,
-        "name": "Flippa T",
+        "name": "Cash Cobain",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 350000,
-        "powerScore": 585,
+        "monthlyListeners": 300000,
+        "powerScore": 60,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 45,
-        "name": "Cash Cobain",
+        "name": "Monaleo",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 300000,
-        "powerScore": 580,
+        "monthlyListeners": 250000,
+        "powerScore": 50,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 46,
-        "name": "Monaleo",
+        "name": "Jamie MacDonald",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 250000,
-        "powerScore": 575,
+        "monthlyListeners": 200000,
+        "powerScore": 40,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 47,
-        "name": "Jamie MacDonald",
+        "name": "Madison Beer",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 200000,
-        "powerScore": 570,
+        "monthlyListeners": 150000,
+        "powerScore": 30,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 48,
-        "name": "Madison Beer",
+        "name": "Mellow Rackz",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 150000,
-        "powerScore": 565,
+        "monthlyListeners": 100000,
+        "powerScore": 20,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 49,
-        "name": "Mellow Rackz",
+        "name": "Preston Cooper",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 100000,
-        "powerScore": 560,
+        "monthlyListeners": 50000,
+        "powerScore": 10,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 50,
-        "name": "Preston Cooper",
+        "name": "Vincent Mason",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 50000,
-        "powerScore": 555,
-        "status": "Up & Comer",
+        "monthlyListeners": 600000,
+        "powerScore": -1485,
+        "status": "\ud83d\udd25 GLOBAL #357",
+        "label": "Independent",
         "avatar_url": null
       }
     ],
@@ -1118,6 +1218,7 @@
         "monthlyListeners": 100000000,
         "powerScore": 1000,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1129,6 +1230,7 @@
         "monthlyListeners": 99000000,
         "powerScore": 990,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1140,6 +1242,7 @@
         "monthlyListeners": 98000000,
         "powerScore": 980,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1151,6 +1254,7 @@
         "monthlyListeners": 97000000,
         "powerScore": 970,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1162,6 +1266,7 @@
         "monthlyListeners": 96000000,
         "powerScore": 960,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1173,6 +1278,7 @@
         "monthlyListeners": 95000000,
         "powerScore": 950,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1184,6 +1290,7 @@
         "monthlyListeners": 94000000,
         "powerScore": 940,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1195,6 +1302,7 @@
         "monthlyListeners": 93000000,
         "powerScore": 930,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1206,6 +1314,7 @@
         "monthlyListeners": 92000000,
         "powerScore": 920,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1217,6 +1326,7 @@
         "monthlyListeners": 91000000,
         "powerScore": 910,
         "status": "Dominant",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1228,6 +1338,7 @@
         "monthlyListeners": 90000000,
         "powerScore": 900,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1239,6 +1350,7 @@
         "monthlyListeners": 89000000,
         "powerScore": 890,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1250,6 +1362,7 @@
         "monthlyListeners": 88000000,
         "powerScore": 880,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1261,6 +1374,7 @@
         "monthlyListeners": 87000000,
         "powerScore": 870,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1272,6 +1386,7 @@
         "monthlyListeners": 86000000,
         "powerScore": 860,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1283,6 +1398,7 @@
         "monthlyListeners": 85000000,
         "powerScore": 850,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1294,6 +1410,7 @@
         "monthlyListeners": 84000000,
         "powerScore": 840,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1305,6 +1422,7 @@
         "monthlyListeners": 83000000,
         "powerScore": 830,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1316,6 +1434,7 @@
         "monthlyListeners": 82000000,
         "powerScore": 820,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1327,6 +1446,7 @@
         "monthlyListeners": 81000000,
         "powerScore": 810,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       }
     ],
@@ -1340,6 +1460,7 @@
         "monthlyListeners": 80000000,
         "powerScore": 800,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1351,6 +1472,7 @@
         "monthlyListeners": 79000000,
         "powerScore": 790,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1362,6 +1484,7 @@
         "monthlyListeners": 78000000,
         "powerScore": 780,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1373,6 +1496,7 @@
         "monthlyListeners": 77000000,
         "powerScore": 770,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1384,6 +1508,7 @@
         "monthlyListeners": 76000000,
         "powerScore": 760,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1395,6 +1520,7 @@
         "monthlyListeners": 75000000,
         "powerScore": 750,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1406,6 +1532,7 @@
         "monthlyListeners": 74000000,
         "powerScore": 740,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1417,6 +1544,7 @@
         "monthlyListeners": 73000000,
         "powerScore": 730,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1428,6 +1556,7 @@
         "monthlyListeners": 72000000,
         "powerScore": 720,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1439,6 +1568,7 @@
         "monthlyListeners": 71000000,
         "powerScore": 710,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1450,6 +1580,7 @@
         "monthlyListeners": 70000000,
         "powerScore": 700,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1461,6 +1592,7 @@
         "monthlyListeners": 69000000,
         "powerScore": 690,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1472,6 +1604,7 @@
         "monthlyListeners": 68000000,
         "powerScore": 680,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1483,6 +1616,7 @@
         "monthlyListeners": 67000000,
         "powerScore": 670,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1494,6 +1628,7 @@
         "monthlyListeners": 66000000,
         "powerScore": 660,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1505,6 +1640,7 @@
         "monthlyListeners": 65000000,
         "powerScore": 650,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1516,6 +1652,7 @@
         "monthlyListeners": 64000000,
         "powerScore": 640,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1527,6 +1664,7 @@
         "monthlyListeners": 63000000,
         "powerScore": 630,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1538,6 +1676,7 @@
         "monthlyListeners": 62000000,
         "powerScore": 620,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       },
       {
@@ -1549,6 +1688,7 @@
         "monthlyListeners": 61000000,
         "powerScore": 610,
         "status": "Stable",
+        "label": "Major",
         "avatar_url": null
       }
     ],
@@ -1557,220 +1697,240 @@
         "rank": 1,
         "name": "KATO",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2500000,
-        "powerScore": 800,
-        "status": "Up & Comer",
+        "powerScore": 4010,
+        "status": "\ud83d\udd25 GLOBAL #16",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 2,
         "name": "EsDeeKid",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2450000,
-        "powerScore": 795,
-        "status": "Up & Comer",
+        "powerScore": 3835,
+        "status": "\ud83d\udd25 GLOBAL #27",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 3,
-        "name": "Max McNown",
+        "name": "Sienna Spiro",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2400000,
-        "powerScore": 790,
-        "status": "Up & Comer",
+        "monthlyListeners": 2100000,
+        "powerScore": 3810,
+        "status": "\ud83d\udd25 GLOBAL #24",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 4,
-        "name": "Hudson Westbrook",
+        "name": "ILLIT",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2350000,
-        "powerScore": 785,
-        "status": "Up & Comer",
+        "monthlyListeners": 2250000,
+        "powerScore": 3690,
+        "status": "\ud83d\udd25 GLOBAL #34",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 5,
-        "name": "Cain Walker",
+        "name": "El Bogueto",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2300000,
-        "powerScore": 780,
-        "status": "Up & Comer",
+        "monthlyListeners": 650000,
+        "powerScore": 3535,
+        "status": "\ud83d\udd25 GLOBAL #23",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 6,
-        "name": "ILLIT",
+        "name": "Herencia de Grandes",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2250000,
-        "powerScore": 775,
-        "status": "Up & Comer",
+        "monthlyListeners": 1300000,
+        "powerScore": 3350,
+        "status": "\ud83d\udd25 GLOBAL #44",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 7,
-        "name": "Geese",
+        "name": "Disco Lines",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2200000,
-        "powerScore": 770,
-        "status": "Up & Comer",
+        "monthlyListeners": 1350000,
+        "powerScore": 1170,
+        "status": "\ud83d\udd25 GLOBAL #190",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 8,
-        "name": "Chase Matthew",
+        "name": "Max McNown",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2150000,
-        "powerScore": 765,
-        "status": "Up & Comer",
+        "monthlyListeners": 2400000,
+        "powerScore": 480,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 9,
-        "name": "Sienna Spiro",
+        "name": "Hudson Westbrook",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2100000,
-        "powerScore": 760,
-        "status": "Up & Comer",
+        "monthlyListeners": 2350000,
+        "powerScore": 470,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 10,
-        "name": "Solomon Ray",
+        "name": "Cain Walker",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2050000,
-        "powerScore": 755,
-        "status": "Up & Comer",
+        "monthlyListeners": 2300000,
+        "powerScore": 460,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 11,
-        "name": "Jon Norgaard",
+        "name": "Geese",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2000000,
-        "powerScore": 750,
+        "monthlyListeners": 2200000,
+        "powerScore": 440,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 12,
-        "name": "C418",
+        "name": "Chase Matthew",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1950000,
-        "powerScore": 745,
+        "monthlyListeners": 2150000,
+        "powerScore": 430,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 13,
-        "name": "BOYNEXTDOOR",
+        "name": "Solomon Ray",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1900000,
-        "powerScore": 740,
+        "monthlyListeners": 2050000,
+        "powerScore": 410,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 14,
-        "name": "Emmanuel Cortes",
+        "name": "Jon Norgaard",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1850000,
-        "powerScore": 735,
+        "monthlyListeners": 2000000,
+        "powerScore": 400,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 15,
-        "name": "Hi-Rez",
+        "name": "C418",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1800000,
-        "powerScore": 730,
+        "monthlyListeners": 1950000,
+        "powerScore": 390,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 16,
-        "name": "Mark Ambor",
+        "name": "BOYNEXTDOOR",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1750000,
-        "powerScore": 725,
+        "monthlyListeners": 1900000,
+        "powerScore": 380,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 17,
-        "name": "Role Model",
+        "name": "Emmanuel Cortes",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1700000,
-        "powerScore": 720,
+        "monthlyListeners": 1850000,
+        "powerScore": 370,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 18,
-        "name": "Title Fight",
+        "name": "Hi-Rez",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1650000,
-        "powerScore": 715,
+        "monthlyListeners": 1800000,
+        "powerScore": 360,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 19,
-        "name": "Rico Ace",
+        "name": "Mark Ambor",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1600000,
-        "powerScore": 710,
+        "monthlyListeners": 1750000,
+        "powerScore": 350,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 20,
-        "name": "ZEROBASEONE",
+        "name": "Role Model",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1550000,
-        "powerScore": 705,
+        "monthlyListeners": 1700000,
+        "powerScore": 340,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       }
     ],
@@ -1779,550 +1939,600 @@
         "rank": 1,
         "name": "KATO",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2500000,
-        "powerScore": 800,
-        "status": "Up & Comer",
+        "powerScore": 4010,
+        "status": "\ud83d\udd25 GLOBAL #16",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 2,
         "name": "EsDeeKid",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
         "monthlyListeners": 2450000,
-        "powerScore": 795,
-        "status": "Up & Comer",
+        "powerScore": 3835,
+        "status": "\ud83d\udd25 GLOBAL #27",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 3,
-        "name": "Max McNown",
+        "name": "Sienna Spiro",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2400000,
-        "powerScore": 790,
-        "status": "Up & Comer",
+        "monthlyListeners": 2100000,
+        "powerScore": 3810,
+        "status": "\ud83d\udd25 GLOBAL #24",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 4,
-        "name": "Hudson Westbrook",
+        "name": "ILLIT",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2350000,
-        "powerScore": 785,
-        "status": "Up & Comer",
+        "monthlyListeners": 2250000,
+        "powerScore": 3690,
+        "status": "\ud83d\udd25 GLOBAL #34",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 5,
-        "name": "Cain Walker",
+        "name": "El Bogueto",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2300000,
-        "powerScore": 780,
-        "status": "Up & Comer",
+        "monthlyListeners": 650000,
+        "powerScore": 3535,
+        "status": "\ud83d\udd25 GLOBAL #23",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 6,
-        "name": "ILLIT",
+        "name": "Herencia de Grandes",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2250000,
-        "powerScore": 775,
-        "status": "Up & Comer",
+        "monthlyListeners": 1300000,
+        "powerScore": 3350,
+        "status": "\ud83d\udd25 GLOBAL #44",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 7,
-        "name": "Geese",
+        "name": "Disco Lines",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 2200000,
-        "powerScore": 770,
-        "status": "Up & Comer",
+        "monthlyListeners": 1350000,
+        "powerScore": 1170,
+        "status": "\ud83d\udd25 GLOBAL #190",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 8,
-        "name": "Chase Matthew",
+        "name": "Max McNown",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2150000,
-        "powerScore": 765,
-        "status": "Up & Comer",
+        "monthlyListeners": 2400000,
+        "powerScore": 480,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 9,
-        "name": "Sienna Spiro",
+        "name": "Hudson Westbrook",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2100000,
-        "powerScore": 760,
-        "status": "Up & Comer",
+        "monthlyListeners": 2350000,
+        "powerScore": 470,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 10,
-        "name": "Solomon Ray",
+        "name": "Cain Walker",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2050000,
-        "powerScore": 755,
-        "status": "Up & Comer",
+        "monthlyListeners": 2300000,
+        "powerScore": 460,
+        "status": "High Velocity",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 11,
-        "name": "Jon Norgaard",
+        "name": "Geese",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 2000000,
-        "powerScore": 750,
+        "monthlyListeners": 2200000,
+        "powerScore": 440,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 12,
-        "name": "C418",
+        "name": "Chase Matthew",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1950000,
-        "powerScore": 745,
+        "monthlyListeners": 2150000,
+        "powerScore": 430,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 13,
-        "name": "BOYNEXTDOOR",
+        "name": "Solomon Ray",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1900000,
-        "powerScore": 740,
+        "monthlyListeners": 2050000,
+        "powerScore": 410,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 14,
-        "name": "Emmanuel Cortes",
+        "name": "Jon Norgaard",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1850000,
-        "powerScore": 735,
+        "monthlyListeners": 2000000,
+        "powerScore": 400,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 15,
-        "name": "Hi-Rez",
+        "name": "C418",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1800000,
-        "powerScore": 730,
+        "monthlyListeners": 1950000,
+        "powerScore": 390,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 16,
-        "name": "Mark Ambor",
+        "name": "BOYNEXTDOOR",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1750000,
-        "powerScore": 725,
+        "monthlyListeners": 1900000,
+        "powerScore": 380,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 17,
-        "name": "Role Model",
+        "name": "Emmanuel Cortes",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1700000,
-        "powerScore": 720,
+        "monthlyListeners": 1850000,
+        "powerScore": 370,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 18,
-        "name": "Title Fight",
+        "name": "Hi-Rez",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1650000,
-        "powerScore": 715,
+        "monthlyListeners": 1800000,
+        "powerScore": 360,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 19,
-        "name": "Rico Ace",
+        "name": "Mark Ambor",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1600000,
-        "powerScore": 710,
+        "monthlyListeners": 1750000,
+        "powerScore": 350,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 20,
-        "name": "ZEROBASEONE",
+        "name": "Role Model",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1550000,
-        "powerScore": 705,
+        "monthlyListeners": 1700000,
+        "powerScore": 340,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 21,
-        "name": "Ty Myers",
+        "name": "Title Fight",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1500000,
-        "powerScore": 700,
+        "monthlyListeners": 1650000,
+        "powerScore": 330,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 22,
-        "name": "H3adband",
+        "name": "Rico Ace",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1450000,
-        "powerScore": 695,
+        "monthlyListeners": 1600000,
+        "powerScore": 320,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 23,
-        "name": "Meghan Patrick",
+        "name": "ZEROBASEONE",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1400000,
-        "powerScore": 690,
+        "monthlyListeners": 1550000,
+        "powerScore": 310,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 24,
-        "name": "Disco Lines",
+        "name": "Ty Myers",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1350000,
-        "powerScore": 685,
+        "monthlyListeners": 1500000,
+        "powerScore": 300,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 25,
-        "name": "Herencia de Grandes",
+        "name": "H3adband",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1300000,
-        "powerScore": 680,
+        "monthlyListeners": 1450000,
+        "powerScore": 290,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 26,
-        "name": "Wolf Parade",
+        "name": "Meghan Patrick",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1250000,
-        "powerScore": 675,
+        "monthlyListeners": 1400000,
+        "powerScore": 280,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 27,
-        "name": "YKNIECE",
+        "name": "Wolf Parade",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1200000,
-        "powerScore": 670,
+        "monthlyListeners": 1250000,
+        "powerScore": 250,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 28,
-        "name": "Loe Shimmy",
+        "name": "YKNIECE",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1150000,
-        "powerScore": 665,
+        "monthlyListeners": 1200000,
+        "powerScore": 240,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 29,
-        "name": "Jamie Fine",
+        "name": "Loe Shimmy",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1100000,
-        "powerScore": 660,
+        "monthlyListeners": 1150000,
+        "powerScore": 230,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 30,
-        "name": "Harrison",
+        "name": "Jamie Fine",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1050000,
-        "powerScore": 655,
+        "monthlyListeners": 1100000,
+        "powerScore": 220,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 31,
-        "name": "Adrianne Lenker",
+        "name": "Harrison",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 1000000,
-        "powerScore": 650,
+        "monthlyListeners": 1050000,
+        "powerScore": 210,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 32,
-        "name": "Magdalena Bay",
+        "name": "Adrianne Lenker",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 950000,
-        "powerScore": 645,
+        "monthlyListeners": 1000000,
+        "powerScore": 200,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 33,
-        "name": "Aria Blu",
+        "name": "Magdalena Bay",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 900000,
-        "powerScore": 640,
+        "monthlyListeners": 950000,
+        "powerScore": 190,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 34,
-        "name": "Isaac Mather",
+        "name": "Aria Blu",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 850000,
-        "powerScore": 635,
+        "monthlyListeners": 900000,
+        "powerScore": 180,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 35,
-        "name": "October London",
+        "name": "Isaac Mather",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 800000,
-        "powerScore": 630,
+        "monthlyListeners": 850000,
+        "powerScore": 170,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 36,
-        "name": "Dijon",
+        "name": "October London",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 750000,
-        "powerScore": 625,
+        "monthlyListeners": 800000,
+        "powerScore": 160,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 37,
-        "name": "Yung Beef",
+        "name": "Dijon",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 700000,
-        "powerScore": 620,
+        "monthlyListeners": 750000,
+        "powerScore": 150,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 38,
-        "name": "El Bogueto",
+        "name": "Yung Beef",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 650000,
-        "powerScore": 615,
+        "monthlyListeners": 700000,
+        "powerScore": 140,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 39,
-        "name": "Vincent Mason",
+        "name": "Breskii",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 600000,
-        "powerScore": 610,
+        "monthlyListeners": 550000,
+        "powerScore": 110,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 40,
-        "name": "Breskii",
+        "name": "RaiNao",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 550000,
-        "powerScore": 605,
+        "monthlyListeners": 500000,
+        "powerScore": 100,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 41,
-        "name": "RaiNao",
+        "name": "Belly Gang Ku$hington",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 500000,
-        "powerScore": 600,
+        "monthlyListeners": 450000,
+        "powerScore": 90,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 42,
-        "name": "Belly Gang Ku$hington",
+        "name": "MOLIY",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 450000,
-        "powerScore": 595,
+        "monthlyListeners": 400000,
+        "powerScore": 80,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 43,
-        "name": "MOLIY",
+        "name": "Flippa T",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 400000,
-        "powerScore": 590,
+        "monthlyListeners": 350000,
+        "powerScore": 70,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 44,
-        "name": "Flippa T",
+        "name": "Cash Cobain",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 350000,
-        "powerScore": 585,
+        "monthlyListeners": 300000,
+        "powerScore": 60,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 45,
-        "name": "Cash Cobain",
+        "name": "Monaleo",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 300000,
-        "powerScore": 580,
+        "monthlyListeners": 250000,
+        "powerScore": 50,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 46,
-        "name": "Monaleo",
+        "name": "Jamie MacDonald",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 250000,
-        "powerScore": 575,
+        "monthlyListeners": 200000,
+        "powerScore": 40,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 47,
-        "name": "Jamie MacDonald",
+        "name": "Madison Beer",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 200000,
-        "powerScore": 570,
+        "monthlyListeners": 150000,
+        "powerScore": 30,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 48,
-        "name": "Madison Beer",
+        "name": "Mellow Rackz",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 150000,
-        "powerScore": 565,
+        "monthlyListeners": 100000,
+        "powerScore": 20,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 49,
-        "name": "Mellow Rackz",
+        "name": "Preston Cooper",
         "genres": [
-          "Rising"
+          "Emerging"
         ],
-        "monthlyListeners": 100000,
-        "powerScore": 560,
+        "monthlyListeners": 50000,
+        "powerScore": 10,
         "status": "Up & Comer",
+        "label": "Independent",
         "avatar_url": null
       },
       {
         "rank": 50,
-        "name": "Preston Cooper",
+        "name": "Vincent Mason",
         "genres": [
-          "Rising"
+          "Global Viral"
         ],
-        "monthlyListeners": 50000,
-        "powerScore": 555,
-        "status": "Up & Comer",
+        "monthlyListeners": 600000,
+        "powerScore": -1485,
+        "status": "\ud83d\udd25 GLOBAL #357",
+        "label": "Independent",
         "avatar_url": null
       }
     ]

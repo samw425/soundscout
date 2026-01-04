@@ -1425,20 +1425,22 @@ def generate_complete_rankings():
 
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("STELAR ENGINE v3.0 (PURE BILLBOARD)")
-    print("Zero Spotify Dependency Mode")
+    print("STELAR ENGINE v3.1 (THE BLACK BOX)")
+    print("Code Name: 'Ignition'")
     print("="*70 + "\n")
 
     try:
-        from scraper import BillboardDataSource
+        from scraper import BillboardDataSource, KworbDataSource
         bb = BillboardDataSource()
+        kb = KworbDataSource()
         
-        # 1. THE PULSE (Artist 100)
-        print("[1/3] Fetching Global Pulse (Billboard Artist 100)...")
+        # ---------------------------------------------------------
+        # ENGINE A: THE ORBIT (Gravity / Majors)
+        # ---------------------------------------------------------
+        print("[1/4] Igniting Orbit Engine (Billboard Artist 100)...")
         artist_100 = bb.get_artist_100()
         pulse = []
         for i, item in enumerate(artist_100[:50]):
-             # Simple heuristic for missing data
             profile = {
                 "rank": i + 1,
                 "name": item['name'],
@@ -1446,56 +1448,121 @@ if __name__ == "__main__":
                 "monthlyListeners": (100 - i) * 1000000, 
                 "powerScore": 1000 - (i * 10),
                 "status": "Dominant" if i < 10 else "Stable",
-                "avatar_url": None # Frontend will fallback
+                "label": "Major", # Assumption for top 100
+                "avatar_url": None 
             }
             pulse.append(profile)
-            
-        print(f"      -> Pulse Generated: {len(pulse)} artists")
+        print(f"      -> Orbit Stable: {len(pulse)} massive objects found.")
 
-        # 2. LAUNCHPAD (Emerging Artists)
-        print("[2/3] Fetching Launchpad (Billboard Emerging)...")
+        # ---------------------------------------------------------
+        # ENGINE B: THE VELOCITY (Fusion / Unsigned)
+        # ---------------------------------------------------------
+        print("[2/4] Igniting Velocity Engine (Fusion mode)...")
+        
+        # Source 1: The Baseline (Billboard Emerging)
         emerging = bb.get_emerging_artists()
+        print(f"      -> Baseline: {len(emerging)} emerging artists loaded.")
+        
+        # Source 2: The Heat (Spotify Global Daily)
+        print("      -> Injecting Global Heat Metadata (Kworb)...")
+        global_spotify = kb.get_global_daily()
+        print(f"      -> Heat Signal: {len(global_spotify)} global vectors loaded.")
+        
+        # FUSION LOGIC: Calculate IGNITION SCORE
+        # Formula: Base_Score + (Global_Rank_Inverted * Multiplier)
         launchpad = []
+        
+        # Create lookups
+        spotify_map = {v['name'].lower(): v['rank'] for v in global_spotify}
+        
         for i, item in enumerate(emerging[:50]):
+            name_lower = item['name'].lower()
+            
+            # Base Score (Inverse Rank on Billboard)
+            # Rank 1 = 50 pts, Rank 50 = 1 pt
+            base_score = 50 - i
+            
+            # Velocity/Heat Bonus
+            heat_bonus = 0
+            is_hot = False
+            
+            # Check exact match or partial match
+            spotify_rank = 999
+            if name_lower in spotify_map:
+                spotify_rank = spotify_map[name_lower]
+                is_hot = True
+            else:
+                # Fuzzy check
+                for v_name, v_rank in spotify_map.items():
+                    if name_lower in v_name or v_name in name_lower:
+                        spotify_rank = v_rank
+                        is_hot = True
+                        break
+            
+            if is_hot:
+                # Rank 1 (Global) = 200 pts
+                # Rank 200 (Global) = 1 pt
+                # Multiplier 1.5x
+                heat_score = (250 - spotify_rank) * 1.5
+                heat_bonus = heat_score
+            
+            # Total Ignition
+            ignition_score = base_score + heat_bonus
+            
+            # Status Badge
+            status = "Up & Comer"
+            if is_hot:
+                status = f"🔥 GLOBAL #{spotify_rank}"
+            elif i < 5:
+                status = "High Velocity"
+                
             profile = {
-                "rank": i + 1,
+                "rank": 0, # assigned after sort
                 "name": item['name'],
-                "genres": ["Rising"], 
+                "genres": ["Global Viral"] if is_hot else ["Emerging"], 
                 "monthlyListeners": (50 - i) * 50000, 
-                "powerScore": 800 - (i * 5),
-                "status": "Up & Comer",
+                "powerScore": int(ignition_score * 10), 
+                "status": status,
+                "label": "Independent", 
                 "avatar_url": None 
             }
             launchpad.append(profile)
             
-        print(f"      -> Launchpad Generated: {len(launchpad)} artists")
+        # Re-Rank based on IGNITION SCORE (The proprietary sort)
+        launchpad.sort(key=lambda x: x['powerScore'], reverse=True)
+        
+        # Assign final ranks
+        for i, p in enumerate(launchpad):
+            p['rank'] = i + 1
+            
+        print(f"      -> Fusion Complete: top artist is {launchpad[0]['name']} (Score: {launchpad[0]['powerScore']})")
 
-        # 3. SAVE
+        # ---------------------------------------------------------
+        # 3. SAVE AND DEPLOY
+        # ---------------------------------------------------------
         import os
-        # Path to web/public/rankings.json
-        # We are in data/, so ../web/public/rankings.json
         output_path = '../web/public/rankings.json'
         
         output = {
             "metadata": {
                 "lastUpdated": datetime.now().isoformat(),
-                "source": "Billboard Official (Stelar Engine)"
+                "source": "Stelar Engine v3.1 (Black Box Fusion)"
             },
             "rankings": {
                 "global": pulse,
                 "up_and_comers": launchpad,
-                # Fillers
+                # Fillers (Standard mapping)
                 "pop": pulse[:20],
                 "hip_hop": pulse[20:40] if len(pulse) > 40 else pulse[:20],
                 "r_and_b": launchpad[:20], 
-                "arbitrage": launchpad # Arbitrage = Emerging
+                "arbitrage": launchpad 
             }
         }
         
         with open(output_path, 'w') as f:
             json.dump(output, f, indent=2)
             
-        print("\n✅ SUCCESS: rankings.json updated with Pure Billboard Data.")
+        print("\n✅ SUCCESS: Stelar Black Box Engine run complete.")
         print(f"Output saved to: {output_path}")
 
     except Exception as e:
