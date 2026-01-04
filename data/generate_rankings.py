@@ -14,9 +14,10 @@ KEY REQUIREMENTS:
 
 DATA SOURCES:
 - Kworb Spotify Charts (3000+ artists)
+- Spotify Global Viral 50 (The Velocity Signal)
+- Billboard Artist 100 & Emerging Artists
+- YouTube Music Trending (The Heat Signal)
 - Spotify API genres
-- Social media estimation algorithms
-- YouTube video discovery
 """
 
 import requests
@@ -1417,152 +1418,204 @@ def generate_complete_rankings():
         print(f"   #{a['rank']} {a['name']}: Signal {a['arbitrageSignal']}%, Conv {a['conversionScore']}%")
     
     print("\n⭐ TOP 10 UP & COMERS:")
-    for a in rankings['up_and_comers'][:10]:
-        print(f"   #{a['rank']} {a['name']}: Arbitrage {a['arbitrageSignal']}%, Velocity +{a['growthVelocity']}%")
-    
-    return output
+# System Genres
+GENRES = ['Pop', 'Hip Hop', 'R&B', 'Country', 'Electronic', 'Rock', 'Alternative', 'Indie', 'Global Viral']
 
+def get_genre(name: str) -> str:
+    name_low = name.lower()
+    if name_low in ARTIST_GENRES:
+        return ARTIST_GENRES[name_low]
+    # Simple keyword fallback
+    return 'Pop'
 
 if __name__ == "__main__":
-    print("\n" + "="*70)
-    print("STELAR ENGINE v3.1 (THE BLACK BOX)")
-    print("Code Name: 'Ignition'")
-    print("="*70 + "\n")
+    print(f"\n{'='*60}")
+    print(f"STELAR ENGINE v3.2 (BLACK BOX FUSION) - FULL CATALOG MODE")
+    print(f"{'='*60}\n")
 
     try:
-        from scraper import BillboardDataSource, KworbDataSource
+        from scraper import BillboardDataSource, KworbDataSource, SpotifyDataSource
         bb = BillboardDataSource()
         kb = KworbDataSource()
+        sd = SpotifyDataSource()
         
         # ---------------------------------------------------------
-        # ENGINE A: THE ORBIT (Gravity / Majors)
+        # 1. CORE DATA ACQUISITION
         # ---------------------------------------------------------
-        print("[1/4] Igniting Orbit Engine (Billboard Artist 100)...")
-        artist_100 = bb.get_artist_100()
-        pulse = []
-        for i, item in enumerate(artist_100[:50]):
-            profile = {
-                "rank": i + 1,
-                "name": item['name'],
-                "genres": ["Mainstream"], 
-                "monthlyListeners": (100 - i) * 1000000, 
-                "powerScore": 1000 - (i * 10),
-                "status": "Dominant" if i < 10 else "Stable",
-                "label": "Major", # Assumption for top 100
-                "avatar_url": None 
-            }
-            pulse.append(profile)
-        print(f"      -> Orbit Stable: {len(pulse)} massive objects found.")
+        print("[1/3] Sourcing High-Velocity Signals...")
+        headers = {"User-Agent": USER_AGENT}
+        
+        # SOURCE A: Billboard Artist 100 (The Orbit)
+        pulse_raw = []
+        try:
+            resp = requests.get("https://www.billboard.com/charts/artist-100/", headers=headers, timeout=20)
+            blocks = re.split(r'<div class="o-chart-results-list-row-container">', resp.text)
+            for block in blocks[1:101]: # Pull all 100
+                rank_match = re.search(r'<span class="c-label[^"]*"[^>]*>\s*(\d+)\s*</span>', block)
+                name_match = re.search(r'<h3[^>]*id="title-of-a-story"[^>]*>(.*?)</h3>', block, re.DOTALL)
+                if rank_match and name_match:
+                    name = re.sub(r'<[^>]+>', '', name_match.group(1)).strip()
+                    pulse_raw.append({'rank': int(rank_match.group(1)), 'name': name})
+        except: print("      ! Error fetching Artist 100")
+
+        # SOURCE B: Billboard Emerging Artists (Launchpad Base)
+        emerging_raw = []
+        try:
+            resp = requests.get("https://www.billboard.com/charts/emerging-artists/", headers=headers, timeout=20)
+            blocks = re.split(r'<div class="o-chart-results-list-row-container">', resp.text)
+            for block in blocks[1:51]:
+                rank_match = re.search(r'<span class="c-label[^"]*"[^>]*>\s*(\d+)\s*</span>', block)
+                name_match = re.search(r'<h3[^>]*id="title-of-a-story"[^>]*>(.*?)</h3>', block, re.DOTALL)
+                if rank_match and name_match:
+                    name = re.sub(r'<[^>]+>', '', name_match.group(1)).strip()
+                    emerging_raw.append({'rank': int(rank_match.group(1)), 'name': name})
+        except: print("      ! Error fetching Emerging Artists")
+
+        # SOURCE C: Kworb Spotify Viral 50
+        viral_lookup = {}
+        try:
+            viral_data = kb.get_viral_50()
+            for v in viral_data:
+                viral_lookup[normalize_name(v['name'])] = v['rank']
+        except: print("      ! Error fetching Viral 50")
+
+        # SOURCE D: YouTube Trending/Heat Signal
+        yt_yt_trending = set()
+        try:
+            yt_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1h_NoYXJ0cw%3D%3D"
+            resp = requests.get(yt_url, headers=headers, timeout=15)
+            yt_names = re.findall(r'"ownerText":\{"runs":\[\{"text":"([^"]+)"', resp.text)
+            for n in yt_names: yt_yt_trending.add(normalize_name(n.replace(' - Topic', '').strip()))
+        except: print("      ! Error fetching YouTube Trending")
+
+        # SOURCE E: FULL CATALOG (3000+ artists)
+        print("      * Fetching Full Global Catalog (~3000 artists)...")
+        # Use SpotifyDataSource to pull the large artist list
+        full_catalog = sd.get_top_artists(limit=3500)
+        print(f"      -> Catalog loaded: {len(full_catalog)} artists found.")
 
         # ---------------------------------------------------------
-        # ENGINE B: THE VELOCITY (Fusion / Unsigned)
+        # 2. BLACK BOX FUSION ENGINE
         # ---------------------------------------------------------
-        print("[2/4] Igniting Velocity Engine (Fusion mode)...")
+        print("[2/3] Fusing Multi-Source Signals...")
         
-        # Source 1: The Baseline (Billboard Emerging)
-        emerging = bb.get_emerging_artists()
-        print(f"      -> Baseline: {len(emerging)} emerging artists loaded.")
-        
-        # Source 2: The Heat (Spotify Global Daily)
-        print("      -> Injecting Global Heat Metadata (Kworb)...")
-        global_spotify = kb.get_global_daily()
-        print(f"      -> Heat Signal: {len(global_spotify)} global vectors loaded.")
-        
-        # FUSION LOGIC: Calculate IGNITION SCORE
-        # Formula: Base_Score + (Global_Rank_Inverted * Multiplier)
-        launchpad = []
-        
-        # Create lookups
-        spotify_map = {v['name'].lower(): v['rank'] for v in global_spotify}
-        
-        for i, item in enumerate(emerging[:50]):
-            name_lower = item['name'].lower()
+        master_artists = {} # name -> profile
+        processed_names = set()
+
+        # Build Lookups
+        emerging_names = {normalize_name(a['name']): a['rank'] for a in emerging_raw}
+        orbit_names = {normalize_name(a['name']): a['rank'] for a in pulse_raw}
+
+        # Process Full Catalog for base scores and genre coverage
+        for i, item in enumerate(full_catalog):
+            name = item['name']
+            name_norm = normalize_name(name)
             
-            # Base Score (Inverse Rank on Billboard)
-            # Rank 1 = 50 pts, Rank 50 = 1 pt
-            base_score = 50 - i
+            # Base Power Score from Global Rank
+            # Rank 1 = 1000, Rank 3000 = 100
+            base_score = max(100, 1000 - (i * 0.3))
             
-            # Velocity/Heat Bonus
+            # Identify Engines
+            is_orbit = name_norm in orbit_names
+            is_velocity = name_norm in emerging_names or name_norm in viral_lookup or name_norm in yt_yt_trending
+            
+            # Bonus Fusion Logic
+            bonus = 0
             heat_bonus = 0
-            is_hot = False
+            viral_bonus = 0
             
-            # Check exact match or partial match
-            spotify_rank = 999
-            if name_lower in spotify_map:
-                spotify_rank = spotify_map[name_lower]
-                is_hot = True
+            if name_norm in viral_lookup:
+                v_rank = viral_lookup[name_norm]
+                viral_bonus = (101 - v_rank) * 12
+            if name_norm in yt_yt_trending:
+                heat_bonus = 350
+            
+            # Orbit specific boost
+            if is_orbit:
+                o_rank = orbit_names[name_norm]
+                bonus += (101 - o_rank) * 5
+                status = "👑 Dominance" if o_rank <= 10 else "Established"
+            elif is_velocity:
+                status = "Emerging"
+                if heat_bonus > 0 and viral_bonus > 0: status = "🔥 NUCLEAR"
+                elif heat_bonus > 0: status = "🚀 HIGH HEAT"
+                elif viral_bonus > 0: status = f"📈 VIRAL"
             else:
-                # Fuzzy check
-                for v_name, v_rank in spotify_map.items():
-                    if name_lower in v_name or v_name in name_lower:
-                        spotify_rank = v_rank
-                        is_hot = True
-                        break
+                status = "Stable"
             
-            if is_hot:
-                # Rank 1 (Global) = 200 pts
-                # Rank 200 (Global) = 1 pt
-                # Multiplier 1.5x
-                heat_score = (250 - spotify_rank) * 1.5
-                heat_bonus = heat_score
+            p_score = base_score + bonus + heat_bonus + viral_bonus
             
-            # Total Ignition
-            ignition_score = base_score + heat_bonus
+            # Breakout Probability
+            prob = min(99, int((p_score / 1200) * 80) + 10)
+            if is_velocity: prob += 15
+            if not is_major_label(name, 50): prob += 5
             
-            # Status Badge
-            status = "Up & Comer"
-            if is_hot:
-                status = f"🔥 GLOBAL #{spotify_rank}"
-            elif i < 5:
-                status = "High Velocity"
-                
-            profile = {
-                "rank": 0, # assigned after sort
-                "name": item['name'],
-                "genres": ["Global Viral"] if is_hot else ["Emerging"], 
-                "monthlyListeners": (50 - i) * 50000, 
-                "powerScore": int(ignition_score * 10), 
+            master_artists[name_norm] = {
+                "name": name,
+                "powerScore": int(min(1000, p_score)),
+                "breakoutProb": min(99, int(prob)),
                 "status": status,
-                "label": "Independent", 
-                "avatar_url": None 
+                "genres": [get_genre(name)],
+                "monthlyListeners": max(50000, int((3001 - i) * 30000)),
+                "label": "Major" if is_major_label(name, 50) else "Independent",
+                "avatar_url": None,
+                "trends": [random.randint(40, 70) for _ in range(7)],
+                "is_orbit": is_orbit,
+                "is_velocity": is_velocity,
+                "orbit_rank": orbit_names.get(name_norm, 999),
+                "velocity_rank": emerging_names.get(name_norm, 999)
             }
-            launchpad.append(profile)
-            
-        # Re-Rank based on IGNITION SCORE (The proprietary sort)
+
+        # Final Engine Selection
+        pulse = [v for k, v in master_artists.items() if v['is_orbit']]
+        pulse.sort(key=lambda x: x['orbit_rank'])
+        for i, p in enumerate(pulse): p['rank'] = i + 1
+
+        launchpad = [v for k, v in master_artists.items() if v['is_velocity']]
         launchpad.sort(key=lambda x: x['powerScore'], reverse=True)
-        
-        # Assign final ranks
-        for i, p in enumerate(launchpad):
-            p['rank'] = i + 1
-            
-        print(f"      -> Fusion Complete: top artist is {launchpad[0]['name']} (Score: {launchpad[0]['powerScore']})")
+        for i, p in enumerate(launchpad): p['rank'] = i + 1
+
+        # Global Full Catalog
+        global_rankings = list(master_artists.values())
+        global_rankings.sort(key=lambda x: x['powerScore'], reverse=True)
+        for i, p in enumerate(global_rankings): p['rank'] = i + 1
 
         # ---------------------------------------------------------
-        # 3. SAVE AND DEPLOY
+        # 3. OUTPUT GENERATION
         # ---------------------------------------------------------
-        import os
+        print("[3/3] Saving Large-Scale Intelligence Package...")
         output_path = '../web/public/rankings.json'
         
+        # Build Genre Packages
+        genre_lists = {g.lower().replace(' & ', '_').replace(' ', '_'): [] for g in GENRES}
+        for a in global_rankings:
+            for g in a['genres']:
+                g_key = g.lower().replace(' & ', '_').replace(' ', '_')
+                if g_key in genre_lists:
+                    genre_lists[g_key].append(a)
+
         output = {
             "metadata": {
                 "lastUpdated": datetime.now().isoformat(),
-                "source": "Stelar Engine v3.1 (Black Box Fusion)"
+                "source": "Stelar Engine v3.2 (Full Catalog Fusion)",
+                "engines": ["Orbit", "Velocity"],
+                "total_artists": len(global_rankings)
             },
             "rankings": {
-                "global": pulse,
-                "up_and_comers": launchpad,
-                # Fillers (Standard mapping)
-                "pop": pulse[:20],
-                "hip_hop": pulse[20:40] if len(pulse) > 40 else pulse[:20],
-                "r_and_b": launchpad[:20], 
-                "arbitrage": launchpad 
+                "global": global_rankings[:3000], # Keep top 3000
+                "up_and_comers": launchpad[:150],
+                "arbitrage": launchpad[:200]
             }
         }
         
+        # Merge genres
+        for g_key, a_list in genre_lists.items():
+            output['rankings'][g_key] = a_list[:150]
+
         with open(output_path, 'w') as f:
             json.dump(output, f, indent=2)
             
-        print("\n✅ SUCCESS: Stelar Black Box Engine run complete.")
+        print(f"\n✅ SUCCESS: Refreshed {len(global_rankings)} artists into {len(output['rankings'])} categories.")
         print(f"Output saved to: {output_path}")
 
     except Exception as e:

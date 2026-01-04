@@ -27,9 +27,14 @@ export function LandingPage({ onEnter }: LandingPageProps) {
             <div className={`relative z-10 flex-1 flex flex-col items-center justify-center px-6 text-center transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
 
                 {/* Logo Mark */}
-                <div className="mb-12 flex items-center gap-3 opacity-80">
-                    <Radio className="w-6 h-6 text-[#FF4500]" />
-                    <span className="text-sm font-bold tracking-[0.3em]">STELAR</span>
+                <div className="mb-12 flex items-center gap-5 opacity-100">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#FF4500] to-orange-400 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,69,0,0.4)]">
+                        <Radio className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex flex-col items-start translate-y-1">
+                        <span className="text-4xl font-black tracking-[0.4em] text-white">STELAR</span>
+                        <span className="text-[10px] uppercase tracking-[0.8em] text-slate-500 font-bold ml-1">Intelligence</span>
+                    </div>
                 </div>
 
                 {/* Hero Typo */}

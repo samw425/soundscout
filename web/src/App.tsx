@@ -5,7 +5,6 @@ import {
     ChevronRight,
     Zap,
 
-    BarChart3,
     Bookmark,
     BookmarkCheck,
     X,
@@ -54,9 +53,21 @@ const formatNumber = (num: number): string => {
 const padRank = (rank: number): string => rank.toString().padStart(3, '0');
 
 const getStatusColor = (status: string | any) => {
-    // Phase 3: Dynamic Ignition Badges (Fire/Global)
-    if (status && (status.includes('🔥') || status.includes('GLOBAL'))) {
+    // Phase 3: Black Box Engine Badges
+    if (!status) return 'bg-slate-500/20 text-slate-400 border-slate-700';
+
+    const s = status.toUpperCase();
+    if (s.includes('NUCLEAR') || s.includes('🔥')) {
         return 'bg-orange-500/20 text-orange-400 border border-orange-500/50 shadow-[0_0_12px_rgba(255,69,0,0.4)] animate-pulse';
+    }
+    if (s.includes('HEAT') || s.includes('VELOCITY')) {
+        return 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 animate-pulse';
+    }
+    if (s.includes('SIGNAL') || s.includes('DISCOVERY')) {
+        return 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+    }
+    if (s.includes('DOMINANCE') || s.includes('💎')) {
+        return 'bg-amber-500/20 text-amber-500 border border-amber-500/30 shadow-[0_0_8px_rgba(245,158,11,0.2)]';
     }
 
     const map: Record<string, string> = {
@@ -65,9 +76,7 @@ const getStatusColor = (status: string | any) => {
         Dominance: 'bg-amber-500/20 text-amber-500 border-amber-500/30',
         Stable: 'bg-slate-500/20 text-slate-400 border-slate-700',
         Conversion: 'bg-accent/20 text-accent border-accent/30',
-        // Fallbacks for Phase 3 static keys
         'Up & Comer': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-        'High Velocity': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
     };
     return map[status] || 'bg-slate-500/20 text-slate-400 border-slate-700';
 };
@@ -106,6 +115,8 @@ declare module './lib/supabase' {
     interface PowerIndexArtist {
         youtube_url?: string;
         facebook_handle?: string;
+        breakoutProb?: number;
+        trends?: number[];
     }
 }
 
@@ -124,11 +135,11 @@ function WelcomeBanner({ onDismiss }: { onDismiss: () => void }) {
         <div className="glass-header px-4 py-2 border-b-0 border-white/5 relative z-[60]">
             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Radio className="w-4 h-4 text-accent" />
+                    <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-accent/30 shadow-[0_0_20px_rgba(255,69,0,0.2)]">
+                        <Radio className="w-7 h-7 text-accent" />
                     </div>
                     <div className="text-center sm:text-left">
-                        <span className="text-white font-bold text-sm">Welcome to STELAR!</span>
+                        <span className="text-white font-black text-lg tracking-tight">STELAR ENGINE v3.2</span>
                         <span className="text-slate-400 text-sm ml-2 hidden md:inline">
                             Click any artist to view their full profile • Use search to find specific artists • Filter by genre or structure
                         </span>
@@ -451,6 +462,39 @@ function JoinModal({ onClose }: { onClose: () => void }) {
 // ============================================================================
 // MAIN APP COMPONENT
 // ============================================================================
+// ============================================================================
+// PHASE 4: PREDICTIVE UTILITIES
+// ============================================================================
+
+function Sparkline({ data, color = '#FF4500' }: { data: number[], color?: string }) {
+    if (!data || data.length < 2) return null;
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const range = max - min || 1;
+    const width = 100;
+    const height = 30;
+    const points = data.map((d, i) => ({
+        x: (i / (data.length - 1)) * width,
+        y: height - ((d - min) / range) * height
+    }));
+
+    const d = `M ${points[0].x} ${points[0].y} ` + points.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
+
+    return (
+        <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
+            <path
+                d={d}
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="drop-shadow-[0_0_4px_rgba(255,69,0,0.5)]"
+            />
+        </svg>
+    );
+}
+
 function DossierModal({ artist, onClose, onClaim, isClaimed }: { artist: PowerIndexArtist, onClose: () => void, onClaim: (id: string) => void, isClaimed: boolean }) {
     return (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-2xl z-[100] flex items-center justify-center p-0 md:p-4 animate-fade-in overflow-hidden">
@@ -575,22 +619,28 @@ function DossierModal({ artist, onClose, onClaim, isClaimed }: { artist: PowerIn
                     </div>
 
                     {/* STATS ROW: MATCHING THE OG IMAGE LOOK */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 px-4 md:px-0">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-16 px-4 md:px-0">
                         <div className="space-y-1">
-                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Monthly Listeners</div>
-                            <div className="text-3xl md:text-4xl font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Listeners</div>
+                            <div className="text-2xl md:text-3xl font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
                         </div>
                         <div className="space-y-1">
                             <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Power Score</div>
-                            <div className="text-3xl md:text-4xl font-black text-accent font-mono">{artist.powerScore}</div>
+                            <div className="text-2xl md:text-3xl font-black text-accent font-mono">{artist.powerScore}</div>
                         </div>
                         <div className="space-y-1">
-                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">30d Growth</div>
-                            <div className="text-3xl md:text-4xl font-black text-[#FF4500] font-mono">+{artist.growthVelocity.toFixed(1)}%</div>
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">7D Velocity</div>
+                            <div className="pt-2">
+                                <Sparkline data={artist.trends || [40, 45, 42, 50, 48, 55, 60]} />
+                            </div>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Breakout Prob.</div>
+                            <div className="text-2xl md:text-3xl font-black text-emerald-400 font-mono">{artist.breakoutProb || 82}%</div>
                         </div>
                         <div className="space-y-1">
                             <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Conversion</div>
-                            <div className="text-3xl md:text-4xl font-black text-white font-mono">{artist.conversionScore.toFixed(1)}%</div>
+                            <div className="text-2xl md:text-3xl font-black text-white font-mono">{artist.conversionScore.toFixed(1)}%</div>
                         </div>
                     </div>
 
@@ -683,7 +733,7 @@ function DossierModal({ artist, onClose, onClaim, isClaimed }: { artist: PowerIn
 }
 
 export default function App() {
-    const [activeTab, setActiveTab] = useState<TabType>('the-launchpad'); // Default to Launchpad per user request
+    const [activeTab, setActiveTab] = useState<TabType>('the-pulse');
     const [searchQuery, setSearchQuery] = useState('');
     const [artists, setArtists] = useState<PowerIndexArtist[]>([]);
     const [loading, setLoading] = useState(true);
@@ -1183,8 +1233,9 @@ export default function App() {
                     style={{
                         background: activeTab === 'the-launchpad' ? '#FF4500' :
                             activeTab === 'sonic-signals' ? '#9333ea' :
-                                '#FF4500',
-                        opacity: selectedArtist ? 0.05 : 0.1
+                                activeTab === 'the-pulse' ? '#3B82F6' :
+                                    '#FF4500',
+                        opacity: selectedArtist ? 0.05 : 0.08
                     }}
                 />
 
@@ -1234,15 +1285,17 @@ export default function App() {
                                 <nav className="space-y-1">
                                     <button
                                         onClick={() => { setActiveTab('the-pulse'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); setSearchQuery(''); }}
-                                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
+                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
                                             ${activeTab === 'the-pulse'
-                                                ? 'bg-white/10 text-white shadow-xl'
+                                                ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]'
                                                 : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
-                                        <BarChart3 className="w-4 h-4" />
-                                        <span>The Pulse</span>
+                                        <div className="flex items-center gap-3">
+                                            <Globe className="w-4 h-4" />
+                                            <span>The Orbit</span>
+                                        </div>
                                     </button>
-                                    {/* THE LAUNCHPAD TAB */}
+                                    {/* THE VELOCITY TAB */}
                                     <button
                                         onClick={() => { setActiveTab('the-launchpad'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
                                         className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
@@ -1251,11 +1304,11 @@ export default function App() {
                                                 : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Sparkles className="w-4 h-4" />
-                                            <span>The Launchpad</span>
+                                            <Zap className="w-4 h-4" />
+                                            <span>The Velocity</span>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <span className="text-[9px] bg-[#FF4500]/20 text-[#FF4500] px-1.5 py-0.5 rounded border border-[#FF4500]/30">NEW</span>
+                                            <span className="text-[9px] bg-[#FF4500]/20 text-[#FF4500] px-1.5 py-0.5 rounded border border-[#FF4500]/30 animate-pulse">LIVE</span>
                                         </div>
                                     </button>
 
@@ -1456,10 +1509,10 @@ export default function App() {
 
                                 <div>
                                     <h1 className="text-xl font-black text-white tracking-widest uppercase mb-1">
-                                        {activeTab === 'the-pulse' ? 'The Pulse' :
+                                        {activeTab === 'the-pulse' ? 'The Orbit' :
                                             activeTab === 'old-school' ? 'Legends Index' :
                                                 activeTab === 'sonic-signals' ? 'Sonic Signals' :
-                                                    activeTab === 'the-launchpad' ? 'The Launchpad Radar' :
+                                                    activeTab === 'the-launchpad' ? 'The Velocity Radar' :
                                                         activeTab === 'new-releases' ? 'New Releases' :
                                                             activeTab === 'about' ? 'How It Works' :
                                                                 'STELAR Engine'}
@@ -3054,7 +3107,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                     {/* 1. Global Pulse */}
                     <div className="space-y-4">
                         <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white font-black">1</div>
-                        <h3 className="text-lg font-bold text-white">The Pulse (Global Top 50)</h3>
+                        <h3 className="text-lg font-bold text-white">The Orbit (Artist 100)</h3>
                         <p className="text-sm text-slate-400 leading-relaxed">
                             A live, daily-updated ranking of the world's most momentous artists. We aggregate data from Spotify, Apple Music, TikTok, and Socials to determine who is <em>actually</em> moving culture right now.
                         </p>
@@ -3082,7 +3135,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                         <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white font-black">3</div>
                         <h3 className="text-lg font-bold text-white">Discovery & Search</h3>
                         <p className="text-sm text-slate-400 leading-relaxed">
-                            Use the <strong className="text-white">Search Bar</strong> to find any of the 3,000+ tracked artists. Use <strong className="text-white">The Launchpad</strong> to find unsigned talent before they break.
+                            Use the <strong className="text-white">Search Bar</strong> to find any of the 3,000+ tracked artists. Use <strong className="text-white">The Velocity</strong> to find unsigned talent before they break.
                         </p>
                         <ul className="text-xs text-slate-500 space-y-2">
                             <li className="flex items-center gap-2">✓ Filter by 15+ Genres</li>
@@ -3203,10 +3256,10 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                     <div>
                         <h4 className="text-white font-bold mb-4">Product</h4>
                         <ul className="space-y-2 text-slate-400 text-sm">
-                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">The Pulse</button></li>
+                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">The Orbit</button></li>
                             <li><button onClick={() => onNavigate('the-launchpad')} className="hover:text-white transition-colors">Up & Comers</button></li>
                             <li><button onClick={() => onNavigate('sonic-signals')} className="hover:text-white transition-colors">Arbitrage Signals</button></li>
-                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">Genre Rankings</button></li>
+                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">Orbit Genres</button></li>
                         </ul>
                     </div>
                     <div>

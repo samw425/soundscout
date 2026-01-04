@@ -132,23 +132,26 @@ class SpotifyDataSource:
             artists = []
             html = response.text
             
-            # Parse Kworb table - format: rank, artist, streams, daily
+            # Kworb Artists Table Format:
+            # <td class="text"><div><a href="/spotify/artist/ID_songs.html">NAME</a></div></td>
+            # <td>TOTAL</td>
+            # <td>DAILY</td>
+            # More robust regex for Kworb's dynamic table with newlines
+            # Looking for: ...artist/ID_songs.html">NAME</a>...<td>TOTAL</td>...<td>DAILY</td>
             rows = re.findall(
-                r'<tr[^>]*>.*?<td>(\d+)</td>.*?<a href="(/spotify/artist/[^"]+)"[^>]*>([^<]+)</a>.*?<td[^>]*>([\d,]+)</td>.*?<td[^>]*>([+-]?[\d,]+)</td>',
-                html, re.DOTALL
+                r'artist/([^"]+)_songs\.html">([^<]+)</a></div></td>\s*<td>([\d,.]+)</td>\s*<td>([\d,.]+)',
+                html
             )
             
-            for row in rows[:limit]:
-                rank, url_path, name, total_streams, daily_change = row
-                spotify_id = url_path.split('/')[-1].replace('.html', '')
+            for i, row in enumerate(rows):
+                spotify_id, name, total_streams, daily_change = row
                 
                 artists.append({
                     'spotify_id': spotify_id,
                     'name': name.strip(),
-                    'spotify_charts_rank': int(rank),
-                    'total_streams': int(total_streams.replace(',', '')),
-                    'daily_change': int(daily_change.replace(',', '').replace('+', '')),
-                    'source': 'kworb_spotify'
+                    'spotify_charts_rank': i + 1,
+                    'total_streams': int(float(total_streams.replace(',', '')) * 1000000), # Kworb uses millions
+                    'daily_change': int(float(daily_change.replace(',', '')) * 1000000)
                 })
             
             return artists
@@ -196,7 +199,8 @@ class BillboardDataSource:
         'hot_100': 'https://www.billboard.com/charts/hot-100/',
         'billboard_200': 'https://www.billboard.com/charts/billboard-200/',
         'global_200': 'https://www.billboard.com/charts/billboard-global-200/',
-        'emerging_artists': 'https://www.billboard.com/charts/emerging-artists/'
+        'emerging_artists': 'https://www.billboard.com/charts/emerging-artists/',
+        'trending_songs': 'https://www.billboard.com/charts/trending-songs/'
     }
     
     def get_emerging_artists(self) -> List[Dict]:
@@ -354,6 +358,43 @@ class KworbDataSource:
             print(f"[Kworb] Error fetching Global Daily: {e}")
             return []
 
+    def get_viral_50(self) -> List[Dict]:
+        """Get Spotify Global Viral 50 from Kworb"""
+        url = "https://kworb.net/spotify/viral/global_daily.html"
+        try:
+            headers = {"User-Agent": USER_AGENT}
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code != 200:
+                return []
+            
+            entries = []
+            # Kworb Viral table - similar structure
+            rows = response.text.split('<tr>')[1:]
+            for row in rows[:50]:
+                try:
+                    rank_match = re.search(r'<td>(\d+)</td>', row)
+                    if not rank_match: continue
+                    rank = int(rank_match.group(1))
+                    
+                    name_match = re.search(r'<a href="[^"]+">([^<]+)</a>', row)
+                    artist = "Unknown"
+                    if name_match:
+                        full_str = name_match.group(1)
+                        artist = full_str.split(' - ')[0] if ' - ' in full_str else full_str
+                    
+                    if artist != "Unknown":
+                        entries.append({
+                            'rank': rank,
+                            'name': artist.strip(),
+                            'source': 'spotify_viral'
+                        })
+                except:
+                    continue
+            return entries
+        except Exception as e:
+            print(f"[Kworb] Error fetching Viral 50: {e}")
+            return []
+
 
 class YouTubeDataSource:
     """YouTube Data via public pages (no API key needed)"""
@@ -438,6 +479,46 @@ class YouTubeDataSource:
             return int(float(text) * multiplier)
         except:
             return 0
+
+class YouTubeTrendingSource:
+    """Scrape YouTube Music Trending/Top Charts (no API)"""
+    
+    BASE_URL = "https://charts.youtube.com/charts/TopSongs/global"
+    
+    def get_trending_artists(self, limit: int = 50) -> List[Dict]:
+        """Get top trending artists from YouTube Music charts"""
+        try:
+            # Note: charts.youtube.com often requires dynamic rendering or specific headers
+            # We will use a fallback to YouTube search for 'trending music' if charts fail
+            headers = {"User-Agent": USER_AGENT}
+            response = requests.get(self.BASE_URL, headers=headers, timeout=15)
+            
+            artists = []
+            # Simplified regex for data in scripts if HTML is heavy JS
+            # Fallback: Scrape the YouTube Music Trending page if charts fail
+            trending_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D"
+            response = requests.get(trending_url, headers=headers, timeout=15)
+            
+            # YouTube Trending HTML often has "videoRenderer" blocks
+            # We look for artist names in the metadata
+            names = re.findall(r'"ownerText":\{"runs":\[\{"text":"([^"]+)"', response.text)
+            
+            seen = set()
+            for name in names:
+                clean_name = name.replace(' - Topic', '').strip()
+                if clean_name not in seen and len(artists) < limit:
+                    seen.add(clean_name)
+                    artists.append({
+                        'name': clean_name,
+                        'source': 'youtube_trending',
+                        'rank': len(artists) + 1
+                    })
+            
+            return artists
+            
+        except Exception as e:
+            print(f"[YouTube Trending] Error: {e}")
+            return []
 
 
 class SocialMediaDataSource:
@@ -744,13 +825,15 @@ class LabelDetector:
     MAJOR_LABELS = [
         # Universal Music Group
         'universal', 'interscope', 'republic', 'def jam', 'capitol', 'virgin',
-        'island', 'geffen', 'polydor', 'motown', 'verve',
+        'island', 'geffen', 'polydor', 'motown', 'verve', 'astralwerks', 'blue note',
         # Sony Music
-        'sony', 'columbia', 'rca', 'epic', 'arista', 'jive',
+        'sony', 'columbia', 'rca', 'epic', 'arista', 'jive', 'syco', 'legacy',
         # Warner Music Group
-        'warner', 'atlantic', 'elektra', 'parlophone', 'nonesuch', 'sire',
-        # Distribution deals that indicate major backing
-        'awal', 'the orchard', 'empire',
+        'warner', 'atlantic', 'elektra', 'parlophone', 'nonesuch', 'sire', 'big beat',
+        # Distribution deals that indicate major backing (Aggressive classification)
+        'awal', 'the orchard', 'empire', 'distrokid', 'tunecore', 'unitedmasters',
+        # Specific sub-labels
+        'cactus jack', 'ovo', 'dreamville', 'xo', 'tde', 'brainfeeder', 'stones throw'
     ]
     
     def detect_label_type(self, label_name: Optional[str]) -> Tuple[str, bool]:

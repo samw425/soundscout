@@ -30,7 +30,7 @@
 
   /* Glow effects */
   .glow-red {
-    text-shadow: 0 0 10px rgba(255, 69, 0, 0.6);
+    text-shadow: 0 0 15px rgba(255, 69, 0, 0.8), 0 0 30px rgba(255, 69, 0, 0.4);
   }
 
   .glow-green {
@@ -119,12 +119,12 @@
 
   /* Glass effect - Apple Music Style */
   .glass {
-    @apply bg-black/40 backdrop-blur-2xl border border-white/5;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    @apply bg-black/40 backdrop-blur-3xl border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
   }
 
   .glass-header {
-    @apply sticky top-0 z-50 bg-black/60 backdrop-blur-3xl border-b border-white/5;
+    @apply sticky top-0 z-50 bg-black/50 backdrop-blur-3xl border-b border-white/5;
   }
 
   /* Chart area styling */
