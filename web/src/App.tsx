@@ -844,7 +844,6 @@ export default function App() {
             setLoading(false);
         }
         loadArtists();
-        loadArtists();
     }, [activeTab]);
 
     // OLD SCHOOL: Load legends data when tab is selected
@@ -1142,8 +1141,8 @@ export default function App() {
         }));
 
         // Reset limit when changing tabs/search/filters
-        // STELAR: Launchpad requires 150+ upcomers per user request
-        setDisplayLimit(activeTab === 'the-launchpad' ? 150 : 50);
+        // STELAR: Orbit (Pulse) shows full 3000 catalog. Launchpad shows 150.
+        setDisplayLimit(activeTab === 'the-pulse' ? 3000 : (activeTab === 'the-launchpad' ? 150 : 50));
         return result;
     }, [artists, searchResults, searchQuery, activeTab, watchlist, userTier, selectedGenre, selectedStructure]);
 
