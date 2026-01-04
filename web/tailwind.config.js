@@ -28,7 +28,7 @@ export default {
 
         // Tier Colors
         tier: {
-          major: '#dc2626',
+          major: '#00FF41',
           indie: '#22c55e',
         }
       },
@@ -62,8 +62,8 @@ export default {
         },
       },
       boxShadow: {
-        'glow-red': '0 0 20px rgba(220, 38, 38, 0.3)',
-        'glow-green': '0 0 20px rgba(34, 197, 94, 0.3)',
+        'glow-red': '0 0 20px rgba(0, 255, 65, 0.3)',
+        'glow-green': '0 0 20px rgba(0, 255, 65, 0.3)',
       }
     },
   },
