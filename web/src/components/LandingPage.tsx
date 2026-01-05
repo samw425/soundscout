@@ -13,70 +13,45 @@ export function LandingPage({ onEnter }: LandingPageProps) {
     }, []);
 
     return (
-        <div
-            className="fixed inset-0 z-[100] bg-[#050505] text-white flex flex-col"
-        >
-            {/* Background Effects */}
+        <div className="fixed inset-0 z-[100] bg-[#050505] text-white flex flex-col font-sans">
+            {/* Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#FF4500]/10 rounded-full blur-[150px] animate-pulse-slow"></div>
-                <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-purple-900/10 rounded-full blur-[150px] animate-pulse-slow delay-1000"></div>
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#FF4500]/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-white/2 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-soft-light"></div>
             </div>
 
-            {/* Main Content */}
-            <div className={`relative z-10 flex-1 flex flex-col items-center justify-center px-6 text-center transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            {/* Content */}
+            <div className={`relative z-10 flex-1 flex flex-col items-center justify-center px-6 text-center transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
 
-                {/* Logo Mark */}
-                <div className="mb-12 flex items-center gap-5 opacity-100">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#FF4500] to-orange-400 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,69,0,0.4)]">
-                        <Radio className="w-10 h-10 text-white" />
+                {/* Logo Lockup - Matching Reference */}
+                <div className="mb-16 flex flex-col items-center">
+                    <div className="flex items-center gap-5 mb-3">
+                        <Radio className="w-16 h-16 text-[#FF4500] drop-shadow-[0_0_15px_rgba(255,69,0,0.5)]" />
+                        <span className="text-6xl md:text-8xl font-black tracking-tight text-white">STELAR</span>
                     </div>
-                    <div className="flex flex-col items-start translate-y-1">
-                        <span className="text-4xl font-black tracking-[0.4em] text-white">STELAR</span>
-                        <span className="text-[10px] uppercase tracking-[0.8em] text-slate-500 font-bold ml-1">Intelligence</span>
-                    </div>
-                </div>
-
-                {/* Hero Typo */}
-                <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8 mix-blend-screen">
-                    <span className="block text-white">TRACK THE TOP.</span>
-                    <span className="block text-slate-500">DISCOVER THE NEXT.</span>
-                </h1>
-
-                {/* Value Props */}
-                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 text-xs md:text-sm font-mono text-slate-400 mb-16 tracking-widest uppercase">
-                    <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FF4500]"></span>
-                        Live Global Rankings
-                    </span>
-                    <span className="hidden md:inline text-slate-700">•</span>
-                    <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                        Pre-Viral Signal Detection
-                    </span>
-                    <span className="hidden md:inline text-slate-700">•</span>
-                    <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-                        3,000+ Verified Artists
+                    <span className="text-sm uppercase tracking-[0.4em] text-slate-500 font-bold">
+                        TRACK THE TOP. DISCOVER THE NEXT.
                     </span>
                 </div>
 
                 {/* Enter Button */}
                 <button
                     onClick={onEnter}
-                    className="group flex flex-col items-center gap-4 transition-all hover:opacity-80 focus:outline-none"
+                    className="group flex flex-col items-center gap-5 transition-all focus:outline-none"
                     aria-label="Enter Site"
                 >
-                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm group-hover:bg-white/10 transition-all">
-                        <ChevronDown className="w-6 h-6 text-white animate-bounce" />
+                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-[#FF4500]/10 group-hover:border-[#FF4500]/30 transition-all">
+                        <ChevronDown className="w-7 h-7 text-slate-500 group-hover:text-[#FF4500] animate-bounce" />
                     </div>
+                    <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-slate-600 group-hover:text-white transition-colors">Enter Site</span>
                 </button>
 
-                {/* Footer Status */}
-                <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-                    <div className="flex items-center gap-2 text-[10px] text-slate-600 font-mono uppercase tracking-widest">
+                {/* Status */}
+                <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+                    <div className="flex items-center gap-3 text-[10px] text-slate-600 font-mono uppercase tracking-[0.3em]">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                        System Online • v2.1.0
+                        SYSTEM ONLINE
                     </div>
                 </div>
             </div>

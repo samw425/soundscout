@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
     Search,
-    TrendingUp,
     ChevronRight,
     Zap,
 
@@ -12,7 +11,6 @@ import {
     Music,
     Crown,
     Target,
-    Users,
     Lock,
     ArrowUpRight,
     Star,
@@ -44,7 +42,8 @@ import { LandingPage } from './components/LandingPage';
 // UTILITY FUNCTIONS
 // ============================================================================
 
-const formatNumber = (num: number): string => {
+const formatNumber = (num: number | undefined | null): string => {
+    if (num === undefined || num === null) return '0';
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
     if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
     return num.toString();
@@ -81,21 +80,7 @@ const getStatusColor = (status: string | any) => {
     return map[status] || 'bg-slate-500/20 text-slate-400 border-slate-700';
 };
 
-const getStatusBadge = (status: string | any) => {
-    if (status && status.includes('🔥')) return status;
-
-    const map: Record<string, string> = {
-        Viral: '🔥 VIRAL',
-        Breakout: '📈 RISING',
-        Dominance: '👑 TOP',
-        Stable: '📊 STEADY',
-        Conversion: '💎 OPPORTUNITY',
-        // Fallbacks
-        'Up & Comer': '🚀 Rising',
-        'High Velocity': '⚡ Velocity',
-    };
-    return map[status] || status;
-};
+// DELETED getStatusBadge (unused)
 
 // Flexible genre matching for New Releases filter
 const matchesGenre = (releaseGenre: string | undefined, filterGenre: string): boolean => {
@@ -139,7 +124,7 @@ function WelcomeBanner({ onDismiss }: { onDismiss: () => void }) {
                         <Radio className="w-7 h-7 text-accent" />
                     </div>
                     <div className="text-center sm:text-left">
-                        <span className="text-white font-black text-lg tracking-tight">STELAR ENGINE v3.2</span>
+                        <span className="text-white font-black text-lg tracking-tight">Welcome to STELAR . . .</span>
                         <span className="text-slate-400 text-sm ml-2 hidden md:inline">
                             Click any artist to view their full profile • Use search to find specific artists • Filter by genre or structure
                         </span>
@@ -232,58 +217,50 @@ function UpgradeModal({ onClose, feature }: { onClose: () => void; feature?: str
                     </button>
                 </div>
 
-                {/* Launch Promo Banner */}
-                <div className="bg-gradient-to-r from-[#FF4500]/20 to-[#FF8c00]/10 border border-[#FF4500]/30 rounded-xl p-4 mb-6 text-center">
-                    <div className="inline-flex items-center gap-2 text-[#FF4500] text-sm font-bold">
-                        <Star className="w-4 h-4" />
-                        LAUNCH SPECIAL: Pro features are FREE for a limited time!
-                        <Star className="w-4 h-4" />
+                {/* Launch Promo Banner - Minimalist */}
+                <div className="py-8 text-center">
+                    <div className="inline-flex items-center gap-3 text-accent text-sm font-black uppercase tracking-[0.2em] animate-pulse">
+                        <Sparkles className="w-5 h-5" />
+                        Launch Phase: All Pro Signals are Unlocked
+                        <Sparkles className="w-5 h-5" />
                     </div>
                 </div>
 
-                {/* Plans Grid */}
-                <div className="grid grid-cols-3 gap-4">
+                {/* Plans Grid - Minimalist */}
+                <div className="grid grid-cols-3 gap-16 py-12">
                     {plans.map((plan) => (
                         <div
                             key={plan.name}
-                            className={`rounded-2xl p-6 border transition-all spring-hover shadow-lg ${plan.highlighted
-                                ? 'bg-white/5 border-white/20'
-                                : 'bg-transparent border-white/5 opacity-60 hover:opacity-100'
-                                }`}
+                            className={`transition-all duration-700 ${plan.highlighted ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}
                         >
-                            {plan.promo && (
-                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#FF4500] text-black text-[10px] font-bold rounded-full whitespace-nowrap">
-                                    {plan.promo}
+                            <div className="mb-8">
+                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-4">{plan.name} tier</div>
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-5xl font-black text-white tracking-tighter">{plan.price}</span>
+                                    <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">{plan.priceSub}</span>
                                 </div>
-                            )}
-                            {plan.current && (
-                                <div className="text-[10px] text-[#FF4500] font-bold uppercase tracking-wider mb-2">
-                                    ✓ Currently Active
-                                </div>
-                            )}
-                            <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
-                            <div className="mb-4">
-                                <span className="text-2xl font-bold text-white">{plan.price}</span>
-                                <span className="text-slate-500 text-sm"> {plan.priceSub}</span>
                             </div>
-                            <ul className="space-y-2 mb-6">
+
+                            <ul className="space-y-4 mb-10 min-h-[280px]">
                                 {plan.features.map((feat, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                                        <Star className="w-3 h-3 text-accent mt-0.5 flex-shrink-0" />
-                                        {feat}
+                                    <li key={i} className="flex items-start gap-3">
+                                        <div className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${plan.highlighted ? 'bg-accent shadow-[0_0_10px_rgba(255,69,0,0.6)]' : 'bg-slate-800'}`} />
+                                        <span className="text-[11px] font-medium text-slate-400 group-hover:text-white transition-colors">{feat}</span>
                                     </li>
                                 ))}
                             </ul>
+
                             <button
                                 onClick={plan.current ? onClose : undefined}
-                                className={`w-full py-2 rounded-lg font-bold text-sm ${plan.current
-                                    ? 'bg-signal-green text-white'
-                                    : plan.highlighted
-                                        ? 'bg-accent text-white hover:bg-accent/90'
-                                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                                className={`w-full py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all
+                                ${plan.current
+                                        ? 'bg-signal-green text-white shadow-xl'
+                                        : plan.highlighted
+                                            ? 'bg-white text-black hover:bg-accent hover:text-white shadow-2xl'
+                                            : 'bg-transparent text-slate-600 border border-slate-900 hover:border-slate-500 hover:text-white'
                                     }`}
                             >
-                                {plan.current ? 'Active Now' : plan.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}
+                                {plan.current ? 'Access Active' : plan.name === 'Enterprise' ? 'Contact Ops' : 'Begin Deployment'}
                             </button>
                         </div>
                     ))}
@@ -362,19 +339,19 @@ function JoinModal({ onClose }: { onClose: () => void }) {
     if (submitted) {
         return (
             <div className="fixed inset-0 bg-black/90 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-                <div className="glass max-w-md w-full p-8 rounded-3xl shadow-2xl text-center relative border-accent/20">
-                    <div className="w-16 h-16 bg-[#FF4500]/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Star className="w-8 h-8 text-[#FF4500]" />
+                <div className="glass max-w-md w-full p-12 rounded-[2rem] shadow-2xl text-center relative overflow-hidden">
+                    <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8 animate-fade-in">
+                        <Star className="w-10 h-10 text-accent animate-pulse" />
                     </div>
-                    <h2 className="text-2xl font-bold text-white mb-3">You're on the List!</h2>
-                    <p className="text-slate-400 mb-6">
-                        Thanks for joining! We'll notify you when new features launch and send exclusive A&R insights.
+                    <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Day Zero Locked</h2>
+                    <p className="text-slate-500 font-medium mb-10 leading-relaxed">
+                        Signal access approved. You'll be notified when the next market anomalies are detected.
                     </p>
                     <button
                         onClick={onClose}
-                        className="w-full py-3 rounded-xl font-bold bg-accent text-white hover:bg-accent/90 transition-colors"
+                        className="w-full py-4 rounded-full font-black text-[10px] bg-white text-black hover:bg-accent hover:text-white uppercase tracking-[0.2em] transition-all shadow-xl"
                     >
-                        Back to Discovery
+                        Return to Pulse
                     </button>
                 </div>
             </div>
@@ -640,7 +617,7 @@ function DossierModal({ artist, onClose, onClaim, isClaimed }: { artist: PowerIn
                         </div>
                         <div className="space-y-1">
                             <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Conversion</div>
-                            <div className="text-2xl md:text-3xl font-black text-white font-mono">{artist.conversionScore.toFixed(1)}%</div>
+                            <div className="text-2xl md:text-3xl font-black text-white font-mono">{(artist.conversionScore || 0).toFixed(1)}%</div>
                         </div>
                     </div>
 
@@ -675,28 +652,28 @@ function DossierModal({ artist, onClose, onClaim, isClaimed }: { artist: PowerIn
                             </div>
                         </div>
 
-                        {/* RIGHT: INSIGHTS */}
+                        {/* RIGHT: INSIGHTS - Minimalist */}
                         <div className="space-y-8">
-                            <h3 className="text-xs font-black text-white/20 uppercase tracking-[0.5em] border-b border-white/5 pb-4">Analyst Insight</h3>
+                            <h3 className="text-xs font-black text-white/20 uppercase tracking-[0.5em] border-b border-white/5 pb-4">Proprietary Signal</h3>
 
-                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-xl">
-                                <div className="flex items-center gap-2 text-accent mb-4">
-                                    <Sparkles className="w-4 h-4" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest">Alpha Signals Detected</span>
+                            <div className="py-2">
+                                <div className="flex items-center gap-3 text-accent mb-6">
+                                    <Sparkles className="w-5 h-5 animate-pulse" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">High Fidelity Anomaly</span>
                                 </div>
-                                <p className="text-white/70 text-sm leading-relaxed mb-6 font-medium">
-                                    Artist's streaming velocity significantly outpaces category peer growth. Social signals indicate a high-retention fan base with {artist.conversionScore.toFixed(1)}% conversion efficiency.
-                                    Recommend accumulation of catalog IP or immediate live tour routing.
+                                <p className="text-white text-lg leading-relaxed mb-10 font-medium tracking-tight">
+                                    Artist's streaming velocity significantly outpaces category peer growth. Social signals indicate a high-retention fan base with <span className="text-accent">{artist.conversionScore.toFixed(1)}% conversion</span> efficiency.
+                                    Market positioning suggests immediate potential for live tour routing or catalog accumulation.
                                 </p>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-black/40 border border-white/5 rounded-xl p-3">
-                                        <div className="text-[9px] font-bold text-white/30 uppercase mb-1">Status</div>
-                                        <div className="text-xs font-bold text-white uppercase tracking-wider">{artist.status}</div>
+                                <div className="grid grid-cols-2 gap-12 border-t border-white/5 pt-10">
+                                    <div className="group">
+                                        <div className="text-[9px] font-black text-white/30 uppercase tracking-widest mb-2">Detection Status</div>
+                                        <div className="text-lg font-black text-white uppercase tracking-tighter group-hover:text-accent transition-colors">{artist.status}</div>
                                     </div>
-                                    <div className="bg-black/40 border border-white/5 rounded-xl p-3">
-                                        <div className="text-[9px] font-bold text-white/30 uppercase mb-1">Structure</div>
-                                        <div className="text-xs font-bold text-white uppercase tracking-wider">{artist.is_independent ? 'Independent' : 'Major Label'}</div>
+                                    <div className="group text-right">
+                                        <div className="text-[9px] font-black text-white/30 uppercase tracking-widest mb-2">Ecosystem Structure</div>
+                                        <div className="text-lg font-black text-white uppercase tracking-tighter group-hover:text-accent transition-colors">{artist.is_independent ? 'Independent' : 'Major Circle'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -788,7 +765,6 @@ export default function App() {
         setShowJoin(false);
         setMobileMenuOpen(false);
 
-        // Then set the new artist
         // Then set the new artist
         setSelectedArtist(artist);
         setSearchQuery(''); // Clear search so profile shows up
@@ -1053,9 +1029,24 @@ export default function App() {
                 }
             }
 
-            // Handle /oldschool deep link
-            if (path === '/oldschool' || path === '/oldschool/') {
-                setActiveTab('old-school');
+            // Handle /launchpad deep link
+            if (path === '/launchpad' || path === '/launchpad/') {
+                setActiveTab('the-launchpad');
+            }
+
+            // Handle /releases deep link
+            if (path === '/releases' || path === '/releases/') {
+                setActiveTab('new-releases');
+            }
+
+            // Handle /tours deep link
+            if (path === '/tours' || path === '/tours/') {
+                setActiveTab('live-tours');
+            }
+
+            // Handle /roster deep link
+            if (path === '/roster' || path === '/roster/') {
+                setActiveTab('locked-roster');
             }
         };
 
@@ -1257,8 +1248,8 @@ export default function App() {
                     {/* LEFT RAIL / SIDEBAR */}
                     <aside className={`
                         fixed lg:relative inset-y-0 left-0 z-[80]
-                        w-80 flex flex-col border-r border-slate-900 bg-[#0B0C10]
-                        transform transition-transform duration-300 ease-in-out h-full
+                        w-80 flex flex-col bg-black/50 backdrop-blur-3xl h-full
+                        transform transition-transform duration-500 ease-in-out
                         ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
                     `}>
                         {/* BRAND HEADER - ELITE HUMAN DESIGN */}
@@ -1284,213 +1275,159 @@ export default function App() {
                                 <nav className="space-y-1">
                                     <button
                                         onClick={() => { setActiveTab('the-pulse'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); setSearchQuery(''); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
                                             ${activeTab === 'the-pulse'
-                                                ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]'
-                                                : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                                ? 'text-white'
+                                                : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Globe className="w-4 h-4" />
-                                            <span>The Orbit</span>
+                                        <div className="flex items-center gap-4">
+                                            <Globe className={`w-5 h-5 ${activeTab === 'the-pulse' ? 'text-accent' : 'text-slate-800'}`} />
+                                            <span>The Pulse</span>
                                         </div>
+                                        {activeTab === 'the-pulse' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
-                                    {/* THE VELOCITY TAB */}
+
                                     <button
-                                        onClick={() => { setActiveTab('the-launchpad'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
+                                        onClick={() => { setActiveTab('the-launchpad'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/launchpad'); }}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
                                             ${activeTab === 'the-launchpad'
-                                                ? 'bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/20 shadow-[0_0_15px_rgba(255,69,0,0.1)]'
-                                                : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                                ? 'text-white'
+                                                : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Zap className="w-4 h-4" />
-                                            <span>The Velocity</span>
+                                        <div className="flex items-center gap-4">
+                                            <Zap className={`w-5 h-5 ${activeTab === 'the-launchpad' ? 'text-accent' : 'text-slate-800'}`} />
+                                            <span>The Launchpad</span>
                                         </div>
-                                        <div className="flex items-center gap-1">
-                                            <span className="text-[9px] bg-[#FF4500]/20 text-[#FF4500] px-1.5 py-0.5 rounded border border-[#FF4500]/30 animate-pulse">LIVE</span>
-                                        </div>
+                                        {activeTab === 'the-launchpad' ? (
+                                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                        ) : (
+                                            <span className="text-[8px] text-slate-800 font-black tracking-widest">LIVE</span>
+                                        )}
                                     </button>
 
 
                                     {/* OLD SCHOOL TAB */}
                                     <button
                                         onClick={() => { setActiveTab('old-school'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/oldschool'); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all
-                                            ${activeTab === 'old-school' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
+                                            ${activeTab === 'old-school' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Crown className="w-4 h-4" />
+                                        <div className="flex items-center gap-4">
+                                            <Crown className={`w-5 h-5 ${activeTab === 'old-school' ? 'text-amber-500' : 'text-slate-800'}`} />
                                             <span>Old School</span>
                                         </div>
-                                        <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/30">LEGENDS</span>
+                                        {activeTab === 'old-school' && <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />}
                                     </button>
 
-                                    {/* NEW RELEASES TAB */}
                                     <button
                                         onClick={() => { setActiveTab('new-releases'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/releases'); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
-                                            ${activeTab === 'new-releases' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
+                                            ${activeTab === 'new-releases' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Disc className="w-4 h-4" />
+                                        <div className="flex items-center gap-4">
+                                            <Disc className={`w-5 h-5 ${activeTab === 'new-releases' ? 'text-accent' : 'text-slate-800'}`} />
                                             <span>New Releases</span>
                                         </div>
-                                        <div className="flex items-center gap-1">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
-                                            <span className="text-[9px] text-accent">LIVE</span>
-                                        </div>
+                                        {activeTab === 'new-releases' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
 
-                                    {/* LIVE TOURS TAB */}
                                     <button
-                                        onClick={() => { setActiveTab('live-tours'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
-                                            ${activeTab === 'live-tours' ? 'bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/20' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                        onClick={() => { setActiveTab('live-tours'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/tours'); }}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
+                                            ${activeTab === 'live-tours' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Ticket className="w-4 h-4" />
+                                        <div className="flex items-center gap-4">
+                                            <Ticket className={`w-5 h-5 ${activeTab === 'live-tours' ? 'text-accent' : 'text-slate-800'}`} />
                                             <span>Live Tours</span>
                                         </div>
-                                        <span className="text-[9px] bg-[#FF4500]/20 text-[#FF4500] px-1.5 py-0.5 rounded border border-[#FF4500]/30">50+</span>
+                                        {activeTab === 'live-tours' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
 
-
                                     <button
-                                        onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all spring-hover
-                                            ${activeTab === 'locked-roster' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                        onClick={() => { setActiveTab('locked-roster'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/roster'); }}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
+                                            ${activeTab === 'locked-roster' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Lock className="w-4 h-4" />
+                                        <div className="flex items-center gap-4">
+                                            <Lock className={`w-5 h-5 ${activeTab === 'locked-roster' ? 'text-accent' : 'text-slate-800'}`} />
                                             <span>Locked Roster</span>
                                         </div>
+                                        {activeTab === 'locked-roster' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
 
                                     <button
                                         onClick={() => { setActiveTab('about'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); }}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all
-                                            ${activeTab === 'about' ? 'bg-accent/10 text-accent' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
+                                            ${activeTab === 'about' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <Target className="w-4 h-4" />
+                                        <div className="flex items-center gap-4">
+                                            <Target className={`w-5 h-5 ${activeTab === 'about' ? 'text-accent' : 'text-slate-800'}`} />
                                             <span>How It Works</span>
                                         </div>
+                                        {activeTab === 'about' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
                                 </nav>
                             </div>
+                        </div>
 
-                            {/* WIDGETS SECTION */}
+                        {/* WIDGETS SECTION - Standardized */}
+                        <div className="px-6 py-8 border-t border-white/5 space-y-10">
                             <div>
-                                <div className="flex items-center justify-between px-2 mb-4">
-                                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Today's Hottest</h3>
-                                    <button className="text-[9px] font-bold text-accent hover:text-white transition-colors">VIEW ALL</button>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-[10px] font-black text-slate-700 uppercase tracking-widest">Global Signals</h3>
+                                    <button className="text-[9px] font-black text-accent hover:text-white transition-colors" onClick={() => setActiveDiscoveryList('movers')}>EXPLORE</button>
                                 </div>
+                                <div className="space-y-4">
+                                    {biggestMovers.slice(0, 2).map(artist => (
+                                        <div key={artist.id} onClick={() => handleSelectArtist(artist)} className="flex items-center justify-between group cursor-pointer">
+                                            <span className="text-[11px] font-black text-slate-500 group-hover:text-white transition-colors uppercase tracking-tight">{artist.name}</span>
+                                            <span className="text-[10px] font-mono font-black text-[#22c55e]">+{(artist.growthVelocity || 0).toFixed(0)}%</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
 
-                                <div className="space-y-6">
-                                    {/* Widget 1: Biggest Movers */}
-                                    <div className="group cursor-pointer" onClick={() => setActiveDiscoveryList('movers')}>
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-red-500/20 flex items-center justify-center">
-                                                <TrendingUp className="w-4 h-4 text-accent" />
-                                            </div>
-                                            <div>
-                                                <div className="text-xs font-bold text-white uppercase tracking-wider">Biggest Movers</div>
-                                                <div className="text-[9px] text-slate-500">Fastest listeners growth</div>
-                                            </div>
+                            <div>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-[10px] font-black text-slate-700 uppercase tracking-widest">Discovery Assets</h3>
+                                    <button className="text-[9px] font-black text-accent hover:text-white transition-colors" onClick={() => setActiveDiscoveryList('gems')}>EXPLORE</button>
+                                </div>
+                                <div className="space-y-4">
+                                    {hiddenGems.slice(0, 2).map(artist => (
+                                        <div key={artist.id} onClick={() => handleSelectArtist(artist)} className="flex items-center justify-between group cursor-pointer">
+                                            <span className="text-[11px] font-black text-slate-500 group-hover:text-white transition-colors uppercase tracking-tight">{artist.name}</span>
+                                            <span className="text-[10px] font-mono font-black text-accent">#{artist.rank}</span>
                                         </div>
-                                        <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
-                                            {biggestMovers.slice(0, 2).map(artist => (
-                                                <div
-                                                    key={artist.id}
-                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
-                                                >
-                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
-                                                    <span className="text-green-500 font-mono font-bold">+{artist.growthVelocity.toFixed(0)}%</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Widget 2: Hidden Gems */}
-                                    <div className="group cursor-pointer" onClick={() => setActiveDiscoveryList('gems')}>
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                                                <Sparkles className="w-4 h-4 text-purple-500" />
-                                            </div>
-                                            <div>
-                                                <div className="text-xs font-bold text-white uppercase tracking-wider">Hidden Gems</div>
-                                                <div className="text-[9px] text-slate-500">Rank 150+ with momentum</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
-                                            {hiddenGems.slice(0, 2).map(artist => (
-                                                <div
-                                                    key={artist.id}
-                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
-                                                >
-                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
-                                                    <span className="text-[#FF4500] font-mono font-bold">+{artist.growthVelocity.toFixed(0)}%</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Widget 3: Underrated (Simulated for UI match) */}
-                                    <div className="group cursor-pointer">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-8 h-8 rounded-lg bg-[#FF4500]/10 border border-[#FF4500]/20 flex items-center justify-center">
-                                                <Target className="w-4 h-4 text-[#FF4500]" />
-                                            </div>
-                                            <div>
-                                                <div className="text-xs font-bold text-white uppercase tracking-wider">Underrated</div>
-                                                <div className="text-[9px] text-slate-500">Highest power density</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2 pl-2 border-l border-slate-800 ml-4">
-                                            {/* Using safe slice of artists for demo */}
-                                            {artists.filter(a => a.conversionScore < 30).slice(0, 2).map(artist => (
-                                                <div
-                                                    key={artist.id}
-                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                    className="flex items-center justify-between text-[10px] group-hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
-                                                >
-                                                    <span className="text-slate-300 font-medium hover:text-accent">{artist.name}</span>
-                                                    <span className="text-accent font-mono font-bold">#{artist.rank}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
 
-                        {/* UPGRADE CARD */}
-                        <div className="p-4 mt-auto border-t border-slate-900 bg-[#0B0C10]">
+                        {/* UPGRADE & ACCESS - Standardized */}
+                        <div className="mt-auto px-6 py-10 border-t border-white/5">
                             <button
                                 onClick={() => setShowUpgrade(true)}
-                                className="w-full bg-gradient-to-r from-[#FF4500] to-[#FF8c00] rounded-xl p-4 text-left group hover:scale-[1.02] transition-transform shadow-lg relative overflow-hidden"
+                                className="w-full text-left group"
                             >
-                                <div className="relative z-10">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <Crown className="w-4 h-4 text-white fill-current" />
-                                        <span className="text-xs font-black text-white uppercase tracking-widest">Upgrade to Pro</span>
+                                <div className="flex items-center justify-between transition-transform group-hover:translate-x-1">
+                                    <div className="space-y-1">
+                                        <div className="text-[10px] font-black text-white uppercase tracking-widest">STELAR PRO</div>
+                                        <div className="text-[9px] text-slate-700 font-bold uppercase tracking-tight">Unlock Private Signals</div>
                                     </div>
-                                    <div className="text-[10px] text-white/90 font-medium">See pricing and features</div>
+                                    <ChevronRight className="w-4 h-4 text-slate-800 group-hover:text-white" />
                                 </div>
-                                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full blur-xl -mr-8 -mt-8"></div>
                             </button>
 
                             <button
                                 onClick={() => setShowJoin(true)}
-                                className="w-full mt-3 flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-slate-400 hover:text-white transition-all group"
+                                className="w-full mt-8 text-left group"
                             >
-                                <div className="flex items-center gap-3">
-                                    <Users className="w-4 h-4" />
-                                    <span className="text-xs font-bold uppercase tracking-wider">Join Waitlist</span>
+                                <div className="flex items-center justify-between transition-transform group-hover:translate-x-1">
+                                    <div className="space-y-1">
+                                        <div className="text-[10px] font-black text-slate-700 group-hover:text-white transition-colors uppercase tracking-widest">Join Global Waitlist</div>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4 text-slate-800 group-hover:text-white" />
                                 </div>
-                                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>
                     </aside>
@@ -1508,10 +1445,10 @@ export default function App() {
 
                                 <div>
                                     <h1 className="text-xl font-black text-white tracking-widest uppercase mb-1">
-                                        {activeTab === 'the-pulse' ? 'The Orbit' :
+                                        {activeTab === 'the-pulse' ? 'The Pulse' :
                                             activeTab === 'old-school' ? 'Legends Index' :
                                                 activeTab === 'sonic-signals' ? 'Sonic Signals' :
-                                                    activeTab === 'the-launchpad' ? 'The Velocity Radar' :
+                                                    activeTab === 'the-launchpad' ? 'The Launchpad' :
                                                         activeTab === 'new-releases' ? 'New Releases' :
                                                             activeTab === 'about' ? 'How It Works' :
                                                                 'STELAR Engine'}
@@ -1523,7 +1460,7 @@ export default function App() {
                                                 <Zap className="w-3 h-3" /> {claims.size} CLAIMS
                                             </span>
                                         )}
-                                        <span className="text-slate-500 border-l border-slate-800 pl-4">{activeTab === 'old-school' ? oldSchoolArtists.length : '5,000+'} Artists</span>
+                                        <span className="text-slate-500 border-l border-slate-800 pl-4">{activeTab === 'old-school' ? oldSchoolArtists.length : '3,000+'} Artists</span>
                                     </div>
                                 </div>
                             </div>
@@ -1647,16 +1584,16 @@ export default function App() {
                                                         THE PULSE
                                                         <div className="flex items-center gap-1.5 ml-2">
                                                             <div className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse shadow-[0_0_10px_rgba(255,95,21,0.5)]"></div>
-                                                            <span className="text-[10px] text-[#FF4500] font-mono uppercase tracking-widest">Global Feed</span>
+                                                            <span className="text-[10px] text-[#FF4500] font-mono uppercase tracking-widest">Signal Feed</span>
                                                         </div>
                                                     </h1>
                                                     <p className="text-slate-500 text-sm font-medium">
-                                                        Real-time ranking of the most influential artists across 100+ global metadata signals.
+                                                        High-velocity signal processing and recursive anomaly detection across the global sonic landscape.
                                                     </p>
                                                 </div>
                                                 <div className="flex items-center gap-6">
                                                     <div className="text-right">
-                                                        <div className="text-[10px] text-slate-500 uppercase font-black mb-1">Network Status</div>
+                                                        <div className="text-[10px] text-slate-500 uppercase font-black mb-1">Probe Status</div>
                                                         <div className="flex items-center gap-2">
                                                             <div className="h-1 w-8 bg-[#FF4500]/20 rounded-full overflow-hidden">
                                                                 <div className="h-full bg-[#FF4500] w-3/4 animate-pulse"></div>
@@ -1676,15 +1613,15 @@ export default function App() {
                                                 <h2 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter">
                                                     {activeDiscoveryList === 'movers' ? 'Volume Leaders' : 'Quality Discovery'}
                                                 </h2>
-                                                <div className="space-y-2">
+                                                <div className="divide-y divide-white/5">
                                                     {(activeDiscoveryList === 'movers' ? biggestMovers : hiddenGems).map((artist, i) => (
-                                                        <button key={artist.id} onClick={() => setSelectedArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all">
-                                                            <span className="text-lg font-bold text-[#FF4500] w-8">{padRank(i + 1)}</span>
-                                                            <div className="flex-1 text-left font-bold text-white uppercase tracking-tight">{artist.name}</div>
-                                                            <div className={`font-mono font-bold ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                                                                {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
+                                                        <button key={artist.id} onClick={() => setSelectedArtist(artist)} className="w-full flex items-center gap-6 py-6 group hover:bg-white/[0.02] transition-colors rounded-xl px-4 -mx-4">
+                                                            <span className="text-2xl font-black text-[#FF4500]/40 w-10 group-hover:text-[#FF4500] transition-colors">{padRank(i + 1)}</span>
+                                                            <div className="flex-1 text-left font-black text-white uppercase tracking-tighter text-xl group-hover:translate-x-1 transition-transform">{artist.name}</div>
+                                                            <div className={`font-mono font-black text-lg ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                {(artist.growthVelocity || 0) > 0 ? '+' : ''}{(artist.growthVelocity || 0).toFixed(1)}%
                                                             </div>
-                                                            <ChevronRight className="w-4 h-4 text-slate-700" />
+                                                            <ChevronRight className="w-5 h-5 text-slate-800 group-hover:text-white transition-colors" />
                                                         </button>
                                                     ))}
                                                 </div>
@@ -1697,77 +1634,73 @@ export default function App() {
                                                 </h2>
 
                                                 {visibleArtists.length > 0 ? (
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+                                                    <div className="divide-y divide-white/5 mb-8">
                                                         {visibleArtists.map((artist) => (
-                                                            <div
+                                                            <button
                                                                 key={artist.id}
-                                                                className="bg-slate-900/50 border border-slate-800 rounded-xl p-4 hover:border-accent/30 hover:bg-slate-900 transition-all cursor-pointer group"
+                                                                className="w-full flex items-center gap-6 py-6 group hover:bg-white/[0.02] transition-colors rounded-xl px-4 -mx-4 text-left"
                                                                 onClick={() => handleSelectArtist(artist)}
                                                             >
-                                                                <div className="flex items-center gap-4">
-                                                                    <div className="w-12 h-12 rounded-lg bg-slate-800 overflow-hidden relative">
-                                                                        {artist.avatar_url ? (
-                                                                            <img src={artist.avatar_url} alt={artist.name} className="w-full h-full object-cover" />
-                                                                        ) : (
-                                                                            <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold">{getInitials(artist.name)}</div>
-                                                                        )}
-                                                                    </div>
-                                                                    <div className="flex-1 min-w-0">
-                                                                        <div className="font-bold text-white text-sm truncate">{artist.name}</div>
-                                                                        <div className="text-[10px] text-slate-500 font-bold uppercase">{artist.genre}</div>
-                                                                    </div>
-                                                                    <div className={`text-xs font-bold font-mono ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                                                                        {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(0)}%
-                                                                    </div>
+                                                                <div className="w-16 h-16 rounded-xl bg-slate-800 overflow-hidden relative">
+                                                                    {artist.avatar_url ? (
+                                                                        <img src={artist.avatar_url} alt={artist.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-slate-500 font-black text-xl">{getInitials(artist.name)}</div>
+                                                                    )}
                                                                 </div>
-                                                            </div>
+                                                                <div className="flex-1 min-w-0">
+                                                                    <div className="font-black text-white text-xl uppercase tracking-tighter group-hover:text-accent transition-colors">{artist.name}</div>
+                                                                    <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-1">{artist.genre} • {artist.country}</div>
+                                                                </div>
+                                                                <div className={`font-mono font-black text-lg ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                    {(artist.growthVelocity || 0) > 0 ? '+' : ''}{(artist.growthVelocity || 0).toFixed(0)}%
+                                                                </div>
+                                                                <ChevronRight className="w-6 h-6 text-slate-800 group-hover:text-white transition-colors" />
+                                                            </button>
                                                         ))}
                                                     </div>
                                                 ) : (
-                                                    <div className="text-center py-10 border border-dashed border-slate-800 rounded-xl mb-8">
-                                                        <div className="text-slate-500 uppercase tracking-widest text-xs font-bold">
-                                                            No artists found in Stelar Database
+                                                    <div className="text-center py-20 border border-dashed border-slate-800 rounded-3xl mb-8">
+                                                        <div className="text-slate-500 uppercase tracking-[0.3em] text-[10px] font-black">
+                                                            No matches found in global catalog
                                                         </div>
                                                     </div>
                                                 )}
 
-                                                {/* EXTERNAL SEARCH FALLBACK */}
-                                                <div className="border-t border-slate-800 pt-8">
-                                                    <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight flex items-center gap-2">
-                                                        <Globe className="w-5 h-5 text-accent" />
-                                                        Search Everywhere
-                                                    </h3>
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                {/* EXTERNAL SEARCH FALLBACK - Standardized */}
+                                                <div className="pt-20 border-t border-white/5">
+                                                    <h3 className="text-[10px] font-black text-slate-700 uppercase tracking-[0.4em] mb-12 text-center">Global Search Extensions</h3>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                         <a
                                                             href={`https://open.spotify.com/search/${encodeURIComponent(searchQuery)}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="flex items-center gap-4 p-6 bg-[#1DB954]/10 border border-[#1DB954]/20 rounded-xl hover:bg-[#1DB954]/20 transition-all group"
+                                                            className="flex items-center gap-6 group"
                                                         >
-                                                            <div className="p-3 bg-[#1DB954] rounded-full text-black">
-                                                                <Music className="w-6 h-6" />
+                                                            <div className="p-4 bg-white/5 rounded-2xl group-hover:bg-[#1DB954] transition-colors">
+                                                                <Music className="w-6 h-6 text-white group-hover:text-black" />
                                                             </div>
                                                             <div>
-                                                                <div className="text-lg font-black text-white uppercase tracking-tight group-hover:text-[#1DB954] transition-colors">Spotify</div>
-                                                                <div className="text-sm text-slate-400">Search "{searchQuery}" on Spotify</div>
+                                                                <div className="text-sm font-black text-white uppercase tracking-widest group-hover:text-[#1DB954] transition-colors">Search Spotify</div>
+                                                                <div className="text-[10px] text-slate-600 font-bold uppercase tracking-tight mt-1">Cross-reference global charts</div>
                                                             </div>
-                                                            <ChevronRight className="w-5 h-5 text-slate-600 ml-auto group-hover:translate-x-1 transition-transform" />
+                                                            <ChevronRight className="w-4 h-4 text-slate-800 ml-auto group-hover:translate-x-1 transition-transform" />
                                                         </a>
 
                                                         <a
                                                             href={`https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="flex items-center gap-4 p-6 bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-xl hover:bg-[#FF0000]/20 transition-all group"
+                                                            className="flex items-center gap-6 group"
                                                         >
-                                                            <div className="p-3 bg-[#FF0000] rounded-full text-white">
-                                                                <Youtube className="w-6 h-6" />
+                                                            <div className="p-4 bg-white/5 rounded-2xl group-hover:bg-[#FF0000] transition-colors">
+                                                                <Youtube className="w-6 h-6 text-white group-hover:text-white" />
                                                             </div>
                                                             <div>
-                                                                <div className="text-lg font-black text-white uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">YouTube</div>
-                                                                <div className="text-sm text-slate-400">Search "{searchQuery}" on YouTube</div>
+                                                                <div className="text-sm font-black text-white uppercase tracking-widest group-hover:text-[#FF0000] transition-colors">Search YouTube</div>
+                                                                <div className="text-[10px] text-slate-600 font-bold uppercase tracking-tight mt-1">Verify visual momentum</div>
                                                             </div>
-                                                            <ChevronRight className="w-5 h-5 text-slate-600 ml-auto group-hover:translate-x-1 transition-transform" />
+                                                            <ChevronRight className="w-4 h-4 text-slate-800 ml-auto group-hover:translate-x-1 transition-transform" />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -1785,7 +1718,7 @@ export default function App() {
                                                             </div>
                                                         </h2>
                                                         <p className="text-slate-500 text-sm font-medium">
-                                                            Aggregating Spotify API, iTunes RSS, and TikTok data to classify the best unsigned talent globally.
+                                                            Proprietary Signal Fusion Engine. Classifying high-velocity anomalies and the world's best unsigned talent.
                                                         </p>
                                                     </div>
                                                     <div className="flex items-center gap-4">
@@ -1801,76 +1734,78 @@ export default function App() {
                                                     </div>
                                                 </div>
 
-                                                {/* GRID VIEW FOR LAUNCHPAD */}
-                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                {/* Weekly Refresh Banner */}
+                                                <div className="bg-gradient-to-r from-[#FF4500]/10 via-[#FF4500]/5 to-transparent border border-[#FF4500]/20 rounded-xl p-4 flex items-center justify-between">
+                                                    <div className="flex-1">
+                                                        <div className="flex items-center gap-3 mb-1">
+                                                            <Zap className="w-4 h-4 text-accent animate-pulse" />
+                                                            <span className="text-white font-black text-xs uppercase tracking-widest">Live Engine Signal</span>
+                                                        </div>
+                                                        <p className="text-slate-400 text-sm">
+                                                            <strong className="text-white">150+ Breakout Artists</strong> identified by the STELAR Discovery Engine. More coming weekly.
+                                                        </p>
+                                                    </div>
+                                                    <div className="text-right flex flex-col items-end">
+                                                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Last Sync</div>
+                                                        <div className="px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-xs text-accent">EVERY SUNDAY</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* GRID VIEW FOR LAUNCHPAD - Natural Space */}
+                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-10 border-t border-white/5">
                                                     {visibleArtists.map((artist) => (
                                                         <div
                                                             key={artist.id}
                                                             onClick={() => handleSelectArtist(artist)}
-                                                            className="glass border-[#FF4500]/10 rounded-2xl p-5 hover:border-[#FF4500]/40 hover:bg-[#FF4500]/5 transition-all cursor-pointer group relative overflow-hidden spring-hover"
+                                                            className="cursor-pointer group relative transition-all"
                                                         >
-                                                            {/* Pulsing radar effect for high growth */}
-                                                            {artist.growthVelocity > 15 && (
-                                                                <div className="absolute inset-0 border-2 border-[#FF4500]/20 animate-pulse rounded-xl pointer-events-none"></div>
-                                                            )}
-
-                                                            <div className="flex items-start gap-4 relative z-10">
+                                                            <div className="flex items-start gap-6">
                                                                 <div className="relative">
-                                                                    <div className="w-16 h-16 rounded-lg overflow-hidden border border-[#FF4500]/20 group-hover:border-[#FF4500]/50 transition-colors">
+                                                                    <div className="w-20 h-20 rounded-2xl overflow-hidden grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
                                                                         <img
                                                                             src={artist.avatar_url || ''}
-                                                                            className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500"
-                                                                            onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = `<div class="w-full h-full flex items-center justify-center text-xl font-black text-[#FF4500] bg-black font-mono">${getInitials(artist.name)}</div>` }}
+                                                                            className="w-full h-full object-cover"
+                                                                            onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = `<div class="w-full h-full flex items-center justify-center text-2xl font-black text-[#FF4500] bg-slate-900 font-mono">${getInitials(artist.name)}</div>` }}
                                                                         />
                                                                     </div>
-                                                                    <div className="absolute -top-2 -left-2 px-1.5 py-0.5 bg-[#FF4500] text-black text-[8px] font-black rounded uppercase tracking-tighter shadow-lg">
+                                                                    <div className="absolute -top-2 -left-2 px-2 py-1 bg-[#FF4500] text-black text-[8px] font-black rounded uppercase tracking-tighter shadow-xl transform -rotate-12 group-hover:rotate-0 transition-transform">
                                                                         SCOUTED
                                                                     </div>
                                                                 </div>
                                                                 <div className="flex-1 min-w-0">
-                                                                    <div className="flex items-center gap-2 mb-1">
-                                                                        <h3 className="font-black text-white uppercase tracking-tight truncate group-hover:text-[#FF4500] transition-colors">{artist.name}</h3>
+                                                                    <div className="flex items-center gap-2 mb-2">
+                                                                        <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors">{artist.name}</h3>
                                                                         {artist.is_independent && (
-                                                                            <span className="px-1.5 py-0.5 bg-[#FF4500]/20 text-[#FF4500] text-[7px] font-black rounded uppercase">UNSIGNED</span>
+                                                                            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                                                                         )}
                                                                     </div>
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">{artist.genre}</div>
+                                                                    <div className="flex items-center gap-3 mb-4">
+                                                                        <div className="text-[10px] text-slate-600 font-black uppercase tracking-widest">{artist.genre}</div>
                                                                         <div className="w-1 h-1 rounded-full bg-slate-800"></div>
-                                                                        <div className="text-[9px] text-[#FF4500] font-black uppercase">
-                                                                            {artist.monthlyListeners < 100000 ? 'EMERGING' : artist.monthlyListeners < 1000000 ? 'BREAKOUT' : 'ESTABLISHED'}
+                                                                        <div className="text-[10px] text-accent font-black uppercase tracking-widest">
+                                                                            {artist.monthlyListeners < 1000000 ? 'SIGNAL: ANOMALY' : 'SIGNAL: BREAKOUT'}
                                                                         </div>
                                                                     </div>
-                                                                    <div className="flex items-center gap-3 mt-3">
-                                                                        <div className="text-center">
-                                                                            <div className="text-[8px] text-slate-600 uppercase font-bold">Listeners</div>
-                                                                            <div className="text-xs font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
+                                                                    <div className="flex items-center gap-6">
+                                                                        <div className="text-center text-left">
+                                                                            <div className="text-[8px] text-slate-700 uppercase font-black tracking-widest mb-1">Listeners</div>
+                                                                            <div className="text-sm font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
                                                                         </div>
-                                                                        <div className="text-center">
-                                                                            <div className="text-[8px] text-slate-600 uppercase font-bold">Velocity</div>
-                                                                            <div className={`text-xs font-black font-mono ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                                                                                {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
+                                                                        <div className="text-center text-left">
+                                                                            <div className="text-[8px] text-slate-700 uppercase font-black tracking-widest mb-1">Velocity</div>
+                                                                            <div className={`text-sm font-black font-mono ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                                {(artist.growthVelocity || 0) > 0 ? '+' : ''}{(artist.growthVelocity || 0).toFixed(1)}%
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            {/* Action Bar */}
-                                                            <div className="mt-4 pt-4 border-t border-slate-900 flex items-center justify-between">
-                                                                <div className="text-[8px] font-mono text-[#FF4500]/60 uppercase flex items-center gap-2">
-                                                                    <Cpu className="w-3 h-3" /> Auto-Classifier: {artist.status.toUpperCase()}
+                                                            <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                <div className="text-[8px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                                                                    <Cpu className="w-3 h-3" /> System: {artist.status.toUpperCase()}
                                                                 </div>
-                                                                <div className="flex items-center gap-2">
-                                                                    {claims.has(artist.id) ? (
-                                                                        <div className="flex items-center gap-1 text-[#FF4500] text-[9px] font-black uppercase tracking-widest">
-                                                                            <BookmarkCheck className="w-3 h-3" /> Claimed
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className="text-white text-[9px] font-black uppercase tracking-widest bg-white/5 px-2 py-1 rounded border border-white/10 group-hover:border-[#FF4500]/40 transition-colors">
-                                                                            Open Dossier
-                                                                        </div>
-                                                                    )}
+                                                                <div className="text-accent text-[9px] font-black uppercase tracking-widest flex items-center gap-1">
+                                                                    Enter Dossier <ChevronRight className="w-3 h-3" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1890,24 +1825,33 @@ export default function App() {
                                                 )}
                                             </div>
                                         ) : activeTab === 'sonic-signals' ? (
-                                            <SonicSignals artists={filteredArtists.slice(0, 15)} />
+                                            <SonicSignals artists={filteredArtists.slice(0, 15)} onArtistSelect={handleSelectArtist} />
                                         ) : activeTab === 'locked-roster' ? (
                                             <div className="max-w-4xl mx-auto">
                                                 <h2 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter">Locked Roster</h2>
                                                 {artists.filter(a => watchlist.has(a.id)).length > 0 ? (
-                                                    <div className="space-y-2">
+                                                    <div className="divide-y divide-white/5 border-t border-white/5">
                                                         {artists.filter(a => watchlist.has(a.id)).map((artist, i) => (
-                                                            <button key={artist.id} onClick={() => handleSelectArtist(artist)} className="w-full flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all">
-                                                                <span className="text-lg font-bold text-accent w-8">{padRank(i + 1)}</span>
-                                                                <div className="flex-1 text-left font-bold text-white uppercase tracking-tight">{artist.name}</div>
-                                                                <div className="text-signal-green font-mono font-bold">+{artist.growthVelocity.toFixed(1)}%</div>
-                                                                <ChevronRight className="w-4 h-4 text-slate-700" />
-                                                            </button>
+                                                            <div
+                                                                key={artist.id}
+                                                                onClick={() => handleSelectArtist(artist)}
+                                                                className="flex items-center gap-8 py-8 px-6 -mx-6 group cursor-pointer hover:bg-white/[0.01] transition-colors rounded-xl"
+                                                            >
+                                                                <span className="text-xl font-black text-slate-800 group-hover:text-accent transition-colors w-12">{padRank(i + 1)}</span>
+                                                                <div className="flex-1 text-left font-black text-white uppercase tracking-tighter text-2xl group-hover:text-accent transition-colors truncate">{artist.name}</div>
+                                                                <div className={`font-mono font-black text-lg ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                    {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(1)}%
+                                                                </div>
+                                                                <ChevronRight className="w-6 h-6 text-slate-800 group-hover:text-white transition-colors" />
+                                                            </div>
                                                         ))}
                                                     </div>
                                                 ) : (
-                                                    <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-xs font-bold border border-dashed border-slate-800 rounded-xl">
-                                                        No artists locked. <br /> Use the bookmark icon to lock artists to your roster.
+                                                    <div className="text-center py-32 border border-dashed border-white/5 rounded-3xl">
+                                                        <div className="text-slate-500 uppercase tracking-[0.3em] text-[10px] font-black">
+                                                            No artists locked to roster <br />
+                                                            <span className="text-slate-700 mt-2 block">Mark high-velocity signals to track them here</span>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>
@@ -1927,48 +1871,49 @@ export default function App() {
                                                     <div className="text-xs text-accent/60 font-mono">{tours.length} TOURS</div>
                                                 </div>
 
-                                                {/* TOUR CARDS GRID */}
+                                                {/* TOUR CARDS GRID - Natural Space */}
                                                 {toursLoading ? (
-                                                    <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-xs font-bold">Loading tours...</div>
+                                                    <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-[10px] font-black">Scanning Global Dates...</div>
                                                 ) : (
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 py-10 border-t border-white/5">
                                                         {tours.map((tour, idx) => (
-                                                            <div key={idx} className="bg-slate-900/50 border border-slate-800 rounded-xl p-5 hover:border-accent/30 transition-all group">
-                                                                <div className="flex items-start gap-4 mb-4">
-                                                                    <img src={tour.image} alt={tour.artist} className="w-16 h-16 rounded-lg object-cover" onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(tour.artist)}&background=1a1a2e&color=FF4500&size=64`; }} />
-                                                                    <div className="flex-1 min-w-0">
-                                                                        <div className="flex items-center gap-2 mb-1">
-                                                                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${tour.status === 'confirmed' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
-                                                                                {tour.status}
-                                                                            </span>
-                                                                            <span className="text-[9px] text-slate-500">{tour.genre}</span>
+                                                            <div key={idx} className="group cursor-pointer transition-all">
+                                                                <div className="flex items-start gap-6 mb-6">
+                                                                    <div className="relative w-24 h-24 shrink-0">
+                                                                        <img
+                                                                            src={tour.image}
+                                                                            alt={tour.artist}
+                                                                            className="w-full h-full rounded-2xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-2xl"
+                                                                            onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(tour.artist)}&background=1a1a2e&color=FF4500&size=96`; }}
+                                                                        />
+                                                                        <div className="absolute -top-2 -left-2 px-2 py-1 bg-white text-black text-[8px] font-black rounded uppercase tracking-tighter shadow-xl">
+                                                                            {tour.status}
                                                                         </div>
-                                                                        <h3 className="text-white font-bold text-sm truncate">{tour.artist}</h3>
-                                                                        <p className="text-slate-400 text-xs truncate">{tour.tour_name}</p>
+                                                                    </div>
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <div className="text-[10px] text-accent font-black uppercase tracking-[0.2em] mb-2">{tour.genre}</div>
+                                                                        <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors leading-tight">{tour.artist}</h3>
+                                                                        <p className="text-slate-500 text-xs font-medium truncate mt-1">{tour.tour_name}</p>
                                                                     </div>
                                                                 </div>
-                                                                <div className="space-y-2 text-xs text-slate-500 mb-4">
-                                                                    <div className="flex justify-between">
-                                                                        <span>Dates:</span>
-                                                                        <span className="text-white">{tour.start_date === 'TBA' ? 'TBA' : `${tour.start_date?.slice(5)} - ${tour.end_date?.slice(5)}`}</span>
+                                                                <div className="flex items-center justify-between py-6 border-t border-white/5 bg-transparent mb-6 group-hover:bg-white/[0.02] transition-colors -mx-2 px-2 rounded-lg">
+                                                                    <div className="flex flex-col">
+                                                                        <span className="text-[8px] text-slate-700 font-extrabold uppercase tracking-widest mb-1">Global Range</span>
+                                                                        <span className="text-xs font-black text-white font-mono tracking-tighter">{tour.start_date === 'TBA' ? 'TBA' : `${tour.start_date?.slice(5)} - ${tour.end_date?.slice(5)}`}</span>
                                                                     </div>
-                                                                    <div className="flex justify-between">
-                                                                        <span>Price Range:</span>
-                                                                        <span className="text-accent">{tour.price_range}</span>
-                                                                    </div>
-                                                                    <div className="flex justify-between">
-                                                                        <span>Venues:</span>
-                                                                        <span className="text-slate-400 truncate max-w-[150px]">{tour.venues?.[0] || 'Various'}</span>
+                                                                    <div className="flex flex-col text-right">
+                                                                        <span className="text-[8px] text-slate-700 font-extrabold uppercase tracking-widest mb-1">Access Tier</span>
+                                                                        <span className="text-xs font-black text-accent font-mono tracking-tighter">{tour.price_range}</span>
                                                                     </div>
                                                                 </div>
+
                                                                 <a
                                                                     href={tour.ticket_link}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-accent hover:bg-accent/90 text-black font-bold text-xs uppercase rounded-lg transition-all"
+                                                                    className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-transparent hover:bg-white border border-slate-900 hover:border-white text-slate-500 hover:text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full transition-all active:scale-95"
                                                                 >
-                                                                    <Ticket className="w-4 h-4" />
-                                                                    Get Tickets
+                                                                    Request Access
                                                                 </a>
                                                             </div>
                                                         ))}
@@ -2021,35 +1966,28 @@ export default function App() {
 
                                                 {/* COMING SOON SECTION */}
                                                 {comingReleases.length > 0 && (
-                                                    <div className="mb-6 p-4 bg-slate-900/50 rounded-xl border border-amber-500/20">
-                                                        <h3 className="text-sm font-black text-white mb-4 uppercase tracking-tight flex items-center gap-2">
-                                                            <Clock className="w-4 h-4 text-amber-500" />
-                                                            Coming Soon
-                                                            <span className="text-[10px] text-slate-500 font-normal ml-2">{comingReleases.length} UPCOMING</span>
+                                                    <div className="mb-12">
+                                                        <h3 className="text-[10px] font-black text-slate-700 mb-6 uppercase tracking-[0.2em] flex items-center gap-2">
+                                                            <Clock className="w-4 h-4" />
+                                                            Projected Frequency Shifts / {comingReleases.length} Upcoming
                                                         </h3>
-                                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                                                             {comingReleases.map((release) => (
-                                                                <div key={release.id} className="bg-slate-900/80 border border-slate-800 rounded-lg p-3 hover:border-amber-500/30 transition-all group">
-                                                                    <div className="flex items-center gap-3">
+                                                                <div key={release.id} className="group cursor-pointer">
+                                                                    <div className="flex items-center gap-4 mb-4">
                                                                         <img
                                                                             src={release.artwork}
-                                                                            alt={release.artist}
-                                                                            className="w-12 h-12 rounded-lg object-cover border border-slate-700"
-                                                                            onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(release.artist)}&background=1a1a2e&color=FF4500&size=48`; }}
+                                                                            className="w-14 h-14 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                                                            onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(release.artist)}&background=1a1a2e&color=FF4500&size=56`; }}
                                                                         />
-                                                                        <div className="flex-1 min-w-0">
-                                                                            <div className="flex items-center gap-1.5 mb-1">
-                                                                                <span className={`text-[8px] px-1.5 py-0.5 rounded font-black uppercase ${release.status === 'confirmed'
-                                                                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                                                                                    : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                                                                                    }`}>
-                                                                                    {release.status}
-                                                                                </span>
-                                                                            </div>
-                                                                            <div className="text-xs font-bold text-white truncate">{release.artist}</div>
-                                                                            <div className="text-[10px] text-slate-400 truncate">{release.name}</div>
-                                                                            <div className="text-[9px] text-amber-500 mt-1">{release.releaseDate}</div>
+                                                                        <div className="min-w-0">
+                                                                            <div className="text-xs font-black text-white uppercase tracking-tighter truncate leading-tight group-hover:text-accent transition-colors">{release.artist}</div>
+                                                                            <div className="text-[10px] text-slate-600 font-bold uppercase truncate mt-0.5">{release.releaseDate}</div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div className={`inline-flex px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${release.status === 'confirmed' ? 'text-green-500 bg-green-500/10' : 'text-amber-500 bg-amber-500/10'
+                                                                        }`}>
+                                                                        {release.status}
                                                                     </div>
                                                                 </div>
                                                             ))}
@@ -2057,72 +1995,71 @@ export default function App() {
                                                     </div>
                                                 )}
 
-                                                {/* OUT NOW - RELEASES GRID */}
+                                                {/* OUT NOW - RELEASES GRID - Natural Space */}
                                                 {newReleasesLoading ? (
                                                     <div className="text-center py-20">
                                                         <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
-                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Loading new releases...</div>
+                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Scanning Global Catalogs...</div>
                                                     </div>
                                                 ) : newReleases.filter(r => matchesGenre(r.genre, selectedGenre)).length === 0 ? (
-                                                    <div className="text-center py-20 border border-dashed border-slate-800 rounded-xl">
-                                                        <Disc className="w-12 h-12 mx-auto text-slate-700 mb-4" />
-                                                        <div className="text-slate-500 uppercase tracking-widest text-xs font-bold">
-                                                            No releases found in this category
+                                                    <div className="text-center py-32 border border-dashed border-white/5 rounded-3xl">
+                                                        <div className="text-slate-500 uppercase tracking-[0.3em] text-[10px] font-black">
+                                                            No signal detected in category
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 py-10 border-t border-white/5">
                                                         {newReleases
                                                             .filter(release => matchesGenre(release.genre, selectedGenre))
                                                             .slice(0, 150)
                                                             .map((release, index) => (
                                                                 <div
                                                                     key={release.id}
-                                                                    className="bg-slate-900/50 border border-slate-800 rounded-xl p-5 hover:border-accent/30 hover:bg-slate-900 transition-all group"
+                                                                    className="group cursor-pointer transition-all"
                                                                 >
-                                                                    <div className="flex items-start gap-4">
-                                                                        <div className="relative">
+                                                                    <div className="flex items-start gap-6 mb-6">
+                                                                        <div className="relative w-24 h-24 shrink-0">
                                                                             <img
                                                                                 src={release.artwork}
                                                                                 alt={release.name}
-                                                                                className="w-20 h-20 rounded-lg object-cover border border-slate-700 group-hover:border-accent/50 transition-colors shadow-lg"
-                                                                                onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/80?text=🎵'; }}
+                                                                                className="w-full h-full rounded-2xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-2xl"
+                                                                                onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=🎵'; }}
                                                                             />
-                                                                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-accent rounded-full flex items-center justify-center text-[10px] font-black text-white">
+                                                                            <div className="absolute -top-2 -left-2 w-7 h-7 bg-white text-black rounded-full flex items-center justify-center text-[10px] font-black shadow-xl">
                                                                                 {index + 1}
                                                                             </div>
                                                                         </div>
                                                                         <div className="flex-1 min-w-0">
-                                                                            <h3 className="font-black text-white uppercase tracking-tight truncate group-hover:text-accent transition-colors text-sm">{release.name}</h3>
-                                                                            <div className="text-xs text-slate-400 font-medium mt-0.5 truncate">{release.artist}</div>
-                                                                            <div className="flex items-center gap-2 text-[10px] text-slate-500 uppercase tracking-wider mt-2">
-                                                                                <span className="text-accent">{release.releaseDate}</span>
-                                                                                <span>•</span>
-                                                                                <span>{release.genre}</span>
-                                                                            </div>
+                                                                            <div className="text-[10px] text-accent font-black uppercase tracking-[0.2em] mb-2">{release.genre}</div>
+                                                                            <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors leading-tight">{release.name}</h3>
+                                                                            <div className="text-sm text-slate-500 font-medium mt-1 truncate">{release.artist}</div>
                                                                         </div>
                                                                     </div>
-                                                                    {/* FREE LISTENING OPTIONS */}
-                                                                    <div className="mt-4 pt-3 border-t border-slate-800 flex items-center gap-2">
-                                                                        <a
-                                                                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(release.artist + ' ' + release.name + ' album')}`}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
-                                                                            onClick={(e) => e.stopPropagation()}
-                                                                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#FF4500]/10 hover:bg-[#FF4500] text-[#FF4500] hover:text-black rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all"
-                                                                        >
-                                                                            <Play className="w-3 h-3 fill-current" />
-                                                                            YouTube
-                                                                        </a>
+
+                                                                    <div className="flex items-center justify-between py-4 border-y border-white/5 mb-6">
+                                                                        <span className="text-[9px] text-slate-700 font-black uppercase tracking-widest">Released</span>
+                                                                        <span className="text-xs font-black text-white font-mono">{release.releaseDate}</span>
+                                                                    </div>
+
+                                                                    {/* STREAMING SIGNALS */}
+                                                                    <div className="flex items-center gap-3">
                                                                         <a
                                                                             href={`https://open.spotify.com/search/${encodeURIComponent(release.artist + ' ' + release.name)}`}
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
                                                                             onClick={(e) => e.stopPropagation()}
-                                                                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600/10 hover:bg-green-600 text-green-500 hover:text-white rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all"
+                                                                            className="flex-1 px-4 py-3 bg-white/5 hover:bg-[#1DB954] text-white hover:text-black rounded-full text-[9px] font-black uppercase tracking-widest text-center transition-all"
                                                                         >
-                                                                            <Music className="w-3 h-3" />
                                                                             Spotify
+                                                                        </a>
+                                                                        <a
+                                                                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(release.artist + ' ' + release.name + ' album')}`}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            onClick={(e) => e.stopPropagation()}
+                                                                            className="flex-1 px-4 py-3 bg-white/5 hover:bg-[#FF0000] text-white rounded-full text-[9px] font-black uppercase tracking-widest text-center transition-all"
+                                                                        >
+                                                                            YouTube
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -2144,17 +2081,16 @@ export default function App() {
                                                     <div className="text-xs text-amber-400/60 font-mono">{oldSchoolArtists.length} LEGENDS</div>
                                                 </div>
 
-                                                {/* OLD SCHOOL GRID */}
+                                                {/* OLD SCHOOL GRID - Natural Space */}
                                                 {oldSchoolArtists.length === 0 ? (
-                                                    <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-xs font-bold">Loading legends...</div>
+                                                    <div className="text-center py-20 text-slate-500 uppercase tracking-widest text-[10px] font-black">Summoning Historical Data...</div>
                                                 ) : (
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 py-10 border-t border-white/5">
                                                         {oldSchoolArtists.map((artist) => (
                                                             <div
                                                                 key={artist.id}
-                                                                className="bg-slate-900/50 border border-slate-800 rounded-xl p-5 hover:border-amber-500/30 hover:bg-slate-900 transition-all cursor-pointer group"
+                                                                className="group cursor-pointer transition-all"
                                                                 onClick={() => {
-                                                                    // Convert to PowerIndexArtist format for profile view
                                                                     const converted: PowerIndexArtist = {
                                                                         id: artist.id,
                                                                         name: artist.name,
@@ -2186,31 +2122,32 @@ export default function App() {
                                                                     handleSelectArtist(converted);
                                                                 }}
                                                             >
-                                                                <div className="flex items-start gap-4">
-                                                                    <div className="relative">
+                                                                <div className="flex items-start gap-6 mb-6">
+                                                                    <div className="relative w-24 h-24 shrink-0">
                                                                         <img
                                                                             src={artist.avatar_url}
                                                                             alt={artist.name}
-                                                                            className="w-16 h-16 rounded-lg object-cover border border-slate-700 group-hover:border-amber-500/50 transition-colors"
-                                                                            onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/64?text=' + getInitials(artist.name); }}
+                                                                            className="w-full h-full rounded-2xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-2xl"
                                                                         />
-                                                                        <div className="absolute -top-2 -left-2 w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center text-[10px] font-black text-black">
-                                                                            {artist.rank}
+                                                                        <div className="absolute -top-2 -left-2 w-8 h-8 bg-amber-500 text-black rounded-full flex items-center justify-center text-[10px] font-black shadow-xl">
+                                                                            <Crown className="w-4 h-4" />
                                                                         </div>
                                                                     </div>
                                                                     <div className="flex-1 min-w-0">
-                                                                        <h3 className="font-black text-white uppercase tracking-tight truncate group-hover:text-amber-400 transition-colors">{artist.name}</h3>
-                                                                        <div className="flex items-center gap-2 text-[10px] text-slate-500 uppercase tracking-wider mt-1">
-                                                                            <span className="text-amber-500">{artist.era}</span>
-                                                                            <span>•</span>
-                                                                            <span>{artist.genre}</span>
-                                                                        </div>
-                                                                        <p className="text-xs text-slate-400 mt-2 line-clamp-2">{artist.bio}</p>
+                                                                        <div className="text-[10px] text-amber-500 font-black uppercase tracking-[0.2em] mb-2">{artist.genre}</div>
+                                                                        <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-amber-500 transition-colors leading-tight">{artist.name}</h3>
+                                                                        <div className="text-xs text-slate-500 font-medium mt-1 uppercase tracking-widest">{artist.country}</div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="mt-4 pt-3 border-t border-slate-800 flex flex-wrap gap-1">
+
+                                                                <div className="flex items-center justify-between py-6 border-t border-white/5 bg-transparent mb-6 group-hover:bg-white/[0.02] transition-colors -mx-2 px-2 rounded-lg">
+                                                                    <span className="text-[8px] text-slate-700 font-extrabold uppercase tracking-widest">Historical Status</span>
+                                                                    <span className="text-xs font-black text-amber-600 font-mono tracking-tighter uppercase">Legendary</span>
+                                                                </div>
+
+                                                                <div className="flex flex-wrap gap-x-6 gap-y-2">
                                                                     {artist.signature_songs?.slice(0, 3).map((song: string, i: number) => (
-                                                                        <span key={i} className="text-[9px] px-2 py-0.5 bg-slate-800 text-slate-400 rounded uppercase">{song}</span>
+                                                                        <span key={i} className="text-[9px] text-slate-600 uppercase font-black tracking-widest group-hover:text-amber-500 transition-colors">{song}</span>
                                                                     ))}
                                                                 </div>
                                                             </div>
@@ -2219,169 +2156,122 @@ export default function App() {
                                                 )}
                                             </div>
                                         ) : (
-                                            <div className="space-y-8">
-                                                {/* THE PULSE CONTENT - GRID OR LIST VIEW */}
+                                            <div className="max-w-6xl mx-auto space-y-6">
+                                                {/* THE PULSE CONTENT - Multi-View Aesthetic */}
                                                 {viewMode === 'grid' ? (
-                                                    /* GRID VIEW - Modern card-based layout like Old School */
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 py-10 border-t border-white/5">
                                                         {loading ? (
                                                             <div className="col-span-full text-center py-20">
                                                                 <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
-                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Loading artists...</div>
+                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Scanning Global Frequencies...</div>
                                                             </div>
                                                         ) : (
                                                             visibleArtists.map((artist) => (
                                                                 <div
                                                                     key={artist.id}
-                                                                    className="bg-slate-900/50 border border-slate-800 rounded-xl p-4 hover:border-accent/30 hover:bg-slate-900 transition-all cursor-pointer group"
+                                                                    className="group cursor-pointer transition-all"
                                                                     onClick={() => handleSelectArtist(artist)}
                                                                 >
-                                                                    <div className="flex items-start gap-4">
-                                                                        <div className="relative">
-                                                                            <div
-                                                                                onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                                                className={`status-ring status-ring-${artist.status.toLowerCase()} w-16 h-16 rounded-xl bg-slate-800 overflow-hidden relative cursor-pointer hover:scale-105 transition-transform`}
-                                                                            >
-                                                                                {artist.avatar_url ? (
-                                                                                    <img src={artist.avatar_url} alt={artist.name} className="w-full h-full object-cover" />
-                                                                                ) : (
-                                                                                    <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold text-lg">{getInitials(artist.name)}</div>
-                                                                                )}
-                                                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                                                                    <Play className="w-5 h-5 text-white fill-current" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-accent rounded-full flex items-center justify-center text-[10px] font-black text-white shadow-lg">
+                                                                    <div className="flex items-start gap-6 mb-6">
+                                                                        <div className="relative w-24 h-24 shrink-0">
+                                                                            <img
+                                                                                src={artist.avatar_url || ''}
+                                                                                alt={artist.name}
+                                                                                className="w-full h-full rounded-2xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-2xl"
+                                                                                onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(artist.name)}&background=1a1a2e&color=FF4500&size=96`; }}
+                                                                            />
+                                                                            <div className="absolute -top-2 -left-2 w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-[10px] font-black shadow-xl">
                                                                                 {artist.rank}
                                                                             </div>
                                                                         </div>
                                                                         <div className="flex-1 min-w-0">
-                                                                            <h3 className="font-black text-white uppercase tracking-tight truncate group-hover:text-accent transition-colors">{artist.name}</h3>
-                                                                            <div className="flex items-center gap-2 text-[10px] text-slate-500 uppercase tracking-wider mt-1">
-                                                                                <span className="text-accent">{artist.genre}</span>
-                                                                                <span>•</span>
-                                                                                <span>{artist.country}</span>
-                                                                            </div>
+                                                                            <div className="text-[10px] text-accent font-black uppercase tracking-[0.2em] mb-2">{artist.genre}</div>
+                                                                            <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors leading-tight">{artist.name}</h3>
+                                                                            <div className="text-xs text-slate-500 font-medium mt-1 uppercase tracking-widest truncate">{artist.country}</div>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="mt-4 pt-3 border-t border-slate-800 grid grid-cols-3 gap-2 text-center">
-                                                                        <div>
-                                                                            <div className="text-[9px] text-slate-500 uppercase">Listeners</div>
-                                                                            <div className="text-sm font-bold text-white">{formatNumber(artist.monthlyListeners)}</div>
+
+                                                                    <div className="flex items-center justify-between py-6 border-t border-white/5 bg-transparent mb-6 group-hover:bg-white/[0.02] transition-colors -mx-2 px-2 rounded-lg">
+                                                                        <div className="flex flex-col">
+                                                                            <span className="text-[8px] text-slate-700 font-extrabold uppercase tracking-widest mb-1">Flow Rate</span>
+                                                                            <span className="text-sm font-black text-white font-mono tracking-tighter">{formatNumber(artist.monthlyListeners)}</span>
                                                                         </div>
-                                                                        <div>
-                                                                            <div className="text-[9px] text-slate-500 uppercase">Power</div>
-                                                                            <div className="text-sm font-bold text-accent">{artist.powerScore}</div>
+                                                                        <div className="flex flex-col text-right">
+                                                                            <span className="text-[8px] text-slate-700 font-extrabold uppercase tracking-widest mb-1">Velocity</span>
+                                                                            <span className={`text-sm font-black font-mono tracking-tighter ${(artist.growthVelocity || 0) > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                                {(artist.growthVelocity || 0) > 0 ? '+' : ''}{(artist.growthVelocity || 0).toFixed(1)}%
+                                                                            </span>
                                                                         </div>
-                                                                        <div>
-                                                                            <div className="text-[9px] text-slate-500 uppercase">Growth</div>
-                                                                            <div className={`text-sm font-bold ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                                                                                {artist.growthVelocity > 0 ? '+' : ''}{artist.growthVelocity.toFixed(0)}%
-                                                                            </div>
-                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="text-accent text-[9px] font-black uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                        Analyze Signal <ChevronRight className="w-3 h-3" />
                                                                     </div>
                                                                 </div>
                                                             ))
                                                         )}
                                                     </div>
                                                 ) : (
-                                                    /* LIST VIEW - Data table for power users */
-                                                    <div className="bg-[#0B0C10] border border-slate-800 rounded-2xl overflow-hidden">
-                                                        <table className="w-full text-left">
-                                                            <thead className="bg-[#0B0C10] text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] border-b border-slate-800">
-                                                                <tr>
-                                                                    <th className="px-6 py-4">#</th>
-                                                                    <th className="px-6 py-4">Artist</th>
-                                                                    <th className="px-6 py-4">Monthly Listeners</th>
-                                                                    <th className="px-6 py-4">TikTok</th>
-                                                                    <th className="px-6 py-4">
-                                                                        Conversion <span className="ml-1 bg-accent text-white px-1 rounded text-[8px]">ALPHA</span>
-                                                                    </th>
-                                                                    <th className="px-6 py-4">30d Velo</th>
-                                                                    <th className="px-6 py-4">Structure</th>
-                                                                    <th className="px-6 py-4 text-right">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody className="divide-y divide-slate-800/50">
-                                                                {loading ? (
-                                                                    <tr>
-                                                                        <td colSpan={8} className="px-6 py-20 text-center">
-                                                                            <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
-                                                                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Loading Market Data...</div>
-                                                                        </td>
-                                                                    </tr>
-                                                                ) : visibleArtists.map((artist) => (
-                                                                    <tr key={artist.id} onClick={() => handleSelectArtist(artist)} className="row-cinematic group hover:bg-white/[0.02] transition-colors cursor-pointer text-xs">
-                                                                        <td className="px-6 py-4 font-mono text-slate-600 font-bold">{padRank(artist.rank)}</td>
-                                                                        <td className="px-6 py-4">
-                                                                            <div className="flex items-center gap-4">
-                                                                                <div
-                                                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                                                    title="Watch on YouTube"
-                                                                                    className={`status-ring status-ring-${artist.status.toLowerCase()} w-10 h-10 rounded-full bg-slate-800 overflow-hidden relative cursor-pointer hover:ring-2 hover:ring-accent hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all`}
-                                                                                >
-                                                                                    <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center z-10 transition-all">
-                                                                                        <Play className="w-4 h-4 text-white fill-current" />
-                                                                                    </div>
-                                                                                    {artist.avatar_url ? (
-                                                                                        <img src={artist.avatar_url} alt={artist.name} className="w-full h-full object-cover" />
-                                                                                    ) : (
-                                                                                        <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold">{getInitials(artist.name)}</div>
-                                                                                    )}
-                                                                                </div>
-                                                                                <div
-                                                                                    onClick={(e) => { e.stopPropagation(); handleSelectArtist(artist); }}
-                                                                                    className="cursor-pointer"
-                                                                                >
-                                                                                    <div className="font-bold text-white text-sm mb-0.5 group-hover:text-accent transition-colors">{artist.name}</div>
-                                                                                    <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{artist.genre} • {artist.country}</div>
-                                                                                </div>
+                                                    /* Apple List Aesthetic */
+                                                    <div className="divide-y divide-white/5 border-t border-white/5">
+                                                        {loading ? (
+                                                            <div className="text-center py-20">
+                                                                <div className="inline-block w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin mb-4" />
+                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Scanning Global Frequencies...</div>
+                                                            </div>
+                                                        ) : (
+                                                            visibleArtists.map((artist) => (
+                                                                <div
+                                                                    key={artist.id}
+                                                                    className="flex items-center justify-between py-8 group hover:bg-white/[0.01] transition-colors rounded-xl px-6 -mx-6 cursor-pointer"
+                                                                    onClick={() => handleSelectArtist(artist)}
+                                                                >
+                                                                    <div className="flex items-center gap-8 min-w-0 flex-1">
+                                                                        <div className="relative w-20 h-20 shrink-0">
+                                                                            <img
+                                                                                src={artist.avatar_url || ''}
+                                                                                alt={artist.name}
+                                                                                className="w-full h-full rounded-2xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 group-hover:scale-105 group-hover:shadow-2xl"
+                                                                                onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(artist.name)}&background=1a1a2e&color=FF4500&size=80`; }}
+                                                                            />
+                                                                            <div className="absolute -top-2 -left-2 w-7 h-7 bg-white text-black rounded-full flex items-center justify-center text-[10px] font-black shadow-xl">
+                                                                                {artist.rank}
                                                                             </div>
-                                                                        </td>
-                                                                        <td className="px-6 py-4 font-mono font-bold text-slate-300">{formatNumber(artist.monthlyListeners)}</td>
-                                                                        <td className="px-6 py-4 font-mono font-bold text-slate-300">{formatNumber(artist.tiktokFollowers)}</td>
-                                                                        <td className="px-6 py-4">
-                                                                            <div className={`inline-block px-2 py-1 rounded border font-mono font-bold text-[10px] ${artist.conversionScore < 40
-                                                                                ? 'bg-[#FF4500]/10 text-[#FF4500] border-[#FF4500]/20'
-                                                                                : 'bg-slate-800 text-slate-400 border-slate-700'
-                                                                                }`}>
-                                                                                {artist.conversionScore.toFixed(1)}%
+                                                                        </div>
+                                                                        <div className="min-w-0">
+                                                                            <div className="text-[10px] text-accent font-black uppercase tracking-[0.2em] mb-1.5">{artist.genre}</div>
+                                                                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors leading-tight">{artist.name}</h3>
+                                                                            <div className="text-xs text-slate-500 font-medium uppercase tracking-widest mt-1">{artist.country}</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="hidden md:flex items-center gap-12 text-right">
+                                                                        <div>
+                                                                            <div className="text-[8px] text-slate-700 uppercase font-black tracking-widest mb-1">Monthly Listeners</div>
+                                                                            <div className="text-sm font-black text-white font-mono">{formatNumber(artist.monthlyListeners)}</div>
+                                                                        </div>
+                                                                        <div className="w-24">
+                                                                            <div className="text-[8px] text-slate-700 uppercase font-black tracking-widest mb-1">Velocity</div>
+                                                                            <div className={`text-sm font-black font-mono ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                                                                                {(artist.growthVelocity || 0) > 0 ? '+' : ''}{(artist.growthVelocity || 0).toFixed(1)}%
                                                                             </div>
-                                                                        </td>
-                                                                        <td className="px-6 py-4">
-                                                                            <div className={`font-mono font-bold ${artist.growthVelocity > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                                                                                {artist.growthVelocity > 0 ? '↗ +' : '↘ '}{artist.growthVelocity.toFixed(1)}%
-                                                                            </div>
-                                                                        </td>
-                                                                        <td className="px-6 py-4">
-                                                                            <span className="px-2 py-1 rounded border border-[#FF4500]/20 bg-[#FF4500]/5 text-[#FF4500] text-[10px] font-black uppercase tracking-wider">
-                                                                                {artist.is_independent ? 'INDIE' : 'MAJOR'}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td className="px-6 py-4 text-right">
-                                                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                                <button className="p-2 hover:text-white text-slate-500 transition-colors">
-                                                                                    <Bookmark className="w-4 h-4" />
-                                                                                </button>
-                                                                                <ChevronRight className="w-4 h-4 text-slate-700" />
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
+                                                                        </div>
+                                                                        <ChevronRight className="w-6 h-6 text-slate-800 group-hover:text-white transition-colors" />
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        )}
                                                     </div>
                                                 )}
 
                                                 {/* LOAD MORE BUTTON */}
                                                 {visibleArtists.length < filteredArtists.length && (
-                                                    <div className="p-4 flex justify-center">
+                                                    <div className="flex justify-center py-12">
                                                         <button
                                                             onClick={() => setDisplayLimit(prev => prev + 50)}
-                                                            className="px-6 py-3 bg-slate-900 border border-slate-700 rounded-full text-white text-xs font-bold uppercase tracking-widest hover:bg-slate-800 hover:border-accent transition-colors flex items-center gap-2"
+                                                            className="px-10 py-4 bg-white/5 border border-white/10 rounded-full text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white/10 hover:border-accent/40 transition-all active:scale-95 shadow-xl"
                                                         >
-                                                            Load More Artists ({filteredArtists.length - visibleArtists.length} remaining)
-                                                            <ChevronRight className="w-3 h-3 rotate-90" />
+                                                            Sync More Data ({filteredArtists.length - visibleArtists.length})
                                                         </button>
                                                     </div>
                                                 )}
@@ -2391,9 +2281,9 @@ export default function App() {
                                 )}
                             </div>
                         </div>
-                    </main>
-                </div>
-            </div>
+                    </main >
+                </div >
+            </div >
             <Analytics />
         </>
     );
@@ -2470,53 +2360,51 @@ const TopTracks = ({ artistName }: { artistName: string }) => {
 
     return (
         <div className="mb-12">
-            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6 flex items-center gap-2">
-                <Music className="w-4 h-4" /> Top Sonic Outputs
+            <h3 className="text-[10px] font-black text-slate-700 uppercase tracking-[0.4em] mb-10 flex items-center gap-3">
+                <div className="w-1 h-4 bg-accent rounded-full" /> Signal Intercept: Tracks
             </h3>
-            <div className="space-y-3">
+            <div className="divide-y divide-white/5 border-t border-white/5">
                 {visibleTracks.map((track, i) => (
                     <div
                         key={track.trackId}
-                        className="w-full flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-all group text-left relative"
+                        className="flex items-center justify-between py-10 group hover:bg-white/[0.01] transition-colors rounded-xl px-6 -mx-6"
                     >
-                        {/* PREVIEW CLICK AREA */}
                         <div
-                            className="flex-1 flex items-center gap-4 cursor-pointer"
+                            className="flex-1 flex items-center gap-8 cursor-pointer"
                             onClick={() => togglePlay(track.previewUrl)}
                         >
-                            <div className="text-slate-500 font-mono text-xs w-4">{i + 1}</div>
-                            <div className="w-10 h-10 rounded-lg overflow-hidden relative shadow-lg shrink-0">
-                                <img src={track.artworkUrl100} className="w-full h-full object-cover" />
-                                <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity ${playing === track.previewUrl ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                            <div className="relative w-20 h-20 group/play">
+                                <img
+                                    src={track.artworkUrl100?.replace('100x100', '200x200') || `https://ui-avatars.com/api/?name=${encodeURIComponent(track.trackName || 'Track')}&background=1a1a2e&color=FF4500&size=80`}
+                                    alt={track.trackName}
+                                    className={`w-full h-full rounded-2xl object-cover grayscale transition-all duration-700 ${playing === track.previewUrl ? 'grayscale-0 scale-105 shadow-2xl' : 'group-hover/play:grayscale-0 group-hover/play:scale-105'}`}
+                                />
+                                <div className={`absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center transition-opacity ${playing === track.previewUrl ? 'opacity-100' : 'opacity-0 group-hover/play:opacity-100'}`}>
                                     {playing === track.previewUrl ?
-                                        <div className="w-4 h-4 text-accent animate-pulse bg-current rounded-full" /> :
-                                        <Play className="w-4 h-4 text-white fill-current" />
-                                    }
+                                        <div className="w-2 h-2 bg-accent rounded-full animate-ping" /> :
+                                        <Play className="w-6 h-6 text-white fill-current" />}
                                 </div>
                             </div>
                             <div className="min-w-0">
-                                <div className={`text-sm font-bold leading-none mb-1 transition-colors truncate ${playing === track.previewUrl ? 'text-accent' : 'text-white group-hover:text-accent'}`}>
-                                    {track.trackName}
-                                </div>
-                                <div className="text-xs text-slate-500 truncate">{track.collectionName}</div>
+                                <div className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors">{track.trackName}</div>
+                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-1">Intercept #{i + 1}</div>
                             </div>
                         </div>
 
-                        {/* ACTIONS */}
-                        <div className="flex items-center gap-3 pl-4 border-l border-slate-800 ml-4 shrink-0">
-                            {playing === track.previewUrl && (
-                                <div className="hidden md:flex gap-1 h-3 items-end mr-2">
-                                    <div className="w-1 bg-accent animate-[bounce_1s_infinite] h-full"></div>
-                                    <div className="w-1 bg-accent animate-[bounce_1.2s_infinite] h-2/3"></div>
-                                    <div className="w-1 bg-accent animate-[bounce_0.8s_infinite] h-full"></div>
-                                </div>
-                            )}
+                        <div className="flex items-center gap-6">
                             <button
-                                onClick={(e) => openYouTubeSearch(e, `${track.artistName} ${track.trackName}`)}
-                                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#FF4500]/10 hover:bg-[#FF4500] hover:text-black text-[#FF4500] transition-all uppercase text-[9px] font-black tracking-wider"
+                                onClick={(e) => openYouTubeSearch(e, `${artistName} ${track.trackName}`)}
+                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-[#FF0000] hover:bg-[#FF0000] text-slate-500 hover:text-white transition-all uppercase text-[9px] font-black tracking-wider"
                                 title="Search Full Song on YouTube"
                             >
-                                <Play className="w-3 h-3 fill-current" /> YouTube
+                                <Youtube className="w-4 h-4" /> YouTube
+                            </button>
+                            <button
+                                onClick={() => window.open(`https://open.spotify.com/search/${encodeURIComponent(artistName + ' ' + track.trackName)}`, '_blank')}
+                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-[#1DB954] hover:bg-[#1DB954] text-slate-500 hover:text-black transition-all uppercase text-[9px] font-black tracking-wider"
+                                title="Search on Spotify"
+                            >
+                                <Music className="w-4 h-4" /> Spotify
                             </button>
                         </div>
                     </div>
@@ -2534,11 +2422,16 @@ const TopTracks = ({ artistName }: { artistName: string }) => {
 
 const generateScoutingReport = (artist: PowerIndexArtist) => {
     const insights = [];
-    const ratio = artist.tiktokFollowers / (artist.monthlyListeners + 1);
+    const followers = artist.tiktokFollowers || 0;
+    const listeners = artist.monthlyListeners || 0;
+    const growth = artist.growthVelocity || 0;
+    const conversion = artist.conversionScore || 0;
+
+    const ratio = followers / (listeners + 1);
 
     if (ratio > 5) insights.push("Hyper-Viral Signal: Social reach is 5x larger than streaming footprint.");
-    if (artist.growthVelocity > 80) insights.push("Exponential Velocity: Massive listener surge detected in last 24h.");
-    if (artist.conversionScore < 40) insights.push("Efficiency Leader: High listener retention with minimal marketing waste.");
+    if (growth > 80) insights.push("Exponential Velocity: Massive listener surge detected in last 24h.");
+    if (conversion < 40 && conversion > 0) insights.push("Efficiency Leader: High listener retention with minimal marketing waste.");
     if (artist.is_independent) insights.push("Independent Edge: Fully autonomous growth with high ownership potential.");
 
     return insights.length > 0 ? insights : ["Stable Performance: Consistent growth across all primary platforms."];
@@ -2640,7 +2533,7 @@ function ArtistProfile({
 }) {
     const [showShare, setShowShare] = useState(false);
     const report = generateScoutingReport(artist);
-    const investmentScore = Math.min(100, Math.max(0, 100 - artist.conversionScore + (artist.growthVelocity / 2)));
+    const investmentScore = Math.min(100, Math.max(0, 100 - (artist.conversionScore || 0) + ((artist.growthVelocity || 0) / 2)));
 
     return (
         <>
@@ -2816,26 +2709,26 @@ function ArtistProfile({
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 mb-10">
-                            <div className="bg-surface/30 backdrop-blur-md border border-slate-800/50 rounded-2xl p-6">
-                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">Monthly Listeners</div>
-                                <div className="flex items-center gap-2">
-                                    <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.monthlyListeners)}</div>
-                                    <div className="text-[#FF4500] text-xs font-bold leading-none mt-1">▲ {artist.growthVelocity.toFixed(1)}%</div>
+                        <div className="grid grid-cols-2 gap-12 py-10 border-y border-white/5">
+                            <div>
+                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-2">Monthly Listeners</div>
+                                <div className="flex items-center gap-3">
+                                    <div className="text-4xl lg:text-5xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.monthlyListeners)}</div>
+                                    <div className="text-[#FF4500] text-xs font-black leading-none mt-1">▲ {(artist.growthVelocity || 0).toFixed(1)}%</div>
                                 </div>
                             </div>
-                            <div className="bg-surface/30 backdrop-blur-md border border-slate-800/50 rounded-2xl p-6">
-                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">Social Reach</div>
-                                <div className="flex items-center gap-2">
-                                    <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.tiktokFollowers)}</div>
-                                    <div className="text-accent text-xs font-bold leading-none mt-1">▲ 8%</div>
+                            <div>
+                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mb-2">Social Reach</div>
+                                <div className="flex items-center gap-3">
+                                    <div className="text-4xl lg:text-5xl font-black text-white font-mono tracking-tighter">{formatNumber(artist.tiktokFollowers)}</div>
+                                    <div className="text-accent text-xs font-black leading-none mt-1">▲ 8%</div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                            <button onClick={() => setShowDossier(true)} className="bg-white text-black font-black text-[12px] px-8 py-5 rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,255,255,0.1)] flex items-center gap-2 group">
-                                Market Analysis <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                            <button onClick={() => setShowDossier(true)} className="bg-white text-black font-black text-[12px] px-10 py-5 rounded-full hover:scale-105 transition-all uppercase tracking-[0.2em] flex items-center gap-2 group">
+                                Artist Insights <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>
                             <button
                                 onClick={() => {
@@ -2883,41 +2776,41 @@ function ArtistProfile({
                 {/* TOP SONGS (REAL-TIME) */}
                 <TopTracks artistName={artist.name} />
 
-                {/* ARTIST INTELLIGENCE REPORT */}
-                <div id="analyst-insight" className="bg-surface/50 border border-slate-800 rounded-3xl p-10 backdrop-blur-3xl shadow-2xl">
+                {/* ARTIST INSIGHTS REPORT - Natural Space */}
+                <div id="analyst-insight" className="py-24 border-t border-white/5">
                     <div className="flex flex-col lg:flex-row justify-between gap-12">
                         <div className="flex-1">
-                            <div className="flex items-center gap-4 mb-8">
-                                <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center">
-                                    <Radio className="w-7 h-7 text-accent" />
-                                </div>
+                            <div className="flex items-center gap-6 mb-12">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                                 <div>
-                                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">Performance Audit</h3>
-                                    <div className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em]">Proprietary Market Signals</div>
+                                    <h3 className="text-4xl font-black text-white uppercase tracking-tighter">Performance Breakdown.</h3>
+                                    <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em]">Proprietary Growth Signals</div>
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-6">
                                 {report.map((insight, i) => (
-                                    <div key={i} className="flex gap-5 p-5 bg-black/30 rounded-2xl border border-white/5 group hover:border-accent/40 transition-all duration-300">
-                                        <div className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(255,69,0,0.8)]"></div>
-                                        <span className="text-slate-300 text-base font-medium leading-relaxed italic">"{insight}"</span>
+                                    <div key={i} className="flex gap-6 items-start group">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.02] border border-white/5 flex items-center justify-center text-[10px] font-black text-slate-700 group-hover:text-accent transition-colors">
+                                            {String(i + 1).padStart(2, '0')}
+                                        </div>
+                                        <span className="text-slate-400 text-xl font-medium leading-relaxed max-w-2xl">{insight}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         <div className="lg:w-96">
-                            <div className="bg-black/40 rounded-3xl p-8 border border-white/5 shadow-inner h-full flex flex-col justify-center">
-                                <div className="flex items-center justify-between mb-4">
-                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Investment Readiness Index</span>
-                                    <span className="text-4xl font-black text-white font-mono tracking-tighter">{investmentScore.toFixed(0)}%</span>
+                            <div className="py-12 flex flex-col justify-center border-l border-white/5 pl-12">
+                                <div className="flex items-center justify-between mb-8">
+                                    <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Breakout Potential</span>
+                                    <span className="text-6xl font-black text-white font-mono tracking-tighter">{investmentScore.toFixed(0)}%</span>
                                 </div>
-                                <div className="h-4 w-full bg-slate-900 rounded-full overflow-hidden mb-6 border border-white/5">
-                                    <div className="h-full bg-accent transition-all duration-2000 shadow-[0_0_20px_rgba(255,69,0,0.6)]" style={{ width: `${investmentScore}%` }}></div>
+                                <div className="h-1 w-full bg-slate-900 rounded-full overflow-hidden mb-10">
+                                    <div className="h-full bg-accent transition-all duration-2000" style={{ width: `${investmentScore}%` }}></div>
                                 </div>
-                                <p className="text-[11px] text-slate-400 leading-relaxed uppercase tracking-widest text-center">
-                                    Risk-adjusted score based on multi-source velocity & conversion alpha metrics.
+                                <p className="text-[10px] text-slate-500 leading-relaxed uppercase tracking-[0.2em] font-medium">
+                                    Proprietary index based on viral momentum and cultural velocity.
                                 </p>
                                 {investmentScore > 85 && (
                                     <div className="mt-8 py-3 bg-accent/10 border border-accent/30 rounded-xl text-accent text-[11px] font-black uppercase text-center tracking-[0.2em] animate-pulse">
@@ -2937,7 +2830,7 @@ function ArtistProfile({
 // SONIC SIGNALS COMPONENT
 // ============================================================================
 
-function SonicSignals({ artists }: { artists: PowerIndexArtist[] }) {
+function SonicSignals({ artists, onArtistSelect }: { artists: PowerIndexArtist[], onArtistSelect: (artist: PowerIndexArtist) => void }) {
     const signals = artists.map(artist => {
         let type: 'Viral' | 'Breakout' | 'Dominance' | 'Conversion' = artist.status as any;
         let description = '';
@@ -2975,25 +2868,47 @@ function SonicSignals({ artists }: { artists: PowerIndexArtist[] }) {
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-12">
                 {signals.map(({ artist, type, description }) => (
                     <div
                         key={artist.id}
-                        className="bg-card border border-slate-800/50 rounded-xl p-5 hover:border-slate-700 transition-all"
+                        className="group flex flex-col md:flex-row md:items-center gap-8 py-10 border-t border-white/5 transition-all"
                     >
-                        <div className="flex items-start justify-between mb-3">
-                            <div className="flex items-center gap-3">
-                                <div className="artist-avatar text-sm">{getInitials(artist.name)}</div>
-                                <div>
-                                    <div className="font-semibold text-white">{artist.name}</div>
-                                    <div className="data-tag">{artist.genre} • {artist.country}</div>
+                        <div className="flex items-center gap-6 md:w-1/3">
+                            <div className="relative w-16 h-16 shrink-0">
+                                <div className="w-full h-full rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+                                    {artist.avatar_url ? (
+                                        <img
+                                            src={artist.avatar_url}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(artist.name)}&background=1a1a2e&color=FF4500&size=64`; }}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-slate-900 flex items-center justify-center text-sm font-black text-accent">{getInitials(artist.name)}</div>
+                                    )}
                                 </div>
+                                <div className={`absolute -top-1 -left-1 w-4 h-4 rounded-full border-2 border-black ${type === 'Viral' ? 'bg-signal-purple' :
+                                    type === 'Breakout' ? 'bg-accent' :
+                                        type === 'Conversion' ? 'bg-amber-500' : 'bg-slate-700'
+                                    } animate-pulse`} />
                             </div>
-                            <span className={`badge ${getStatusBadge(type)}`}>
-                                {type.toUpperCase()}
-                            </span>
+                            <div className="min-w-0">
+                                <div className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors leading-tight">{artist.name}</div>
+                                <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-1">{artist.genre} • {artist.country}</div>
+                            </div>
                         </div>
-                        <p className="text-sm text-slate-400 leading-relaxed">{description}</p>
+
+                        <div className="flex-1">
+                            <div className="text-[9px] text-slate-700 font-black uppercase tracking-[0.3em] mb-2">{type} Signal Detected</div>
+                            <p className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors leading-relaxed">{description}</p>
+                        </div>
+
+                        <button
+                            onClick={() => onArtistSelect(artist)}
+                            className="shrink-0 px-6 py-3 border border-slate-900 hover:border-slate-700 text-[10px] font-black text-slate-600 hover:text-white uppercase tracking-widest rounded-full transition-all"
+                        >
+                            Intercept
+                        </button>
                     </div>
                 ))}
             </div>
@@ -3013,281 +2928,200 @@ interface AboutSectionProps {
 
 function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSectionProps) {
     return (
-        <div className="max-w-5xl mx-auto animate-fade-in space-y-8 pb-12">
-            {/* Hero Header */}
-            <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full mb-6">
-                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    <span className="text-accent font-mono text-xs uppercase tracking-widest">Proprietary Data Engine</span>
+        <div className="max-w-5xl mx-auto animate-fade-in pb-20">
+            {/* Minimal Apple-Style Hero */}
+            <div className="pt-20 pb-24 text-center">
+                <div className="inline-flex items-center gap-2 mb-8 text-accent font-bold text-[10px] uppercase tracking-[0.3em]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                    Proprietary Discovery Engine
                 </div>
-                <h1 className="text-5xl font-bold text-white mb-6">
-                    The STELAR Algorithm
+
+                <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none mb-12 uppercase">
+                    The standard for <br />
+                    <span className="text-slate-500 font-medium">Recursive Discovery.</span>
                 </h1>
-                <p className="text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed">
-                    Our proprietary ranking system analyzes <span className="text-white font-semibold">3,000+ artists</span> across
-                    <span className="text-white font-semibold"> 5 data sources</span>, updated
-                    <span className="text-[#FF4500] font-bold">4 times daily</span> to identify the world's most promising talent.
+
+                <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-medium">
+                    STELAR is a proprietary music intelligence platform identifying the world's next icons before the market.
+                    Our Signal Fusion Engine processes trillions of data points to identify market inefficiencies and the top 0.1% of global talent.
                 </p>
             </div>
 
-            {/* Real-Time Updates Banner */}
-            <section className="bg-gradient-to-r from-[#FF4500]/10 via-[#FF8c00]/5 to-[#FF4500]/10 border border-[#FF4500]/30 rounded-2xl p-8">
-                <div className="flex items-center justify-between flex-wrap gap-6">
+            {/* Natural Space Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 py-20 border-y border-white/5">
+                <div>
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">3,000+</div>
+                    <div className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Signal Active</div>
+                </div>
+                <div>
+                    <div className="text-4xl md:text-5xl font-black text-accent mb-2 tracking-tighter">6</div>
+                    <div className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Intelligence Inputs</div>
+                </div>
+                <div>
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">24hr</div>
+                    <div className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Cycle Speed</div>
+                </div>
+                <div>
+                    <div className="text-4xl md:text-5xl font-black text-accent mb-2 tracking-tighter">150+</div>
+                    <div className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Anomaly Identifiers</div>
+                </div>
+            </div>
+
+            {/* Core Pillars - No Boxes */}
+            <div className="space-y-40 py-40">
+                <section className="grid md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-3 h-3 bg-[#FF4500] rounded-full animate-pulse" />
-                            <h2 className="text-2xl font-bold text-white">Real-Time Updates</h2>
-                        </div>
-                        <p className="text-slate-400 max-w-xl">
-                            Rankings refresh <strong className="text-white">4 times per day</strong> at 12AM, 6AM, 12PM, and 6PM UTC
-                            to capture market movements as they happen.
+                        <h2 className="text-4xl font-black text-white mb-6 uppercase tracking-tight">Proprietary Engine.</h2>
+                        <p className="text-slate-400 text-lg leading-relaxed">
+                            We don't follow the charts, we find the signals that create them.
+                            Our engine weights velocity and cultural momentum to produce
+                            rankings you won't find anywhere else.
                         </p>
                     </div>
-                    <div className="text-right">
-                        <div className="text-3xl font-bold text-[#FF4500]">4×</div>
-                        <div className="text-slate-500 text-sm">DAILY UPDATES</div>
-                    </div>
-                </div>
-            </section>
+                    <div className="text-7xl md:text-9xl font-black text-slate-900/40 select-none tracking-tighter">SIGNALS</div>
+                </section>
 
-            {/* Multi-Source Intelligence */}
-            <section className="bg-card border border-slate-800 rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 bg-gradient-to-br from-accent to-signal-purple rounded-xl">
-                        <Globe className="w-6 h-6 text-white" />
+                <section className="grid md:grid-cols-2 gap-16 items-center">
+                    <div className="order-2 md:order-1 text-7xl md:text-9xl font-black text-slate-900/40 select-none tracking-tighter">BREAKOUT</div>
+                    <div className="order-1 md:order-2">
+                        <h2 className="text-4xl font-black text-white mb-6 uppercase tracking-tight">Ignition Score™</h2>
+                        <p className="text-slate-400 text-lg leading-relaxed">
+                            Built for discovery. We identify the unsigned artists with the highest
+                            potential to dominate the charts. For the fan who wants to be there first.
+                        </p>
+                    </div>
+                </section>
+
+                <section className="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 className="text-4xl font-black text-white mb-6 uppercase tracking-tight">Arbitrage Signal.</h2>
+                        <p className="text-slate-400 text-lg leading-relaxed">
+                            Find the artists blowing up on socials before they hit the Spotify Top 50.
+                            True discovery means seeing the superstar before they cross over.
+                        </p>
+                    </div>
+                    <div className="text-7xl md:text-9xl font-black text-slate-900/40 select-none tracking-tighter">DISCO</div>
+                </section>
+            </div>
+
+            {/* Data Sources - List Style */}
+            <div className="pt-20 border-t border-white/5">
+                <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-12 text-center text-accent">Internal Discovery Pipeline</h3>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                    <div>
+                        <div className="text-white font-black uppercase tracking-tighter mb-2">PULSE FEED</div>
+                        <div className="text-slate-500 text-[10px] font-bold">REAL-TIME VELOCITY</div>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-white">Multi-Source Data</h2>
-                        <p className="text-slate-500 text-sm">Aggregated from the world's largest music platforms</p>
-                    </div>
-                </div>
-                <div className="grid md:grid-cols-5 gap-4">
-                    <div className="bg-gradient-to-r from-green-900/30 to-green-800/20 border border-green-700/30 rounded-xl p-5">
-                        <div className="text-green-400 font-bold text-lg mb-2">🎵 Spotify</div>
-                        <p className="text-slate-400 text-sm">3,000+ artists from global charts. Streams, plays, positions.</p>
-                        <div className="mt-3 text-xs text-green-500 font-mono">PRIMARY</div>
-                    </div>
-                    <div className="bg-gradient-to-r from-pink-900/30 to-pink-800/20 border border-pink-700/30 rounded-xl p-5">
-                        <div className="text-pink-400 font-bold text-lg mb-2">📱 TikTok</div>
-                        <p className="text-slate-400 text-sm">Viral detection engine. Trends before mainstream.</p>
-                        <div className="mt-3 text-xs text-pink-500 font-mono">VIRALITY</div>
-                    </div>
-                    <div className="bg-gradient-to-r from-purple-900/30 to-purple-800/20 border border-purple-700/30 rounded-xl p-5">
-                        <div className="text-purple-400 font-bold text-lg mb-2">📸 Instagram</div>
-                        <p className="text-slate-400 text-sm">Brand potential & crossover appeal.</p>
-                        <div className="mt-3 text-xs text-purple-500 font-mono">SOCIAL</div>
-                    </div>
-                    <div className="bg-gradient-to-r from-red-900/30 to-red-800/20 border border-red-700/30 rounded-xl p-5">
-                        <div className="text-accent-dim font-bold text-lg mb-2">🎬 YouTube</div>
-                        <p className="text-slate-400 text-sm">Video performance & discovery metrics.</p>
-                        <div className="mt-3 text-xs text-accent font-mono">DISCOVERY</div>
-                    </div>
-                    <div className="bg-gradient-to-r from-[#FF4500]/30 to-[#FF8c00]/20 border border-[#FF4500]/30 rounded-xl p-5">
-                        <div className="text-[#FF4500] font-bold text-lg mb-2">☁️ SoundCloud</div>
-                        <p className="text-slate-400 text-sm">Underground & indie discovery. A&R gold.</p>
-                        <div className="mt-3 text-xs text-[#FF4500] font-mono">LAUNCHPAD</div>
-                    </div>
-                </div>
-            </section>
-
-            {/* USER GUIDE SECTION */}
-            <section className="bg-card border border-slate-800 rounded-2xl p-8 mb-8">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 bg-gradient-to-br from-[#FF4500] to-orange-600 rounded-xl">
-                        <Target className="w-6 h-6 text-white" />
+                        <div className="text-white font-black uppercase tracking-tighter mb-2">SIGNAL CLOUDS</div>
+                        <div className="text-slate-500 text-[10px] font-bold">ANOMALY DETECTION</div>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-white">Platform Guide</h2>
-                        <p className="text-slate-500 text-sm">How to use STELAR</p>
-                    </div>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-8">
-                    {/* 1. Global Pulse */}
-                    <div className="space-y-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white font-black">1</div>
-                        <h3 className="text-lg font-bold text-white">The Orbit (Artist 100)</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            A live, daily-updated ranking of the world's most momentous artists. We aggregate data from Spotify, Apple Music, TikTok, and Socials to determine who is <em>actually</em> moving culture right now.
-                        </p>
-                        <ul className="text-xs text-slate-500 space-y-2">
-                            <li className="flex items-center gap-2">✓ Updates every 24 hours</li>
-                            <li className="flex items-center gap-2">✓ Weighted by current velocity</li>
-                        </ul>
-                    </div>
-
-                    {/* 2. Artist Dossiers */}
-                    <div className="space-y-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white font-black">2</div>
-                        <h3 className="text-lg font-bold text-white">Artist Profiles</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Click any artist to open their comprehensive Dossier. Access direct links to their <strong>Spotify</strong>, <strong>Instagram</strong>, and high-level financial analysis.
-                        </p>
-                        <ul className="text-xs text-slate-500 space-y-2">
-                            <li className="flex items-center gap-2">✓ Direct streaming links</li>
-                            <li className="flex items-center gap-2">✓ Revenue projections</li>
-                        </ul>
-                    </div>
-
-                    {/* 3. Discovery */}
-                    <div className="space-y-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white font-black">3</div>
-                        <h3 className="text-lg font-bold text-white">Discovery & Search</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Use the <strong className="text-white">Search Bar</strong> to find any of the 3,000+ tracked artists. Use <strong className="text-white">The Velocity</strong> to find unsigned talent before they break.
-                        </p>
-                        <ul className="text-xs text-slate-500 space-y-2">
-                            <li className="flex items-center gap-2">✓ Filter by 15+ Genres</li>
-                            <li className="flex items-center gap-2">✓ Find "Arbitrage" opportunities</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            {/* Arbitrage Detection - The Secret Sauce */}
-            <section className="bg-gradient-to-r from-accent/10 via-signal-purple/10 to-accent/10 border border-accent/30 rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 bg-gradient-to-br from-accent to-red-500 rounded-xl">
-                        <Target className="w-6 h-6 text-white" />
+                        <div className="text-white font-black uppercase tracking-tighter mb-2">ORBIT ACCESS</div>
+                        <div className="text-slate-500 text-[10px] font-bold">MARKET POSITIONING</div>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-white">Arbitrage Detection™</h2>
-                        <p className="text-slate-500 text-sm">The secret sauce that makes STELAR different</p>
+                        <div className="text-white font-black uppercase tracking-tighter mb-2">SONIC FUSION</div>
+                        <div className="text-slate-500 text-[10px] font-bold">ALPHA TRACKING</div>
+                    </div>
+                    <div>
+                        <div className="text-white font-black uppercase tracking-tighter mb-2">IGNITION SCORE</div>
+                        <div className="text-slate-500 text-[10px] font-bold">PREDICTIVE ALPHA</div>
                     </div>
                 </div>
-                <p className="text-slate-300 text-lg mb-8 max-w-3xl">
-                    We identify artists who are <strong className="text-accent">viral on social media</strong> but
-                    <strong className="text-white"> haven't yet converted to streaming</strong>.
-                    These are tomorrow's superstars — <em>before everyone else finds them</em>.
+            </div>
+
+            {/* Platform Guide - Natural Space */}
+            <section className="py-32 grid md:grid-cols-3 gap-24 border-t border-white/5">
+                <div className="space-y-6">
+                    <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest">01</div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">The Pulse</h3>
+                    <p className="text-slate-400 leading-relaxed font-medium">
+                        A live, daily-synced intelligence feed of the world's most momentous artists, powered by proprietary cultural velocity.
+                    </p>
+                </div>
+                <div className="space-y-6">
+                    <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest">02</div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">Artist Dossiers</h3>
+                    <p className="text-slate-400 leading-relaxed font-medium">
+                        Deep-dive profiles with direct links to streaming, social feeds, and
+                        performance metrics.
+                    </p>
+                </div>
+                <div className="space-y-6">
+                    <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest">03</div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">The Launchpad</h3>
+                    <p className="text-slate-400 leading-relaxed font-medium">
+                        The frontier of music discovery. Where next year's biggest names
+                        are identified today.
+                    </p>
+                </div>
+            </section >
+
+            {/* Final Call to Action */}
+            < div className="py-24 text-center" >
+                <h2 className="text-5xl md:text-6xl font-black text-white mb-10 tracking-tighter uppercase">Predicting the Future.</h2>
+                <p className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+                    STELAR is for those who live on the edge of discovery.
+                    Explore the data. Find your next icon.
                 </p>
+                <button
+                    onClick={() => onNavigate('the-pulse')}
+                    className="px-10 py-4 bg-white text-black font-black uppercase tracking-widest rounded-full hover:scale-105 transition-transform active:scale-95"
+                >
+                    Enter Discovery
+                </button>
+            </div >
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-card border border-slate-800 rounded-xl p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-12 h-12 rounded-full bg-[#FF4500]/20 flex items-center justify-center">
-                                <TrendingUp className="w-6 h-6 text-[#FF4500]" />
-                            </div>
-                            <div>
-                                <div className="text-[#FF4500] font-bold text-xl">Conversion Score</div>
-                                <div className="text-slate-500 text-sm">Social → Streaming ratio</div>
-                            </div>
+            {/* Minimal Footer */}
+            < footer className="border-t border-white/10 pt-20 pb-12 mt-20" >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+                    <div className="col-span-2 md:col-span-1 text-left">
+                        <div className="flex items-center gap-2 mb-6">
+                            <Radio className="w-5 h-5 text-accent" />
+                            <span className="text-white font-black tracking-tighter text-lg uppercase">STELAR</span>
                         </div>
-                        <div className="space-y-3">
-                            <div className="flex justify-between items-center bg-terminal rounded-lg p-3">
-                                <span className="text-slate-400">Score 0-40</span>
-                                <span className="text-[#FF4500] font-bold">🔥 ARBITRAGE OPPORTUNITY</span>
-                            </div>
-                            <div className="flex justify-between items-center bg-terminal rounded-lg p-3">
-                                <span className="text-slate-400">Score 80-100</span>
-                                <span className="text-[#FF4500] font-bold">✓ Market Leader</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-card border border-slate-800 rounded-xl p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                                <Zap className="w-6 h-6 text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-accent font-bold text-xl">Arbitrage Signal</div>
-                                <div className="text-slate-500 text-sm">The "Sign Now" indicator</div>
-                            </div>
-                        </div>
-                        <div className="space-y-3">
-                            <div className="flex justify-between items-center bg-terminal rounded-lg p-3">
-                                <span className="text-slate-400">Signal &gt; 60%</span>
-                                <span className="text-yellow-500 font-bold">⚡ Hot Opportunity</span>
-                            </div>
-                            <div className="flex justify-between items-center bg-terminal rounded-lg p-3">
-                                <span className="text-slate-400">Signal &gt; 80%</span>
-                                <span className="text-accent font-bold animate-pulse">🚀 SIGN NOW</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 15 Categories */}
-            <section className="bg-card border border-slate-800 rounded-2xl p-8">
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 bg-gradient-to-br from-signal-green to-emerald-500 rounded-xl">
-                            <Music className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl font-bold text-white">15 Categories</h2>
-                            <p className="text-slate-500 text-sm">Each with 150+ ranked artists</p>
-                        </div>
-                    </div>
-                    <div className="text-right">
-                        <div className="text-3xl font-bold text-white">2,300+</div>
-                        <div className="text-slate-500 text-sm">TOTAL RANKINGS</div>
-                    </div>
-                </div>
-                <div className="grid md:grid-cols-5 gap-3">
-                    {[
-                        'Global Top 200', 'Pop', 'Hip Hop', 'R&B', 'Country',
-                        'Afrobeats', 'Latin', 'K-Pop', 'Indie', 'Alternative',
-                        'Electronic', 'Major Label', 'Independent', 'Up & Comers', 'Viral'
-                    ].map(cat => (
-                        <div key={cat} className="bg-terminal border border-slate-800 rounded-lg p-3 text-center hover:border-accent/50 transition-colors cursor-pointer">
-                            <div className="text-white font-medium text-sm">{cat}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-            {/* Footer Links */}
-            <footer className="border-t border-slate-800 pt-12 mt-12 pb-8">
-                <div className="grid md:grid-cols-4 gap-8 mb-8">
-                    <div>
-                        <div className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center">
-                                <Radio className="w-4 h-4 text-white" />
-                            </div>
-                            <span className="text-white font-bold">STELAR</span>
-                            <span className="text-slate-500 text-xs">™</span>
-                        </div>
-                        <p className="text-slate-500 text-sm">
-                            The world's most advanced A&R platform. Find tomorrow's superstars today.
+                        <p className="text-slate-600 text-sm leading-relaxed max-w-xs font-medium">
+                            The standard for artist discovery. <br />
+                            Est. 2026.
                         </p>
                     </div>
                     <div>
-                        <h4 className="text-white font-bold mb-4">Product</h4>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">The Orbit</button></li>
-                            <li><button onClick={() => onNavigate('the-launchpad')} className="hover:text-white transition-colors">Up & Comers</button></li>
-                            <li><button onClick={() => onNavigate('sonic-signals')} className="hover:text-white transition-colors">Arbitrage Signals</button></li>
-                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">Orbit Genres</button></li>
+                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-6">Explore</h4>
+                        <ul className="space-y-4 text-slate-600 text-sm font-medium">
+                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">The Pulse</button></li>
+                            <li><button onClick={() => onNavigate('the-launchpad')} className="hover:text-white transition-colors">The Launchpad</button></li>
+                            <li><button onClick={() => onNavigate('the-pulse')} className="hover:text-white transition-colors">Genres</button></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 className="text-white font-bold mb-4">Company</h4>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">About</button></li>
-                            <li><button onClick={() => onShowPricing()} className="hover:text-white transition-colors">Pricing</button></li>
+                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-6">Network</h4>
+                        <ul className="space-y-4 text-slate-600 text-sm font-medium">
+                            <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">How It Works</button></li>
+                            <li><button onClick={() => onShowPricing()} className="hover:text-white transition-colors">Premium</button></li>
                             <li><button onClick={() => onShowContact()} className="hover:text-white transition-colors">Contact</button></li>
-                            <li><button onClick={() => onShowContact()} className="hover:text-white transition-colors">Careers</button></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 className="text-white font-bold mb-4">Legal</h4>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                            <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">Cookie Policy</button></li>
+                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-6">Legal</h4>
+                        <ul className="space-y-4 text-slate-600 text-sm font-medium">
+                            <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
                         </ul>
                     </div>
                 </div>
-                <div className="flex items-center justify-between pt-8 border-t border-slate-900">
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-signal-green animate-pulse" />
-                        <span className="text-slate-500 text-xs font-mono">LIVE • 4× DAILY UPDATES • PROPRIETARY ALGORITHM</span>
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-slate-700">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Live • Proprietary Algorithm</span>
                     </div>
-                    <span className="text-slate-600 text-sm">© 2026 STELAR™ • All Rights Reserved</span>
+                    <span className="text-slate-800 text-[10px] font-black uppercase tracking-widest tracking-tighter">© 2026 STELAR™</span>
                 </div>
-            </footer>
-        </div>
+            </footer >
+        </div >
     );
 }
-// End of file
+
+// ============================================================================
+// END OF FILE
+// ============================================================================

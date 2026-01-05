@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-SOUNDSCOUT PROPRIETARY RANKING ENGINE v2.0
+STELAR PROPRIETARY RANKING ENGINE v4.0
 ==========================================
-Multi-Million Dollar A&R Intelligence System
+A&R Intelligence System for The Pulse and The Launchpad
 
 KEY REQUIREMENTS:
 1. MINIMUM 150 artists per category - NO EXCEPTIONS
@@ -224,6 +224,7 @@ LEGACY_EXCLUDED_ARTISTS = {
     'peter gabriel', 'sting', 'the police', 'u2', 'bono',
     'aerosmith', 'bon jovi', 'def leppard', 'journey', 'foreigner', 'boston',
     'queen', 'freddie mercury', 'david bowie', 'prince',
+    'the clash', 'clash', 'haddaway', 'she & him',  # 90s one-hit wonders and legacy bands
     
     # Jazz/Blues/Soul Legends (NOT emerging)
     'ella fitzgerald', 'louis armstrong', 'miles davis', 'john coltrane', 'duke ellington',
@@ -286,6 +287,77 @@ LEGACY_EXCLUDED_ARTISTS = {
     'chris daughtry', 'adam lambert', 'jordin sparks', 'david cook',
     'ruben studdard', 'clay aiken', 'daughtry',
     'addison rae',  # Social media star not emerging artist
+    
+    # NON-WESTERN ARTISTS (Not A&R targets for Western labels)
+    # Indian / Bollywood / Punjabi
+    'javed akhtar', 'vishal mishra', 'sayeed quadri', 'diljit dosanjh', 'anu malik',
+    'bappi lahiri', 'ram sampath', 'muhammad sadiq', 'charanjit ahuja', 'armaan khan',
+    'arijit singh', 'shreya ghoshal', 'sonu nigam', 'neha kakkar', 'badshah',
+    'yo yo honey singh', 'guru randhawa', 'jubin nautiyal', 'darshan raval', 'atif aslam',
+    'a.r. rahman', 'ar rahman', 'lata mangeshkar', 'kishore kumar', 'mohammed rafi',
+    'pritam', 'amit trivedi', 'mika singh', 'raftaar', 'bohemia', 'divine', 'emiway bantai',
+    'ap dhillon', 'karan aujla', 'sidhu moosewala', 'harrdy sandhu', 'b praak',
+    'tanishk bagchi', 'jass manak', 'daler mehndi', 'hans raj hans', 'master saleem',
+    'nadhif basalamah', 'idgitaf', 'hanumankind',
+    
+    # Latin / Spanish / Portuguese
+    'rawayana', 'cosme tadeo', 'yasmin sensação', 'vitinho imperador', 'matheus fernandes',
+    'cardenales de nuevo león', 'iyaz', 'seeb',
+    'bad bunny', 'j balvin', 'ozuna', 'daddy yankee', 'maluma', 'anuel aa',
+    'karol g', 'becky g', 'nicky jam', 'farruko', 'sech', 'myke towers',
+    'rauw alejandro', 'jhay cortez', 'mora', 'feid', 'peso pluma', 'junior h',
+    'natanael cano', 'eslabon armado', 'grupo frontera', 'grupo firme', 'luis r conriquez',
+    'anitta', 'luisa sonza', 'pabllo vittar', 'mc kevinho', 'gusttavo lima', 'jorge e mateus',
+    'henrique e juliano', 'marilia mendonca', 'maiara e maraisa', 'simone e simaria',
+    
+    # Russian / Eastern European
+    't.a.t.u.', 'tatu', 'little big', 'serebro', 'rammstein',
+    
+    # K-Pop / J-Pop / Asian (already covered by genre filter but adding names)
+    'bts', 'blackpink', 'twice', 'stray kids', 'aespa', 'itzy', 'nct', 'txt', 'enhypen',
+    'le sserafim', 'newjeans', 'ive', 'seventeen', 'exo', 'red velvet', 'got7',
+    'babymetal', 'one ok rock', 'yoasobi', 'ado', 'kenshi yonezu',
+    
+    # Additional non-Western artists found in rankings
+    'sahir ludhianvi', 'simran choudhary', 'harshit saxena', 'anand bakshi', 'meghdeep bose',
+    'los invasores de nuevo león', 'agroplay', 'kadu martins', 'zeeba', 'kato',
+    'jon', 'modjo', 'the magician', 'cxsper',  # European EDM not Western A&R focus
+    'mi banda el mexicano', 'arpit bala', 'aditi singh sharma', 'aku jeje', 'wajid',
+    'kamal khan', 'sanam', 'bruno martini', 'nick jonas',  # Established, not emerging
+    'iron maiden', 'new radicals', 'tiffany', 'omi',  # Legacy artists, not emerging
+    
+    # More legacy artists (60s-90s bands, not emerging)
+    'the mamas & the papas', 'the mamas and the papas', 'modern talking', 'don mclean',
+    'the doobie brothers', 'the verve', 'the bangles', 'mazzy star', 'edward sharpe & the magnetic zeros',
+    'cookin\' on 3 burners', 'michael giacchino',  # Film composer, not emerging artist
+    
+    # More Indian artists
+    'dhanda nyoliwala', 'meet bros.', 'meet bros', 'yasser desai', 'dhvani bhanushali',
+    'vinod rathod', 'justin prabhakaran', 'mustafa zahid', 'fakemink', 'fitterkarma',
+    'flipperachi', 'grupo chocolate', 'melody', 'countrybeat',
+    
+    # KNOWN SIGNED ARTISTS (Major label or established - NOT emerging)
+    # These were incorrectly showing up in Launchpad
+    'willow', 'willow smith',  # Signed to Roc Nation, Will Smith's daughter
+    'walk the moon',  # Signed to RCA Records, had #1 hit "Shut Up and Dance" 2014
+    'jay sean',  # Was signed to Cash Money Records
+    'natalie imbruglia',  # 1997 hit "Torn", established artist
+    'sienna spiro',  # Major label connections
+    'unplg\'d', 'unplgd',  # Producer group, not emerging artist
+    'axwell /\\ ingrosso', 'axwell ingrosso',  # Swedish House Mafia members, mega established
+    'sandro cavazza',  # Major songwriter/producer
+    'pooh shiesty',  # Signed to 1017 Records/Atlantic
+    'the human league',  # 80s synth-pop legends
+    
+    # 70s/80s Classic Rock/Pop - NOT emerging
+    'steve miller band', 'steely dan', 'kim carnes', 'fine young cannibals', 'player',
+    'toto', 'boston', 'kansas', 'styx', 'reo speedwagon', 'heart', 'asia',
+    'hall and oates', 'hall \u0026 oates', 'huey lewis and the news', 'huey lewis',
+    'tears for fears', 'duran duran', 'a-ha', 'aha', 'culture club', 'spandau ballet',
+    
+    # Additional Indian artists appearing in Launchpad
+    'akbar chalay', 'zynakal', 'abhay jodhpurkar', 'cheema y', 'anvita dutt',
+    'ciloqciliq', 'iv of spades',  # Filipino band
 }
 
 
@@ -528,9 +600,9 @@ def is_major_label(artist_name: str, streams: float) -> bool:
 # PROPRIETARY ALGORITHM
 # ============================================================================
 
-class SoundScoutAlgorithm:
+class StelarAlgorithm:
     """
-    THE SOUNDSCOUT PROPRIETARY RANKING SYSTEM
+    THE STELAR PROPRIETARY RANKING SYSTEM
     ==========================================
     
     Our algorithm is unique because we:
@@ -683,7 +755,7 @@ class SoundScoutAlgorithm:
         - Low streaming conversion
         - High growth velocity
         
-        This is what makes SoundScout unique.
+        This is what makes STELAR unique.
         """
         # Base signal from low conversion
         base = max(0, 100 - conversion_score)
@@ -753,6 +825,70 @@ class SoundScoutAlgorithm:
             return "Dominance"
         else:
             return "Stable"
+    
+    @staticmethod
+    def calculate_ignition_score(
+        viral_rank: int,
+        yt_trending: bool,
+        growth_velocity: float,
+        is_independent: bool,
+        monthly_listeners: int
+    ) -> float:
+        """
+        IGNITION SCORE (0-100) - STELAR Launchpad A&R Discovery Metric
+        ===============================================================
+        
+        This is the proprietary metric for identifying pre-breakout artists.
+        HIGHER = Sign this artist NOW
+        
+        Components:
+        - Viral Signal (30%): Spotify Viral 50 presence + rank
+        - Heat Signal (25%): YouTube trending
+        - Velocity (25%): Growth rate across platforms  
+        - Discovery Bonus (20%): Independent + low listeners = higher potential
+        """
+        score = 0.0
+        
+        # VIRAL SIGNAL (0-30 points)
+        # Higher rank on Viral 50 = more points
+        if viral_rank > 0 and viral_rank <= 50:
+            viral_points = (51 - viral_rank) * 0.6  # Rank 1 = 30 pts, Rank 50 = 0.6 pts
+            score += viral_points
+        
+        # HEAT SIGNAL (0-25 points)
+        # YouTube trending = instant heat
+        if yt_trending:
+            score += 25.0
+        
+        # VELOCITY BONUS (0-25 points)
+        # Faster growth = more attractive to A&R
+        if growth_velocity >= 100:
+            score += 25.0
+        elif growth_velocity >= 50:
+            score += 20.0
+        elif growth_velocity >= 20:
+            score += 15.0
+        elif growth_velocity > 0:
+            score += growth_velocity * 0.5  # Up to 10 pts for 20% velocity
+        
+        # DISCOVERY BONUS (0-20 points)
+        # Independent artists with lower listeners = higher discovery value
+        discovery_points = 0.0
+        if is_independent:
+            discovery_points += 10.0
+        
+        # Listener tier bonus (smaller = more discovery potential)
+        if monthly_listeners < 100_000:
+            discovery_points += 10.0  # Micro tier - maximum discovery
+        elif monthly_listeners < 500_000:
+            discovery_points += 7.0   # Indie tier
+        elif monthly_listeners < 1_000_000:
+            discovery_points += 4.0   # Breakout tier
+        # Above 1M = no discovery bonus (already "made it")
+        
+        score += discovery_points
+        
+        return round(min(score, 100), 1)
 
 
 # ============================================================================
@@ -917,12 +1053,12 @@ def generate_complete_rankings():
     This is the main entry point for the ranking engine.
     """
     print(f"\n{'='*70}")
-    print("SOUNDSCOUT PROPRIETARY RANKING ENGINE v2.0")
+    print("STELAR RANKING ENGINE v4.0")
     print(f"Timestamp: {datetime.now().isoformat()}")
     print("Building Multi-Million Dollar A&R Intelligence Database")
     print(f"{'='*70}\n")
     
-    algo = SoundScoutAlgorithm()
+    algo = StelarAlgorithm()
     
     # Fetch all data
     print("[1/5] Fetching REAL data from Kworb...")
@@ -1068,6 +1204,13 @@ def generate_complete_rankings():
             'conversionScore': conversion_score,
             'arbitrageSignal': arbitrage_signal,
             'growthVelocity': growth_velocity,
+            'ignitionScore': algo.calculate_ignition_score(
+                viral_rank=0,  # Will be enriched later if artist is on Viral 50
+                yt_trending=False,  # Will be enriched later if on YouTube trending
+                growth_velocity=growth_velocity,
+                is_independent=not is_major,
+                monthly_listeners=monthly_listeners
+            ),
             'status': status,
             
             # Metadata
@@ -1310,9 +1453,9 @@ def generate_complete_rankings():
         # If they pass all this, they are a genuine A&R lead
         up_and_comers.append(a.copy())
     
-    # Sort primarily by VELOCITY (Who is exploding right now?)
-    # A&Rs want to know who is popping *today*
-    up_and_comers.sort(key=lambda x: x.get('growthVelocity', 0), reverse=True)
+    # Sort primarily by IGNITION SCORE (A&R Discovery Metric)
+    # Higher Ignition = More signable NOW
+    up_and_comers.sort(key=lambda x: x.get('ignitionScore', 0), reverse=True)
     
     # Pass 2: The "Early Signals" (If we need more to fill the UI)
     # Deep underground (< 500k) with ANY positive movement
@@ -1482,16 +1625,17 @@ if __name__ == "__main__":
         # SOURCE D: YouTube Trending/Heat Signal
         yt_yt_trending = set()
         try:
-            yt_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1h_NoYXJ0cw%3D%3D"
+            yt_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D"
             resp = requests.get(yt_url, headers=headers, timeout=15)
             yt_names = re.findall(r'"ownerText":\{"runs":\[\{"text":"([^"]+)"', resp.text)
             for n in yt_names: yt_yt_trending.add(normalize_name(n.replace(' - Topic', '').strip()))
         except: print("      ! Error fetching YouTube Trending")
 
-        # SOURCE E: FULL CATALOG (3000+ artists)
-        print("      * Fetching Full Global Catalog (~3000 artists)...")
-        # Use SpotifyDataSource to pull the large artist list
-        full_catalog = sd.get_top_artists(limit=3500)
+        # SOURCE E: FULL CATALOG (Using Monthly Listeners for ACCURATE rankings)
+        print("      * Fetching Full Global Catalog (~2500 artists by MONTHLY LISTENERS)...")
+        # Use fetch_all_kworb_data which pulls from listeners.html (current popularity)
+        # NOT artists.html (all-time streams which includes legacy artists)
+        full_catalog = fetch_all_kworb_data()
         print(f"      -> Catalog loaded: {len(full_catalog)} artists found.")
 
         # ---------------------------------------------------------
@@ -1511,74 +1655,245 @@ if __name__ == "__main__":
             name = item['name']
             name_norm = normalize_name(name)
             
-            # Base Power Score from Global Rank
-            # Rank 1 = 1000, Rank 3000 = 100
-            base_score = max(100, 1000 - (i * 0.3))
+            # Use REAL monthly listeners from Kworb data
+            monthly_listeners = item.get('monthly_listeners', 0)
+            daily_change = item.get('daily_listener_change', 0)
+            spotify_id = item.get('spotify_id', name_norm)
+            kworb_rank = item.get('rank', i + 1)
+            
+            # Base Power Score from Monthly Listeners (not position)
+            # 100M+ = 1000, 50M = 800, 10M = 500, 1M = 200
+            if monthly_listeners >= 100_000_000:
+                base_score = 1000
+            elif monthly_listeners >= 50_000_000:
+                base_score = 800 + (monthly_listeners - 50_000_000) / 250_000
+            elif monthly_listeners >= 10_000_000:
+                base_score = 500 + (monthly_listeners - 10_000_000) / 133_333
+            elif monthly_listeners >= 1_000_000:
+                base_score = 200 + (monthly_listeners - 1_000_000) / 30_000
+            else:
+                base_score = max(50, monthly_listeners / 5000)
             
             # Identify Engines
             is_orbit = name_norm in orbit_names
             is_velocity = name_norm in emerging_names or name_norm in viral_lookup or name_norm in yt_yt_trending
             
-            # Bonus Fusion Logic
+            # Bonus Fusion Logic for chart presence
             bonus = 0
-            heat_bonus = 0
-            viral_bonus = 0
-            
             if name_norm in viral_lookup:
                 v_rank = viral_lookup[name_norm]
-                viral_bonus = (101 - v_rank) * 12
+                bonus += (51 - min(v_rank, 50)) * 5  # Up to 250 points
             if name_norm in yt_yt_trending:
-                heat_bonus = 350
-            
-            # Orbit specific boost
+                bonus += 200  # YouTube trending bonus
             if is_orbit:
                 o_rank = orbit_names[name_norm]
-                bonus += (101 - o_rank) * 5
-                status = "👑 Dominance" if o_rank <= 10 else "Established"
+                bonus += (101 - o_rank) * 3  # Up to 300 points
+                status = "Dominance" if o_rank <= 10 else "Established"
             elif is_velocity:
-                status = "Emerging"
-                if heat_bonus > 0 and viral_bonus > 0: status = "🔥 NUCLEAR"
-                elif heat_bonus > 0: status = "🚀 HIGH HEAT"
-                elif viral_bonus > 0: status = f"📈 VIRAL"
+                status = "Breakout" if bonus > 200 else "Emerging"
             else:
                 status = "Stable"
             
-            p_score = base_score + bonus + heat_bonus + viral_bonus
+            p_score = min(1000, base_score + bonus)
             
-            # Breakout Probability
-            prob = min(99, int((p_score / 1200) * 80) + 10)
-            if is_velocity: prob += 15
-            if not is_major_label(name, 50): prob += 5
+            # Calculate growth velocity from daily change
+            growth_velocity = 0.0
+            if monthly_listeners > 0 and daily_change != 0:
+                growth_velocity = (daily_change / monthly_listeners) * 100 * 30  # Project monthly
             
+            # Calculate Ignition Score for Launchpad
+            is_independent = not is_major_label(name, monthly_listeners / 1_000_000)
+            
+            # Get Viral Rank (0 if not present)
+            viral_rank_val = viral_lookup.get(name_norm, 0)
+            
+            ignition_score = StelarAlgorithm.calculate_ignition_score(
+                viral_rank=viral_rank_val,
+                yt_trending=name_norm in yt_yt_trending,
+                growth_velocity=growth_velocity,
+                is_independent=is_independent,
+                monthly_listeners=monthly_listeners
+            )
+            
+            # Build profile matching PowerIndexArtist interface
+            genre = get_genre(name)
             master_artists[name_norm] = {
+                # Identity
+                "id": spotify_id,
                 "name": name,
-                "powerScore": int(min(1000, p_score)),
-                "breakoutProb": min(99, int(prob)),
-                "status": status,
-                "genres": [get_genre(name)],
-                "monthlyListeners": max(50000, int((3001 - i) * 30000)),
-                "label": "Major" if is_major_label(name, 50) else "Independent",
+                "genre": genre,  # String, not array
+                "country": "USA",  # Default
+                "city": None,
+                "spotify_id": spotify_id,
+                "label_name": "Major Label" if not is_independent else "Independent",
+                "is_independent": is_independent,
                 "avatar_url": None,
-                "trends": [random.randint(40, 70) for _ in range(7)],
+                
+                # Social handles (placeholders)
+                "tiktok_handle": None,
+                "instagram_handle": None,
+                "twitter_handle": None,
+                "youtube_channel": None,
+                
+                # Metrics - REAL DATA
+                "monthlyListeners": monthly_listeners,
+                "tiktokFollowers": 0,
+                "instagramFollowers": 0,
+                "youtubeSubscribers": 0,
+                "twitterFollowers": 0,
+                
+                # PROPRIETARY SCORES
+                "powerScore": int(p_score),
+                "conversionScore": 50.0,
+                "arbitrageSignal": 50.0,
+                "growthVelocity": round(growth_velocity, 1),
+                "ignitionScore": ignition_score,
+                "status": status,
+                
+                # Ranking metadata
+                "rank": kworb_rank,
+                "chartRank": kworb_rank,
+                "lastUpdated": datetime.now().isoformat(),
+                
+                # Engine flags
                 "is_orbit": is_orbit,
                 "is_velocity": is_velocity,
                 "orbit_rank": orbit_names.get(name_norm, 999),
                 "velocity_rank": emerging_names.get(name_norm, 999)
             }
 
+        # =========================================================
+        # CRITICAL: Inject Billboard Emerging Artists NOT in Kworb
+        # These are TRUE emerging artists (50K-2M listeners) that 
+        # Kworb doesn't track. We add them with estimated data.
+        # =========================================================
+        print(f"      * Injecting {len(emerging_raw)} Billboard Emerging Artists...")
+        injected_count = 0
+        for emerging in emerging_raw:
+            name = emerging['name']
+            name_norm = normalize_name(name)
+            bb_rank = emerging['rank']
+            
+            # Skip if already in master_artists (from Kworb)
+            if name_norm in processed_names:
+                continue
+            
+            # Skip legacy/excluded artists
+            if is_legacy_artist(name):
+                continue
+                
+            # Estimate listeners based on Billboard rank (higher rank = fewer listeners)
+            # Billboard Emerging #1 might have ~1.5M, #50 might have ~100K
+            estimated_listeners = max(100_000, 1_500_000 - (bb_rank - 1) * 28_000)
+            
+            # High Ignition Score for Billboard Emerging (these are A&R targets)
+            ignition_score = 50 + (51 - min(bb_rank, 50)) * 1.0  # 50-100 points
+            
+            master_artists[name_norm] = {
+                "id": f"bb_{name_norm}",
+                "name": name,
+                "genre": "Pop",  # Default
+                "country": "USA",
+                "city": None,
+                "spotify_id": None,
+                "label_name": "Independent",
+                "is_independent": True,
+                "avatar_url": None,
+                "instagram_handle": None,
+                "tiktok_handle": None,
+                "youtube_channel": None,
+                "spotify_url": None,
+                "spotifyFollowers": estimated_listeners // 10,
+                "monthlyListeners": estimated_listeners,
+                "dailyStreams": estimated_listeners // 30,
+                "growthVelocity": 30.0 + (51 - bb_rank) * 0.5,  # Emerging = high velocity
+                "trend": "rising",
+                "powerScore": 300 + (51 - bb_rank) * 5,
+                "ignitionScore": ignition_score,
+                "status": "Breakout",
+                "rank": bb_rank,
+                "chartRank": bb_rank,
+                "lastUpdated": datetime.now().isoformat(),
+                "is_orbit": False,
+                "is_velocity": True,  # All Billboard Emerging are velocity
+                "orbit_rank": 999,
+                "velocity_rank": bb_rank,
+                "source": "billboard_emerging"  # Track data source
+            }
+            processed_names.add(name_norm)
+            injected_count += 1
+        
+        print(f"      -> Injected {injected_count} new emerging artists")
+
         # Final Engine Selection
         pulse = [v for k, v in master_artists.items() if v['is_orbit']]
         pulse.sort(key=lambda x: x['orbit_rank'])
         for i, p in enumerate(pulse): p['rank'] = i + 1
 
-        launchpad = [v for k, v in master_artists.items() if v['is_velocity']]
-        launchpad.sort(key=lambda x: x['powerScore'], reverse=True)
+        # LAUNCHPAD: Expanded criteria for emerging artists
+        # Include artists who are:
+        # 1. Already flagged as velocity (Billboard Emerging, Viral, YouTube), OR
+        # 2. Independent with listeners under 50M, OR
+        # 3. Have positive growth velocity, OR
+        # 4. Have ignition score > 5
+        # CRITICAL: Exclude legacy/deceased/seasonal artists!
+        # CRITICAL: Western artists ONLY (US, UK, Canada, Australia, etc.)
+        # NOTE: Kworb data starts at ~5M listeners, so 7M cap captures the
+        # "smaller" end of the data. We rely on Ignition Score to identify
+        # fastest-growing artists within this range as "emerging".
+        LAUNCHPAD_LISTENER_CAP = 7_000_000
+        WESTERN_COUNTRIES = {'USA', 'UK', 'Canada', 'Australia', 'New Zealand', 'Ireland'}
+        NON_WESTERN_GENRES = {'Latin', 'K-Pop', 'Afrobeats', 'Bollywood', 'Indian', 'Desi', 'J-Pop', 'Reggaeton', 'Musica Mexicana', 'Punjabi'}
+        
+        launchpad = []
+        for k, v in master_artists.items():
+            # SKIP legacy artists - The Police, David Bowie, etc are NOT up & comers
+            if is_legacy_artist(v['name']):
+                continue
+            
+            # SKIP artists above the listener cap - they're not emerging
+            if v['monthlyListeners'] > LAUNCHPAD_LISTENER_CAP:
+                continue
+            
+            # WESTERN ONLY: Skip non-Western countries
+            if v.get('country', 'USA') not in WESTERN_COUNTRIES:
+                continue
+                
+            # WESTERN ONLY: Skip non-English genres (Indian, Latin, K-Pop, etc.)
+            if v.get('genre', '') in NON_WESTERN_GENRES:
+                continue
+            
+            if v['is_velocity']:
+                launchpad.append(v)
+            elif v['is_independent'] and v['monthlyListeners'] < 50_000_000:
+                launchpad.append(v)
+            elif v.get('growthVelocity', 0) > 5:
+                launchpad.append(v)
+            elif v.get('ignitionScore', 0) > 5:
+                launchpad.append(v)
+        
+        launchpad.sort(key=lambda x: x['ignitionScore'], reverse=True)  # Sort by Ignition Score for A&R
         for i, p in enumerate(launchpad): p['rank'] = i + 1
 
         # Global Full Catalog
         global_rankings = list(master_artists.values())
         global_rankings.sort(key=lambda x: x['powerScore'], reverse=True)
         for i, p in enumerate(global_rankings): p['rank'] = i + 1
+
+        # ---------------------------------------------------------
+        # 2.5 AVATAR ENRICHMENT (Top 500 for speed)
+        # ---------------------------------------------------------
+        print("      * Enriching top 500 artists with avatars from Apple Music...")
+        avatar_count = 0
+        for artist in global_rankings[:500]:
+            try:
+                avatar = fetch_artist_image_from_itunes(artist['name'])
+                if avatar:
+                    artist['avatar_url'] = avatar
+                    avatar_count += 1
+            except Exception as e:
+                pass  # Silent fail for individual artists
+        print(f"      -> Fetched {avatar_count} avatars")
 
         # ---------------------------------------------------------
         # 3. OUTPUT GENERATION
@@ -1589,18 +1904,16 @@ if __name__ == "__main__":
         # Build Genre Packages
         genre_lists = {g.lower().replace(' & ', '_').replace(' ', '_'): [] for g in GENRES}
         for a in global_rankings:
-            for g in a['genres']:
-                g_key = g.lower().replace(' & ', '_').replace(' ', '_')
-                if g_key in genre_lists:
-                    genre_lists[g_key].append(a)
+            g = a.get('genre', 'Pop')  # Now using 'genre' string, not 'genres' array
+            g_key = g.lower().replace(' & ', '_').replace(' ', '_')
+            if g_key in genre_lists:
+                genre_lists[g_key].append(a)
 
         output = {
-            "metadata": {
-                "lastUpdated": datetime.now().isoformat(),
-                "source": "Stelar Engine v3.2 (Full Catalog Fusion)",
-                "engines": ["Orbit", "Velocity"],
-                "total_artists": len(global_rankings)
-            },
+            "generated_at": datetime.now().isoformat(),
+            "algorithm_version": "STELAR Engine v4.0",
+            "data_source": "Full Catalog Fusion (The Pulse + The Launchpad)",
+            "total_artists": len(global_rankings),
             "rankings": {
                 "global": global_rankings[:3000], # Keep top 3000
                 "up_and_comers": launchpad[:150],

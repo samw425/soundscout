@@ -56,15 +56,12 @@ export async function onRequest(context) {
             // We'll replace the default meta tags in the HTML string
 
             const title = `${artist.name} | STELAR Rank #${artist.rank || '??'}`;
-            const description = `Discover ${artist.name} on STELAR. Global Power Score: ${artist.powerScore}. Track the charts. Spot the next big thing.`;
+            const description = `Check out ${artist.name} on STELAR — Top 50 songs, streaming stats, and market intel. Power Score: ${artist.powerScore}.`;
 
-            // Generate Dynamic OG Image with Neon Orange Theme
-            const ogUrl = new URL('https://og.novai.workers.dev/api/og');
+            // Generate Dynamic OG Image using local /api/og endpoint
+            const ogUrl = new URL(`${url.origin}/api/og`);
             ogUrl.searchParams.set('name', artist.name);
-            ogUrl.searchParams.set('rank', artist.rank);
-            ogUrl.searchParams.set('score', artist.powerScore);
             ogUrl.searchParams.set('image', artist.avatar_url || '');
-            ogUrl.searchParams.set('theme', 'orange'); // NEON ORANGE REQUEST
             const image = ogUrl.toString();
 
             // Replace Title

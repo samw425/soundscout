@@ -1,150 +1,66 @@
 /**
- * STELAR Artist Page Handler
- * ================================
- * Handles /artist/{name} URLs and injects dynamic OG meta tags.
- * Uses the main STELAR OG image (PNG) since social platforms don't support SVG.
+ * STELAR Artist Page OG Handler
+ * Injects dynamic meta tags for artist sharing
+ * Copy: "Check out [Artist] on STELAR! Explore their full profile, top 50 songs, streaming trends, and more."
  */
 
 export async function onRequest(context) {
     const { request, env, params } = context;
-    const artistSlug = params.name;
-
-    // Decode the artist name from URL
-    const artistName = decodeURIComponent(artistSlug.replace(/-/g, ' '));
+    const slug = params.name;
+    const artistName = decodeURIComponent(slug.replace(/-/g, ' '));
 
     try {
         // Fetch rankings data
-        const rankingsResponse = await env.ASSETS.fetch(new Request(new URL('/rankings.json', request.url)));
-        const oldSchoolResponse = await env.ASSETS.fetch(new Request(new URL('/oldschool.json', request.url)));
+        const response = await env.ASSETS.fetch(new Request(new URL('/rankings.json', request.url)));
+        if (!response.ok) return env.ASSETS.fetch(new Request(new URL('/', request.url)));
 
-        let data = null;
-        let oldSchoolData = null;
+        const data = await response.json();
 
-        if (rankingsResponse.ok) {
-            data = await rankingsResponse.json();
-        }
-        if (oldSchoolResponse.ok) {
-            oldSchoolData = await oldSchoolResponse.json();
-        }
-
-        // Find artist across all categories
+        // Find artist
         let artist = null;
-        let isLegend = false;
-
-        // Search Old School legends FIRST - Legends deserve priority!
-        if (oldSchoolData && oldSchoolData.artists) {
-            const found = oldSchoolData.artists.find(a =>
-                a.name.toLowerCase() === artistName.toLowerCase() ||
-                a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
-            );
-            if (found) {
-                isLegend = true;
-                artist = {
-                    name: found.name,
-                    genre: found.genre,
-                    country: found.country,
-                    status: 'Legend',
-                    rank: found.rank,
-                    monthlyListeners: found.monthlyListeners || 0,
-                    powerScore: 999
-                };
+        if (data.rankings) {
+            for (const category of Object.values(data.rankings)) {
+                artist = category.find(a =>
+                    a.name?.toLowerCase() === artistName.toLowerCase() ||
+                    a.name?.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase()
+                );
+                if (artist) break;
             }
         }
 
-        // If not in Old School, search main rankings
-        if (!artist && data) {
-            const categories = ['global', 'up_and_comers', 'arbitrage', 'pop', 'hip_hop', 'r_and_b', 'country', 'latin', 'kpop', 'indie', 'electronic', 'afrobeats'];
-            for (const cat of categories) {
-                if (data.rankings[cat]) {
-                    const found = data.rankings[cat].find(a =>
-                        a.name.toLowerCase() === artistName.toLowerCase() ||
-                        a.name.toLowerCase().replace(/\s+/g, '-') === artistSlug.toLowerCase()
-                    );
-                    if (found) {
-                        artist = found;
-                        break;
-                    }
-                }
-            }
+        if (!artist) return env.ASSETS.fetch(new Request(new URL('/', request.url)));
+
+        // Get HTML shell
+        const shellResponse = await env.ASSETS.fetch(new Request(new URL('/', request.url)));
+        let html = await shellResponse.text();
+
+        // Metadata
+        const title = `${artist.name} | STELAR`;
+        const description = `Check out ${artist.name} on STELAR! Explore their full profile, top 50 songs, streaming trends, and more.`;
+
+        // OG Image URL
+        let ogImageUrl = `https://stelarmusic.pages.dev/api/og?name=${encodeURIComponent(artist.name)}`;
+        if (artist.avatar_url) {
+            ogImageUrl += `&image=${encodeURIComponent(artist.avatar_url)}`;
         }
 
-        if (!artist) {
-            return env.ASSETS.fetch(new Request(new URL('/', request.url)));
-        }
-
-        // Fetch the base HTML
-        const htmlResponse = await env.ASSETS.fetch(new Request(new URL('/', request.url)));
-        let html = await htmlResponse.text();
-
-        // Format numbers
-        const formatNumber = (num) => {
-            if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
-            if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-            return num.toString();
-        };
-
-        // Use DYNAMIC OG image (PNG) - workers-og generates real PNG images with artist names
-        const ogImageUrl = `https://stelarmusic.pages.dev/og/artist/${artistSlug}`;
-
-        // Dynamic text content - Make artist name PROMINENT
-        const statusEmoji = isLegend ? '👑' : (artist.status === 'Viral' ? '🔥' : '🎵');
-        const dynamicTitle = isLegend
-            ? `${artist.name} | Old School Legend | STELAR`
-            : `${artist.name} | #${artist.rank} Global | STELAR`;
-        const dynamicDescription = isLegend
-            ? `👑 LEGEND: ${artist.name} • ${artist.genre} • ${formatNumber(artist.monthlyListeners)} Monthly Listeners • One of the greatest of all time | Discover on STELAR`
-            : `${statusEmoji} ${artist.name} • Rank #${artist.rank} • ${formatNumber(artist.monthlyListeners)} Monthly Listeners • Power Score: ${artist.powerScore} • ${artist.status} | STELAR`;
-
-        // Replace meta tags
-        html = html.replace(
-            /<meta property="og:title" content="[^"]*"/g,
-            `<meta property="og:title" content="${dynamicTitle}"`
-        );
-        html = html.replace(
-            /<meta property="og:description" content="[^"]*"/g,
-            `<meta property="og:description" content="${dynamicDescription}"`
-        );
-        html = html.replace(
-            /<meta property="og:image" content="[^"]*"/g,
-            `<meta property="og:image" content="${ogImageUrl}"`
-        );
-        html = html.replace(
-            /<meta name="twitter:title" content="[^"]*"/g,
-            `<meta name="twitter:title" content="${dynamicTitle}"`
-        );
-        html = html.replace(
-            /<meta name="twitter:description" content="[^"]*"/g,
-            `<meta name="twitter:description" content="${dynamicDescription}"`
-        );
-        html = html.replace(
-            /<meta name="twitter:image" content="[^"]*"/g,
-            `<meta name="twitter:image" content="${ogImageUrl}"`
-        );
-        html = html.replace(
-            /<meta name="description" content="[^"]*"/g,
-            `<meta name="description" content="${dynamicDescription}"`
-        );
-        html = html.replace(
-            /<title>[^<]*<\/title>/g,
-            `<title>${dynamicTitle}</title>`
-        );
-
-        // Add OG URL for the specific artist
-        const artistUrl = `https://stelarmusic.pages.dev/artist/${artistSlug}`;
-        html = html.replace(
-            /<meta property="og:url" content="[^"]*"/g,
-            `<meta property="og:url" content="${artistUrl}"`
-        );
+        // Inject meta tags
+        html = html
+            .replace(/<title>.*?<\/title>/g, `<title>${title}</title>`)
+            .replace(/<meta property="og:title" content=".*?"/g, `<meta property="og:title" content="${title}"`)
+            .replace(/<meta property="og:description" content=".*?"/g, `<meta property="og:description" content="${description}"`)
+            .replace(/<meta property="og:image" content=".*?"/g, `<meta property="og:image" content="${ogImageUrl}"`)
+            .replace(/<meta name="twitter:title" content=".*?"/g, `<meta name="twitter:title" content="${title}"`)
+            .replace(/<meta name="twitter:description" content=".*?"/g, `<meta name="twitter:description" content="${description}"`)
+            .replace(/<meta name="twitter:image" content=".*?"/g, `<meta name="twitter:image" content="${ogImageUrl}"`)
+            .replace(/<meta name="description" content=".*?"/g, `<meta name="description" content="${description}"`);
 
         return new Response(html, {
-            headers: {
-                'Content-Type': 'text/html;charset=UTF-8',
-                'Cache-Control': 'public, max-age=300',
-            }
+            headers: { 'Content-Type': 'text/html;charset=UTF-8' }
         });
 
-    } catch (error) {
-        console.error('Error:', error);
+    } catch (e) {
+        console.error('Artist OG Error:', e);
         return env.ASSETS.fetch(new Request(new URL('/', request.url)));
     }
 }
