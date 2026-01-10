@@ -29,7 +29,7 @@ export async function onRequest(context) {
     // We search for "official video" to get Fan/UGC uploads that are always embeddable.
 
     const origin = new URL(context.request.url).origin;
-    const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI";
+    const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyBf1WipAvDDNW5mmuFIHGwnwbqqcvqbGYg";
 
     let finalSrc = '';
     const youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName}`);
