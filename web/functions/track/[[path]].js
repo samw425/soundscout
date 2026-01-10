@@ -30,6 +30,7 @@ export async function onRequest(context) {
     // and plays the best AVAILABLE integerable video.
 
     // Simplest possible embed string to maximize compatibility
+    const youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName} lyrics`);
     const finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1`;
 
     // ---------------------------------------------------------
