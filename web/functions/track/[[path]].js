@@ -22,15 +22,39 @@ export async function onRequest(context) {
     const trackName = trackSlug.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
     // ---------------------------------------------------------
-    // STRATEGY: CLIENT-SIDE SEARCH EMBED (RESTORED)
+    // STRATEGY: YOUTUBE DATA API (listType=search is DEPRECATED as of Nov 2020)
     // ---------------------------------------------------------
-    // We use the 'search' listType. This is dynamic and resilient.
-    // The YouTube Player finds the best available video for this query.
-    // This bypasses VEVO domain restrictions entirely.
+    // We MUST use the YouTube Data API to search for videos.
+    // The old listType=search embed no longer works.
+    // We search for "lyrics" to get Fan/UGC uploads that are always embeddable.
 
     const origin = new URL(context.request.url).origin;
+    const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI";
+
+    let finalSrc = '';
     const youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName}`);
-    const finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
+
+    // Try to find an embeddable video via API
+    try {
+        const apiQuery = encodeURIComponent(`${artistName} ${trackName} lyrics`);
+        const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=id&q=${apiQuery}&type=video&videoEmbeddable=true&maxResults=5&key=${API_KEY}`;
+
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+            // Get the first embeddable video
+            const videoId = data.items[0].id.videoId;
+            finalSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
+        }
+    } catch (err) {
+        console.error("YouTube API Error:", err);
+    }
+
+    // Fallback: Link to YouTube search (can't embed if API fails)
+    if (!finalSrc) {
+        finalSrc = `https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0`; // Placeholder - will show "Watch on YouTube" instead
+    }
 
 
     // ---------------------------------------------------------
