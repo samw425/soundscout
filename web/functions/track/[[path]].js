@@ -31,8 +31,8 @@ export async function onRequest(context) {
 
     const origin = new URL(context.request.url).origin;
     const youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName} lyrics`);
-    const youtubeEmbedUrl = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
-    const videoId = true; // Always force render of video wrapper
+    // CRITICAL FIX: Variable name must match usage in HTML (finalSrc)
+    const finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
 
     // ---------------------------------------------------------
     // FETCH ARTIST IMAGE FOR OG (Unchanged)
