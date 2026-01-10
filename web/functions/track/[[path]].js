@@ -37,7 +37,11 @@ export async function onRequest(context) {
     const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI";
 
     try {
-        const apiQuery = encodeURIComponent(`${artistName} ${trackName} official music video`);
+        // SMART API STRATEGY:
+        // We search for "Lyrics -VEVO" via the API.
+        // This forces Google to give us the ID of the best available FAN upload.
+        // Fan uploads are 100% embeddable. Official ones are often blocked.
+        const apiQuery = encodeURIComponent(`${artistName} ${trackName} lyrics -vevo`);
         const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=id&q=${apiQuery}&type=video&videoEmbeddable=true&maxResults=1&key=${API_KEY}`;
 
         const response = await fetch(apiUrl);
