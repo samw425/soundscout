@@ -622,24 +622,28 @@ class StelarAlgorithm:
         is_trending: bool = False
     ) -> float:
         """
-        POWER SCORE (0-1000) - THE PULSE ENGINE
+        POWER SCORE (0-2000) - THE PULSE ENGINE
         =======================================
-        As defined in PROPRIETARY_ALGORITHM.py
+        As defined in PROPRIETARY_ALGORITHM.py (Refined)
         """
         # 1. BASE_SCORE (from Monthly Listeners)
         m = monthly_listeners_millions
         if m >= 100:
-            base_score = 1000
+            # Taylor Swift/Weeknd Tier - Extreme Volume
+            base_score = 1000 + (m - 100) * 10
         elif m >= 50:
+            # Major Stars
             base_score = 800 + (m - 50) / 0.25 # (m-50M) / 250k
         elif m >= 10:
+            # Established
             base_score = 500 + (m - 10) / 0.133333 # (m-10M) / 133.3k
         elif m >= 1:
+            # Rising
             base_score = 200 + (m - 1) / 0.03 # (m-1M) / 30k
         else:
             base_score = max(50, m * 200) # m / 5000 * 1000
             
-        # 2. CHART_BONUS
+        # 2. CHART_BONUS (Industry Gravitas)
         chart_bonus = 0
         if 1 <= chart_position <= 10:
             chart_bonus += 300
@@ -653,8 +657,12 @@ class StelarAlgorithm:
         if is_trending:
             chart_bonus += 200
             
-        total = base_score + chart_bonus
-        return round(min(total, 1000), 1)
+        # 3. HIGH-RESOLUTION TIE BREAKER
+        # Ensures no two artists ever have exactly the same score
+        resolution = m / 1000.0
+            
+        total = base_score + chart_bonus + resolution
+        return round(total, 4) # High precision internal score
 
     @staticmethod
     def calculate_ignition_score(
@@ -1684,40 +1692,24 @@ if __name__ == "__main__":
             spotify_id = item.get('spotify_id', name_norm)
             kworb_rank = item.get('rank', i + 1)
             
-            # Base Power Score from Monthly Listeners (not position)
-            # 100M+ = 1000, 50M = 800, 10M = 500, 1M = 200
-            if monthly_listeners >= 100_000_000:
-                base_score = 1000
-            elif monthly_listeners >= 50_000_000:
-                base_score = 800 + (monthly_listeners - 50_000_000) / 250_000
-            elif monthly_listeners >= 10_000_000:
-                base_score = 500 + (monthly_listeners - 10_000_000) / 133_333
-            elif monthly_listeners >= 1_000_000:
-                base_score = 200 + (monthly_listeners - 1_000_000) / 30_000
-            else:
-                base_score = max(50, monthly_listeners / 5000)
-            
-            # Identify Engines
+            # PROPRIETARY ALGORITHM v4.0 (Fusion Mode)
+            is_trending = name_norm in yt_yt_trending
+            is_viral = name_norm in viral_lookup
             is_orbit = name_norm in orbit_names
-            is_velocity = name_norm in emerging_names or name_norm in viral_lookup or name_norm in yt_yt_trending
+            is_velocity = name_norm in emerging_names or is_viral or is_trending
             
-            # Bonus Fusion Logic for chart presence
-            bonus = 0
-            if name_norm in viral_lookup:
-                v_rank = viral_lookup[name_norm]
-                bonus += (51 - min(v_rank, 50)) * 5  # Up to 250 points
-            if name_norm in yt_yt_trending:
-                bonus += 200  # YouTube trending bonus
+            p_score = StelarAlgorithm.calculate_power_score(
+                monthly_listeners_millions=monthly_listeners / 1_000_000,
+                chart_position=orbit_names.get(name_norm, 0),
+                is_viral=is_viral,
+                is_trending=is_trending
+            )
+            
+            status = "Stable"
             if is_orbit:
-                o_rank = orbit_names[name_norm]
-                bonus += (101 - o_rank) * 3  # Up to 300 points
-                status = "Dominance" if o_rank <= 10 else "Established"
+                status = "Dominance" if orbit_names[name_norm] <= 10 else "Established"
             elif is_velocity:
-                status = "Breakout" if bonus > 200 else "Emerging"
-            else:
-                status = "Stable"
-            
-            p_score = min(1000, base_score + bonus)
+                status = "Breakout" if (is_viral or is_trending) else "Emerging"
             
             # Calculate growth velocity from daily change
             growth_velocity = 0.0
@@ -1850,7 +1842,7 @@ if __name__ == "__main__":
 
         # Final Engine Selection
         pulse = [v for k, v in master_artists.items() if v['is_orbit']]
-        pulse.sort(key=lambda x: x['orbit_rank'])
+        pulse.sort(key=lambda x: x['powerScore'], reverse=True)
         for i, p in enumerate(pulse): p['rank'] = i + 1
 
         # LAUNCHPAD: Expanded criteria for emerging artists

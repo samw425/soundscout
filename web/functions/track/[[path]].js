@@ -49,14 +49,33 @@ export async function onRequest(context) {
         const rankingsResponse = await fetch(`${url.origin}/rankings.json`);
         if (rankingsResponse.ok) {
             const data = await rankingsResponse.json();
-            // Flatten all rankings to find the artist (search global first for speed)
-            const allArtists = data.rankings.global || [];
-            const artist = allArtists.find(a =>
+            // Search all categories
+            const allCategories = Object.values(data.rankings).flat();
+            const artist = allCategories.find(a =>
                 a.name.toLowerCase() === artistName.toLowerCase() ||
-                a.id === artistSlug.toLowerCase().replace(/ /g, '-')
+                a.id === artistSlug.toLowerCase().replace(/ /g, '-') ||
+                a.name.toLowerCase().replace(/ /g, '-') === artistSlug.toLowerCase()
             );
             if (artist && artist.avatar_url) {
                 artistImage = artist.avatar_url;
+            } else {
+                // FALLBACK: Search Old School Legends
+                try {
+                    const osResponse = await fetch(`${url.origin}/oldschool.json`);
+                    if (osResponse.ok) {
+                        const osData = await osResponse.json();
+                        const osArtist = (osData.artists || []).find(a =>
+                            a.name.toLowerCase() === artistName.toLowerCase() ||
+                            a.id === artistSlug.toLowerCase().replace(/ /g, '-') ||
+                            a.name.toLowerCase().replace(/ /g, '-') === artistSlug.toLowerCase()
+                        );
+                        if (osArtist && osArtist.avatar_url) {
+                            artistImage = osArtist.avatar_url;
+                        }
+                    }
+                } catch (e) {
+                    // Ignore old school error
+                }
             }
         }
     } catch (e) {
@@ -245,12 +264,42 @@ export async function onRequest(context) {
         .btn-share:hover { background: rgba(255,255,255,0.12); }
         
         .footer {
-            padding: 30px 20px;
+            padding: 80px 20px 40px;
             text-align: center;
-            font-size: 11px;
-            color: #333;
             border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 60px;
+            margin-top: 100px;
+            background: linear-gradient(to bottom, transparent, #000);
+        }
+        .footer-tagline {
+            font-[9px];
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #444;
+            margin-bottom: 30px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: #FF4500; }
+        .footer-brand {
+            font-size: 14px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -303,7 +352,13 @@ export async function onRequest(context) {
     </main>
     
     <footer class="footer">
-        © 2026 STELAR · Music Intelligence
+        <div class="footer-tagline">Track the top. Discover the Next.</div>
+        <div class="footer-links">
+            <a href="/" class="footer-link">The Pulse</a>
+            <a href="/launchpad" class="footer-link">Launchpad</a>
+            <a href="/releases" class="footer-link">New Releases</a>
+        </div>
+        <div class="footer-brand">STELAR</div>
     </footer>
 </body>
 </html>`;
