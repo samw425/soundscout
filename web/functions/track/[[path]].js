@@ -26,7 +26,7 @@ export async function onRequest(context) {
     // ---------------------------------------------------------
     // We MUST use the YouTube Data API to search for videos.
     // The old listType=search embed no longer works.
-    // We search for "lyrics" to get Fan/UGC uploads that are always embeddable.
+    // We search for "official video" to get Fan/UGC uploads that are always embeddable.
 
     const origin = new URL(context.request.url).origin;
     const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI";
@@ -36,8 +36,8 @@ export async function onRequest(context) {
 
     // Try to find an embeddable video via API
     try {
-        const apiQuery = encodeURIComponent(`${artistName} ${trackName} lyrics`);
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=id&q=${apiQuery}&type=video&videoEmbeddable=true&maxResults=5&key=${API_KEY}`;
+        const apiQuery = encodeURIComponent(`${artistName} ${trackName} official video`);
+        const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${apiQuery}&type=video&maxResults=1&key=${API_KEY}`;
 
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -53,7 +53,7 @@ export async function onRequest(context) {
 
     // Fallback: Link to YouTube search (can't embed if API fails)
     if (!finalSrc) {
-        finalSrc = `https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0`; // Placeholder - will show "Watch on YouTube" instead
+        finalSrc = `https://www.youtube.com/embed/placeholder?autoplay=0`; // Placeholder - will show "Watch on YouTube" instead
     }
 
 
