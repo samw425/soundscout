@@ -42,7 +42,28 @@ export async function onRequest(context) {
     const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
     const youtubeEmbedUrl = videoId ? `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1` : null;
     const youtubeWatchUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : youtubeSearchUrl;
-    const ogImageUrl = `https://stelarmusic.pages.dev/api/og?type=track&artist=${encodeURIComponent(artistName)}&song=${encodeURIComponent(trackName)}`;
+
+    // Fetch artist image from rankings.json if possible
+    let artistImage = '';
+    try {
+        const rankingsResponse = await fetch(`${url.origin}/rankings.json`);
+        if (rankingsResponse.ok) {
+            const data = await rankingsResponse.json();
+            // Flatten all rankings to find the artist (search global first for speed)
+            const allArtists = data.rankings.global || [];
+            const artist = allArtists.find(a =>
+                a.name.toLowerCase() === artistName.toLowerCase() ||
+                a.id === artistSlug.toLowerCase().replace(/ /g, '-')
+            );
+            if (artist && artist.avatar_url) {
+                artistImage = artist.avatar_url;
+            }
+        }
+    } catch (e) {
+        console.error('Error fetching artist image:', e);
+    }
+
+    const ogImageUrl = `https://stelarmusic.pages.dev/api/og?type=track&artist=${encodeURIComponent(artistName)}&song=${encodeURIComponent(trackName)}${artistImage ? `&image=${encodeURIComponent(artistImage)}` : ''}`;
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -55,13 +76,18 @@ export async function onRequest(context) {
     <meta property="og:title" content="▶ ${trackName} — ${artistName}">
     <meta property="og:description" content="Listen to ${trackName} by ${artistName} on STELAR.">
     <meta property="og:image" content="${ogImageUrl}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:url" content="${url.href}">
     <meta property="og:site_name" content="STELAR">
     
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@stelarmusic">
     <meta name="twitter:title" content="▶ ${trackName} — ${artistName}">
     <meta name="twitter:description" content="Listen on STELAR">
     <meta name="twitter:image" content="${ogImageUrl}">
+    <meta name="twitter:image:src" content="${ogImageUrl}">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }

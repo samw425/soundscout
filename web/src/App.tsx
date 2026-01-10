@@ -33,7 +33,8 @@ import {
     Terminal,
     Cpu,
     Ticket,
-    Clock
+    Clock,
+    PlayCircle
 } from 'lucide-react';
 import { PowerIndexArtist, searchAllArtists, fetchRankingsData } from './lib/supabase';
 import { Analytics } from '@vercel/analytics/react';
@@ -2038,6 +2039,12 @@ export default function App() {
                                                                     {/* STREAMING SIGNALS */}
                                                                     <div className="flex items-center gap-3">
                                                                         <a
+                                                                            href={`/track/${release.artist.toLowerCase().replace(/\s+/g, '-')}/${release.name.toLowerCase().replace(/\s+/g, '-')}`}
+                                                                            className="flex-1 px-4 py-3 bg-accent text-black hover:bg-white rounded-full text-[9px] font-black uppercase tracking-widest text-center transition-all"
+                                                                        >
+                                                                            Watch
+                                                                        </a>
+                                                                        <a
                                                                             href={`https://open.spotify.com/search/${encodeURIComponent(release.artist + ' ' + release.name)}`}
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
@@ -2405,14 +2412,21 @@ const TopTracks = ({ artistName }: { artistName: string }) => {
                             >
                                 <Music className="w-4 h-4" /> Spotify
                             </button>
+                            <a
+                                href={`/track/${artistName.toLowerCase().replace(/\s+/g, '-')}/${track.trackName.toLowerCase().replace(/\s+/g, '-')}`}
+                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-accent hover:bg-accent text-accent hover:text-white transition-all uppercase text-[9px] font-black tracking-wider"
+                                title="Watch Full Video on STELAR"
+                            >
+                                <PlayCircle className="w-4 h-4" /> Watch
+                            </a>
                             <button
                                 onClick={() => {
-                                    const trackUrl = `https://stelarmusic.pages.dev/track/${encodeURIComponent(artistName.toLowerCase().replace(/ /g, '-'))}/${encodeURIComponent(track.trackName.toLowerCase().replace(/ /g, '-'))}`;
+                                    const trackUrl = `${window.location.origin}/track/${artistName.toLowerCase().replace(/\s+/g, '-')}/${track.trackName.toLowerCase().replace(/\s+/g, '-')}`;
                                     navigator.clipboard.writeText(trackUrl).then(() => {
                                         alert('Track link copied! Share this song anywhere.');
                                     });
                                 }}
-                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-accent hover:bg-accent text-slate-500 hover:text-white transition-all uppercase text-[9px] font-black tracking-wider"
+                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-white/30 hover:bg-white/5 text-slate-500 hover:text-white transition-all uppercase text-[9px] font-black tracking-wider"
                                 title="Copy Shareable Link"
                             >
                                 <Share2 className="w-4 h-4" /> Share

@@ -635,65 +635,42 @@ class StelarAlgorithm:
         - Discovery Index (10%): YouTube presence
         - Chart Bonus (10%): Billboard/chart positions
         """
-        # Streaming Power (0-500) - Increased from 350
-        # This is now 50% of the score to ensure Taylor Swift (114M) wins over Bad Bunny (83M)
-        if streams_millions >= 200:
-            stream_score = 500
-        elif streams_millions >= 100:
-            stream_score = 450 + (streams_millions - 100) / 100 * 50
+        # 1. STREAMING POWER (0-700) - HEAVILY WEIGHTED
+        # We use a logarithmic-like scale that rewards extreme dominance
+        if streams_millions >= 100:
+            # Taylor Swift (113M), The Weeknd (120M) tier
+            stream_score = 650 + (min(streams_millions, 150) - 100)
         elif streams_millions >= 70:
-            stream_score = 350 + (streams_millions - 70) / 30 * 100
+            # Bad Bunny (82M), Ariana Grande (95M) tier
+            stream_score = 550 + (streams_millions - 70) * 3
         elif streams_millions >= 30:
-            stream_score = 200 + (streams_millions - 30) / 40 * 150
+            stream_score = 300 + (streams_millions - 30) * 6
         else:
-            stream_score = streams_millions / 30 * 200
-        
-        # Daily Momentum (0-200) - Reduced from 250
-        if daily_millions >= 50:
-            daily_score = 200
-        elif daily_millions >= 20:
-            daily_score = 150 + (daily_millions - 20) / 30 * 50
-        else:
-            daily_score = daily_millions / 20 * 150
+            stream_score = (streams_millions / 30) * 300
 
-        # Social Reach (0-150)
+        # 2. DAILY MOMENTUM (0-150)
+        if daily_millions >= 40:
+            daily_score = 150
+        else:
+            daily_score = (daily_millions / 40) * 150
+
+        # 3. SOCIAL & CHART BONUS (0-150)
         total_social = tiktok + instagram
-        if total_social >= 100_000_000:
-            social_score = 150
-        elif total_social >= 50_000_000:
-            social_score = 100 + (total_social - 50_000_000) / 50_000_000 * 50
-        else:
-            social_score = total_social / 50_000_000 * 100
-            
-        # Discovery Index (0-100)
-        if youtube >= 50_000_000:
-            discovery_score = 100
-        else:
-            discovery_score = youtube / 50_000_000 * 100
-
-
-        # Chart Bonus (0-50) - Reduced from 100
-        if chart_position > 0 and chart_position <= 200:
-            chart_score = 50 - (chart_position - 1) / 4
-        else:
-            chart_score = 0
-            
-        # GLOBAL PENALTY: If monthly listeners are low, they shouldn't be in Global Top 20
-        # This prevents flukes with high social but low streams from polluting the main ranking
-        if streams_millions < 10:
-            penalty = (10 - streams_millions) * 20
-            stream_score -= penalty
-
-        total = stream_score + daily_score + social_score + discovery_score + chart_score
+        social_score = min(100, (total_social / 100_000_000) * 100)
         
-        # PENALTY: Small Artists (Prevent Arbitrage from overtaking Global Top 10)
-        if streams_millions < 10:
-             total *= 0.5 # Crush small artists
-
-        # PENALTY: Legacy/Has-Been (Dropping fast)
-        # Fixes: Yoko Ono (-40%) appearing in Top 10
-        if daily_millions < 2.0 and streams_millions > 20: 
-             total *= 0.5
+        chart_score = 0
+        if chart_position > 0 and chart_position <= 100:
+            chart_score = 50 - (chart_position / 2)
+            
+        total = stream_score + daily_score + social_score + chart_score
+        
+        # PENALTY: Small Artists in Global Reach
+        if streams_millions < 15:
+             total *= 0.6
+             
+        # PENALTY: Stagnant/Declining Legacy
+        if daily_millions < 1.0 and streams_millions > 30:
+             total *= 0.7
 
         return round(min(total, 1000), 1)
     
@@ -1899,7 +1876,9 @@ if __name__ == "__main__":
         # 3. OUTPUT GENERATION
         # ---------------------------------------------------------
         print("[3/3] Saving Large-Scale Intelligence Package...")
-        output_path = '../web/public/rankings.json'
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        output_path = os.path.join(script_dir, '../web/public/rankings.json')
         
         # Build Genre Packages
         genre_lists = {g.lower().replace(' & ', '_').replace(' ', '_'): [] for g in GENRES}
