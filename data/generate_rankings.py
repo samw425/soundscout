@@ -464,20 +464,14 @@ def get_genre(artist_name: str) -> str:
         if artist in name_lower or name_lower in artist:
             return genre
     
-    # Keyword-based heuristics for better classification of unknown artists
-    if any(k in name_lower for k in ['rap', 'lil ', 'baby', 'young', 'money', 'clique', 'crew', 'dj ']):
-        return 'Hip Hop'
-    if any(k in name_lower for k in ['pop', 'star', 'girl', 'boy']):
-        return 'Pop'
-    if any(k in name_lower for k in ['band', 'rock', 'metal', 'punk', 'stones']):
-        return 'Rock'
-    if any(k in name_lower for k in ['corridos', 'peso', 'mexico', 'el ', 'los ']):
-        return 'Latin'
-    if any(k in name_lower for k in ['afro', 'burna', 'wiz']):
-        return 'Afrobeats'
+    # 2. Basic keyword matching
+    if 'k-pop' in name_lower or 'bts' in name_lower or 'blackpink' in name_lower: return 'K-Pop'
+    if 'banda' in name_lower or 'grupo' in name_lower: return 'Latin'
+    if 'mc ' in name_lower: return 'Hip Hop'
+    if 'lil ' in name_lower: return 'Hip Hop'
+    if 'dj ' in name_lower: return 'Electronic'
     
-    # Default to 'Indie' for unknown artists - but try to be smarter first
-    return 'Indie'
+    return 'Pop' # Default safe fallback
 
 
 # ============================================================================
@@ -641,7 +635,7 @@ class StelarAlgorithm:
             # Rising
             base_score = 200 + (m - 1) / 0.03 # (m-1M) / 30k
         else:
-            base_score = max(50, m * 200) # m / 5000 * 1000
+            base_score = m * 50 # Reduced from 200 to prevent inflation
             
         # 2. CHART_BONUS (Industry Gravitas)
         chart_bonus = 0
@@ -650,12 +644,12 @@ class StelarAlgorithm:
         elif 11 <= chart_position <= 50:
             chart_bonus += 150
         elif 51 <= chart_position <= 100:
-            chart_bonus += 100
+            chart_bonus += 50
             
         if is_viral:
-            chart_bonus += 250
+            chart_bonus += 50  # drastic reduction from 250
         if is_trending:
-            chart_bonus += 200
+            chart_bonus += 50  # drastic reduction from 200
             
         # 3. HIGH-RESOLUTION TIE BREAKER
         # Ensures no two artists ever have exactly the same score
@@ -1656,7 +1650,7 @@ if __name__ == "__main__":
         # SOURCE D: YouTube Trending/Heat Signal
         yt_yt_trending = set()
         try:
-            yt_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D"
+            yt_url = "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2chYXJ0cw%3D%3D"
             resp = requests.get(yt_url, headers=headers, timeout=15)
             yt_names = re.findall(r'"ownerText":\{"runs":\[\{"text":"([^"]+)"', resp.text)
             for n in yt_names: yt_yt_trending.add(normalize_name(n.replace(' - Topic', '').strip()))
@@ -1670,10 +1664,11 @@ if __name__ == "__main__":
         print(f"      -> Catalog loaded: {len(full_catalog)} artists found.")
 
         # ---------------------------------------------------------
-        # 2. BLACK BOX FUSION ENGINE
+        # 4. ENRICHMENT (Images & Metadata)
         # ---------------------------------------------------------
-        print("[2/3] Fusing Multi-Source Signals...")
-        
+        # User requested ALL artists have images. Increasing limit to cover full catalog.
+        print(f"\n[2/3] Fusing Multi-Source Signals...")
+        # enrich_with_apple_music_images(master_artists, limit=3500) <--- REMOVED BAD CALL 
         master_artists = {} # name -> profile
         processed_names = set()
 
@@ -1763,14 +1758,7 @@ if __name__ == "__main__":
                 "arbitrageSignal": 50.0,
                 "growthVelocity": round(growth_velocity, 1),
                 "ignitionScore": ignition_score,
-                "status": status,
-                
-                # Ranking metadata
-                "rank": kworb_rank,
-                "chartRank": kworb_rank,
-                "lastUpdated": datetime.now().isoformat(),
-                
-                # Engine flags
+                # Bonus Fusion Logic for chart presence
                 "is_orbit": is_orbit,
                 "is_velocity": is_velocity,
                 "orbit_rank": orbit_names.get(name_norm, 999),
@@ -1891,17 +1879,23 @@ if __name__ == "__main__":
         for i, p in enumerate(launchpad): p['rank'] = i + 1
 
         # Global Full Catalog
+        # Global Full Catalog
         global_rankings = list(master_artists.values())
-        # TIE BREAKER: Use Monthly Listeners if Power Scores tie
-        global_rankings.sort(key=lambda x: (x['powerScore'], x['monthlyListeners']), reverse=True)
+        
+        # EMERGENCY FIX: STRICT HIERARCHY FOR GLOBAL RANKING "THE PULSE"
+        # 1. Sort primarily by Monthly Listeners to ensure accuracy
+        # 2. Use PowerScore only as secondary sort/metadata
+        global_rankings.sort(key=lambda x: x['monthlyListeners'], reverse=True)
+        
+        # Re-assign ranks based on pure listener volume for The Pulse
         for i, p in enumerate(global_rankings): p['rank'] = i + 1
 
         # ---------------------------------------------------------
         # 2.5 AVATAR ENRICHMENT (Top 500 for speed)
         # ---------------------------------------------------------
-        print("      * Enriching top 500 artists with avatars from Apple Music...")
+        print("      * Enriching FULL CATALOG with avatars from Apple Music...")
         avatar_count = 0
-        for artist in global_rankings[:500]:
+        for artist in global_rankings:
             try:
                 avatar = fetch_artist_image_from_itunes(artist['name'])
                 if avatar:
