@@ -286,7 +286,7 @@ export async function onRequest(context) {
         
         <div class="video-wrapper">
             <iframe 
-                src="${youtubeEmbedUrl}"
+                src="${finalSrc}"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
             </iframe>
