@@ -29,10 +29,8 @@ export async function onRequest(context) {
     // Instead, we use the 'search' listType which dynamically finds
     // and plays the best AVAILABLE integerable video.
 
-    const origin = new URL(context.request.url).origin;
-    const youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName} lyrics`);
-    // CRITICAL FIX: Variable name must match usage in HTML (finalSrc)
-    const finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
+    // Simplest possible embed string to maximize compatibility
+    const finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&autoplay=1&mute=0&rel=0&modestbranding=1`;
 
     // ---------------------------------------------------------
     // FETCH ARTIST IMAGE FOR OG (Unchanged)
