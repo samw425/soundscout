@@ -295,6 +295,7 @@ export async function onRequest(context) {
         
         <div class="buttons">
             <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!'))" class="btn btn-share">📋 Share Track</button>
+            <a href="https://www.youtube.com/results?search_query=${youtubeSearchQuery}" target="_blank" class="btn btn-share" style="background: rgba(255, 0, 0, 0.2); border-color: rgba(255, 0, 0, 0.4);">▶ Watch on YouTube</a>
         </div>
     </main>
     
