@@ -30,6 +30,8 @@ export async function onRequest(context) {
 
     const origin = new URL(context.request.url).origin;
     let finalSrc = '';
+    // Define query globally so it's available for the "Watch on YouTube" button
+    let youtubeSearchQuery = encodeURIComponent(`${artistName} ${trackName} lyrics -vevo`);
 
     // User Provided Key
     const API_KEY = context.env.YOUTUBE_API_KEY || "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI";
