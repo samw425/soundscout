@@ -207,46 +207,82 @@ export async function fetchViralArtists(): Promise<PowerIndexArtist[]> {
 /**
  * Search ALL artists across all categories.
  * Returns matching artists from the entire database.
+ * Enhanced: Normalizes names for fuzzy matching (jcole → J. Cole)
+ */
+// Cache for ALL unique artists (deduplicated)
+let allArtistsCache: PowerIndexArtist[] | null = null;
+
+/**
+ * Search ALL artists across all categories.
+ * Returns matching artists from the entire database.
+ * Optimized: Caches the unified artist list to prevent expensive re-aggregation on every keystroke.
  */
 export async function searchAllArtists(query: string): Promise<PowerIndexArtist[]> {
     const data = await fetchRankingsData();
     if (!data || !query.trim()) return [];
 
-    const normalizedQuery = query.toLowerCase().trim();
+    // 1. Build the cache if it doesn't exist or data has changed
+    // We check if cache exists, if not we build it ONCE.
+    if (!allArtistsCache) {
+        // Use a Map for O(1) deduplication by ID
+        const allArtistsMap = new Map<string, PowerIndexArtist>();
 
-    // Search across ALL categories for maximum coverage
-    const allArtistsMap = new Map<string, PowerIndexArtist>();
-
-    Object.values(data.rankings).forEach(categoryArtists => {
-        categoryArtists.forEach(artist => {
-            if (!allArtistsMap.has(artist.id)) {
-                allArtistsMap.set(artist.id, artist);
+        // Aggregate from ALL categories
+        Object.values(data.rankings).forEach(categoryArtists => {
+            if (Array.isArray(categoryArtists)) {
+                categoryArtists.forEach(artist => {
+                    if (artist && artist.id && !allArtistsMap.has(artist.id)) {
+                        allArtistsMap.set(artist.id, artist);
+                    }
+                });
             }
         });
+
+        allArtistsCache = Array.from(allArtistsMap.values());
+        console.log(`[STELAR] Search Index Built: ${allArtistsCache.length} unique artists.`);
+    }
+
+    const normalizedQuery = query.toLowerCase().trim();
+    // Also create a stripped version for fuzzy matching (remove periods, spaces, special chars)
+    const strippedQuery = normalizedQuery.replace(/[^a-z0-9]/g, '');
+
+    // 2. Filter the cached list
+    const matches = allArtistsCache.filter(artist => {
+        if (!artist.name) return false;
+
+        const nameLower = artist.name.toLowerCase();
+        const nameStripped = nameLower.replace(/[^a-z0-9]/g, '');
+
+        // Direct match
+        const nameMatch = nameLower.includes(normalizedQuery);
+        // Fuzzy match (jcole → jcole matches j.cole → jcole)
+        const fuzzyMatch = nameStripped.includes(strippedQuery) || (strippedQuery.length > 2 && strippedQuery.includes(nameStripped));
+
+        const genreMatch = artist.genre && artist.genre.toLowerCase().includes(normalizedQuery);
+
+        // Only check country if it exists
+        const countryMatch = artist.country && artist.country.toLowerCase().includes(normalizedQuery);
+
+        return nameMatch || fuzzyMatch || genreMatch || countryMatch;
     });
 
-    const allArtists = Array.from(allArtistsMap.values());
-
-    // Search by name, genre, country
-    const matches = allArtists.filter(artist => {
-        const nameMatch = artist.name.toLowerCase().includes(normalizedQuery);
-        const genreMatch = artist.genre.toLowerCase().includes(normalizedQuery);
-        const countryMatch = artist.country?.toLowerCase().includes(normalizedQuery);
-        return nameMatch || genreMatch || countryMatch;
-    });
-
-    // Sort by relevance (exact matches first)
+    // 3. Sort by relevance
     matches.sort((a, b) => {
-        const aExact = a.name.toLowerCase().startsWith(normalizedQuery) ? 1 : 0;
-        const bExact = b.name.toLowerCase().startsWith(normalizedQuery) ? 1 : 0;
+        const aNameLower = a.name.toLowerCase();
+        const bNameLower = b.name.toLowerCase();
+
+        // Exact start match gets highest priority
+        const aExact = aNameLower.startsWith(normalizedQuery) ? 2 : 0;
+        const bExact = bNameLower.startsWith(normalizedQuery) ? 2 : 0;
 
         if (aExact !== bExact) return bExact - aExact;
 
         // Then by popularity (powerScore)
-        return b.powerScore - a.powerScore;
+        return (b.powerScore || 0) - (a.powerScore || 0);
     });
 
-    return matches;
+    // Limit results to top 20 for performance during rendering
+    return matches.slice(0, 50);
 }
 
 /**
