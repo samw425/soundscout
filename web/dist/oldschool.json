@@ -4153,30 +4153,58 @@
     {
       "id": "os-149",
       "rank": 149,
-      "name": "Heart",
-      "genre": "Rock",
-      "era": "80s",
-      "peakYear": 1985,
+      "name": "Bun B",
+      "genre": "Hip Hop",
+      "era": "90s/00s",
+      "peakYear": 2005,
       "country": "USA",
       "status": "Legend",
-      "bio": "Wilson sisters. Barracuda.",
-      "monthlyListeners": 10000000,
-      "totalStreams": 5000000000,
+      "bio": "One half of the legendary Southern rap duo UGK. A pioneer of dirty south hip hop and a respected statesman of the genre.",
+      "monthlyListeners": 1200000,
+      "totalStreams": 500000000,
       "grammy_wins": 0,
-      "billboard_no1": 0,
+      "billboard_no1": 1,
       "signature_songs": [
-        "Barracuda",
-        "Alone",
-        "What About Love",
-        "These Dreams",
-        "Crazy on You"
+        "International Players Anthem",
+        "Get Throwed",
+        "Draped Up",
+        "Trill Recognize Trill",
+        "Pocket Full of Stones"
       ],
       "sources": {
-        "wikipedia": "https://en.wikipedia.org/wiki/Heart",
-        "spotify": "",
-        "allmusic": ""
+        "wikipedia": "https://en.wikipedia.org/wiki/Bun_B",
+        "spotify": "https://open.spotify.com/artist/3S8S2v8288Y8Y8Y8Y8Y8Y8",
+        "allmusic": "https://www.allmusic.com/artist/bun-b-mn0000570123"
       },
-      "avatar_url": ""
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0d/3c/6c/0d3c6c0b-1a5c-5f8e-4a8b-1b2c3d4e5f6g/886445635829.jpg/600x600bb.jpg"
+    },
+    {
+      "id": "os-150",
+      "rank": 150,
+      "name": "Pimp C",
+      "genre": "Hip Hop",
+      "era": "90s/00s",
+      "peakYear": 1996,
+      "country": "USA",
+      "status": "Legend",
+      "bio": "The late, great co-founder of UGK. Known for his soulful production and unapologetic Southern style that defined an era of Houston rap.",
+      "monthlyListeners": 1500000,
+      "totalStreams": 800000000,
+      "grammy_wins": 0,
+      "billboard_no1": 1,
+      "signature_songs": [
+        "International Players Anthem",
+        "Big Pimpin'",
+        "One Day",
+        "Front, Back & Side to Side",
+        "Pocket Full of Stones"
+      ],
+      "sources": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pimp_C",
+        "spotify": "https://open.spotify.com/artist/4EnEZVjo3w1cwcE2WcGg0O",
+        "allmusic": "https://www.allmusic.com/artist/pimp-c-mn0000350921"
+      },
+      "avatar_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/aa/07/db/aa07db20-0b14-d09c-ead7-5b9e3680cb76/00602527051840.rgb.jpg/600x600bb.jpg"
     }
   ]
 }

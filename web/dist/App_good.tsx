@@ -28,7 +28,6 @@ import {
     LayoutGrid,
     List,
     Disc,
-    Flame,
     Share2,
     Youtube,
     Terminal,
@@ -112,7 +111,7 @@ const getInitials = (name: string): string => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
-type TabType = 'the-pulse' | 'hot-500' | 'old-school' | 'sonic-signals' | 'locked-roster' | 'the-radar' | 'new-releases' | 'live-tours' | 'about' | 'privacy' | 'terms';
+type TabType = 'the-pulse' | 'old-school' | 'sonic-signals' | 'locked-roster' | 'the-launchpad' | 'new-releases' | 'live-tours' | 'about' | 'privacy' | 'terms';
 
 // ============================================================================
 // ONBOARDING COMPONENT
@@ -811,8 +810,8 @@ export default function App() {
             }
 
             let data: PowerIndexArtist[] = [];
-            if (activeTab === 'the-radar') {
-                data = rankingsData.rankings.radar || [];
+            if (activeTab === 'the-launchpad') {
+                data = rankingsData.rankings.up_and_comers || [];
             } else if (activeTab === 'sonic-signals') {
                 data = rankingsData.rankings.arbitrage || [];
             } else {
@@ -1032,9 +1031,9 @@ export default function App() {
                 }
             }
 
-            // Handle /radar deep link (previously /launchpad)
-            if (path === '/radar' || path === '/radar/') {
-                setActiveTab('the-radar');
+            // Handle /launchpad deep link
+            if (path === '/launchpad' || path === '/launchpad/') {
+                setActiveTab('the-launchpad');
             }
 
             // Handle /releases deep link
@@ -1104,10 +1103,10 @@ export default function App() {
             result = result.filter(a => watchlist.has(a.id));
         }
 
-        // Filter by tab (The Radar - Professional Scout Engine)
+        // Filter by tab (Launchpad - Professional Scout Engine)
         // NOTE: up_and_comers is PRE-CURATED in generate_rankings.py with 150 artists
         // No additional filtering needed - just sort by potential
-        if (activeTab === 'the-radar') {
+        if (activeTab === 'the-launchpad') {
             // PROFESSIONAL SORTING: Prioritize 'Signing Candidates' 
             // Candidates are Independent + High Growth Velocity
             result = [...result].sort((a, b) => {
@@ -1135,8 +1134,8 @@ export default function App() {
         }));
 
         // Reset limit when changing tabs/search/filters
-        // STELAR: Orbit (Pulse) shows full 3000 catalog. The Radar shows 150.
-        setDisplayLimit(activeTab === 'the-pulse' ? 3000 : (activeTab === 'the-radar' ? 150 : 50));
+        // STELAR: Orbit (Pulse) shows full 3000 catalog. Launchpad shows 150.
+        setDisplayLimit(activeTab === 'the-pulse' ? 3000 : (activeTab === 'the-launchpad' ? 150 : 50));
         return result;
     }, [artists, searchResults, searchQuery, activeTab, watchlist, userTier, selectedGenre, selectedStructure]);
 
@@ -1224,7 +1223,7 @@ export default function App() {
                 <div
                     className="vibrancy-glow fixed inset-0 w-full h-full"
                     style={{
-                        background: activeTab === 'the-radar' ? '#FF4500' :
+                        background: activeTab === 'the-launchpad' ? '#FF4500' :
                             activeTab === 'sonic-signals' ? '#9333ea' :
                                 activeTab === 'the-pulse' ? '#3B82F6' :
                                     '#FF4500',
@@ -1291,17 +1290,17 @@ export default function App() {
                                     </button>
 
                                     <button
-                                        onClick={() => { setActiveTab('the-radar'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/radar'); }}
+                                        onClick={() => { setActiveTab('the-launchpad'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/launchpad'); }}
                                         className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
-                                            ${activeTab === 'the-radar'
+                                            ${activeTab === 'the-launchpad'
                                                 ? 'text-white'
                                                 : 'text-slate-600 hover:text-white'}`}
                                     >
                                         <div className="flex items-center gap-4">
-                                            <Zap className={`w-5 h-5 ${activeTab === 'the-radar' ? 'text-accent' : 'text-slate-800'}`} />
-                                            <span>The Radar</span>
+                                            <Zap className={`w-5 h-5 ${activeTab === 'the-launchpad' ? 'text-accent' : 'text-slate-800'}`} />
+                                            <span>The Launchpad</span>
                                         </div>
-                                        {activeTab === 'the-radar' ? (
+                                        {activeTab === 'the-launchpad' ? (
                                             <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                                         ) : (
                                             <span className="text-[8px] text-slate-800 font-black tracking-widest">LIVE</span>
@@ -1332,18 +1331,6 @@ export default function App() {
                                             <span>New Releases</span>
                                         </div>
                                         {activeTab === 'new-releases' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
-                                    </button>
-
-                                    <button
-                                        onClick={() => { setActiveTab('hot-500'); setSelectedArtist(null); setActiveDiscoveryList(null); setMobileMenuOpen(false); window.history.pushState({}, '', '/hot500'); }}
-                                        className={`w-full flex items-center justify-between px-6 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all
-                                            ${activeTab === 'hot-500' ? 'text-white' : 'text-slate-600 hover:text-white'}`}
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <Flame className={`w-5 h-5 ${activeTab === 'hot-500' ? 'text-accent' : 'text-slate-800'}`} />
-                                            <span>HOT 500</span>
-                                        </div>
-                                        {activeTab === 'hot-500' && <div className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                     </button>
 
                                     <button
@@ -1452,13 +1439,12 @@ export default function App() {
                                 <div>
                                     <h1 className="text-xl font-black text-white tracking-widest uppercase mb-1">
                                         {activeTab === 'the-pulse' ? 'The Pulse' :
-                                            activeTab === 'hot-500' ? 'HOT 500' :
-                                                activeTab === 'old-school' ? 'Legends Index' :
-                                                    activeTab === 'sonic-signals' ? 'Sonic Signals' :
-                                                        activeTab === 'the-radar' ? 'The Radar' :
-                                                            activeTab === 'new-releases' ? 'New Releases' :
-                                                                activeTab === 'about' ? 'How It Works' :
-                                                                    'STELAR Engine'}
+                                            activeTab === 'old-school' ? 'Legends Index' :
+                                                activeTab === 'sonic-signals' ? 'Sonic Signals' :
+                                                    activeTab === 'the-launchpad' ? 'The Launchpad' :
+                                                        activeTab === 'new-releases' ? 'New Releases' :
+                                                            activeTab === 'about' ? 'How It Works' :
+                                                                'STELAR Engine'}
                                     </h1>
                                     <div className="flex items-center gap-4 text-[9px] font-bold uppercase tracking-wider">
                                         <span className="text-accent flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div> Live Data</span>
@@ -1481,7 +1467,7 @@ export default function App() {
                                         setSearchQuery(e.target.value);
                                         if (e.target.value) setSelectedArtist(null);
                                     }}
-                                    placeholder="SEARCH ARTISTS OR SONGS..."
+                                    placeholder="SEARCH 3000+ ARTISTS..."
                                     className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white uppercase tracking-widest focus:bg-white/10 focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all outline-none placeholder:text-slate-700 shadow-inner"
                                 />
                             </div>
@@ -1498,7 +1484,7 @@ export default function App() {
                                         setSearchQuery(e.target.value);
                                         if (e.target.value) setSelectedArtist(null);
                                     }}
-                                    placeholder="Search artists or songs..."
+                                    placeholder="Search artists..."
                                     className="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all outline-none placeholder:text-slate-500"
                                 />
                             </div>
@@ -1584,7 +1570,7 @@ export default function App() {
                                 ) : (
                                     <>
                                         {/* Global Header for Index/Discovery */}
-                                        {!activeDiscoveryList && activeTab !== 'the-radar' && (
+                                        {!activeDiscoveryList && activeTab !== 'the-launchpad' && (
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                                                 <div>
                                                     <h1 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter flex items-center gap-3">
@@ -1712,20 +1698,20 @@ export default function App() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        ) : activeTab === 'the-radar' ? (
+                                        ) : activeTab === 'the-launchpad' ? (
                                             <div className="max-w-6xl mx-auto space-y-6">
                                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                                                    <div className="flex-1">
+                                                    <div>
                                                         <h2 className="text-3xl font-black text-[#FF4500] mb-2 uppercase tracking-tighter flex items-center gap-3">
                                                             <Terminal className="w-8 h-8" />
-                                                            The Radar
+                                                            The Launchpad
                                                             <div className="flex items-center gap-1.5 ml-2">
                                                                 <div className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse shadow-[0_0_10px_rgba(255,69,0,0.5)]"></div>
-                                                                <span className="text-[10px] text-[#FF4500] font-mono uppercase tracking-widest">Scanning Now</span>
+                                                                <span className="text-[10px] text-[#FF4500] font-mono uppercase tracking-widest">Proprietary Scout Engine Active</span>
                                                             </div>
                                                         </h2>
                                                         <p className="text-slate-500 text-sm font-medium">
-                                                            Find your next favorite artist before anyone else. These are the names you'll be hearing everywhere soon.
+                                                            Proprietary Signal Fusion Engine. Classifying high-velocity anomalies and the world's best unsigned talent.
                                                         </p>
                                                     </div>
                                                     <div className="flex items-center gap-4">
@@ -1746,19 +1732,19 @@ export default function App() {
                                                     <div className="flex-1">
                                                         <div className="flex items-center gap-3 mb-1">
                                                             <Zap className="w-4 h-4 text-accent animate-pulse" />
-                                                            <span className="text-white font-black text-xs uppercase tracking-widest">Fresh Picks Weekly</span>
+                                                            <span className="text-white font-black text-xs uppercase tracking-widest">Live Engine Signal</span>
                                                         </div>
                                                         <p className="text-slate-400 text-sm">
-                                                            <strong className="text-white">150+ emerging artists</strong> we're watching right now. Updated every Sunday with new discoveries.
+                                                            <strong className="text-white">150+ Breakout Artists</strong> identified by the STELAR Discovery Engine. More coming weekly.
                                                         </p>
                                                     </div>
                                                     <div className="text-right flex flex-col items-end">
-                                                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Next Update</div>
-                                                        <div className="px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-xs text-accent">SUNDAY</div>
+                                                        <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Last Sync</div>
+                                                        <div className="px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-xs text-accent">EVERY SUNDAY</div>
                                                     </div>
                                                 </div>
 
-                                                {/* GRID VIEW FOR THE RADAR - Natural Space */}
+                                                {/* GRID VIEW FOR LAUNCHPAD - Natural Space */}
                                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-10 border-t border-white/5">
                                                     {visibleArtists.map((artist) => (
                                                         <div
@@ -1867,7 +1853,7 @@ export default function App() {
                                                 {/* LIVE TOURS HEADER */}
                                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                                                     <div>
-                                                        <h2 className="text-3xl font-black text-accent mb-2 uppercase tracking-tighter flex items-center gap-3">
+                                                        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter flex items-center gap-3">
                                                             <Ticket className="w-8 h-8 text-accent" />
                                                             Live Tours 2026
                                                         </h2>
@@ -2084,60 +2070,6 @@ export default function App() {
                                                             ))}
                                                     </div>
                                                 )}
-                                            </div>
-                                        ) : activeTab === 'hot-500' ? (
-                                            <div className="max-w-6xl mx-auto space-y-6">
-                                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                                                    <div>
-                                                        <h1 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter flex items-center gap-3">
-                                                            HOT 500
-                                                            <div className="flex items-center gap-1.5 ml-2">
-                                                                <div className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse shadow-[0_0_10px_rgba(255,95,21,0.5)]"></div>
-                                                                <span className="text-[10px] text-[#FF4500] font-mono uppercase tracking-widest">Global Top</span>
-                                                            </div>
-                                                        </h1>
-                                                        <p className="text-slate-500 text-sm font-medium">
-                                                            The top 500 most influential artists on the planet right now, ranked by proprietary velocity.
-                                                        </p>
-                                                    </div>
-                                                    <div className="text-xs text-[#FF4500] font-mono font-black">{filteredArtists.slice(0, 500).length} ARTISTS</div>
-                                                </div>
-
-                                                <div className="divide-y divide-white/5 border-t border-white/5">
-                                                    {filteredArtists.slice(0, 500).map((artist, i) => (
-                                                        <div
-                                                            key={artist.id}
-                                                            onClick={() => handleSelectArtist(artist)}
-                                                            className="flex items-center gap-8 py-6 px-6 -mx-6 group cursor-pointer hover:bg-white/[0.01] transition-colors rounded-xl"
-                                                        >
-                                                            <span className="text-2xl font-black text-slate-800 group-hover:text-accent transition-colors w-12">{padRank(i + 1)}</span>
-
-                                                            <div className="relative w-14 h-14 shrink-0">
-                                                                <img
-                                                                    src={artist.avatar_url || ''}
-                                                                    className="w-full h-full rounded-xl object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all"
-                                                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                                                                />
-                                                            </div>
-
-                                                            <div className="flex-1 min-w-0">
-                                                                <h3 className="text-xl font-black text-white uppercase tracking-tighter truncate group-hover:text-accent transition-colors">{artist.name}</h3>
-                                                                <div className="flex items-center gap-3 mt-1">
-                                                                    <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{artist.genre}</div>
-                                                                    {artist.growthVelocity > 0 && <div className="text-[10px] text-green-500 font-black">+{artist.growthVelocity.toFixed(1)}%</div>}
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="flex items-center gap-4">
-                                                                <div className="text-right hidden md:block">
-                                                                    <div className="text-[8px] text-slate-700 font-black uppercase tracking-widest mb-0.5">Listeners</div>
-                                                                    <div className="text-xs text-white font-mono font-bold">{formatNumber(artist.monthlyListeners)}</div>
-                                                                </div>
-                                                                <ChevronRight className="w-5 h-5 text-slate-800 group-hover:text-white transition-colors" />
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
                                             </div>
                                         ) : activeTab === 'old-school' ? (
                                             <div className="max-w-6xl mx-auto space-y-6">
@@ -2367,8 +2299,7 @@ export default function App() {
 
 // ============================================================================
 
-const TopTracks = ({ artist }: { artist: PowerIndexArtist }) => {
-    const artistName = artist.name;
+const TopTracks = ({ artistName }: { artistName: string }) => {
     const [tracks, setTracks] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [playing, setPlaying] = useState<string | null>(null);
@@ -2379,44 +2310,22 @@ const TopTracks = ({ artist }: { artist: PowerIndexArtist }) => {
             if (!artistName) return;
             setLoading(true);
             try {
-                let foundTracks: any[] = [];
+                // SAFER CLEAN: Only strip content in parentheses at the END of the name
+                const cleanName = artistName
+                    .replace(/\s*\(.*\)$/, '')
+                    .trim();
 
-                // Strategy 1: Search by Name precisely
-                const res = await fetch(`/api/itunes?term=${encodeURIComponent(artistName)}&entity=song&limit=50`);
-                const data = await res.json();
+                // 2. PRIMARY FETCH
+                let res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(cleanName)}&entity=song&limit=50`);
+                let data = await res.json();
 
-                if (data.results && data.results.length > 0) {
-                    // Try to find exact artist matches first
-                    const exactMatches = data.results.filter((r: any) =>
-                        r.artistName?.toLowerCase() === artistName.toLowerCase()
-                    );
-
-                    if (exactMatches.length > 0) {
-                        foundTracks = exactMatches;
-                    } else {
-                        // If no exact matches, take everything that includes the first word of the artist name
-                        const firstWord = artistName.split(' ')[0].toLowerCase();
-                        foundTracks = data.results.filter((r: any) =>
-                            r.artistName?.toLowerCase().includes(firstWord)
-                        );
-                    }
+                // 3. FALLBACK: Try original name if search failed or returned too few results
+                if ((!data.results || data.results.length < 1) && cleanName !== artistName) {
+                    res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(artistName)}&entity=song&limit=50`);
+                    data = await res.json();
                 }
 
-                // Strategy 2: If still no tracks, try a broader search without entity=song (sometimes categorized as musicVideo or other)
-                if (foundTracks.length === 0) {
-                    const broadRes = await fetch(`/api/itunes?term=${encodeURIComponent(artistName)}&limit=50`);
-                    const broadData = await broadRes.json();
-                    if (broadData.results) {
-                        foundTracks = broadData.results.filter((r: any) => r.wrapperType === 'track');
-                    }
-                }
-
-                // Strategy 3: Just show everything from the first search if all filtering failed
-                if (foundTracks.length === 0 && data.results && data.results.length > 0) {
-                    foundTracks = data.results;
-                }
-
-                setTracks(foundTracks);
+                setTracks(data.results || []);
             } catch (e) {
                 console.error("Failed to fetch tracks", e);
                 setTracks([]);
@@ -2445,6 +2354,45 @@ const TopTracks = ({ artist }: { artist: PowerIndexArtist }) => {
         }
     };
 
+    // Load tracks with fallback to search
+    useEffect(() => {
+        if (!artistName) return;
+        setLoading(true);
+        setTracks([]);
+
+        const fetchTracks = async () => {
+            try {
+                // Try ID lookup first if we have a numeric ID (iTunes ID)
+                let data = null;
+                if (artist?.id && /^\d+$/.test(artist.id)) {
+                    const res = await fetch(`https://itunes.apple.com/lookup?id=${artist.id}&entity=song&limit=50`);
+                    data = await res.json();
+                }
+
+                // If no ID or lookup failed/returned empty, try search by name
+                if (!data || !data.results || data.results.length === 0) {
+                    // console.log('Falling back to search for:', artistName);
+                    const searchRes = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(artistName)}&entity=song&limit=50`);
+                    data = await searchRes.json();
+                }
+
+                if (data && data.results) {
+                    // Filter out non-song results (wrappers)
+                    const songs = data.results.filter((r: any) => r.kind === 'song');
+                    setTracks(songs);
+                    // Update display limit based on results
+                    setVisibleTracks(songs.slice(0, 10)); // Initial 10
+                }
+            } catch (err) {
+                console.error('Failed to load tracks:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTracks();
+    }, [artistName, artist?.id]); // Re-run if name changes
+
     const openYouTubeSearch = (e: React.MouseEvent, term: string) => {
         e.stopPropagation();
         window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`, '_blank');
@@ -2461,7 +2409,7 @@ const TopTracks = ({ artist }: { artist: PowerIndexArtist }) => {
     return (
         <div className="mb-12">
             <h3 className="text-[10px] font-black text-slate-700 uppercase tracking-[0.4em] mb-10 flex items-center gap-3">
-                <div className="w-1 h-4 bg-accent rounded-full" /> Top 50 Songs
+                <div className="w-1 h-4 bg-accent rounded-full" /> Signal Intercept: Tracks
             </h3>
             <div className="divide-y divide-white/5 border-t border-white/5">
                 {visibleTracks.map((track, i) => (
@@ -2858,11 +2806,11 @@ function ArtistProfile({
                             </button>
                             <button
                                 onClick={() => {
-                                    window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(artist.name + ' official music video')}`, '_blank');
+                                    window.open(`https://music.youtube.com/search?q=${encodeURIComponent(artist.name + ' top songs')}`, '_blank');
                                 }}
                                 className="bg-[#FF4500]/10 border border-[#FF4500]/30 text-[#FF4500] font-black text-[12px] px-8 py-5 rounded-2xl hover:bg-[#FF4500] hover:text-black transition-all uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,69,0,0.1)] flex items-center gap-2 group"
                             >
-                                <Play className="w-4 h-4 fill-white" /> WATCH
+                                <Play className="w-4 h-4 fill-white" /> Listen
                             </button>
                             <div className="flex gap-2">
                                 <button
@@ -2900,7 +2848,7 @@ function ArtistProfile({
 
 
                 {/* TOP SONGS (REAL-TIME) */}
-                <TopTracks artist={artist} />
+                <TopTracks artistName={artist.name} />
 
                 {/* ARTIST INSIGHTS REPORT - Natural Space */}
                 <div id="analyst-insight" className="py-24 border-t border-white/5">
@@ -3229,7 +3177,7 @@ function AboutSection({ onNavigate, onShowPricing, onShowContact }: AboutSection
                 </div>
                 <div className="space-y-6">
                     <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest">03</div>
-                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">The Radar</h3>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">The Launchpad</h3>
                     <p className="text-slate-400 leading-relaxed font-medium">
                         The frontier of music discovery. Where next year's biggest names
                         are identified today.
@@ -3311,8 +3259,7 @@ function Footer({ onNavigate, onShowPricing, onShowContact }: {
                         <h4 className="text-white font-bold text-[10px] uppercase tracking-[0.2em] mb-8 opacity-40">Platform</h4>
                         <ul className="space-y-4">
                             <li><button onClick={() => onNavigate('the-pulse')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">The Pulse</button></li>
-                            <li><button onClick={() => onNavigate('hot-500')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">HOT 500</button></li>
-                            <li><button onClick={() => onNavigate('the-radar')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">The Radar</button></li>
+                            <li><button onClick={() => onNavigate('the-launchpad')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">Launchpad</button></li>
                             <li><button onClick={() => onNavigate('new-releases')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">New Releases</button></li>
                             <li><button onClick={() => onNavigate('live-tours')} className="text-slate-400 hover:text-accent text-xs font-bold uppercase tracking-wide transition-colors">Live Tours</button></li>
                         </ul>

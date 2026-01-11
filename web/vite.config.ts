@@ -17,12 +17,19 @@ export default defineConfig({
       '/api/itunes': {
         target: 'https://itunes.apple.com',
         changeOrigin: true,
+        secure: false, // Handle HTTPS
         rewrite: (path) => {
           const url = new URL(path, 'http://localhost');
           const params = url.searchParams;
           const isLookup = params.has('id');
           const endpoint = isLookup ? '/lookup' : '/search';
-          return `${endpoint}?${params.toString().replace('id=', 'id=')}`;
+          return `${endpoint}?${params.toString()}`;
+        },
+        configure: (proxy, _options) => {
+          proxy.on('proxyReq', (proxyReq, _req, _res) => {
+            // Spoof User-Agent to avoid iTunes API blocks
+            proxyReq.setHeader('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+          });
         },
       },
     },
