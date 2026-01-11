@@ -2334,12 +2334,12 @@ const TopTracks = ({ artistName }: { artistName: string }) => {
                     .trim();
 
                 // 2. PRIMARY FETCH
-                let res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(cleanName)}&entity=song&limit=50`);
+                let res = await fetch(`/api/itunes?term=${encodeURIComponent(cleanName)}&entity=song&limit=50`);
                 let data = await res.json();
 
                 // 3. FALLBACK: Try original name if search failed or returned too few results
                 if ((!data.results || data.results.length < 1) && cleanName !== artistName) {
-                    res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(artistName)}&entity=song&limit=50`);
+                    res = await fetch(`/api/itunes?term=${encodeURIComponent(artistName)}&entity=song&limit=50`);
                     data = await res.json();
                 }
 
