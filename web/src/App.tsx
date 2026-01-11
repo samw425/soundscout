@@ -3182,10 +3182,10 @@ function Footer({ onNavigate, onShowPricing, onShowContact }: {
     onShowContact: () => void;
 }) {
     return (
-        <footer className="border-t border-white/5 mt-32 bg-gradient-to-b from-transparent to-black/40">
+        <footer className="border-t border-white/5 mt-8 bg-gradient-to-b from-transparent to-black/40">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Main Footer Content */}
-                <div className="py-24 grid grid-cols-2 md:grid-cols-12 gap-12 border-b border-white/5">
+                <div className="py-12 grid grid-cols-2 md:grid-cols-12 gap-8 border-b border-white/5">
                     {/* Brand Column (Span 4) */}
                     <div className="col-span-2 md:col-span-4 pr-12">
                         <div className="flex items-center gap-3 mb-8">
