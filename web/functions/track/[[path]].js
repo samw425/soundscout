@@ -30,11 +30,19 @@ export async function onRequest(context) {
 
     const origin = new URL(context.request.url).origin;
 
-    // Multiple API keys for rotation when quota is exceeded
+    // Multiple API keys for rotation when quota is exceeded (10 keys = 1000 searches/day)
+    // When one key returns quotaExceeded, the code automatically tries the next key
     const API_KEYS = [
-        "AIzaSyB8muKwu3jyAer6LLZGbfexRz12PR78LpY",  // Key 3 (newest)
-        "AIzaSyBf1WipAvDDNW5mmuFIHGwnwbqqcvqbGYg",  // Key 2
-        "AIzaSyD1meCV-e-TW2_JDHJdZ_ODfQlMDeyW1EI"   // Key 1 (original)
+        "AIzaSyB8muKwu3jyAer6LLZGbfexRz12PR78LpY",  // Key 1
+        "AIzaSyB6yhCi0sdr0LIDAW87qtWrI1R--EfbTtM",  // Key 2
+        "AIzaSyCoja-J215LD790ryApJ9xizr0LeX99ONo",  // Key 3
+        "AIzaSyDY_yOA_YjVoAeUMYwOhRdQvA7gY_eIEr4",  // Key 4
+        "AIzaSyBhmupbqWBVBTciVACQu-WP3JooyJE4WM0",  // Key 5
+        "AIzaSyBHO_Hu0hy-StlgmlZrQLkjY0b082NeXnc",  // Key 6
+        "AIzaSyD3PCplLVeE2XScAI_9Z86o4OXSqc5hK9w",  // Key 7
+        "AIzaSyBuYU1EorT5XNA2GUkkLhKyTOYONiHdwFI",  // Key 8
+        "AIzaSyDz4hKwDsAW0pYlwcmX4bTaxlNa7da1KAM",  // Key 9
+        "AIzaSyBf1WipAvDDNW5mmuFIHGwnwbqqcvqbGYg",  // Key 10 (original)
     ];
 
     let finalSrc = '';
