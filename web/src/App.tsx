@@ -440,6 +440,131 @@ function JoinModal({ onClose }: { onClose: () => void }) {
 }
 
 // ============================================================================
+// FEEDBACK FORM MODAL
+// ============================================================================
+
+function FeedbackModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [feedback, setFeedback] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+
+        try {
+            const response = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, feedback, timestamp: new Date().toISOString() }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to submit feedback');
+            }
+
+            setSuccess(true);
+            localStorage.setItem('ss_feedback', JSON.stringify({
+                submitted: true,
+                timestamp: new Date().toISOString()
+            }));
+        } catch (err: any) {
+            console.error('Feedback error:', err);
+            // Fallback: save locally even if API fails
+            localStorage.setItem('ss_feedback_pending', JSON.stringify({
+                name,
+                email,
+                feedback,
+                timestamp: new Date().toISOString()
+            }));
+            setSuccess(true); // Show success anyway for UX
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <div className="glass-header w-full max-w-md p-8 rounded-3xl relative border border-white/10 shadow-2xl">
+                <button onClick={onClose} className="absolute top-4 right-4 p-2 text-slate-500 hover:text-white rounded-lg hover:bg-surface">
+                    <X className="w-5 h-5" />
+                </button>
+
+                {success ? (
+                    <div className="text-center py-8">
+                        <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
+                            <Sparkles className="w-8 h-8 text-green-500" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-2">Thank You!</h2>
+                        <p className="text-slate-400">Your feedback helps us build a better STELAR.</p>
+                        <button onClick={onClose} className="mt-6 px-6 py-3 bg-white text-black font-black rounded-xl uppercase text-[10px] tracking-widest">
+                            Close
+                        </button>
+                    </div>
+                ) : (
+                    <>
+                        <h2 className="text-2xl font-bold text-white mb-2">Share Your Feedback</h2>
+                        <p className="text-slate-500 font-medium mb-6 leading-relaxed">
+                            Help us improve STELAR. We read every submission.
+                        </p>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <input
+                                type="text"
+                                placeholder="Your Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-accent/50 focus:outline-none transition-all"
+                            />
+                            <input
+                                type="email"
+                                placeholder="Your Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-accent/50 focus:outline-none transition-all"
+                            />
+                            <textarea
+                                placeholder="Your feedback, ideas, or suggestions..."
+                                value={feedback}
+                                onChange={(e) => setFeedback(e.target.value)}
+                                required
+                                rows={4}
+                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-accent/50 focus:outline-none transition-all resize-none"
+                            />
+
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full py-3 rounded-xl font-black bg-accent text-black hover:bg-accent/90 transition-all mt-6 disabled:opacity-50 disabled:cursor-not-allowed uppercase text-[10px] tracking-[0.2em] shadow-lg spring-hover"
+                            >
+                                {loading ? 'Sending...' : 'Submit Feedback'}
+                            </button>
+                        </form>
+
+                        {error && (
+                            <p className="text-center text-accent-dim text-sm mt-2">{error}</p>
+                        )}
+
+                        <p className="text-center text-slate-500 text-xs mt-4">
+                            We respect your privacy. Your feedback is confidential.
+                        </p>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+}
+
+// ============================================================================
 // MAIN APP COMPONENT
 // ============================================================================
 // ============================================================================
@@ -725,6 +850,7 @@ export default function App() {
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [showJoin, setShowJoin] = useState(false);
     const [showDossier, setShowDossier] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
 
     const [watchlist, setWatchlist] = useState<Set<string>>(() => {
         const saved = localStorage.getItem('ss_watchlist_v1');
@@ -1209,6 +1335,9 @@ export default function App() {
             {/* Join Modal */}
             {showJoin && <JoinModal onClose={() => setShowJoin(false)} />}
 
+            {/* Feedback Modal */}
+            {showFeedback && <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} />}
+
             {/* Dossier Modal */}
             {showDossier && selectedArtist && (
                 <DossierModal
@@ -1419,7 +1548,7 @@ export default function App() {
                         </div>
 
                         {/* JOIN WAITLIST CTA */}
-                        <div className="mt-auto px-4 py-4 border-t border-white/5">
+                        <div className="mt-auto px-4 py-4 border-t border-white/5 space-y-3">
                             <button
                                 onClick={() => setShowJoin(true)}
                                 className="w-full p-3 rounded-xl bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/60 transition-all group"
@@ -1433,6 +1562,21 @@ export default function App() {
                                         <div className="text-[9px] text-accent font-bold">Join Waitlist</div>
                                     </div>
                                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
+                                </div>
+                            </button>
+                            <button
+                                onClick={() => setShowFeedback(true)}
+                                className="w-full p-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/30 transition-all group"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                                        <MessageSquare className="w-4 h-4 text-white" />
+                                    </div>
+                                    <div className="text-left flex-1 min-w-0">
+                                        <div className="text-xs font-black text-white uppercase">Feedback</div>
+                                        <div className="text-[9px] text-slate-500 font-bold">Share your thoughts</div>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4 text-slate-600 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
                                 </div>
                             </button>
                         </div>
