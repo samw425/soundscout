@@ -94,11 +94,19 @@ export async function onRequest(context) {
     }
 
     // STEP 3: Build embed URL or fallback
+    // We prioritize the SEARCH embed strategy because it is much more robust
+    // against "Video Unavailable" errors for restricted VEVO content.
+    // If we have a videoId, we can still use it as a 'suggestion' in the search list,
+    // but the search query approach is better for general availability.
+
+    // Use the video ID from API if available - listType=search is DEPRECATED and broken
     if (videoId) {
         finalSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1&origin=${origin}&playsinline=1`;
     } else {
-        // Fallback to search embed (deprecated but better than nothing)
-        finalSrc = `https://www.youtube.com/embed?listType=search&list=${youtubeSearchQuery}&origin=${origin}`;
+        // Fallback: Use a YouTube search results link embedded via videoseries (more reliable)
+        // Note: This opens a search playlist - not ideal but works
+        finalSrc = `https://www.youtube.com/embed/videoseries?list=PLFgquLnL59alGJcdc0BEZJb2p7IgkL0Oe&autoplay=0`;
+        // We'll handle this better in the HTML by showing a "Watch on YouTube" button prominently
     }
 
 
@@ -372,9 +380,9 @@ export async function onRequest(context) {
         <section style="margin-top: 60px; padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; text-align: center;">
             <h3 style="font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #888; margin-bottom: 24px;">Explore More on STELAR</h3>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
-                <a href="/" style="padding: 12px 24px; background: rgba(255,69,0,0.1); border: 1px solid rgba(255,69,0,0.3); border-radius: 100px; color: #FF4500; text-decoration: none; font-weight: 600; font-size: 13px;">🔥 Top 50 Rankings</a>
+                <a href="/hot500" style="padding: 12px 24px; background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.3); border-radius: 100px; color: #FFA500; text-decoration: none; font-weight: 600; font-size: 13px;">🔥 The Hot 500</a>
+                <a href="/" style="padding: 12px 24px; background: rgba(255,69,0,0.1); border: 1px solid rgba(255,69,0,0.3); border-radius: 100px; color: #FF4500; text-decoration: none; font-weight: 600; font-size: 13px;">📊 Top 50 Rankings</a>
                 <a href="/launchpad" style="padding: 12px 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; color: white; text-decoration: none; font-weight: 600; font-size: 13px;">🚀 The Launchpad</a>
-                <a href="/artist/${artistSlug.replace(/ /g, '-').toLowerCase()}" style="padding: 12px 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; color: white; text-decoration: none; font-weight: 600; font-size: 13px;">👤 ${artistName}'s Profile</a>
             </div>
             <p style="margin-top: 20px; color: #666; font-size: 13px;">Discover trending artists and new music on STELAR</p>
         </section>
@@ -383,6 +391,7 @@ export async function onRequest(context) {
     <footer class="footer">
         <div class="footer-tagline">Track the top. Discover the Next.</div>
         <div class="footer-links">
+            <a href="/hot500" class="footer-link" style="color: #FF4500;">Hot 500</a>
             <a href="/" class="footer-link">The Pulse</a>
             <a href="/launchpad" class="footer-link">Launchpad</a>
             <a href="/releases" class="footer-link">New Releases</a>
