@@ -66,7 +66,7 @@ export interface RankingsData {
         electronic: PowerIndexArtist[];
         major: PowerIndexArtist[];
         indie_label: PowerIndexArtist[];
-        up_and_comers: PowerIndexArtist[];
+        radar: PowerIndexArtist[];
         arbitrage: PowerIndexArtist[];
         viral: PowerIndexArtist[];
         [key: string]: PowerIndexArtist[];
@@ -178,13 +178,13 @@ export async function fetchPowerIndex(
 }
 
 /**
- * Fetch Up & Comers - artists with high arbitrage signals.
+ * Fetch Radar - artists with high ignition scores.
  * These are the hidden gems about to break.
  */
-export async function fetchUpAndComers(): Promise<PowerIndexArtist[]> {
+export async function fetchRadar(): Promise<PowerIndexArtist[]> {
     const data = await fetchRankingsData();
     if (!data) return [];
-    return data.rankings.up_and_comers || [];
+    return data.rankings.radar || [];
 }
 
 /**
@@ -205,30 +205,110 @@ export async function fetchViralArtists(): Promise<PowerIndexArtist[]> {
     return data.rankings.viral || [];
 }
 
-/**
- * Search ALL artists across all categories.
- * Returns matching artists from the entire database.
- * Enhanced: Normalizes names for fuzzy matching (jcole → J. Cole)
- */
 // Cache for ALL unique artists (deduplicated)
 let allArtistsCache: PowerIndexArtist[] | null = null;
 
 /**
+ * Simple Levenshtein distance for typo tolerance
+ * Returns true if strings are "close enough" (edit distance <= threshold)
+ */
+function isCloseMatch(str1: string, str2: string, threshold: number = 2): boolean {
+    if (Math.abs(str1.length - str2.length) > threshold) return false;
+    if (str1 === str2) return true;
+    if (str1.length < 3 || str2.length < 3) return str1 === str2;
+
+    // Quick check: do they share significant overlap?
+    const shorter = str1.length < str2.length ? str1 : str2;
+    const longer = str1.length < str2.length ? str2 : str1;
+
+    // Check if shorter is a substantial substring
+    if (longer.includes(shorter)) return true;
+
+    // Check prefix match (handles "arianna" vs "ariana")
+    const prefixLen = Math.min(3, shorter.length);
+    if (shorter.slice(0, prefixLen) !== longer.slice(0, prefixLen)) return false;
+
+    // Simple character-by-character comparison with tolerance
+    let mismatches = 0;
+    for (let i = 0; i < shorter.length; i++) {
+        if (shorter[i] !== longer[i]) mismatches++;
+        if (mismatches > threshold) return false;
+    }
+    return true;
+}
+
+/**
+ * Fetch a single artist from iTunes API dynamically.
+ * This ensures 100% coverage even if the artist isn't in our rankings.
+ */
+export async function fetchArtistFromiTunes(query: string): Promise<PowerIndexArtist | null> {
+    try {
+        const response = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=musicArtist&limit=1`);
+        if (!response.ok) return null;
+
+        const data = await response.json();
+        if (!data.results || data.results.length === 0) return null;
+
+        const artist = data.results[0];
+
+        // Fetch artwork from their top album
+        const albumResponse = await fetch(`https://itunes.apple.com/lookup?id=${artist.artistId}&entity=album&limit=1`);
+        let avatarUrl = null;
+        if (albumResponse.ok) {
+            const albumData = await albumResponse.json();
+            const album = albumData.results.find((r: any) => r.wrapperType === 'collection');
+            if (album) {
+                avatarUrl = album.artworkUrl100.replace('100x100', '600x600');
+            }
+        }
+
+        // Return a PowerIndexArtist compatible object
+        return {
+            id: artist.artistId.toString(),
+            name: artist.artistName,
+            genre: artist.primaryGenreName,
+            country: 'Global',
+            city: null,
+            spotify_id: artist.artistId.toString(), // Use iTunes ID as fallback
+            label_name: 'Independent',
+            is_independent: true,
+            avatar_url: avatarUrl,
+            tiktok_handle: null,
+            instagram_handle: null,
+            twitter_handle: null,
+            youtube_channel: null,
+            monthlyListeners: 0,
+            tiktokFollowers: 0,
+            instagramFollowers: 0,
+            youtubeSubscribers: 0,
+            twitterFollowers: 0,
+            powerScore: 50,
+            conversionScore: 50,
+            arbitrageSignal: 0,
+            growthVelocity: 0,
+            status: 'Stable',
+            rank: 0,
+            chartRank: 0,
+            lastUpdated: new Date().toISOString()
+        };
+    } catch (error) {
+        console.error('iTunes search failed:', error);
+        return null;
+    }
+}
+
+/**
  * Search ALL artists across all categories.
- * Returns matching artists from the entire database.
- * Optimized: Caches the unified artist list to prevent expensive re-aggregation on every keystroke.
  */
 export async function searchAllArtists(query: string): Promise<PowerIndexArtist[]> {
     const data = await fetchRankingsData();
     if (!data || !query.trim()) return [];
 
-    // 1. Build the cache if it doesn't exist or data has changed
-    // We check if cache exists, if not we build it ONCE.
+    // 1. Build the cache if it doesn't exist
     if (!allArtistsCache) {
-        // Use a Map for O(1) deduplication by ID
         const allArtistsMap = new Map<string, PowerIndexArtist>();
 
-        // Aggregate from ALL categories
+        // Add main rankings
         Object.values(data.rankings).forEach(categoryArtists => {
             if (Array.isArray(categoryArtists)) {
                 categoryArtists.forEach(artist => {
@@ -239,50 +319,80 @@ export async function searchAllArtists(query: string): Promise<PowerIndexArtist[
             }
         });
 
+        // Also add Old School legends to the search index
+        try {
+            const osResponse = await fetch('/oldschool.json');
+            if (osResponse.ok) {
+                const osData = await osResponse.json();
+                if (osData.artists) {
+                    osData.artists.forEach((artist: any) => {
+                        const id = artist.id || `os-${artist.name.toLowerCase().replace(/\s+/g, '-')}`;
+                        if (!allArtistsMap.has(id)) {
+                            allArtistsMap.set(id, {
+                                ...artist,
+                                id: id,
+                                spotify_id: artist.sources?.spotify?.split('/')?.pop() || id,
+                                powerScore: artist.powerScore || 999
+                            } as PowerIndexArtist);
+                        }
+                    });
+                }
+            }
+        } catch (e) {
+            console.error('Failed to index oldschool artists', e);
+        }
+
         allArtistsCache = Array.from(allArtistsMap.values());
         console.log(`[STELAR] Search Index Built: ${allArtistsCache.length} unique artists.`);
     }
 
     const normalizedQuery = query.toLowerCase().trim();
-    // Also create a stripped version for fuzzy matching (remove periods, spaces, special chars)
     const strippedQuery = normalizedQuery.replace(/[^a-z0-9]/g, '');
+    const queryWords = normalizedQuery.split(/\s+/).filter(w => w.length > 1);
 
-    // 2. Filter the cached list
-    const matches = allArtistsCache.filter(artist => {
+    // 2. Filter with enhanced matching
+    const matches = (allArtistsCache || []).filter(artist => {
         if (!artist.name) return false;
 
         const nameLower = artist.name.toLowerCase();
         const nameStripped = nameLower.replace(/[^a-z0-9]/g, '');
+        const nameWords = nameLower.split(/\s+/);
 
-        // Direct match
-        const nameMatch = nameLower.includes(normalizedQuery);
-        // Fuzzy match (jcole → jcole matches j.cole → jcole)
-        const fuzzyMatch = nameStripped.includes(strippedQuery) || (strippedQuery.length > 2 && strippedQuery.includes(nameStripped));
+        if (nameLower.includes(normalizedQuery)) return true;
+        if (nameStripped.includes(strippedQuery) || strippedQuery.includes(nameStripped)) return true;
 
-        const genreMatch = artist.genre && artist.genre.toLowerCase().includes(normalizedQuery);
+        for (const queryWord of queryWords) {
+            for (const nameWord of nameWords) {
+                if (isCloseMatch(queryWord, nameWord, 2)) return true;
+            }
+        }
 
-        // Only check country if it exists
-        const countryMatch = artist.country && artist.country.toLowerCase().includes(normalizedQuery);
+        if (artist.genre?.toLowerCase().includes(normalizedQuery)) return true;
+        if (artist.country?.toLowerCase().includes(normalizedQuery)) return true;
 
-        return nameMatch || fuzzyMatch || genreMatch || countryMatch;
+        return false;
     });
 
-    // 3. Sort by relevance
+    // 3. If no local matches, fall back to iTunes dynamic search
+    if (matches.length === 0 && query.length > 2) {
+        const dynamicArtist = await fetchArtistFromiTunes(query);
+        if (dynamicArtist) return [dynamicArtist];
+    }
+
+    // 4. Sort by relevance
     matches.sort((a, b) => {
         const aNameLower = a.name.toLowerCase();
         const bNameLower = b.name.toLowerCase();
 
-        // Exact start match gets highest priority
-        const aExact = aNameLower.startsWith(normalizedQuery) ? 2 : 0;
-        const bExact = bNameLower.startsWith(normalizedQuery) ? 2 : 0;
+        const aExact = aNameLower.startsWith(normalizedQuery) ? 3 :
+            aNameLower.includes(normalizedQuery) ? 2 : 0;
+        const bExact = bNameLower.startsWith(normalizedQuery) ? 3 :
+            bNameLower.includes(normalizedQuery) ? 2 : 0;
 
         if (aExact !== bExact) return bExact - aExact;
-
-        // Then by popularity (powerScore)
         return (b.powerScore || 0) - (a.powerScore || 0);
     });
 
-    // Limit results to top 20 for performance during rendering
     return matches.slice(0, 50);
 }
 
@@ -293,22 +403,43 @@ export async function getArtistById(id: string): Promise<PowerIndexArtist | null
     const data = await fetchRankingsData();
     if (!data) return null;
 
-    // Search in global (most comprehensive)
-    return data.rankings.global.find(a => a.id === id) || null;
+    // Check rankings
+    for (const cat of Object.values(data.rankings)) {
+        if (Array.isArray(cat)) {
+            const found = cat.find(a => a.id === id);
+            if (found) return found;
+        }
+    }
+
+    // Check cache (includes oldschool)
+    if (allArtistsCache) {
+        const found = allArtistsCache.find(a => a.id === id);
+        if (found) return found;
+    }
+
+    // Fallback to iTunes lookup if ID is numeric
+    if (/^\d+$/.test(id)) {
+        try {
+            const res = await fetch(`https://itunes.apple.com/lookup?id=${id}&entity=musicArtist`);
+            if (res.ok) {
+                const itunesData = await res.json();
+                if (itunesData.results?.[0]) {
+                    return fetchArtistFromiTunes(itunesData.results[0].artistName);
+                }
+            }
+        } catch (e) { }
+    }
+
+    return null;
 }
 
 /**
- * Get artists by label type (Major or Independent).
+ * Get artists by label type.
  */
 export async function fetchByLabelType(type: 'Major' | 'Indie'): Promise<PowerIndexArtist[]> {
     const data = await fetchRankingsData();
     if (!data) return [];
-
-    if (type === 'Major') {
-        return data.rankings.major || [];
-    } else {
-        return data.rankings.indie || [];
-    }
+    return type === 'Major' ? data.rankings.major || [] : data.rankings.indie || [];
 }
 
 /**
@@ -316,22 +447,9 @@ export async function fetchByLabelType(type: 'Major' | 'Indie'): Promise<PowerIn
  */
 export function getCategories(): string[] {
     return [
-        'global',
-        'pop',
-        'hip_hop',
-        'r_and_b',
-        'country',
-        'afrobeats',
-        'latin',
-        'k_pop',
-        'indie',
-        'alternative',
-        'electronic',
-        'major',
-        'independent',
-        'up_and_comers',
-        'arbitrage',
-        'viral'
+        'global', 'pop', 'hip_hop', 'r_and_b', 'country', 'afrobeats',
+        'latin', 'k_pop', 'indie', 'alternative', 'electronic',
+        'major', 'independent', 'radar', 'arbitrage', 'viral'
     ];
 }
 
@@ -353,7 +471,7 @@ export function getCategoryDisplayName(key: string): string {
         'electronic': 'Electronic',
         'major': 'Major Label',
         'independent': 'Independent',
-        'up_and_comers': 'Up & Comers',
+        'radar': 'The Radar',
         'arbitrage': 'Arbitrage Signals',
         'viral': 'Viral'
     };
